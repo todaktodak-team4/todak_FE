@@ -1,34 +1,49 @@
+// Main.jsx
+
 import React from "react";
-import Navbar from "./Navbar";
 import * as M from "../css/StyledMain";
+import Nav from "./Nav"; // Nav 컴포넌트 import
+import Info from "./Info";
 
 const Main = () => {
   return (
-    <M.Contaianer>
-      <M.Header>
-        <M.Logo>
+    <M.Body>
+      <M.Contaianer>
+        <Nav /> {/* Nav 컴포넌트 사용 */}
+        <M.Content>
+          <M.NavBtns>
+            <M.NavBtnWrapper1>
+              <M.NavBtnWrapper2>
+                <a href="#">온라인 헌화</a>
+              </M.NavBtnWrapper2>
+            </M.NavBtnWrapper1>
+            <M.NavBtnWrapper1>
+              <M.NavBtnWrapper2>
+                <a href="#">기억 나무</a>
+              </M.NavBtnWrapper2>
+            </M.NavBtnWrapper1>
+            <M.NavBtnWrapper1>
+              <M.NavBtnWrapper2>
+                <a href="#">
+                  헌화 공간
+                  <br />
+                  신청
+                </a>
+              </M.NavBtnWrapper2>
+            </M.NavBtnWrapper1>
+          </M.NavBtns>
+        </M.Content>
+        <M.ImageGross>
           <img
-            id="Logo"
-            src={`${process.env.PUBLIC_URL}/img/TodakLogo2.svg`}
-            alt="Logo"
+            id="Gross"
+            src={`${process.env.PUBLIC_URL}/img/Gross.png`}
+            alt="Gross"
           />
-          <p>토닥토닥</p>
-        </M.Logo>
-        <M.Privacy>
-          <div>MY</div>
-          <div>회원가입</div>
-          <div>로그인</div>
-        </M.Privacy>
-      </M.Header>
-      <M.Nav>
-        <M.Navbar>
-          <div>HOME</div>
-          <div>온라인 헌화</div>
-          <div>기억 나무</div>
-          <div>헌화 공간 신청</div>
-        </M.Navbar>
-      </M.Nav>
-    </M.Contaianer>
+        </M.ImageGross>
+      </M.Contaianer>
+      <Info />
+    </M.Body>
   );
 };
+
 export default Main;
