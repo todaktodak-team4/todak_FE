@@ -1,7 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages/Main";
 import * as A from "./css/StyledApp";
-
+import PlantTreeStepOne from "./pages/PlantTree_stepOne";
+import PlantTreeStepTwo from "./pages/PlantTree_stepTwo";
+import PlantCompleteModal from "./pages/PlantCompleteModal";
 function App() {
   return (
     <BrowserRouter>
@@ -24,10 +26,13 @@ function App() {
           <div>로그인</div>
         </A.Privacy>
       </A.Header>
+      <A.Footer></A.Footer>
       <Routes>
         <Route path="/main" element={<Main />} />
+        <Route path="/plantTreeStepOne" element={<PlantTreeStepOne />} />
+        <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
+        <Route path="/completeModal" element={<PlantCompleteModal />} />
       </Routes>
-      <A.Footer></A.Footer>
     </BrowserRouter>
   );
 }
