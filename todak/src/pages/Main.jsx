@@ -1,11 +1,18 @@
 // Main.jsx
 
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import * as M from "../css/StyledMain";
 import Nav from "./Nav"; // Nav 컴포넌트 import
 import Info from "./Info";
 
 const Main = () => {
+  const navigate = useNavigate();
+
+  function goToRemeberTree() {
+    navigate("/plantTreeStepOne");
+    //만약 트리 이미 있으면 기존 만들어진 트리로 가야될듯
+  }
   return (
     <M.Body>
       <M.Contaianer>
@@ -19,7 +26,7 @@ const Main = () => {
             </M.NavBtnWrapper1>
             <M.NavBtnWrapper1>
               <M.NavBtnWrapper2>
-                <a href="#">기억 나무</a>
+                <a onClick={goToRemeberTree}>기억 나무</a>
               </M.NavBtnWrapper2>
             </M.NavBtnWrapper1>
             <M.NavBtnWrapper1>
