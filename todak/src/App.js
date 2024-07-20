@@ -26,7 +26,7 @@ function App() {
           <div>로그인</div>
         </A.Privacy>
       </A.Header>
-      <A.Footer></A.Footer>
+      {/*  <A.Footer></A.Footer> */}
       <Routes>
         <Route path="/main" element={<Main />} />
         <Route path="/plantTreeStepOne" element={<PlantTreeStepOne />} />
