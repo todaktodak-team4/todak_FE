@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledPlantTree.module.css";
+import CompleteModal from "../pages/PlantCompleteModal";
 
 function PlantTreeStepTwo() {
   const navigate = useNavigate();
   const [selectedFlower, setSelectedFlower] = useState(null);
   const [growthPeriod, setGrowthPeriod] = useState("3개월");
   const [customDate, setCustomDate] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   async function submit() {
     const payload = {
@@ -27,6 +29,7 @@ function PlantTreeStepTwo() {
 
       if (response.ok) {
         console.log("연동 완료");
+        setIsModalVisible(true);
       } else {
         console.error("Failed to submit data");
       }
@@ -155,6 +158,7 @@ function PlantTreeStepTwo() {
       <div className={styles.nextBtn} onClick={submit}>
         등록하기
       </div>
+      {isModalVisible && <CompleteModal />}
     </div>
   );
 }
