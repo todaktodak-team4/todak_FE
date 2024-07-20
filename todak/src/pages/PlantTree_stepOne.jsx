@@ -1,12 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledPlantTree.module.css";
 
 function PlantTreeStepOne() {
   const navigate = useNavigate();
+  const [treeName, setTreeName] = useState("");
+  const [callName, setCallName] = useState("");
 
-  function GoToNext() {
-    navigate("/plantTreeStepTwo");
+  async function GoToNext() {
+    console.log("clicked!");
+    const payload = {
+      treeName: treeName,
+      myName: callName,
+    };
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/rememberTree/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          //토큰값 추가
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        navigate("/plantTreeStepTwo");
+      } else {
+        console.error("데이터 전송 실패");
+      }
+    } catch (error) {
+      console.error("An error occurred", error);
+    }
   }
 
   return (
@@ -34,6 +59,8 @@ function PlantTreeStepOne() {
             type="text"
             placeholder="나무의 이름을 정해주세요."
             className={styles.treeNameInput}
+            value={treeName}
+            onChange={(e) => setTreeName(e.target.value)}
           />
         </div>
         <div className={styles.callNameWp}>
@@ -44,10 +71,16 @@ function PlantTreeStepOne() {
             type="text"
             placeholder="나무가 부를 나의 호칭을 적어주세요."
             className={styles.callNameInput}
+            value={callName}
+            onChange={(e) => setCallName(e.target.value)}
           />
         </div>
       </div>
-      <div className={styles.nextBtn} onClick={GoToNext}>
+      <div
+        className={styles.nextBtn}
+        style={{ zIndex: "100" }}
+        onClick={GoToNext}
+      >
         다음 단계로
       </div>
     </div>

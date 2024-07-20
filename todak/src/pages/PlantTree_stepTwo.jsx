@@ -1,13 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledPlantTree.module.css";
 
 function PlantTreeStepTwo() {
   const navigate = useNavigate();
+  const [selectedFlower, setSelectedFlower] = useState(null);
+  const [growthPeriod, setGrowthPeriod] = useState("3개월");
+  const [customDate, setCustomDate] = useState("");
 
-  function submit() {
-    navigate("/plantTreeStepTwo");
+  async function submit() {
+    const payload = {
+      selectedFlower,
+      growthPeriod:
+        growthPeriod === "3개월" ? calculateThreeMonthsFromNow() : customDate,
+    };
+
+    try {
+      console.log(payload);
+      const response = await fetch("http://127.0.0.1:8000/rememberTree/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        console.log("연동 완료");
+      } else {
+        console.error("Failed to submit data");
+      }
+    } catch (error) {
+      console.error("An error occurred", error);
+    }
   }
+
+  function calculateThreeMonthsFromNow() {
+    const today = new Date();
+    today.setMonth(today.getMonth() + 3);
+    return today.toISOString().split("T")[0];
+  }
+
   return (
     <div className={styles.container}>
       <img
@@ -38,28 +71,33 @@ function PlantTreeStepTwo() {
             <div className={styles.flowerWp}>
               <img
                 src="/img/flowerselectBtn.png"
-                alt=""
+                alt="flower1"
                 className={styles.flo}
+                onClick={() => setSelectedFlower("flower1")}
               />
               <img
                 src="/img/flowerselectBtn.png"
-                alt=""
+                alt="flower2"
                 className={styles.flo}
+                onClick={() => setSelectedFlower("flower2")}
               />
               <img
                 src="/img/flowerselectBtn.png"
-                alt=""
+                alt="flower3"
                 className={styles.flo}
+                onClick={() => setSelectedFlower("flower3")}
               />
               <img
                 src="/img/flowerselectBtn.png"
-                alt=""
+                alt="flower4"
                 className={styles.flo}
+                onClick={() => setSelectedFlower("flower4")}
               />
               <img
                 src="/img/flowerselectBtn.png"
-                alt=""
+                alt="flower5"
                 className={styles.flo}
+                onClick={() => setSelectedFlower("flower5")}
               />
             </div>
           </div>
@@ -79,15 +117,38 @@ function PlantTreeStepTwo() {
             </li>
             <li>성장 이후 기억 나무의 배송 유무 선택 알림이 발송됩니다.</li>
             <div className={styles.radioWp}>
-              <input type="radio" id="3mon" name="period" />
+              <input
+                type="radio"
+                id="3mon"
+                name="period"
+                value="3개월"
+                checked={growthPeriod === "3개월"}
+                onChange={(e) => setGrowthPeriod(e.target.value)}
+              />
               <label className={styles.radioBtn} htmlFor="3mon">
                 <span className={styles.period}>3개월</span>
               </label>
-              <input type="radio" id="userInput" name="period" />{" "}
-              <label className={styles.radioBtn} htmlFor="userinput">
+              <input
+                type="radio"
+                id="userInput"
+                name="period"
+                value="직접 입력"
+                checked={growthPeriod === "직접 입력"}
+                onChange={(e) => setGrowthPeriod(e.target.value)}
+              />{" "}
+              <label className={styles.radioBtn} htmlFor="userInput">
                 <span className={styles.period}>직접 입력</span>
               </label>
             </div>
+            {growthPeriod === "직접 입력" && (
+              <div className={styles.customDateInput}>
+                <input
+                  type="date"
+                  value={customDate}
+                  onChange={(e) => setCustomDate(e.target.value)}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -97,4 +158,5 @@ function PlantTreeStepTwo() {
     </div>
   );
 }
+
 export default PlantTreeStepTwo;
