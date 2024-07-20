@@ -25,11 +25,12 @@ export const Content = styled.div`
 export const NavBtns = styled.div`
   margin-top: 10vh;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
   text-align: center;
-  width: 70%;
   height: 50%;
-  justify-content: space-between;
+  gap: 5vw;
 `;
 //3-1 버튼 wrapping 바깥쪽
 export const NavBtnWrapper1 = styled.div`
