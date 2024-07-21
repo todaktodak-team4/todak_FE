@@ -4,6 +4,7 @@ import * as A from "./css/StyledApp";
 import PlantTreeStepOne from "./pages/PlantTree_stepOne";
 import PlantTreeStepTwo from "./pages/PlantTree_stepTwo";
 import PlantCompleteModal from "./pages/PlantCompleteModal";
+import RemeberTree from "./pages/RememberTree";
 function App() {
   return (
     <BrowserRouter>
@@ -32,6 +33,7 @@ function App() {
         <Route path="/plantTreeStepOne" element={<PlantTreeStepOne />} />
         <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
         <Route path="/completeModal" element={<PlantCompleteModal />} />
+        <Route path="/rememberTree" element={<RemeberTree />} />
       </Routes>
     </BrowserRouter>
   );
