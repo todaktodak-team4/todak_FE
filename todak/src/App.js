@@ -7,6 +7,7 @@ import PlantCompleteModal from "./pages/PlantCompleteModal";
 import RemeberTree from "./pages/RememberTree";
 import Signup1 from "./pages/Signup1";
 import Signup2 from "./pages/Signup2";
+import GrowCompleteModal from "./pages/GrowCompleteModal";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
         <Route path="/completeModal" element={<PlantCompleteModal />} />
         <Route path="/rememberTree" element={<RemeberTree />} />
+        <Route path="/growCompleteModal" element={<GrowCompleteModal />} />
       </Routes>
       <A.Footer></A.Footer>
     </BrowserRouter>
