@@ -134,7 +134,7 @@ input::placeholder {
 
 .nextBtn {
   width: 150px;
-  height: 45px;
+  height: 38px;
   color: #fff;
   font-family: "Pretendard Variable";
   padding: 15px 25px;
@@ -243,7 +243,7 @@ li {
 .customDateInput {
   position: absolute;
   left: 75%;
-  bottom: -28px;
+  bottom: -26px;
   display: inline-block;
 }
 

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledPlantTree.module.css";
 import CompleteModal from "../pages/PlantCompleteModal";
 
 function PlantTreeStepTwo() {
-  const navigate = useNavigate();
   const [selectedFlower, setSelectedFlower] = useState(null);
   const [growthPeriod, setGrowthPeriod] = useState("3개월");
   const [customDate, setCustomDate] = useState("");
