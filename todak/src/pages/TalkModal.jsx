@@ -16,7 +16,7 @@ function TalkModal() {
           ></input>
           <div className={styles.submit}>
             <img src="/img/answerSubmit.png" alt="" onClick={submitAnswer} />
-            {/*제출버튼 누르면 내가 보낸 것처럼 뜨고 placeholder 문구 변경 -> 연동 후에 해도 될 듯*/}
+            {/*제출버튼 누르면 내가 보낸 것처럼 뜨고 placeholder 문구 변경(또는 답변 창 사라지게? 그거는 하루 지난 뒤에 다시 전송 버튼 활성화 되도록 해야겠다) -> 연동 후에 해도 될 듯*/}
           </div>
         </div>
       </div>
