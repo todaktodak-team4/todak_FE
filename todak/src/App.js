@@ -5,6 +5,9 @@ import PlantTreeStepOne from "./pages/PlantTree_stepOne";
 import PlantTreeStepTwo from "./pages/PlantTree_stepTwo";
 import PlantCompleteModal from "./pages/PlantCompleteModal";
 import RemeberTree from "./pages/RememberTree";
+import Signup1 from "./pages/Signup1";
+import Signup2 from "./pages/Signup2";
+
 function App() {
   return (
     <BrowserRouter>
@@ -27,14 +30,17 @@ function App() {
           <div>로그인</div>
         </A.Privacy>
       </A.Header>
-      {/*  <A.Footer></A.Footer> */}
+
       <Routes>
         <Route path="/main" element={<Main />} />
+        <Route path="/signup1" element={<Signup1 />} />
+        <Route path="/signup2" element={<Signup2 />} />
         <Route path="/plantTreeStepOne" element={<PlantTreeStepOne />} />
         <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
         <Route path="/completeModal" element={<PlantCompleteModal />} />
         <Route path="/rememberTree" element={<RemeberTree />} />
       </Routes>
+      <A.Footer></A.Footer>
     </BrowserRouter>
   );
 }
