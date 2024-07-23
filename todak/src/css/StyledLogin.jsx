@@ -126,27 +126,6 @@ export const Step1Item = styled.div`
     background: none;
   }
 `;
-export const Number = styled.div`
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: url(${process.env.PUBLIC_URL}/img/SignupNumderWrap.svg);
-  width: 46px;
-  height: 46px;
-  flex-shrink: 0;
-  background-repeat: no-repeat;
-  margin-right: 20px;
-  p {
-    color: #3d4c00;
-    font-family: "Pretendard Variable";
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 900;
-    line-height: normal;
-    margin: 0;
-  }
-`;
 export const NavName = styled.div`
   display: flex;
   justify-content: center;
@@ -170,71 +149,18 @@ export const NavName = styled.div`
     line-height: normal;
   }
 `;
-export const Line = styled.div`
-  z-index: 0;
-  width: 2.5px;
-  height: 50vh;
-  position: absolute;
-  left: 22px;
-  top: 20px;
-`;
-export const BackBtn = styled.div`
+
+export const LoginBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 114.866px;
+  width: 200px;
   height: 77px;
   flex-shrink: 0;
   border-radius: 40px;
   background: var(--y, linear-gradient(180deg, #fff9e4 0%, #ffda57 100%));
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  position: absolute;
-  left: 5vw;
-  bottom: 5vh;
-  p {
-    color: #2b2b2b;
-    font-family: "Pretendard Variable";
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-`;
-export const NextBtn = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 114.866px;
-  height: 77px;
-  flex-shrink: 0;
-  border-radius: 40px;
-  background: var(--y, linear-gradient(180deg, #fff9e4 0%, #ffda57 100%));
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  position: absolute;
-  right: 5vw;
-  bottom: 5vh;
-  p {
-    color: #2b2b2b;
-    font-family: "Pretendard Variable";
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-`;
-export const FinishBtn = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 168px;
-  height: 77px;
-  flex-shrink: 0;
-  border-radius: 40px;
-  background: var(--y, linear-gradient(180deg, #fff9e4 0%, #ffda57 100%));
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  position: absolute;
-  right: 5vw;
-  bottom: 5vh;
+
   p {
     color: #2b2b2b;
     font-family: "Pretendard Variable";
