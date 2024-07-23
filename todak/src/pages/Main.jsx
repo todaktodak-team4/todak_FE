@@ -1,6 +1,6 @@
 // Main.jsx
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import React from "react";
 import * as M from "../css/StyledMain";
 import Nav from "./Nav"; // Nav 컴포넌트 import
@@ -8,6 +8,10 @@ import Info from "./Info";
 
 const Main = () => {
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const { loggedInUser } = location.state;
+  console.log(loggedInUser);
 
   function goToRemeberTree() {
     navigate("/plantTreeStepOne");
