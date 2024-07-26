@@ -90,6 +90,7 @@ const Signup1 = () => {
             </S.NavName>
             <input
               name="username"
+              id="username"
               type="text"
               placeholder="아이디"
               value={formData.username}
@@ -105,6 +106,7 @@ const Signup1 = () => {
             </S.NavName>
             <input
               name="password" // name 수정
+              id="password"
               type="password" // type을 password로 변경
               placeholder="비밀번호(영어, 숫자, 특수문자 조합 12자 이상)"
               value={formData.password}
@@ -119,7 +121,8 @@ const Signup1 = () => {
               <p>비밀번호 확인</p>
             </S.NavName>
             <input
-              name="passwordConfirm" // name 수정
+              name="passwordConfirm"
+              id="passwordConfirm"
               type="password" // type을 password로 변경
               placeholder="비밀번호 재입력"
               value={formData.passwordConfirm}
@@ -135,6 +138,7 @@ const Signup1 = () => {
             </S.NavName>
             <input
               name="email"
+              id="email"
               type="text"
               placeholder="이메일"
               value={formData.email}

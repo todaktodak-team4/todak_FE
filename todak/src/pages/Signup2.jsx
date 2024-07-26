@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as S from "../css/StyledSignup";
 import axios from "axios";
+import CompleteSignup from "./CompleteSignup";
 
 const Signup2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const userId = location.state.userId;
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
 
   const [formData, setFormData] = useState({
     userId: "",
@@ -58,7 +60,7 @@ const Signup2 = () => {
         }
       );
       if (response.status === 200) {
-        navigate("/main");
+        setShowCompleteModal(true);
       } else {
         alert("회원가입에 실패했습니다.");
       }
@@ -76,6 +78,7 @@ const Signup2 = () => {
     <S.Body>
       <S.Contaianer>
         <S.Title>회원가입</S.Title>
+        {showCompleteModal && <CompleteSignup />}
         <S.Step1>
           <p>STEP 2</p>
         </S.Step1>
@@ -97,6 +100,7 @@ const Signup2 = () => {
             </S.NavName>
             <input
               name="nickname"
+              id="nickname"
               type="text"
               placeholder="닉네임 (익명 보장)"
               value={formData.nickname}
@@ -120,6 +124,7 @@ const Signup2 = () => {
                 accept="image/*"
                 onChange={handleInputChange}
                 name="profile"
+                id="profile"
               />
               <p>사진 선택하기</p>
             </S.SelectBtn>
@@ -137,6 +142,7 @@ const Signup2 = () => {
             </S.NavName>
             <input
               name="phone"
+              id="phone"
               type="text"
               placeholder="010-0000-0000"
               value={formData.phone}
