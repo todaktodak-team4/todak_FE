@@ -48,7 +48,7 @@
   background: linear-gradient(0deg, #ebebeb 0%, #fff 48%);
 }
 
-input[type="text"] {
+.answerBox input[type="text"] {
   position: relative;
   right: 10px;
   top: 3px;
