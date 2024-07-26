@@ -70,51 +70,56 @@ function PlantTreeStepTwo() {
               </li>
             </div>
             <div className={styles.flowerWp}>
-              <img
-                src="/img/flowerselectBtn.png"
-                alt="flower1"
-                className={styles.flo}
-                onClick={() => setSelectedFlower("flower1")}
-              />
-              <img
-                src="/img/flowerselectBtn.png"
-                alt="flower2"
-                className={styles.flo}
-                onClick={() => setSelectedFlower("flower2")}
-              />
-              <img
-                src="/img/flowerselectBtn.png"
-                alt="flower3"
-                className={styles.flo}
-                onClick={() => setSelectedFlower("flower3")}
-              />
-              <img
-                src="/img/flowerselectBtn.png"
-                alt="flower4"
-                className={styles.flo}
-                onClick={() => setSelectedFlower("flower4")}
-              />
-              <img
-                src="/img/flowerselectBtn.png"
-                alt="flower5"
-                className={styles.flo}
-                onClick={() => setSelectedFlower("flower5")}
-              />
+              <div className={styles.flowerContainer}>
+                <img
+                  src="/img/lily.png"
+                  alt="lily"
+                  className={styles.flo}
+                  onClick={() => setSelectedFlower("lily")}
+                />
+                <div className={styles.lily}>백합</div>
+                <div className={styles.explainLily}>
+                  '변함없는 사랑'이라는 뜻을 담고 있어요.
+                </div>
+              </div>
+              <div className={styles.flowerContainer}>
+                <img
+                  src="/img/zinnia.png"
+                  alt="zinna"
+                  className={styles.flo}
+                  onClick={() => setSelectedFlower("zinnia")}
+                />
+                <div className={styles.zinnia}>백일홍</div>
+                <div className={styles.explainZin}>
+                  '떠나간 임을 그리다'라는 뜻을 담고 있어요.
+                </div>
+              </div>
+              <div className={styles.flowerContainer}>
+                <img
+                  src="/img/hydrangea.png"
+                  alt="hydrangea"
+                  className={styles.flo}
+                  onClick={() => setSelectedFlower("hydrangea")}
+                />
+                <div className={styles.hydrangea}>수국</div>
+                <div className={styles.explainHyd}>
+                  위로의 의미를 담고 있어요.
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className={styles.growTimeWp}>
           <img src="/img/step2_4.png" alt="1" className={styles.stepTwo4} />
           <div className={styles.growTitle}>성장 기간 설정</div>
-
           <div className={styles.gTNotice}>
             <li>
               나무의 성장 기간은 기본 3개월이에요. 본인의 애도 기간에 따라
-              설정할 수 있어요.{" "}
+              설정할 수 있어요.
             </li>
             <li>
               이별 후 6개월~1년 간 힘든 감정을 느끼는 것은 지극히 정상적인
-              애도의 과정입니다.{" "}
+              애도의 과정입니다.
             </li>
             <li>성장 이후 기억 나무의 배송 유무 선택 알림이 발송됩니다.</li>
             <div className={styles.radioWp}>
@@ -136,7 +141,7 @@ function PlantTreeStepTwo() {
                 value="직접 입력"
                 checked={growthPeriod === "직접 입력"}
                 onChange={(e) => setGrowthPeriod(e.target.value)}
-              />{" "}
+              />
               <label className={styles.radioBtn} htmlFor="userInput">
                 <span className={styles.period}>직접 입력</span>
               </label>
