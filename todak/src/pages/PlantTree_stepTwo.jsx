@@ -42,6 +42,8 @@ function PlantTreeStepTwo() {
     return today.toISOString().split("T")[0];
   }
 
+  const isBlurred = (flower) => selectedFlower && selectedFlower !== flower;
+
   return (
     <div className={styles.container}>
       <img
@@ -70,7 +72,11 @@ function PlantTreeStepTwo() {
               </li>
             </div>
             <div className={styles.flowerWp}>
-              <div className={styles.flowerContainer}>
+              <div
+                className={`${styles.flowerContainer} ${
+                  isBlurred("lily") ? styles.blurred : ""
+                }`}
+              >
                 <img
                   src="/img/lily.png"
                   alt="lily"
@@ -82,7 +88,11 @@ function PlantTreeStepTwo() {
                   '변함없는 사랑'이라는 뜻을 담고 있어요.
                 </div>
               </div>
-              <div className={styles.flowerContainer}>
+              <div
+                className={`${styles.flowerContainer} ${
+                  isBlurred("zinnia") ? styles.blurred : ""
+                }`}
+              >
                 <img
                   src="/img/zinnia.png"
                   alt="zinna"
@@ -94,7 +104,11 @@ function PlantTreeStepTwo() {
                   '떠나간 임을 그리다'라는 뜻을 담고 있어요.
                 </div>
               </div>
-              <div className={styles.flowerContainer}>
+              <div
+                className={`${styles.flowerContainer} ${
+                  isBlurred("hydrangea") ? styles.blurred : ""
+                }`}
+              >
                 <img
                   src="/img/hydrangea.png"
                   alt="hydrangea"
