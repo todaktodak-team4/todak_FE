@@ -1,26 +1,47 @@
-// Main.jsx
-
-import { useNavigate, useLocation } from "react-router-dom";
-import React from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as M from "../css/StyledMain";
-import Nav from "./Nav"; // Nav 컴포넌트 import
+import Nav from "./Nav";
 import Info from "./Info";
+import NeedLogin from "./NeedLogin";
 
 const Main = () => {
   const navigate = useNavigate();
+  const [showInfo, setShowInfo] = useState(false);
 
-  const location = useLocation();
-  const { loggedInUser } = location.state;
-  console.log(loggedInUser);
+  useEffect(() => {
+    // 5초 후에 Info 컴포넌트를 보이게 설정
+    const timeoutId = setTimeout(() => {
+      setShowInfo(true);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeoutId); // 컴포넌트가 언마운트되면 타이머 제거
+    };
+  }, []);
+
+  const isTokenValid = (token) => {
+    // 토큰 유효성 검사
+    return !!token; // 토큰이 존재하면 유효
+  };
+  const token = localStorage.getItem("token"); // localStorage에서 토큰 가져오기
+  const [showLoginModal, setShowLoginModal] = useState(false); // 로그인 모달 창 보이기 여부 상태
 
   function goToRemeberTree() {
-    navigate("/plantTreeStepOne");
-    //만약 트리 이미 있으면 기존 만들어진 트리로 가야될듯
+    if (isTokenValid(token)) {
+      console.log("vaild");
+      navigate("/plantTreeStepOne");
+    } else {
+      console.log("invaild");
+      setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
+    }
   }
+
   return (
     <M.Body>
       <M.Contaianer>
-        <Nav /> {/* Nav 컴포넌트 사용 */}
+        {showLoginModal && <NeedLogin />}
+        <Nav />
         <M.Content>
           <M.NavBtns>
             <M.NavBtnWrapper1>
@@ -52,7 +73,7 @@ const Main = () => {
           />
         </M.ImageGross>
       </M.Contaianer>
-      <Info />
+      {showInfo && <Info />}
     </M.Body>
   );
 };

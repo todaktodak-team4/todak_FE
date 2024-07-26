@@ -6,6 +6,7 @@ function PlantTreeStepOne() {
   const navigate = useNavigate();
   const [treeName, setTreeName] = useState("");
   const [callName, setCallName] = useState("");
+  const token = localStorage.getItem("token");
 
   async function GoToNext() {
     console.log("clicked!");
@@ -19,7 +20,8 @@ function PlantTreeStepOne() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          //토큰값 추가
+          Authorization: `Token ${token}`,
+          //토큰값 추가완료
         },
         body: JSON.stringify(payload),
       });

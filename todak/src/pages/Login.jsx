@@ -22,7 +22,7 @@ const Login = () => {
 
       console.log(response.data); // 서버로부터 받은 데이터 콘솔에 출력
       localStorage.setItem("token", response.data.token);
-      navigate("/main", { state: { loggedInUser: response.data.user } });
+      navigate("/main");
     } catch (error) {
       setError("로그인에 실패했습니다.");
 
@@ -35,8 +35,12 @@ const Login = () => {
   return (
     <S.Body>
       <S.Contaianer>
+        <img
+          id="Img"
+          src={`${process.env.PUBLIC_URL}/img/TodakLogo5.svg`}
+          alt="Img"
+        />
         <S.Title>로그인</S.Title>
-
         <S.Step1Items>
           <S.Step1Item>
             <S.NavName>
@@ -44,6 +48,7 @@ const Login = () => {
             </S.NavName>
             <input
               name="username"
+              id="username"
               type="text"
               placeholder="아이디"
               value={username}
@@ -56,6 +61,7 @@ const Login = () => {
             </S.NavName>
             <input
               name="password"
+              id="password"
               type="password"
               placeholder="비밀번호(영어, 숫자, 특수문자 조합 12자 이상)"
               value={password}

@@ -1,34 +1,37 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Main from "./pages/Main";
 import * as A from "./css/StyledApp";
 import PlantTreeStepOne from "./pages/PlantTree_stepOne";
 import PlantTreeStepTwo from "./pages/PlantTree_stepTwo";
 import PlantCompleteModal from "./pages/PlantCompleteModal";
-import RemeberTree from "./pages/RememberTree";
 import Signup1 from "./pages/Signup1";
 import Signup2 from "./pages/Signup2";
-import GrowCompleteModal from "./pages/GrowCompleteModal";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <BrowserRouter>
       <A.Header>
         <A.Logo>
-          <a href="#">
+          <Link to="/">
             <img
               id="Logo"
               src={`${process.env.PUBLIC_URL}/img/TodakLogo2.svg`}
               alt="Logo"
             />
-          </a>
-          <a href="#">
-            <p>토닥토닥</p>
-          </a>
+          </Link>
+          <Link to="/main">
+            <img
+              id="LogoMessage"
+              src={`${process.env.PUBLIC_URL}/img/LogoMessage.svg`}
+              alt="LogoMessage"
+            />
+          </Link>
         </A.Logo>
         <A.Privacy>
-          <div>MY</div>
-          <div>회원가입</div>
-          <div>로그인</div>
+          <Link to="/main">MY</Link>
+          <Link to="/signup1">회원가입</Link>
+          <Link to="/login">로그인</Link>
         </A.Privacy>
       </A.Header>
 
@@ -36,14 +39,15 @@ function App() {
         <Route path="/main" element={<Main />} />
         <Route path="/signup1" element={<Signup1 />} />
         <Route path="/signup2" element={<Signup2 />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/plantTreeStepOne" element={<PlantTreeStepOne />} />
         <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
         <Route path="/completeModal" element={<PlantCompleteModal />} />
-        <Route path="/rememberTree" element={<RemeberTree />} />
-        <Route path="/growCompleteModal" element={<GrowCompleteModal />} />
       </Routes>
+
       <A.Footer></A.Footer>
     </BrowserRouter>
   );
 }
+
 export default App;
