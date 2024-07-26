@@ -226,11 +226,15 @@ li {
 .hydrangea,
 .lily {
   position: absolute;
-  left: 42%;
+  left: 44%;
   color: #3d4c00;
   font-family: "Pretendard Variable";
   font-size: 16px;
   font-weight: 600;
+}
+.zinnia {
+  float: left;
+  left: 38%;
 }
 .flo {
   margin-left: 15px;
@@ -257,6 +261,9 @@ li {
   position: relative;
   top: 20px;
   right: 25px;
+}
+.blurred {
+  opacity: 45%;
 }
 
 [type="radio"] {
