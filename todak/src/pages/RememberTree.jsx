@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../css/StyledRememberTree.module.css";
 import HelpModal from "../pages/HelpModal";
 import TalkModal from "../pages/TalkModal";
@@ -10,7 +10,17 @@ function RememberTree() {
   const [isAlbumHovered, setIsAlbumHovered] = useState(false);
   const [isPostBoxClicked, setIsPostBoxClicked] = useState(false);
   const [isAlbumClicked, setIsAlbumClicked] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
   const setTreeName = "보고 싶은 우리 언니";
+
+  useEffect(() => {
+    const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
+    const today = new Date().toISOString().split("T")[0];
+    if (lastSubmissionDate === today) {
+      setHasSubmitted(true);
+    }
+  }, []);
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -53,7 +63,12 @@ function RememberTree() {
           <img src="/img/help.png" alt="도움말" />
         </div>
         <div className={styles.rememberTree}>
-          <img src="/img/rememberTree.png" alt="기억 나무" />
+          <img
+            src={`/img/${
+              hasSubmitted ? "submitAnswerTree.png" : "rememberTree.png"
+            }`}
+            alt="기억 나무"
+          />
           <div
             className={styles.albumContainer}
             onMouseEnter={() => setIsAlbumHovered(true)}
