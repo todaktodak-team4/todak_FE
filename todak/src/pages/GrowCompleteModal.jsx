@@ -1,9 +1,22 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledGrowCompleteModal.module.css";
 
 function GrowCompleteModal() {
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleYesClick = () => {
+    navigate("/deliveryProduct");
+  };
+
+  const handleNoClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
-      <div>
+      {isOpen && (
         <div className={styles.container}>
           <div className={styles.modal}>
             <img
@@ -19,11 +32,15 @@ function GrowCompleteModal() {
               나무는 자택으로 배송받아 앞으로도 곁에서 쭉 지켜볼 수 있어요.{" "}
               <br /> <b>기억 나무 배송을 원하시나요?</b>
             </div>
-            <div className={styles.no}>아니요</div>
-            <div className={styles.yes}>네</div>
+            <div className={styles.no} onClick={handleNoClick}>
+              아니요
+            </div>
+            <div className={styles.yes} onClick={handleYesClick}>
+              네
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
