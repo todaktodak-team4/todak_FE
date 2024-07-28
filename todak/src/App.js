@@ -6,6 +6,7 @@ import PlantTreeStepTwo from "./pages/PlantTree_stepTwo";
 import PlantCompleteModal from "./pages/PlantCompleteModal";
 import GrowCompleteModal from "./pages/GrowCompleteModal";
 import RememberTree from "./pages/RememberTree";
+import DeliveryInfo from "./pages/DeliveryInfo";
 import Signup1 from "./pages/Signup1";
 import Signup2 from "./pages/Signup2";
 import Login from "./pages/Login";
@@ -47,6 +48,7 @@ function App() {
         <Route path="/completeModal" element={<PlantCompleteModal />} />
         <Route path="/growCompleteModal" element={<GrowCompleteModal />} />
         <Route path="/rememberTree" element={<RememberTree />} />
+        <Route path="/deliveryInfo" element={<DeliveryInfo />} />
       </Routes>
 
       <A.Footer></A.Footer>
