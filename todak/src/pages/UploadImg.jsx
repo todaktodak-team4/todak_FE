@@ -44,7 +44,13 @@ function UploadImg() {
       <input
         type="file"
         id="upload"
-        className={styles.uploadBtn}
+        className={styles.fileBtn}
+        style={{
+          position: "absolute",
+          top: "8%",
+          zIndex: "1000",
+          display: "none",
+        }}
         onChange={handleImageUpload}
         accept="image/*"
       />

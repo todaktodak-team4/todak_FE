@@ -5,24 +5,47 @@ function WriteLetter() {
   const [letter, setLetter] = useState("");
 
   const handleInput = (event) => {
-    const maxLength = 56;
+    const maxLength = 70;
     const text = event.target.value;
-    let lines = [];
+
+    const lines = text.split("\n");
+    if (lines.length > 12) {
+      event.preventDefault();
+      return;
+    }
+
+    let formattedText = "";
     let currentLine = "";
 
     for (let i = 0; i < text.length; i++) {
-      currentLine += text[i];
-      if (currentLine.length === maxLength || text[i] === "\n") {
-        lines.push(currentLine);
-        currentLine = "";
+      if (text[i] === "\n" || currentLine.length === maxLength) {
+        formattedText += currentLine + "\n";
+        currentLine = text[i] === "\n" ? "" : text[i];
+      } else {
+        currentLine += text[i];
       }
     }
 
-    if (currentLine) {
-      lines.push(currentLine);
-    }
+    formattedText += currentLine;
+    setLetter(formattedText);
+  };
 
-    setLetter(lines.join("\n"));
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      const lines = letter.split("\n");
+
+      if (lines.length >= 12) {
+        event.preventDefault();
+        return;
+      }
+
+      event.preventDefault();
+      const cursorPosition = event.target.selectionStart;
+      const beforeCursor = letter.substring(0, cursorPosition);
+      const afterCursor = letter.substring(cursorPosition);
+      const newText = beforeCursor + "\n" + afterCursor;
+      setLetter(newText);
+    }
   };
 
   return (
@@ -36,19 +59,23 @@ function WriteLetter() {
             className={styles.mainLetter}
             placeholder="편지 내용을 입력해주세요."
             name="letter"
-            rows="10"
             value={letter}
             onChange={handleInput}
+            onKeyDown={handleKeyDown}
             style={{
+              position: "fixed",
               backgroundImage: `url("/img/letter.png")`,
               backgroundRepeat: "no-repeat",
               width: "1200px",
-              height: "1000px",
+              height: "1073px",
               backgroundColor: "transparent",
               border: "none",
               whiteSpace: "pre-wrap",
               overflowWrap: "break-word",
+              wordBreak: "break-all",
               boxSizing: "border-box",
+              outline: "none",
+              lineHeight: "2.05",
             }}
           ></textarea>
         </div>
