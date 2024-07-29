@@ -4,6 +4,8 @@ import HelpModal from "../pages/HelpModal";
 import TalkModal from "../pages/TalkModal";
 import UploadImg from "../pages/UploadImg";
 import ShowAlbum from "../pages/ShowAlbum";
+import WriteLetter from "../pages/WriteLetter";
+import ShowLetter from "../pages/ShowLetter";
 
 function RememberTree() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +17,8 @@ function RememberTree() {
   const [isUploadImgOpen, setIsUploadImgOpen] = useState(false);
   const [isShowAlbumOpen, setIsShowAlbumOpen] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [isWriteLetterOpen, setIsWriteLetterOpen] = useState(false);
+  const [isShowLetterOpen, setIsShowLetterOpen] = useState(false);
 
   const setTreeName = "보고 싶은 우리 언니";
 
@@ -54,6 +58,15 @@ function RememberTree() {
 
   const toggleShowAlbumModal = () => {
     setIsShowAlbumOpen((prev) => !prev);
+  };
+
+  const toggleWriteLetterModal = () => {
+    console.log("clicked!");
+    setIsWriteLetterOpen((prev) => !prev);
+  };
+
+  const toggleShowLetterModal = () => {
+    setIsShowLetterOpen((prev) => !prev);
   };
 
   return (
@@ -131,8 +144,12 @@ function RememberTree() {
         )}
         {isPostBoxClicked && (
           <div className={styles.postBoxButtons}>
-            <div className={styles.btns}>편지쓰기</div>
-            <div className={styles.btns}>편지목록</div>
+            <div className={styles.btns} onClick={toggleWriteLetterModal}>
+              편지쓰기
+            </div>
+            <div className={styles.btns} onClick={toggleShowLetterModal}>
+              편지목록
+            </div>
           </div>
         )}
       </div>
@@ -140,6 +157,8 @@ function RememberTree() {
       {isTalkModalOpen && <TalkModal onClose={toggleTalkModal} />}
       {isUploadImgOpen && <UploadImg onClose={toggleUploadImgModal} />}
       {isShowAlbumOpen && <ShowAlbum onClose={toggleShowAlbumModal} />}
+      {isWriteLetterOpen && <WriteLetter onClose={toggleWriteLetterModal} />}
+      {isShowLetterOpen && <ShowLetter onClose={toggleShowLetterModal} />}
     </>
   );
 }

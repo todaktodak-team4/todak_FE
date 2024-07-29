@@ -1,31 +1,25 @@
+import React, { useState } from "react";
 import styles from "../css/StyledDeliveryInfo.module.css";
-import { useState } from "react";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import CheckoutPage from "./CheckoutPage";
 
 function DeliveryInfo() {
   const navigate = useNavigate();
-  function GoToNext() {
-    console.log("clicked!");
-  }
-  function GoBack() {
-    navigate(-1);
-  }
+  const location = useLocation();
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [postalAddress, setPostalAddress] = useState("");
   const [zoneCode, setZoneCode] = useState("");
   const [detailAddress, setDetailAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [ordererName, setOrdererName] = useState("");
+  const [recipientName, setRecipientName] = useState("");
 
-  const openPostCode = () => {
-    setIsPopupOpen(true);
-  };
-
-  const closePostCode = () => {
-    setIsPopupOpen(false);
-  };
+  const openPostCode = () => setIsPopupOpen(true);
+  const closePostCode = () => setIsPopupOpen(false);
 
   const handlePostCodeSelection = (data) => {
     setPostalAddress(data.address);
@@ -35,20 +29,20 @@ function DeliveryInfo() {
 
   const formatPhoneNumber = (value) => {
     const cleaned = value.replace(/\D/g, "");
-
     const match = cleaned.match(/^(\d{2,3})(\d{3,4})(\d{4})$/);
-
-    if (match) {
-      return `${match[1]}-${match[2]}-${match[3]}`;
-    }
-
-    return cleaned;
+    return match ? `${match[1]}-${match[2]}-${match[3]}` : cleaned;
   };
 
   const handlePhoneNumberChange = (e) => {
     const formattedNumber = formatPhoneNumber(e.target.value);
     setPhoneNumber(formattedNumber);
   };
+
+  const openPaymentModal = () => setIsPaymentModalOpen(true);
+  const closePaymentModal = () => setIsPaymentModalOpen(false);
+
+  // Extract data from the location state
+  const { totalAmount, selectedItems } = location.state || {};
 
   return (
     <div
@@ -65,7 +59,6 @@ function DeliveryInfo() {
           </div>
           <div className={styles.deliTitle}>기억 나무 배송</div>
         </div>
-
         <div className={styles.orderWp}>
           <img src="/img/d_1.png" alt="1" />
           <div className={`${styles.orderer} ${styles.title}`}>주문자</div>
@@ -73,6 +66,8 @@ function DeliveryInfo() {
             type="text"
             className={styles.inputBox}
             placeholder="주문자 성함"
+            value={ordererName}
+            onChange={(e) => setOrdererName(e.target.value)}
           />
         </div>
         <div className={styles.recipientWp}>
@@ -82,6 +77,8 @@ function DeliveryInfo() {
             type="text"
             className={styles.inputBox}
             placeholder="수령인 성함"
+            value={recipientName}
+            onChange={(e) => setRecipientName(e.target.value)}
           />
         </div>
         <div className={styles.telWp}>
@@ -142,33 +139,27 @@ function DeliveryInfo() {
             </div>
           </div>
         </div>
-        <div className={styles.accountWp}>
-          <img src="/img/d_5.png" alt="5" />
-          <div className={`${styles.refundAccount} ${styles.title}`}>
-            환불 계좌
-          </div>
-          <input type="text" className={styles.bank} placeholder="은행명" />
-          <input
-            type="text"
-            className={styles.account}
-            placeholder="계좌번호"
-          />
-          <input type="text" className={styles.owner} placeholder="예금주" />
+        <div
+          className={styles.backBtn}
+          onClick={() => navigate("/deliveryProduct")}
+        >
+          이전
         </div>
-      </div>{" "}
-      <div
-        className={styles.backBtn}
-        style={{ zIndex: "100" }}
-        onClick={GoBack}
-      >
-        이전
-      </div>
-      <div
-        className={styles.deliBtn}
-        style={{ zIndex: "100" }}
-        onClick={GoToNext}
-      >
-        결제 및 배송 신청
+        <div className={styles.deliBtn} onClick={openPaymentModal}>
+          결제 및 배송 신청
+        </div>
+        {isPaymentModalOpen && (
+          <CheckoutPage
+            totalAmount={totalAmount}
+            selectedItems={selectedItems}
+            ordererName={ordererName}
+            recipientName={recipientName}
+            phoneNumber={phoneNumber}
+            postalAddress={postalAddress}
+            detailAddress={detailAddress}
+            onClose={closePaymentModal}
+          />
+        )}
       </div>
     </div>
   );
