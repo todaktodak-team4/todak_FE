@@ -10,7 +10,6 @@ function UploadImg() {
   const [isSaved, setIsSaved] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [transitionClass, setTransitionClass] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -40,85 +39,70 @@ function UploadImg() {
     }
   };
 
-  const handleClose = () => {
-    setIsModalOpen(false);
-  };
-
-  if (!isModalOpen) return null;
-
   return (
-    <>
-      <div className={styles.container}>
-        <input
-          type="file"
-          id="upload"
-          style={{ display: "none" }}
-          onChange={handleImageUpload}
-          accept="image/*"
-        />
-        <div
-          className={styles.uploadBtn}
-          onClick={() => document.getElementById("upload").click()}
-        >
-          사진 업로드
-        </div>
-        <div className={styles.closeBtn} onClick={handleClose}>
-          <img src="/img/closeBtn.png" alt="닫기 버튼" />
-        </div>
-        <div className={styles.imgWp}>
-          <div className={styles.bg}>
-            <img
-              src="/img/uploadImgBg.png"
-              alt="이미지 배경"
-              className={styles.bgImg}
-            />
-          </div>
-          <div className={styles.img}>
-            {image ? (
-              <img
-                src={image}
-                alt="main"
-                className={styles.mainImg}
-                style={{ width: "422px", height: "244px" }}
-              />
-            ) : (
-              <img
-                src="/img/mainImg.png"
-                alt="main"
-                className={styles.mainImg}
-              />
-            )}
-          </div>
-          <div className={styles.comment}>
-            <input
-              type="text"
-              className={styles.com}
-              placeholder="코멘트를 입력해주세요."
-              value={com}
-              onChange={(e) => setCom(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className={styles.commentWp}>
-          <input
-            type="text"
-            className={styles.com1}
-            placeholder="사진에 대한 코멘트를 입력해주세요."
-            value={com1}
-            onChange={(e) => setCom1(e.target.value)}
+    <div className={styles.container}>
+      <input
+        type="file"
+        id="upload"
+        className={styles.uploadBtn}
+        onChange={handleImageUpload}
+        accept="image/*"
+      />
+      <div
+        className={styles.uploadBtn}
+        onClick={() => document.getElementById("upload").click()}
+      >
+        사진 업로드
+      </div>
+      <div className={styles.imgWp}>
+        <div className={styles.bg}>
+          <img
+            src="/img/uploadImgBg.png"
+            alt="이미지 배경"
+            className={styles.bgImg}
           />
         </div>
-        <div
-          className={`${styles.saveBtn} ${transitionClass}`}
-          onClick={handleSave}
-        >
-          {isSaved ? "앨범 보러가기" : "앨범에 저장"}
+        <div className={styles.img}>
+          {image ? (
+            <img
+              src={image}
+              alt="main"
+              className={styles.mainImg}
+              style={{ width: "422px", height: "244px" }}
+            />
+          ) : (
+            <img src="/img/mainImg.png" alt="main" className={styles.mainImg} />
+          )}
         </div>
-        {showSuccessMessage && (
-          <div className={styles.successMessage}>앨범에 저장되었습니다.</div>
-        )}
+        <div className={styles.comment}>
+          <input
+            type="text"
+            className={styles.com}
+            placeholder="코멘트를 입력해주세요."
+            value={com}
+            onChange={(e) => setCom(e.target.value)}
+          />
+        </div>
       </div>
-    </>
+      <div className={styles.commentWp}>
+        <input
+          type="text"
+          className={styles.com1}
+          placeholder="사진에 대한 코멘트를 입력해주세요."
+          value={com1}
+          onChange={(e) => setCom1(e.target.value)}
+        />
+      </div>
+      <div
+        className={`${styles.saveBtn} ${transitionClass}`}
+        onClick={handleSave}
+      >
+        {isSaved ? "앨범 보러가기" : "앨범에 저장"}
+      </div>
+      {showSuccessMessage && (
+        <div className={styles.successMessage}>앨범에 저장되었습니다.</div>
+      )}
+    </div>
   );
 }
 
