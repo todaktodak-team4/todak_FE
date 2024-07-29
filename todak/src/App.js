@@ -4,10 +4,13 @@ import * as A from "./css/StyledApp";
 import PlantTreeStepOne from "./pages/PlantTree_stepOne";
 import PlantTreeStepTwo from "./pages/PlantTree_stepTwo";
 import PlantCompleteModal from "./pages/PlantCompleteModal";
+import GrowCompleteModal from "./pages/GrowCompleteModal";
+import RememberTree from "./pages/RememberTree";
+import DeliveryInfo from "./pages/DeliveryInfo";
+import DeliveryProduct from "./pages/DeliveryProduct";
 import Signup1 from "./pages/Signup1";
 import Signup2 from "./pages/Signup2";
 import Login from "./pages/Login";
-import MemorialHall from "./pages/MemorialHall";
 
 function App() {
   return (
@@ -44,7 +47,13 @@ function App() {
         <Route path="/plantTreeStepOne" element={<PlantTreeStepOne />} />
         <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
         <Route path="/completeModal" element={<PlantCompleteModal />} />
-        <Route path="/memorialHall" element={<MemorialHall />} />
+        <Route path="/growCompleteModal" element={<GrowCompleteModal />} />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/rememberTree" element={<RememberTree />} />
+        <Route path="/deliveryInfo" element={<DeliveryInfo />} />
+        <Route path="/deliveryProduct" element={<DeliveryProduct />} />
       </Routes>
 
       <A.Footer></A.Footer>
