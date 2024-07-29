@@ -7,6 +7,7 @@ import PlantCompleteModal from "./pages/PlantCompleteModal";
 import Signup1 from "./pages/Signup1";
 import Signup2 from "./pages/Signup2";
 import Login from "./pages/Login";
+import MemorialHall from "./pages/MemorialHall";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/plantTreeStepOne" element={<PlantTreeStepOne />} />
         <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
         <Route path="/completeModal" element={<PlantCompleteModal />} />
+        <Route path="/memorialHall" element={<MemorialHall />} />
       </Routes>
 
       <A.Footer></A.Footer>
