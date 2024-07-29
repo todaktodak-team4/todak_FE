@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "../css/StyledRememberTree.module.css";
 import HelpModal from "../pages/HelpModal";
 import TalkModal from "../pages/TalkModal";
+import UploadImg from "../pages/UploadImg";
+import ShowAlbum from "../pages/ShowAlbum";
 
 function RememberTree() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,6 +12,8 @@ function RememberTree() {
   const [isAlbumHovered, setIsAlbumHovered] = useState(false);
   const [isPostBoxClicked, setIsPostBoxClicked] = useState(false);
   const [isAlbumClicked, setIsAlbumClicked] = useState(false);
+  const [isUploadImgOpen, setIsUploadImgOpen] = useState(false);
+  const [isShowAlbumOpen, setIsShowAlbumOpen] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const setTreeName = "보고 싶은 우리 언니";
@@ -42,6 +46,14 @@ function RememberTree() {
     if (!isPostBoxClicked) {
       setIsAlbumClicked(false);
     }
+  };
+
+  const toggleUploadImgModal = () => {
+    setIsUploadImgOpen((prev) => !prev);
+  };
+
+  const toggleShowAlbumModal = () => {
+    setIsShowAlbumOpen((prev) => !prev);
   };
 
   return (
@@ -109,8 +121,12 @@ function RememberTree() {
         )}
         {isAlbumClicked && (
           <div className={styles.albumButtons}>
-            <div className={styles.pbtns}>사진 업로드</div>
-            <div className={styles.abtns}>앨범보기</div>
+            <div className={styles.pbtns} onClick={toggleUploadImgModal}>
+              사진 업로드
+            </div>
+            <div className={styles.abtns} onClick={toggleShowAlbumModal}>
+              앨범보기
+            </div>
           </div>
         )}
         {isPostBoxClicked && (
@@ -122,6 +138,8 @@ function RememberTree() {
       </div>
       {isModalOpen && <HelpModal onClose={toggleModal} />}
       {isTalkModalOpen && <TalkModal onClose={toggleTalkModal} />}
+      {isUploadImgOpen && <UploadImg onClose={toggleUploadImgModal} />}
+      {isShowAlbumOpen && <ShowAlbum onClose={toggleShowAlbumModal} />}
     </>
   );
 }
