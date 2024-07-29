@@ -13,6 +13,7 @@ import Signup2 from "./pages/Signup2";
 import Login from "./pages/Login";
 import UploadImg from "./pages/UploadImg";
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -49,6 +50,9 @@ function App() {
         <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
         <Route path="/completeModal" element={<PlantCompleteModal />} />
         <Route path="/growCompleteModal" element={<GrowCompleteModal />} />
+
+        <Route path="/login" element={<Login />} />
+
         <Route path="/rememberTree" element={<RememberTree />} />
         <Route path="/deliveryInfo" element={<DeliveryInfo />} />
         <Route path="/deliveryProduct" element={<DeliveryProduct />} />
