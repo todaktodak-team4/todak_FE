@@ -7,7 +7,7 @@ export const Body = styled.div`
   padding: 0;
 `;
 
-export const Contaianer = styled.div`
+export const Container = styled.div`
   display: flex;
   position: relative;
   margin: 0;
@@ -89,12 +89,12 @@ export const SelectBtn = styled.label`
 
 export const Step1Items = styled.div`
   z-index: 2;
-  width: 60vw;
+  width: 50vw;
   position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 10vh;
+  gap: 5vh;
 `;
 export const Step1Item = styled.div`
   display: flex;
@@ -103,7 +103,7 @@ export const Step1Item = styled.div`
     margin-left: 10%;
     background: none;
     height: 30px;
-    width: 500px;
+    width: 30vw;
     border: 0;
     border-bottom: 2px solid #3d4c00;
     color: #3d4c00;
@@ -111,8 +111,14 @@ export const Step1Item = styled.div`
     font-size: 24px;
     font-weight: 300;
   }
-  #postNumber {
-    margin-top: 80px;
+  #username {
+    position: absolute;
+    right: 15vw;
+    width: 15vw;
+  }
+  #password {
+    position: absolute;
+    right: 0;
   }
   input:focus {
     outline: none;
