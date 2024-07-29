@@ -1,8 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate,useLocation  } from "react-router-dom";
 import styles from "../css/StyledPlantTree.module.css";
 import CompleteModal from "../pages/PlantCompleteModal";
 
 function PlantTreeStepTwo() {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { treeName, myName } = location.state || {};
+
   const [selectedFlower, setSelectedFlower] = useState(null);
   const [growthPeriod, setGrowthPeriod] = useState("3개월");
   const [customDate, setCustomDate] = useState("");
@@ -10,9 +16,11 @@ function PlantTreeStepTwo() {
 
   async function submit() {
     const payload = {
-      selectedFlower,
+      treeName, 
+      myName, 
+      flowerType: selectedFlower || "",
       growthPeriod:
-        growthPeriod === "3개월" ? calculateThreeMonthsFromNow() : customDate,
+      growthPeriod === "3개월" ? calculateThreeMonthsFromNow() : customDate,
     };
 
     try {
@@ -21,6 +29,7 @@ function PlantTreeStepTwo() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Token 4885594836f8cc916eb4050d6ae365cc62b3b9ef", 
         },
         body: JSON.stringify(payload),
       });

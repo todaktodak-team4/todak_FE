@@ -6,35 +6,17 @@ function PlantTreeStepOne() {
   const navigate = useNavigate();
   const [treeName, setTreeName] = useState("");
   const [callName, setCallName] = useState("");
-  const token = localStorage.getItem("token");
 
   async function GoToNext() {
     console.log("clicked!");
-    const payload = {
-      treeName: treeName,
-      myName: callName,
-    };
-
-    try {
-      const response = await fetch("http://127.0.0.1:8000/rememberTree/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`,
-          //토큰값 추가완료
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (response.ok) {
-        navigate("/plantTreeStepTwo");
-      } else {
-        console.error("데이터 전송 실패");
+    navigate("/plantTreeStepTwo", {
+      state: {
+        treeName: treeName,
+        myName: callName,
       }
-    } catch (error) {
-      console.error("An error occurred", error);
-    }
+    });
   }
+  
 
   return (
     <div
