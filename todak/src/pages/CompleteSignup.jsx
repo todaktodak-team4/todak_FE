@@ -3,31 +3,6 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 //회원가입 완료 모달
 
-const CompleteSignup = () => {
-  const navigate = useNavigate();
-
-  const handleNav = () => {
-    navigate("/login");
-  };
-
-  return (
-    <Contaianer>
-      <img
-        id="logo"
-        src={`${process.env.PUBLIC_URL}/img/TodakLogo4.svg`}
-        alt="logo"
-      />
-      <p id="message">회원가입을 완료했습니다.</p>
-
-      <button id="goLoginBtn" onClick={handleNav}>
-        <p id="btnp">로그인하기</p>
-      </button>
-    </Contaianer>
-  );
-};
-
-export default CompleteSignup;
-
 export const Contaianer = styled.div`
   position: fixed;
   z-index: 100;
@@ -82,3 +57,27 @@ export const Contaianer = styled.div`
     margin: 0;
   }
 `;
+const CompleteSignup = () => {
+  const navigate = useNavigate();
+
+  const handleNav = () => {
+    navigate("/login");
+  };
+
+  return (
+    <Contaianer>
+      <img
+        id="logo"
+        src={`${process.env.PUBLIC_URL}/img/TodakLogo4.svg`}
+        alt="logo"
+      />
+      <p id="message">회원가입을 완료했습니다.</p>
+
+      <button id="goLoginBtn" onClick={handleNav}>
+        <p id="btnp">로그인하기</p>
+      </button>
+    </Contaianer>
+  );
+};
+
+export default CompleteSignup;

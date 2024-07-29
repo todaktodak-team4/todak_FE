@@ -13,7 +13,6 @@ import Signup2 from "./pages/Signup2";
 import Login from "./pages/Login";
 import UploadImg from "./pages/UploadImg";
 
-
 function App() {
   return (
     <BrowserRouter>
