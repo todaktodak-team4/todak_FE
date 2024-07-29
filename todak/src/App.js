@@ -11,6 +11,7 @@ import DeliveryProduct from "./pages/DeliveryProduct";
 import Signup1 from "./pages/Signup1";
 import Signup2 from "./pages/Signup2";
 import Login from "./pages/Login";
+import UploadImg from "./pages/UploadImg";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
         <Route path="/rememberTree" element={<RememberTree />} />
         <Route path="/deliveryInfo" element={<DeliveryInfo />} />
         <Route path="/deliveryProduct" element={<DeliveryProduct />} />
+        <Route path="/uploadImg" element={<UploadImg />} />
       </Routes>
 
       <A.Footer></A.Footer>
