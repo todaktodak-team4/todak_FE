@@ -1,0 +1,55 @@
+.checkoutModal {
+  position: absolute;
+  top: 25%;
+  text-align: center;
+  width: 500px;
+  height: 647.593px;
+  border-radius: 50px;
+  background: linear-gradient(0deg, #f9f9c8 0%, #ffffeb 48%);
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
+  color: #3d4c00;
+  font-family: "Pretendard Variable";
+  font-size: 25px;
+  font-weight: 700;
+}
+.closeBtn {
+  position: relative;
+  top: 40px;
+  left: 200px;
+}
+
+.checkoutModalContent {
+  position: relative;
+  bottom: 10px;
+}
+.infoSection {
+  font-size: 24px;
+  text-align: left;
+  padding-left: 20px;
+  position: relative;
+  bottom: 20px;
+}
+
+.info {
+  color: var(--, #3d4c00);
+  font-family: "Pretendard Variable";
+  font-size: 24px;
+  font-weight: 400;
+  margin-left: 20px;
+}
+
+.payBtn {
+  position: relative;
+  bottom: 40px;
+  color: #3d4c00;
+  border: none;
+  font-family: "Pretendard Variable";
+  font-size: 24px;
+  font-weight: 800;
+  width: 143px;
+  height: 53px;
+  flex-shrink: 0;
+  border-radius: 40px;
+  background: var(--y, linear-gradient(180deg, #fff9e4 0%, #ffda57 100%));
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}

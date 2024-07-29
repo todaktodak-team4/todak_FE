@@ -1,6 +1,7 @@
-import styles from "../css/StyledDeliveryProduct.module.css";
-import { useState } from "react";
+// src/pages/DeliveryProduct.jsx
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "../css/StyledDeliveryProduct.module.css";
 
 function DeliveryProduct() {
   const navigate = useNavigate();
@@ -61,7 +62,14 @@ function DeliveryProduct() {
   }
 
   function GoToNext() {
-    navigate("/deliveryInfo");
+    navigate("/deliveryInfo", {
+      state: {
+        totalAmount: calculateTotalPrice(),
+        selectedItems: getSelectedItemsDescription(),
+        terrariumSelected,
+        albumChoice,
+      },
+    });
   }
 
   return (
@@ -73,6 +81,7 @@ function DeliveryProduct() {
           backgroundRepeat: "no-repeat",
         }}
       >
+        {" "}
         <div className={styles.deliWp}>
           <div className={styles.top}>
             <div className={styles.boxImg}>

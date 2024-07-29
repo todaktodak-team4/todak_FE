@@ -12,6 +12,8 @@ import Signup1 from "./pages/Signup1";
 import Signup2 from "./pages/Signup2";
 import Login from "./pages/Login";
 import UploadImg from "./pages/UploadImg";
+import WriteLetter from "./pages/WriteLetter";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -56,6 +58,8 @@ function App() {
         <Route path="/deliveryInfo" element={<DeliveryInfo />} />
         <Route path="/deliveryProduct" element={<DeliveryProduct />} />
         <Route path="/uploadImg" element={<UploadImg />} />
+        <Route path="/writeLetter" element={<WriteLetter />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
 
       <A.Footer></A.Footer>
