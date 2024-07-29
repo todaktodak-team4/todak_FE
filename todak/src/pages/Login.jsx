@@ -34,7 +34,7 @@ const Login = () => {
 
   return (
     <S.Body>
-      <S.Contaianer>
+      <S.Container>
         <img
           id="Img"
           src={`${process.env.PUBLIC_URL}/img/TodakLogo5.svg`}
@@ -72,7 +72,7 @@ const Login = () => {
         <S.LoginBtn onClick={handleLogin}>
           <p>로그인하기</p>
         </S.LoginBtn>
-      </S.Contaianer>
+      </S.Container>
     </S.Body>
   );
 };

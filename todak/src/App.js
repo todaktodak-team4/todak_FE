@@ -51,6 +51,9 @@ function App() {
         <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
         <Route path="/completeModal" element={<PlantCompleteModal />} />
         <Route path="/growCompleteModal" element={<GrowCompleteModal />} />
+
+        <Route path="/login" element={<Login />} />
+
         <Route path="/rememberTree" element={<RememberTree />} />
         <Route path="/deliveryInfo" element={<DeliveryInfo />} />
         <Route path="/deliveryProduct" element={<DeliveryProduct />} />

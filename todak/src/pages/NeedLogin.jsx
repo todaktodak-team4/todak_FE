@@ -3,39 +3,6 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 //로그인, 회원가입 후 이용하세요 모달
 
-const NeedLogin = () => {
-  const navigate = useNavigate();
-
-  const handleNavLogin = () => {
-    navigate("/login");
-  };
-  const handleNavSignup = () => {
-    navigate("/signup1");
-  };
-
-  return (
-    <Contaianer>
-      <img
-        id="logo"
-        src={`${process.env.PUBLIC_URL}/img/TodakLogo4.svg`}
-        alt="logo"
-      />
-      <p id="message">로그인 이후 이용이 가능합니다.</p>
-      <Btns>
-        <button id="goSignupBtn" onClick={handleNavSignup}>
-          <p id="btnp">회원가입하기</p>
-        </button>
-
-        <button id="goLoginBtn" onClick={handleNavLogin}>
-          <p id="btnp">로그인하기</p>
-        </button>
-      </Btns>
-    </Contaianer>
-  );
-};
-
-export default NeedLogin;
-
 export const Contaianer = styled.div`
   position: fixed;
   z-index: 100;
@@ -106,3 +73,35 @@ export const Btns = styled.div`
   flex-direction: row;
   gap: 3vw;
 `;
+const NeedLogin = () => {
+  const navigate = useNavigate();
+
+  const handleNavLogin = () => {
+    navigate("/login");
+  };
+  const handleNavSignup = () => {
+    navigate("/signup1");
+  };
+
+  return (
+    <Contaianer>
+      <img
+        id="logo"
+        src={`${process.env.PUBLIC_URL}/img/TodakLogo4.svg`}
+        alt="logo"
+      />
+      <p id="message">로그인 이후 이용이 가능합니다.</p>
+      <Btns>
+        <button id="goSignupBtn" onClick={handleNavSignup}>
+          <p id="btnp">회원가입하기</p>
+        </button>
+
+        <button id="goLoginBtn" onClick={handleNavLogin}>
+          <p id="btnp">로그인하기</p>
+        </button>
+      </Btns>
+    </Contaianer>
+  );
+};
+
+export default NeedLogin;

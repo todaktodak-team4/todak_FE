@@ -36,6 +36,15 @@ const Main = () => {
       setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
     }
   }
+  function goToMemorialHall() {
+    if (isTokenValid(token)) {
+      console.log("vaild");
+      navigate("/memorialHall");
+    } else {
+      console.log("invaild");
+      setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
+    }
+  }
 
   return (
     <M.Body>
@@ -46,7 +55,7 @@ const Main = () => {
           <M.NavBtns>
             <M.NavBtnWrapper1>
               <M.NavBtnWrapper2>
-                <a href="#">온라인 헌화</a>
+                <a onClick={goToMemorialHall}>온라인 헌화</a>
               </M.NavBtnWrapper2>
             </M.NavBtnWrapper1>
             <M.NavBtnWrapper1>

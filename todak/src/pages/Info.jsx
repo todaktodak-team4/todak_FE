@@ -125,6 +125,103 @@ const Info = () => {
           </I.Info4Content>
         </I.Info4Contents>
       </I.Info4>
+      <I.Info5>
+        <img
+          id="Img"
+          src={`${process.env.PUBLIC_URL}/img/whiteFlower.png`}
+          alt="Img"
+        />
+        <p id="title">재난 참사 유족을 위한 온라인 헌화장</p>
+        <p id="content">
+          같은 아픔을 겪은 사람들과 함께 슬픔을 나눠요.
+          <br />
+          <I.BoldText4>자조 모임을 통한 애도</I.BoldText4> 는 상실의 슬픔을
+          견뎌내는 데 큰 도움이 됩니다.
+          <br />
+          추모 글을 남기고, 헌화로 재난 재발을 막기 위한 관련 단체에 기부를 할
+          수 있어요.
+        </p>
+      </I.Info5>
+      <I.Info6></I.Info6>
+      <I.Info7>
+        <I.Info7Content>
+          <p id="title">사랑하는 이를 기억하는 나무</p>
+          <p id="content">
+            오래도록 깊이 기억하고 싶은 특정한 대상이 있다면, <br /> 기억나무의
+            질문에 답하며 상실의 아픔을 치유해 주세요.
+            <br />
+            나무와 함께 천천히 성장하며 그리운 기억을 추억할 수 있을거예요.
+          </p>
+        </I.Info7Content>
+
+        <I.Info7Img>
+          <div>
+            <img
+              id="Img"
+              src={`${process.env.PUBLIC_URL}/img/Info7tree.png`}
+              alt="Img"
+            />
+            <img
+              id="Heart1"
+              src={`${process.env.PUBLIC_URL}/img/Info7heart.svg`}
+              alt="Heart"
+            />
+            <img
+              id="Heart2"
+              src={`${process.env.PUBLIC_URL}/img/Info7heart.svg`}
+              alt="Heart"
+            />
+            <img
+              id="Heart3"
+              src={`${process.env.PUBLIC_URL}/img/Info7heart.svg`}
+              alt="Heart"
+            />
+          </div>
+        </I.Info7Img>
+      </I.Info7>
+      <I.Info8>
+        <p id="title">나를 치유하며 성장해요</p>
+        <p id="content">
+          나무는 기본적으로 심리적 고통과 변화가 많이 일어나는
+          <I.BoldText5>3개월 동안 3단계</I.BoldText5>를 거쳐 성장해요.
+          <br />
+          나무가 다 자라나면 원하는 꽃을 피울 수도 있어요.
+        </p>
+        <I.Info8Container>
+          <img
+            id="Info8Img1"
+            src={`${process.env.PUBLIC_URL}/img/Info8Img1.png`}
+            alt="Info8Img1"
+          />
+
+          <I.Info8Arrow></I.Info8Arrow>
+          <img
+            id="Info8Img2"
+            src={`${process.env.PUBLIC_URL}/img/Info8Img2.png`}
+            alt="Info8Img2"
+          />
+          <I.Info8Arrow></I.Info8Arrow>
+          <img
+            id="Info8Img3"
+            src={`${process.env.PUBLIC_URL}/img/Info7tree.png`}
+            alt="Info8Img3"
+          />
+        </I.Info8Container>
+      </I.Info8>
+      <I.Info9></I.Info9>
+      <I.Info10>
+        <I.Info10Line1></I.Info10Line1>
+        <I.Info10Content>
+          <img
+            id="TodakLogo3"
+            src={`${process.env.PUBLIC_URL}/img/TodakLogo3.svg`}
+            alt="TodakLogo3"
+          />
+          <p id="title">나와 너, 서로를 토닥이며</p>
+          <p id="content">상실의 슬픔, 이제 혼자 견뎌내지 마세요.</p>
+        </I.Info10Content>
+        <I.Info10Line1></I.Info10Line1>
+      </I.Info10>
     </I.Info>
   );
 };
