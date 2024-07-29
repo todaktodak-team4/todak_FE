@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import styles from "../css/StyledCheckoutPage.module.css";
+import SuccessModal from "./SuccessModal";
 
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = "VQMfaA0KTAWJ8hFAOE9PL";
@@ -17,6 +18,7 @@ const CheckoutPage = ({
 }) => {
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
     async function fetchPaymentWidgets() {
@@ -73,9 +75,15 @@ const CheckoutPage = ({
         successUrl: `${window.location.origin}/success`,
         failUrl: `${window.location.origin}/fail`,
       });
+      setShowSuccessModal(true);
     } catch (error) {
       console.error("Payment error:", error);
     }
+  };
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    onClose();
   };
 
   return (
@@ -87,7 +95,7 @@ const CheckoutPage = ({
         <h2 className={styles.title}>결제 정보</h2>
         <div className={styles.infoSection}>
           <h3>주문 정보</h3>
-          <p className={styles.info}>
+          <p className={styles.info} style={{ whiteSpace: "pre-line" }}>
             <strong className={styles.t}>상품명:</strong> {selectedItems}
           </p>
         </div>
@@ -124,6 +132,7 @@ const CheckoutPage = ({
           결제하기
         </button>
       </div>
+      {showSuccessModal && <SuccessModal onClose={handleCloseSuccessModal} />}
     </div>
   );
 };
