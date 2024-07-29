@@ -1,4 +1,3 @@
-// src/pages/DeliveryProduct.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledDeliveryProduct.module.css";
@@ -81,7 +80,6 @@ function DeliveryProduct() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        {" "}
         <div className={styles.deliWp}>
           <div className={styles.top}>
             <div className={styles.boxImg}>
