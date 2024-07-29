@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "../css/StyledTalkModal.module.css";
 
+import { useNavigate,useLocation  } from "react-router-dom";
+
 function TalkModal({ onClose }) {
   const [getAnswer, setAnswer] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -10,11 +12,43 @@ function TalkModal({ onClose }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [hideAnswerWp, setHideAnswerWp] = useState(false);
   const [closeTimer, setCloseTimer] = useState(null);
-
-  const question = "오늘 점심은 드셨나요? 맛있는 걸로 드셨나요?";
+  const location = useLocation();
+  const [question, setQuestion] = useState("");
+  // const question = "오늘 점심은 드셨나요? 맛있는 걸로 드셨나요?";
   const questRef = useRef(null);
   const answerWpRef = useRef(null);
   const chatBoxRef = useRef(null);
+  const token = localStorage.getItem("token")
+  const [questionId, setQuestionId] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/rememberTree/daily-question/", {
+          method: "GET",
+          headers: {
+            "Authorization": `Token ${token}`,
+          }
+        });
+
+        if (response.ok) {
+          const jsonData = await response.json();
+          console.log("연동 완료");
+          console.log("데이터:", jsonData.questionText);
+          setQuestion(jsonData.questionText);
+          setQuestionId(jsonData.id);
+        } else {
+          console.error("Failed to submit data");
+        }
+      } catch (error) {
+        console.error("An error occurred", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
 
   useEffect(() => {
     const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
@@ -37,9 +71,34 @@ function TalkModal({ onClose }) {
     }
   }, [onClose]);
 
-  function submitAnswer() {
+  async function submitAnswer() {
     if (!isSubmitted && getAnswer.trim() !== "") {
       const today = new Date().toISOString().split("T")[0];
+      const payload = {
+        question_id: questionId,
+        answer_text: getAnswer,
+      };
+      try {
+        const response = await fetch("http://127.0.0.1:8000/rememberTree/daily-question/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${token}`,
+          },
+          body: JSON.stringify(payload),
+        });
+  
+        if (response.ok) {
+          const jsonData = await response.json();
+          console.log("연동 완료");
+          console.log("데이터:", jsonData.questionText);
+        } else {
+          console.error("Failed to submit data");
+        }
+      } catch (error) {
+        console.error("An error occurred", error);
+      }
+  
       sessionStorage.setItem("lastSubmissionDate", today);
       sessionStorage.setItem("submitAns", getAnswer);
       setSubmittedAnswer(getAnswer);
@@ -50,6 +109,7 @@ function TalkModal({ onClose }) {
       handleShowToast("내일 다시 방문해주세요.", 3000);
     }
   }
+  
 
   function handleShowToast(message, duration) {
     if (toastTimer) clearTimeout(toastTimer);

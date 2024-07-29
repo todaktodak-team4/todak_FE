@@ -4,16 +4,17 @@ import styles from "../css/StyledPlantTree.module.css";
 import CompleteModal from "../pages/PlantCompleteModal";
 
 function PlantTreeStepTwo() {
-
   const navigate = useNavigate();
   const location = useLocation();
   const { treeName, myName } = location.state || {};
-
   const [selectedFlower, setSelectedFlower] = useState(null);
   const [growthPeriod, setGrowthPeriod] = useState("3개월");
   const [customDate, setCustomDate] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const token = localStorage.getItem("token")
+
+  console.log("token:", token);
   async function submit() {
     const payload = {
       treeName, 
@@ -29,7 +30,7 @@ function PlantTreeStepTwo() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Token 4885594836f8cc916eb4050d6ae365cc62b3b9ef", 
+          "Authorization": `Token ${token}` , 
         },
         body: JSON.stringify(payload),
       });
