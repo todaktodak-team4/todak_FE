@@ -20,7 +20,10 @@ function TalkModal({ onClose }) {
   const chatBoxRef = useRef(null);
   const token = localStorage.getItem("token")
   const [questionId, setQuestionId] = useState(null);
+  console.log("여부:",isSubmitted);
 
+
+  //질문에 답을 한 적이 없으면 첫번째 연동문 실행
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,17 +31,33 @@ function TalkModal({ onClose }) {
           method: "GET",
           headers: {
             "Authorization": `Token ${token}`,
-          }
+          },
         });
 
         if (response.ok) {
           const jsonData = await response.json();
-          console.log("연동 완료");
-          console.log("데이터:", jsonData.questionText);
+          console.log("데이터",jsonData);
           setQuestion(jsonData.questionText);
           setQuestionId(jsonData.id);
-        } else {
-          console.error("Failed to submit data");
+        } else {  //질문에 답을 한 적이 있으면 당일에 받은 질문과 답을 가져오는 연동문 실행
+          const response = await fetch("http://127.0.0.1:8000/daily-question/today-answers/", {
+            method: "GET",
+            headers: {
+              "Authorization": `Token ${token}`,
+            },
+          });
+          if (response.ok) {
+            const jsonData = await response.json();
+            if (jsonData.length > 0) {
+              const answerData = jsonData[0]; 
+              console.log("데이터3", answerData.answerText);
+              console.log("데이터4", answerData.question.questionText);
+              setQuestion(answerData.question.questionText);
+              setSubmittedAnswer(answerData.answerText);
+              setIsSubmitted(true);
+            }
+          }
+         
         }
       } catch (error) {
         console.error("An error occurred", error);
@@ -46,8 +65,7 @@ function TalkModal({ onClose }) {
     };
 
     fetchData();
-  }, []);
-
+  }, [token]);
 
 
   useEffect(() => {
