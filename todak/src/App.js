@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import UploadImg from "./pages/UploadImg";
 import WriteLetter from "./pages/WriteLetter";
 import CheckoutPage from "./pages/CheckoutPage";
+import SuccessModal from "./pages/SuccessModal";
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
         <Route path="/uploadImg" element={<UploadImg />} />
         <Route path="/writeLetter" element={<WriteLetter />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/success" element={<SuccessModal />} />
       </Routes>
 
       <A.Footer></A.Footer>

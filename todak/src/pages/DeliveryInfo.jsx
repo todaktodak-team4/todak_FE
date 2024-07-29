@@ -157,7 +157,7 @@ function DeliveryInfo() {
             phoneNumber={phoneNumber}
             postalAddress={postalAddress}
             detailAddress={detailAddress}
-            onClose={closePaymentModal}
+            onClose={closePaymentModal} // Pass the close function
           />
         )}
       </div>
