@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate,useLocation  } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../css/StyledWriteLetter.module.css";
 
 function WriteLetter({ onClose, treeId, userId }) {
@@ -10,7 +10,7 @@ function WriteLetter({ onClose, treeId, userId }) {
   const containerRef = useRef(null);
   const location = useLocation();
 
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -90,14 +90,21 @@ function WriteLetter({ onClose, treeId, userId }) {
   const sendLetterToBackend = async () => {
     try {
       console.log(letter);
-      const response = await fetch(`http://127.0.0.1:8000/rememberTree/${treeId}/letters/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${token}`,
-        },
-        body: JSON.stringify({ content: letter, writer: userId, rememberTree: treeId }),
-      });
+      const response = await fetch(
+        `http://127.0.0.1:8000/rememberTree/${treeId}/letters/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+          body: JSON.stringify({
+            content: letter,
+            writer: userId,
+            rememberTree: treeId,
+          }),
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         console.log("data:", data);

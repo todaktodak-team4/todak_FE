@@ -1,0 +1,90 @@
+.container {
+  position: absolute;
+  top: 7.5%;
+  left: 15%;
+  width: 1300px;
+  height: 900px;
+  border-radius: 50px;
+  background: linear-gradient(0deg, #ffdcda 0%, #fff4f3 48%);
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.innerContainer {
+  position: relative;
+  top: 52px;
+  left: 85px;
+  margin-top: 1px;
+  width: 550px;
+  height: 350px;
+  border-radius: 20px;
+  background: var(--ff, #fff);
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+.letterInfo {
+  position: relative;
+  bottom: 110px;
+  left: 10px;
+  width: 530px;
+  height: 90px;
+  border-top: #b57875 solid 2px;
+}
+
+.letterWp {
+  position: relative;
+  left: 20px;
+  top: 10px;
+}
+
+.content {
+  position: relative;
+  white-space: pre-wrap;
+  text-indent: 0;
+  left: 55px;
+  bottom: 145px;
+  width: 400px;
+  height: 115px;
+  color: #2b2b2b;
+  font-family: "NanumBuJangNimNunCiCe";
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.05;
+}
+.profileImg,
+.userInfo {
+  display: inline-block;
+  position: relative;
+  top: 26px;
+  left: 14px;
+}
+.userInfo {
+  margin-left: 10px;
+}
+.user {
+  color: #000;
+  font-family: "Pretendard Variable";
+  font-size: 14px;
+  font-weight: 600;
+}
+.date {
+  position: relative;
+  right: 40px;
+  display: block;
+  text-align: right;
+  bottom: 30px;
+  color: #000;
+  font-family: "Pretendard Variable";
+  font-size: 12px;
+  font-weight: 400;
+}
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 430px;
+  color: #000;
+  font-family: "Pretendard Variable";
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: -0.07px;
+}
