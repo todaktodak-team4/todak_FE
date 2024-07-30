@@ -38,6 +38,10 @@
   bottom: 875px;
   z-index: 1000;
 }
+.hoverLetter {
+  position: relative;
+  right: 1px;
+}
 .mainLetter::placeholder,
 .mainLetter:focus {
   color: #2b2b2b;
