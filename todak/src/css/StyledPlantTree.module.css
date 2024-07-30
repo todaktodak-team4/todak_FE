@@ -106,8 +106,10 @@ body {
   margin-left: 4%;
 }
 
-input[type="text"],
-input::placeholder {
+.callNameInput,
+.callNameInput::placeholder,
+.treeNameInput,
+.treeNameInput::placeholder {
   outline: none;
   color: #3d4c00;
   font-family: "Pretendard Variable";

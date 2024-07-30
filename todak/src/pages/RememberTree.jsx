@@ -61,7 +61,6 @@ function RememberTree() {
   };
 
   const toggleWriteLetterModal = () => {
-    console.log("clicked!");
     setIsWriteLetterOpen((prev) => !prev);
   };
 
