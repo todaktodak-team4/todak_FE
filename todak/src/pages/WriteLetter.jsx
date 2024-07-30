@@ -4,14 +4,10 @@ import styles from "../css/StyledWriteLetter.module.css";
 function WriteLetter({ onClose }) {
   const [letter, setLetter] = useState("");
   const [showToast, setShowToast] = useState(true);
-  const [isDirty, setIsDirty] = useState(false);
+  const [isWritten, setIsWritten] = useState(false);
   const [imageSrc, setImageSrc] = useState("/img/envelopMain.png");
   const [isHovered, setIsHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
-  const [showSendModal, setShowSendModal] = useState(false);
-  const [showUnsavedModal, setShowUnsavedModal] = useState(false);
-  const [showSaveConfirmationModal, setShowSaveConfirmationModal] =
-    useState(false);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -27,8 +23,12 @@ function WriteLetter({ onClose }) {
         containerRef.current &&
         !containerRef.current.contains(event.target)
       ) {
-        if (isDirty) {
-          setShowUnsavedModal(true);
+        if (isWritten) {
+          if (
+            window.confirm("편지가 저장되지 않았습니다. 우체통을 닫을까요?")
+          ) {
+            onClose();
+          }
           return;
         }
         onClose();
@@ -37,10 +37,10 @@ function WriteLetter({ onClose }) {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [onClose, isDirty]);
+  }, [onClose, isWritten]);
 
   const handleInput = (event) => {
-    const maxLength = 78;
+    const maxLength = 74;
     const text = event.target.value;
 
     const lines = text.split("\n");
@@ -63,7 +63,7 @@ function WriteLetter({ onClose }) {
 
     formattedText += currentLine;
     setLetter(formattedText);
-    setIsDirty(true);
+    setIsWritten(true);
   };
 
   const handleKeyDown = (event) => {
@@ -81,37 +81,39 @@ function WriteLetter({ onClose }) {
       const afterCursor = letter.substring(cursorPosition);
       const newText = beforeCursor + "\n" + afterCursor;
       setLetter(newText);
-      setIsDirty(true);
+      setIsWritten(true);
+    }
+  };
+
+  const sendLetterToBackend = async () => {
+    try {
+      console.log(letter);
+      const response = await fetch("/sendLetter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content: letter }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      onClose();
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
     }
   };
 
   const handleSendClick = () => {
-    if (isDirty) {
-      setShowSaveConfirmationModal(true);
+    if (isWritten) {
+      if (window.confirm("편지를 보낼까요?")) {
+        sendLetterToBackend();
+      }
     } else {
       onClose();
     }
-  };
-
-  const handleSaveConfirmationModalClose = (confirmed) => {
-    if (confirmed) {
-      onClose();
-    }
-    setShowSaveConfirmationModal(false);
-  };
-
-  const handleSendModalClose = (confirmed) => {
-    if (confirmed) {
-      onClose();
-    }
-    setShowSendModal(false);
-  };
-
-  const handleUnsavedModalClose = (confirmed) => {
-    if (confirmed) {
-      onClose();
-    }
-    setShowUnsavedModal(false);
   };
 
   return (
@@ -178,44 +180,6 @@ function WriteLetter({ onClose }) {
         </div>
       </div>
       <div className={styles.envelope}></div>
-
-      {showSaveConfirmationModal && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <p>편지를 저장하시겠습니까?</p>
-            <button onClick={() => handleSaveConfirmationModalClose(true)}>
-              네
-            </button>
-            <button onClick={() => handleSaveConfirmationModalClose(false)}>
-              아니요
-            </button>
-          </div>
-        </div>
-      )}
-
-      {showSendModal && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <p>편지를 보내시겠습니까?</p>
-            <button onClick={() => handleSendModalClose(true)}>네</button>
-            <button onClick={() => handleSendModalClose(false)}>아니요</button>
-          </div>
-        </div>
-      )}
-
-      {showUnsavedModal && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <p>
-              편지가 저장되지 않았습니다. <br /> 우체통을 닫으시겠습니까?
-            </p>
-            <button onClick={() => handleUnsavedModalClose(true)}>네</button>
-            <button onClick={() => handleUnsavedModalClose(false)}>
-              아니요
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
