@@ -7,12 +7,12 @@ function UploadImg({ onClose, treeId }) {
   const [image, setImage] = useState(null);
   const [com1, setCom1] = useState("");
   const [com, setCom] = useState("");
+  const [date, setDate] = useState("");
   const [isSaved, setIsSaved] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [transitionClass, setTransitionClass] = useState("");
 
   console.log("treeId", treeId);
-
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -29,7 +29,7 @@ function UploadImg({ onClose, treeId }) {
     if (!isSaved) {
       const data = {
         image,
-        comments: { com1, com },
+        comments: { com1, com, date },
       };
       console.log("Saving to backend:", data);
 
@@ -90,6 +90,13 @@ function UploadImg({ onClose, treeId }) {
             placeholder="코멘트를 입력해주세요."
             value={com}
             onChange={(e) => setCom(e.target.value)}
+          />
+          <input
+            type="text"
+            className={styles.date}
+            placeholder="YYYY-MM-DD"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
           />
         </div>
       </div>

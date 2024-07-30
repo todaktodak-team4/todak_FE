@@ -45,11 +45,14 @@
   bottom: 300px;
 }
 
-.com {
+.com,
+.date {
+  outline: none;
+  display: block;
   border: none;
   position: relative;
   bottom: 300px;
-  left: 60px;
+  left: 370px;
   width: 300px;
   height: 35px;
   color: #2b2b2b;
@@ -57,6 +60,10 @@
   font-family: "Pretendard Variable";
   font-size: 14px;
   font-weight: 500;
+}
+.date {
+  bottom: 310px;
+  border: none;
 }
 .com::placeholder {
   color: #2b2b2b;
