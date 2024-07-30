@@ -5,7 +5,6 @@ function WriteLetter({ onClose }) {
   const [letter, setLetter] = useState("");
   const [showToast, setShowToast] = useState(true);
   const [isWritten, setIsWritten] = useState(false);
-  const [imageSrc, setImageSrc] = useState("/img/envelopMain.png");
   const [showTooltip, setShowTooltip] = useState(false);
   const containerRef = useRef(null);
 
@@ -151,17 +150,17 @@ function WriteLetter({ onClose }) {
           <img src="/img/letterTop.png" alt="봉투 뚜껑" />
         </div>
         <div
-          className={styles.envelopMain}
-          onMouseEnter={() => {
-            setImageSrc("/img/hoverLetter.png");
-            setShowTooltip(true);
-          }}
-          onMouseLeave={() => {
-            setImageSrc("/img/envelopMain.png");
-            setShowTooltip(false);
-          }}
+          className={`${styles.envelopMain} ${
+            showTooltip ? styles.hoverLetter : ""
+          }`}
+          onMouseEnter={() => setShowTooltip(true)}
+          onMouseLeave={() => setShowTooltip(false)}
         >
-          <img src={imageSrc} alt="봉투 메인" onClick={handleSendClick} />
+          <img
+            src={showTooltip ? "/img/hoverLetter.png" : "/img/envelopMain.png"}
+            alt="봉투 메인"
+            onClick={handleSendClick}
+          />
           {showTooltip && (
             <div className={styles.tooltip}>편지를 저장하려면 클릭하세요.</div>
           )}
