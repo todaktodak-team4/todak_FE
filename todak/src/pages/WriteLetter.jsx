@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../css/StyledWriteLetter.module.css";
 
 function WriteLetter({ onClose, treeId, userId }) {
@@ -8,8 +7,7 @@ function WriteLetter({ onClose, treeId, userId }) {
   const [isWritten, setIsWritten] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const containerRef = useRef(null);
-  const location = useLocation();
-
+  const textAreaRef = useRef(null);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -42,10 +40,10 @@ function WriteLetter({ onClose, treeId, userId }) {
   }, [onClose, isWritten]);
 
   const handleInput = (event) => {
-    const maxLength = 70;
+    const maxLength = 71;
     const text = event.target.value;
-
     const lines = text.split("\n");
+
     if (lines.length > 12) {
       event.preventDefault();
       return;
@@ -70,20 +68,25 @@ function WriteLetter({ onClose, treeId, userId }) {
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
+      const cursorPosition = event.target.selectionStart;
       const lines = letter.split("\n");
+      const newText =
+        letter.substring(0, cursorPosition) +
+        "\n" +
+        letter.substring(cursorPosition);
 
       if (lines.length >= 12) {
         event.preventDefault();
         return;
       }
 
-      event.preventDefault();
-      const cursorPosition = event.target.selectionStart;
-      const beforeCursor = letter.substring(0, cursorPosition);
-      const afterCursor = letter.substring(cursorPosition);
-      const newText = beforeCursor + "\n" + afterCursor;
       setLetter(newText);
       setIsWritten(true);
+
+      setTimeout(() => {
+        textAreaRef.current.selectionStart = textAreaRef.current.selectionEnd =
+          cursorPosition + 1;
+      }, 0);
     }
   };
 
@@ -143,6 +146,7 @@ function WriteLetter({ onClose, treeId, userId }) {
             placeholder="편지 내용을 입력해주세요."
             name="letter"
             value={letter}
+            ref={textAreaRef}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
             style={{
