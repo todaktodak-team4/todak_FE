@@ -6,14 +6,13 @@ function WriteLetter({ onClose }) {
   const [showToast, setShowToast] = useState(true);
   const [isWritten, setIsWritten] = useState(false);
   const [imageSrc, setImageSrc] = useState("/img/envelopMain.png");
-  const [isHovered, setIsHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const containerRef = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowToast(false);
-    }, 5000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -40,7 +39,7 @@ function WriteLetter({ onClose }) {
   }, [onClose, isWritten]);
 
   const handleInput = (event) => {
-    const maxLength = 74;
+    const maxLength = 70;
     const text = event.target.value;
 
     const lines = text.split("\n");
@@ -133,10 +132,9 @@ function WriteLetter({ onClose }) {
             onChange={handleInput}
             onKeyDown={handleKeyDown}
             style={{
-              position: "fixed",
               backgroundImage: `url("/img/letterPaper.png")`,
               backgroundRepeat: "no-repeat",
-              width: "1220px",
+              width: "1160px",
               height: "1073px",
               backgroundColor: "transparent",
               border: "none",
@@ -156,24 +154,14 @@ function WriteLetter({ onClose }) {
           className={styles.envelopMain}
           onMouseEnter={() => {
             setImageSrc("/img/hoverLetter.png");
-            setIsHovered(true);
             setShowTooltip(true);
           }}
           onMouseLeave={() => {
             setImageSrc("/img/envelopMain.png");
-            setIsHovered(false);
             setShowTooltip(false);
           }}
         >
-          <img
-            src={imageSrc}
-            alt="봉투 메인"
-            style={{
-              position: "fixed",
-              top: isHovered ? "77.5%" : "77.8%",
-            }}
-            onClick={handleSendClick}
-          />
+          <img src={imageSrc} alt="봉투 메인" onClick={handleSendClick} />
           {showTooltip && (
             <div className={styles.tooltip}>편지를 저장하려면 클릭하세요.</div>
           )}
