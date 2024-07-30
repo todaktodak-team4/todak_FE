@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledUploadImg.module.css";
 
-function UploadImg() {
+function UploadImg({ onClose, treeId }) {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [com1, setCom1] = useState("");
@@ -10,6 +10,9 @@ function UploadImg() {
   const [isSaved, setIsSaved] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [transitionClass, setTransitionClass] = useState("");
+
+  console.log("treeId", treeId);
+
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate,useLocation  } from "react-router-dom";
 import styles from "../css/StyledRememberTree.module.css";
 import HelpModal from "../pages/HelpModal";
 import TalkModal from "../pages/TalkModal";
@@ -19,8 +20,13 @@ function RememberTree() {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isWriteLetterOpen, setIsWriteLetterOpen] = useState(false);
   const [isShowLetterOpen, setIsShowLetterOpen] = useState(false);
+  const [treeName, setTreeName] = useState('');
+  const [treeId, setTreeId] = useState(null);
+  const [userId, setUserId] = useState(null);
+  // const setTreeName = "보고 싶은 우리 언니";
+  const location = useLocation();
 
-  const setTreeName = "보고 싶은 우리 언니";
+  const token = localStorage.getItem("token")
 
   useEffect(() => {
     const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
@@ -28,8 +34,56 @@ function RememberTree() {
     if (lastSubmissionDate === today) {
       setHasSubmitted(true);
     }
-  }, []);
 
+    // Fetch data from the API and log the response
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/rememberTree/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Response Data:", data); // Log the response data
+          setTreeName(data[0].treeName)
+          setTreeId(data[0].id)
+        } else {
+          console.error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("An error occurred", error);
+      }
+    };
+
+    const fetchData2 = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/accounts/api/get-user-id-from-token/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Response Data:", data); // Log the response data
+          setUserId(data.userId)
+        } else {
+          console.error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("An error occurred", error);
+      }
+    };
+
+    fetchData();
+    fetchData2();
+  }, [token]);
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -76,7 +130,7 @@ function RememberTree() {
           alt="bgimg"
           className={styles.container}
         />
-        <div className={styles.treeName}>{setTreeName}</div>
+        <div className={styles.treeName}>{treeName}</div>
         <div className={styles.nextTreeBtn}>
           <img src="/img/nextBtn.png" alt="다음 나무" />
         </div>
@@ -154,9 +208,9 @@ function RememberTree() {
       </div>
       {isModalOpen && <HelpModal onClose={toggleModal} />}
       {isTalkModalOpen && <TalkModal onClose={toggleTalkModal} />}
-      {isUploadImgOpen && <UploadImg onClose={toggleUploadImgModal} />}
+      {isUploadImgOpen && <UploadImg onClose={toggleUploadImgModal} treeId = {treeId} />}
       {isShowAlbumOpen && <ShowAlbum onClose={toggleShowAlbumModal} />}
-      {isWriteLetterOpen && <WriteLetter onClose={toggleWriteLetterModal} />}
+      {isWriteLetterOpen && <WriteLetter onClose={toggleWriteLetterModal} treeId = {treeId} userId = {userId} />}
       {isShowLetterOpen && <ShowLetter onClose={toggleShowLetterModal} />}
     </>
   );

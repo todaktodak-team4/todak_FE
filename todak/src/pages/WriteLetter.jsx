@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate,useLocation  } from "react-router-dom";
 import styles from "../css/StyledWriteLetter.module.css";
 
-function WriteLetter({ onClose }) {
+function WriteLetter({ onClose, treeId, userId }) {
   const [letter, setLetter] = useState("");
   const [showToast, setShowToast] = useState(true);
   const [isWritten, setIsWritten] = useState(false);
   const [imageSrc, setImageSrc] = useState("/img/envelopMain.png");
   const [showTooltip, setShowTooltip] = useState(false);
   const containerRef = useRef(null);
+  const location = useLocation();
+
+  const token = localStorage.getItem("token")
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -87,14 +91,18 @@ function WriteLetter({ onClose }) {
   const sendLetterToBackend = async () => {
     try {
       console.log(letter);
-      const response = await fetch("/sendLetter", {
+      const response = await fetch(`http://127.0.0.1:8000/rememberTree/${treeId}/letters/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Token ${token}`,
         },
-        body: JSON.stringify({ content: letter }),
+        body: JSON.stringify({ content: letter, writer: userId, rememberTree: treeId }),
       });
-
+      if (response.ok) {
+        const data = await response.json();
+        console.log("data:", data);
+      }
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
