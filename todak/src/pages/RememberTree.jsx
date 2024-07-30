@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate,useLocation  } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../css/StyledRememberTree.module.css";
 import HelpModal from "../pages/HelpModal";
 import TalkModal from "../pages/TalkModal";
@@ -20,13 +20,12 @@ function RememberTree() {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isWriteLetterOpen, setIsWriteLetterOpen] = useState(false);
   const [isShowLetterOpen, setIsShowLetterOpen] = useState(false);
-  const [treeName, setTreeName] = useState('');
+  const [treeName, setTreeName] = useState("");
   const [treeId, setTreeId] = useState(null);
   const [userId, setUserId] = useState(null);
-  // const setTreeName = "보고 싶은 우리 언니";
   const location = useLocation();
 
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
@@ -35,22 +34,21 @@ function RememberTree() {
       setHasSubmitted(true);
     }
 
-    // Fetch data from the API and log the response
     const fetchData = async () => {
       try {
         const response = await fetch("http://127.0.0.1:8000/rememberTree/", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Token ${token}`,
+            Authorization: `Token ${token}`,
           },
         });
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Response Data:", data); // Log the response data
-          setTreeName(data[0].treeName)
-          setTreeId(data[0].id)
+          console.log("Response Data:", data);
+          setTreeName(data[0].treeName);
+          setTreeId(data[0].id);
         } else {
           console.error("Failed to fetch data");
         }
@@ -61,18 +59,21 @@ function RememberTree() {
 
     const fetchData2 = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/accounts/api/get-user-id-from-token/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Token ${token}`,
-          },
-        });
+        const response = await fetch(
+          "http://127.0.0.1:8000/accounts/api/get-user-id-from-token/",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Token ${token}`,
+            },
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Response Data:", data); // Log the response data
-          setUserId(data.userId)
+          console.log("Response Data:", data);
+          setUserId(data.userId);
         } else {
           console.error("Failed to fetch data");
         }
@@ -84,6 +85,7 @@ function RememberTree() {
     fetchData();
     fetchData2();
   }, [token]);
+
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -119,6 +121,7 @@ function RememberTree() {
   };
 
   const toggleShowLetterModal = () => {
+    console.log("Toggling ShowLetter Modal");
     setIsShowLetterOpen((prev) => !prev);
   };
 
@@ -191,26 +194,34 @@ function RememberTree() {
               사진 업로드
             </div>
             <div className={styles.abtns} onClick={toggleShowAlbumModal}>
-              앨범보기
+              앨범 보기
             </div>
           </div>
         )}
         {isPostBoxClicked && (
           <div className={styles.postBoxButtons}>
             <div className={styles.btns} onClick={toggleWriteLetterModal}>
-              편지쓰기
+              편지 쓰기
             </div>
             <div className={styles.btns} onClick={toggleShowLetterModal}>
-              편지목록
+              편지 목록
             </div>
           </div>
         )}
       </div>
       {isModalOpen && <HelpModal onClose={toggleModal} />}
       {isTalkModalOpen && <TalkModal onClose={toggleTalkModal} />}
-      {isUploadImgOpen && <UploadImg onClose={toggleUploadImgModal} treeId = {treeId} />}
+      {isUploadImgOpen && (
+        <UploadImg onClose={toggleUploadImgModal} treeId={treeId} />
+      )}
       {isShowAlbumOpen && <ShowAlbum onClose={toggleShowAlbumModal} />}
-      {isWriteLetterOpen && <WriteLetter onClose={toggleWriteLetterModal} treeId = {treeId} userId = {userId} />}
+      {isWriteLetterOpen && (
+        <WriteLetter
+          onClose={toggleWriteLetterModal}
+          treeId={treeId}
+          userId={userId}
+        />
+      )}
       {isShowLetterOpen && <ShowLetter onClose={toggleShowLetterModal} />}
     </>
   );
