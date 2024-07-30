@@ -1,15 +1,36 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css/StyledShowLetter.module.css";
+import { useNavigate, useLocation } from "react-router-dom";
 
-function ShowLetter() {
+function ShowLetter({ onClose, treeId }) {
   const [letters, setLetters] = useState([]);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    fetch("/api/letters")
-      .then((response) => response.json())
-      .then((data) => setLetters(data))
-      .catch((error) => console.error("Error fetching letters:", error));
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/rememberTree/${treeId}/letters/`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          }
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Response Data:", data);
+          setLetters(data);
+        } else {
+          console.error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("An error occurred", error);
+      }
+    };
+  
+    fetchData();
+  }, [treeId, token]); 
+  
 
   return (
     <div className={styles.container}>

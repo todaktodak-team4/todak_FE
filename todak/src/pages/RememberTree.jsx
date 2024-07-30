@@ -214,7 +214,7 @@ function RememberTree() {
       {isUploadImgOpen && (
         <UploadImg onClose={toggleUploadImgModal} treeId={treeId} />
       )}
-      {isShowAlbumOpen && <ShowAlbum onClose={toggleShowAlbumModal} />}
+      {isShowAlbumOpen && <ShowAlbum onClose={toggleShowAlbumModal} treeId={treeId} />}
       {isWriteLetterOpen && (
         <WriteLetter
           onClose={toggleWriteLetterModal}
@@ -222,7 +222,7 @@ function RememberTree() {
           userId={userId}
         />
       )}
-      {isShowLetterOpen && <ShowLetter onClose={toggleShowLetterModal} />}
+      {isShowLetterOpen && <ShowLetter onClose={toggleShowLetterModal}  treeId={treeId}/>}
     </>
   );
 }
