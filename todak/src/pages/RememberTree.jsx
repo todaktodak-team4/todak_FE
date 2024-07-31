@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import Nav from "./Nav";
 import styles from "../css/StyledRememberTree.module.css";
 import HelpModal from "../pages/HelpModal";
 import TalkModal from "../pages/TalkModal";
@@ -133,6 +134,7 @@ function RememberTree() {
           alt="bgimg"
           className={styles.container}
         />
+        <Nav></Nav>
         <div className={styles.treeName}>{treeName}</div>
         <div className={styles.nextTreeBtn}>
           <img src="/img/nextBtn.png" alt="다음 나무" />
@@ -214,7 +216,9 @@ function RememberTree() {
       {isUploadImgOpen && (
         <UploadImg onClose={toggleUploadImgModal} treeId={treeId} />
       )}
-      {isShowAlbumOpen && <ShowAlbum onClose={toggleShowAlbumModal} treeId={treeId} />}
+      {isShowAlbumOpen && (
+        <ShowAlbum onClose={toggleShowAlbumModal} treeId={treeId} />
+      )}
       {isWriteLetterOpen && (
         <WriteLetter
           onClose={toggleWriteLetterModal}
@@ -222,7 +226,9 @@ function RememberTree() {
           userId={userId}
         />
       )}
-      {isShowLetterOpen && <ShowLetter onClose={toggleShowLetterModal}  treeId={treeId}/>}
+      {isShowLetterOpen && (
+        <ShowLetter onClose={toggleShowLetterModal} treeId={treeId} />
+      )}
     </>
   );
 }

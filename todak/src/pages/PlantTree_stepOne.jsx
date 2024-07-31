@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Nav from "./Nav";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledPlantTree.module.css";
 
@@ -13,10 +14,9 @@ function PlantTreeStepOne() {
       state: {
         treeName: treeName,
         myName: callName,
-      }
+      },
     });
   }
-  
 
   return (
     <div
@@ -26,6 +26,7 @@ function PlantTreeStepOne() {
         backgroundRepeat: "no-repeat",
       }}
     >
+      <Nav></Nav>
       <div className={styles.plantTreeWp}>
         <div className={styles.ptTitle}>기억 나무 심기</div>
         <img

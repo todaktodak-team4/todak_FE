@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate,useLocation  } from "react-router-dom";
+import Nav from "./Nav";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../css/StyledPlantTree.module.css";
 import CompleteModal from "../pages/PlantCompleteModal";
 
@@ -12,16 +13,16 @@ function PlantTreeStepTwo() {
   const [customDate, setCustomDate] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
   console.log("token:", token);
   async function submit() {
     const payload = {
-      treeName, 
-      myName, 
+      treeName,
+      myName,
       flowerType: selectedFlower || "",
       growthPeriod:
-      growthPeriod === "3개월" ? calculateThreeMonthsFromNow() : customDate,
+        growthPeriod === "3개월" ? calculateThreeMonthsFromNow() : customDate,
     };
 
     try {
@@ -30,7 +31,7 @@ function PlantTreeStepTwo() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Token ${token}` , 
+          Authorization: `Token ${token}`,
         },
         body: JSON.stringify(payload),
       });
@@ -61,6 +62,7 @@ function PlantTreeStepTwo() {
         src="/img/plantTree-bg.png"
         alt="plant tree background img"
       />
+      <Nav></Nav>
       <div className={styles.plantTreeWp}>
         <div className={styles.ptTitle}>기억 나무 심기</div>
         <img
