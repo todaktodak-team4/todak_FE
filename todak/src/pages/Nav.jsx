@@ -6,19 +6,19 @@ const Nav = () => {
     <M.Nav>
       <M.Navbar>
         <M.NavItem>
-          <a href="#">HOME</a>
+          <a href="/">HOME</a>
           <hr />
         </M.NavItem>
         <M.NavItem>
-          <a href="#">온라인 헌화</a>
+          <a href="/memorialHallList">온라인 헌화</a>
           <hr />
         </M.NavItem>
         <M.NavItem>
-          <a href="#">기억 나무</a>
+          <a href="/plantTreeStepOne">기억 나무</a>
           <hr />
         </M.NavItem>
         <M.NavItem>
-          <a href="#">헌화 공간 신청</a>
+          <a href="/memorialHallSignup">헌화 공간 신청</a>
           <hr />
         </M.NavItem>
       </M.Navbar>

@@ -17,11 +17,15 @@ export const Logo = styled.div`
     text-decoration: none;
     color: inherit;
   }
-  img {
+  #Logo {
     width: 60px;
     height: 37px;
     margin-top: 14px;
     margin-right: 15px;
+  }
+  #LogoMessage {
+    margin-top: 15px;
+    height: 30px;
   }
   p {
     margin-top: 14px;
@@ -48,6 +52,10 @@ export const Privacy = styled.div`
   width: 300px;
   margin-top: 14px;
   margin-right: 5%;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 export const Footer = styled.div`
   height: 300px;

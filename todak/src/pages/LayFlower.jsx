@@ -14,7 +14,7 @@ const LayFlower = () => {
             src={`${process.env.PUBLIC_URL}/img/flower.svg`}
             alt="flower"
           />
-          <S.Title>온라인 헌화 추모관 신청</S.Title>
+          <S.Title>온라인 헌화</S.Title>
 
           <S.SignupItems>
             <S.Line>

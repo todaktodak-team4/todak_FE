@@ -2,8 +2,23 @@ import React from "react";
 import ContentItem from "./ContentItem";
 import * as H from "../css/StyledMemorialHallList";
 import Nav from "./Nav";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const MemorialHallList = () => {
+  const [ListItems, setItemsList] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/memorialHall");
+        setItemsList(response.data.results);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []); //처음에 마운트 될 때 불러오도록
+
   return (
     <H.Body>
       <H.Container>
@@ -37,16 +52,22 @@ const MemorialHallList = () => {
           </H.InputOption>
 
           <H.ListContent>
-            <ContentItem
-              key="1"
-              postId="1"
-              name="시청역 역주행 참사 추모관"
-              date="2024-07-01T00:00:00Z"
-              info="'시청역 역주행 참사'피해자들을 추모하기 위한 온라인 헌화 추모관"
-              starImage={`${process.env.PUBLIC_URL}/images/Star.svg`}
-              chatIcon={`${process.env.PUBLIC_URL}/images/chatIcon.svg`}
-              addMylistImage={`${process.env.PUBLIC_URL}/images/Rectangle21.svg`}
-            />
+            {ListItems.map((item) => (
+              <ContentItem
+                memorialHall={ListItems}
+                key={item.id}
+                postId={item.id}
+                img={item.thumbnail}
+                name={item.name}
+                date={item.date}
+                info={item.info}
+                wreathCount={item.wreathCount}
+                messageCount={item.messageCount}
+                starImage={`${process.env.PUBLIC_URL}/images/Star.svg`}
+                chatIcon={`${process.env.PUBLIC_URL}/images/chatIcon.svg`}
+                addMylistImage={`${process.env.PUBLIC_URL}/images/Rectangle21.svg`}
+              />
+            ))}
           </H.ListContent>
 
           <H.NumberBtn></H.NumberBtn>

@@ -1,11 +1,40 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as H from "../css/StyledMemorialHall";
 import Nav from "./Nav";
+import axios from "axios";
 
 const MemorialHall = () => {
-  const [value, setValue] = useState("");
+  const navigate = useNavigate();
   const textareaRef = useRef(null);
+  const { postId } = useParams();
+  const [post, setPost] = useState(null);
+  const [inputs, setInputs] = useState({ content: "" });
+  const { content } = inputs;
+  const [comments, setComments] = useState([]); // 댓글을 저장하는 상태
+  const token = localStorage.getItem("token");
+
+  // API 호출하여 포스트 데이터 가져오기
+  useEffect(() => {
+    axios
+      .get(`/memorialHall/${postId}`)
+      .then((response) => {
+        console.log(response.data);
+        setPost(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching post:", error);
+      });
+  }, [postId]);
+
+  // 날짜 포맷팅 함수
+  const formatDate = (isoDate) => {
+    const dateObj = new Date(isoDate);
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    return `${year}년 ${month}월 ${day}일`;
+  };
 
   // 텍스트 영역의 높이를 내용에 맞게 조절하는 함수
   const adjustHeight = () => {
@@ -18,11 +47,56 @@ const MemorialHall = () => {
   // 입력이 변경될 때마다 높이 조절
   useEffect(() => {
     adjustHeight();
-  }, [value]);
+  }, [content]);
 
   // 입력값을 상태로 관리
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  // 댓글 전송 처리
+  const handlePostBtn = async () => {
+    console.log("댓글: ", content);
+    console.log(postId);
+
+    // postId를 hall로 변경
+    const hall = postId;
+
+    try {
+      // 댓글을 서버에 전송
+      const response = await axios.post(
+        `http://127.0.0.1:8000/memorialHall/${hall}/message`,
+        { hall, content }, // hall 필드를 사용
+        { headers: { Authorization: `Token ${token}` } }
+      );
+
+      // 서버로부터 댓글 ID를 포함한 응답을 받음
+      const newComment = response.data;
+
+      // 댓글 목록에 새 댓글을 추가
+      setComments((prevComments) => [...prevComments, newComment]);
+
+      window.location.reload(); // 성공 후 페이지 이동
+    } catch (error) {
+      console.error("Error creating new post:", error);
+    }
+  };
+
+  // 클립보드에 URL을 복사
+  const copyCurrentURL = () => {
+    const currentURL = window.location.href;
+    navigator.clipboard
+      .writeText(currentURL)
+      .then(() => {
+        console.log("URL이 클립보드에 복사되었습니다.");
+      })
+      .catch((err) => {
+        console.error("URL 복사 실패:", err);
+      });
   };
   return (
     <H.Body>
@@ -40,23 +114,21 @@ const MemorialHall = () => {
 
             <H.Wrap>
               <H.informationTitle>
-                <p>시청역 역주행 참사 추모관</p>
+                <p>{post && post.name}</p>
               </H.informationTitle>
             </H.Wrap>
             <H.Information>
-              2024년 7월 1일 발생한 <br />
-              ‘시청역 역주행 참사' 피해자들을 추모하기 위한
-              <br />
-              온라인 헌화 추모관입니다.
+              {post && formatDate(post.date)} 발생한 <br />
+              {post && post.info}
             </H.Information>
           </H.mainImg>
 
           <H.Btns>
-            <button id="copyPathBtn">
+            <button id="copyPathBtn" onClick={copyCurrentURL}>
               <p id="btnp">링크 공유</p>
             </button>
 
-            <button id="layFlowerBtn">
+            <button id="layFlowerBtn" onClick={() => navigate(`/layFlower`)}>
               <p id="btnp">헌화하기</p>
             </button>
           </H.Btns>
@@ -64,21 +136,13 @@ const MemorialHall = () => {
         <H.BannerBottom>
           <H.BannerContent>
             지금까지의 헌화 수량
-            <p id="count">122,340 개</p>
+            <p id="count">{post && post.wreathCount} 개</p>
           </H.BannerContent>
           <H.BannerContent>
-            보내주신 추모 글<p id="count">1,825 개</p>
+            보내주신 추모 글<p id="count">{post && post.messageCount} 개</p>
           </H.BannerContent>
         </H.BannerBottom>
-        <H.WhereDonation>
-          <img
-            id="line"
-            src={`${process.env.PUBLIC_URL}/img/line_2.png`}
-            alt="line"
-          />
-          <p>보내주신 헌화금으로 이런 곳에 기부 예정입니다.</p>
-          <H.WhereDonationContent></H.WhereDonationContent>
-        </H.WhereDonation>
+
         <H.MemorialMessage>
           <p>남겨주신 헌화의 한 마디</p>
           <H.MemorialMessageContent>
@@ -111,13 +175,14 @@ const MemorialHall = () => {
               <textarea
                 type="text"
                 ref={textareaRef}
-                value={value}
-                onChange={handleChange}
+                value={content}
+                name="content"
+                onChange={onChange}
                 placeholder="추모의 글을 남겨주세요. 욕설 및 비방이 담긴 글은 무통보 삭제될 수 있습니다."
               ></textarea>
             </H.MM2>
             <H.MM3>
-              <p>등록하기</p>
+              <p onClick={handlePostBtn}>등록하기</p>
             </H.MM3>
           </H.MemorialMessage2Input>
 

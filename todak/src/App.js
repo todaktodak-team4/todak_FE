@@ -15,6 +15,10 @@ import UploadImg from "./pages/UploadImg";
 import WriteLetter from "./pages/WriteLetter";
 import CheckoutPage from "./pages/CheckoutPage";
 import SuccessModal from "./pages/SuccessModal";
+import MemorialHall from "./pages/MemorialHall";
+import MemorialHallList from "./pages/MemorialHallList";
+import MemorialHallSignup from "./pages/MemorialHallSignup";
+import LayFlower from "./pages/LayFlower";
 
 function App() {
   return (
@@ -62,6 +66,10 @@ function App() {
         <Route path="/writeLetter" element={<WriteLetter />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/success" element={<SuccessModal />} />
+        <Route path="/memorialHall/:postId?" element={<MemorialHall />} />
+        <Route path="/memorialHallList" element={<MemorialHallList />} />
+        <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
+        <Route path="/layFlower" element={<LayFlower />} />
       </Routes>
 
       <A.Footer></A.Footer>
