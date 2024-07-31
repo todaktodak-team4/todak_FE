@@ -22,7 +22,7 @@ const Login = () => {
 
       console.log(response.data); // 서버로부터 받은 데이터 콘솔에 출력
       localStorage.setItem("token", response.data.token);
-      navigate("/main");
+      navigate("/");
     } catch (error) {
       setError("로그인에 실패했습니다.");
 
