@@ -8,7 +8,7 @@ const SuccessModal = ({ onClose }) => {
     navigate("/rememberTree");
   }
   function GoMain() {
-    navigate("/main");
+    navigate("/");
   }
   return (
     <div className={styles.modalOverlay}>

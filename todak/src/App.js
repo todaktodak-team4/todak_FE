@@ -32,7 +32,7 @@ function App() {
               alt="Logo"
             />
           </Link>
-          <Link to="/main">
+          <Link to="/">
             <img
               id="LogoMessage"
               src={`${process.env.PUBLIC_URL}/img/LogoMessage.svg`}
@@ -41,14 +41,14 @@ function App() {
           </Link>
         </A.Logo>
         <A.Privacy>
-          <Link to="/main">MY</Link>
+          <Link to="/">MY</Link>
           <Link to="/signup1">회원가입</Link>
           <Link to="/login">로그인</Link>
         </A.Privacy>
       </A.Header>
 
       <Routes>
-        <Route path="/main" element={<Main />} />
+        <Route path="/" element={<Main />} />
         <Route path="/signup1" element={<Signup1 />} />
         <Route path="/signup2" element={<Signup2 />} />
         <Route path="/login" element={<Login />} />
