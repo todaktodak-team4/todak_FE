@@ -39,7 +39,7 @@ const Main = () => {
   function goToMemorialHall() {
     if (isTokenValid(token)) {
       console.log("vaild");
-      navigate("/memorialHall");
+      navigate("/memorialHallList");
     } else {
       console.log("invaild");
       setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
@@ -65,7 +65,7 @@ const Main = () => {
             </M.NavBtnWrapper1>
             <M.NavBtnWrapper1>
               <M.NavBtnWrapper2>
-                <a href="#">
+                <a href="/memorialHallSignup">
                   헌화 공간
                   <br />
                   신청

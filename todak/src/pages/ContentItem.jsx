@@ -1,6 +1,6 @@
 import React from "react";
 import * as H from "../css/StyledMemorialHallList";
-
+import { useNavigate } from "react-router-dom";
 const ContentItem = ({
   key,
   postId,
@@ -8,8 +8,12 @@ const ContentItem = ({
   name,
   date,
   info,
+  wreathCount,
+  messageCount,
   //props
 }) => {
+  const navigate = useNavigate();
+  const goContent = () => {};
   // 날짜 포맷팅 함수
   const formatDate = (isoDate) => {
     const dateObj = new Date(isoDate);
@@ -29,10 +33,12 @@ const ContentItem = ({
     <H.ListContentItem>
       <H.ListContentImg>
         <img id="img" src={img || defaultImg} alt="images" />
-        <button className="hover-button">헌화하기</button>
+        <button className="hover-button" onClick={() => navigate(`/layFlower`)}>
+          헌화하기
+        </button>
       </H.ListContentImg>
-      <H.ListContentInfo>
-        <H.C1>
+      <H.ListContentInfo onClick={goContent}>
+        <H.C1 onClick={() => navigate(`/memorialHall/${postId}`)}>
           {name}
           <H.C2>
             <img
@@ -46,9 +52,9 @@ const ContentItem = ({
           <H.C4>{formatDate(date)}</H.C4>
           <H.C5>
             <button id="lotus"></button>
-            4,500
+            {wreathCount}
             <button id="feather"></button>
-            1,000
+            {messageCount}
           </H.C5>
         </H.C3>
       </H.ListContentInfo>
