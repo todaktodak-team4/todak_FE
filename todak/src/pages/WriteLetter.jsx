@@ -5,6 +5,7 @@ function WriteLetter({ onClose, treeId, userId }) {
   const [letter, setLetter] = useState("");
   const [showToast, setShowToast] = useState(true);
   const [isWritten, setIsWritten] = useState(false);
+  const [isSent, setIsSent] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const containerRef = useRef(null);
   const textAreaRef = useRef(null);
@@ -111,12 +112,13 @@ function WriteLetter({ onClose, treeId, userId }) {
       if (response.ok) {
         const data = await response.json();
         console.log("data:", data);
+        setIsSent(true);
+
+        setTimeout(onClose, 2000);
       }
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
-      onClose();
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
@@ -135,12 +137,14 @@ function WriteLetter({ onClose, treeId, userId }) {
   return (
     <div className={styles.container} ref={containerRef}>
       {showToast && (
-        <div className={styles.toastStyle}>
+        <div className={`${styles.toastStyle} ${styles.toastAnimation}`}>
           편지를 작성하신 후 편지봉투를 클릭하면 작성이 완료됩니다.
         </div>
       )}
       <div className={styles.letterWp}>
-        <div className={styles.content}>
+        <div
+          className={`${styles.content} ${isSent ? styles.contentSent : ""}`}
+        >
           <textarea
             className={styles.mainLetter}
             placeholder="편지 내용을 입력해주세요."
