@@ -11,7 +11,7 @@ function UploadImg({ onClose, treeId }) {
   const [isSaved, setIsSaved] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [transitionClass, setTransitionClass] = useState("");
-
+  const token = localStorage.getItem("token");
   console.log("treeId", treeId);
 
   const handleImageUpload = (event) => {
@@ -27,39 +27,16 @@ function UploadImg({ onClose, treeId }) {
 
   const handleSave = async () => {
     if (!isSaved) {
-      if (!image) {
-        alert("이미지를 업로드해 주세요.");
-        return;
-      }
+      const data = {
+        image,
+        comments: { com1, com, date },
+      };
+      console.log("Saving to backend:", data);
 
-      const formData = new FormData();
-      formData.append("image", image);
-      formData.append("comments[com1]", com1);
-      formData.append("comments[com]", com);
-      formData.append("comments[date]", date);
-
-      try {
-        const response = await fetch(
-          `http://127.0.0.1:8000/your-endpoint/${treeId}/upload/`,
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Save response:", data);
-          setIsSaved(true);
-          setShowSuccessMessage(true);
-          setTransitionClass(styles.transitioning);
-          setTimeout(() => setShowSuccessMessage(false), 3000);
-        } else {
-          console.error("Failed to save image:", response.statusText);
-        }
-      } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
-      }
+      setIsSaved(true);
+      setShowSuccessMessage(true);
+      setTransitionClass(styles.transitioning);
+      setTimeout(() => setShowSuccessMessage(false), 3000);
     } else {
       navigate("/showAlbum");
     }

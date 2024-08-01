@@ -1,17 +1,42 @@
 import styles from "../css/StyledShowAlbum.module.css";
 import { useState, useEffect } from "react";
 
-function ShowAlbum() {
+function ShowAlbum({ onClose, treeId }) {
   const [albumData, setAlbumData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
+  const token  = localStorage.getItem('token');
+  // 비동기 함수 정의
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/rememberTree/${treeId}/photos/`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
 
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Fetched data:", data);
+        setAlbumData(data); // 가져온 데이터를 상태에 저장
+      } else {
+        console.error("Failed to fetch images:", response.statusText);
+      }
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
+  };
+
+  // useEffect 훅을 사용하여 컴포넌트가 마운트될 때 fetchData 호출
   useEffect(() => {
-    fetch("/api/albumData")
-      .then((response) => response.json())
-      .then((data) => setAlbumData(data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+    fetchData();
+  }, []); // 
+
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
