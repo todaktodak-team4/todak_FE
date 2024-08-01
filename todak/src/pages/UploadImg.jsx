@@ -19,24 +19,47 @@ function UploadImg({ onClose, treeId }) {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setImage(reader.result);
+        setImage(file);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isSaved) {
-      const data = {
-        image,
-        comments: { com1, com, date },
-      };
-      console.log("Saving to backend:", data);
+      if (!image) {
+        alert("이미지를 업로드해 주세요.");
+        return;
+      }
 
-      setIsSaved(true);
-      setShowSuccessMessage(true);
-      setTransitionClass(styles.transitioning);
-      setTimeout(() => setShowSuccessMessage(false), 3000);
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("comments[com1]", com1);
+      formData.append("comments[com]", com);
+      formData.append("comments[date]", date);
+
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8000/your-endpoint/${treeId}/upload/`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Save response:", data);
+          setIsSaved(true);
+          setShowSuccessMessage(true);
+          setTransitionClass(styles.transitioning);
+          setTimeout(() => setShowSuccessMessage(false), 3000);
+        } else {
+          console.error("Failed to save image:", response.statusText);
+        }
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
     } else {
       navigate("/showAlbum");
     }
@@ -74,7 +97,7 @@ function UploadImg({ onClose, treeId }) {
         <div className={styles.img}>
           {image ? (
             <img
-              src={image}
+              src={URL.createObjectURL(image)}
               alt="main"
               className={styles.mainImg}
               style={{ width: "422px", height: "244px" }}

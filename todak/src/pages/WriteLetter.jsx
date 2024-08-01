@@ -7,6 +7,10 @@ function WriteLetter({ onClose, treeId, userId }) {
   const [isWritten, setIsWritten] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [letterTopClosed, setLetterTopClosed] = useState(false);
+  const [mainLetterMoved, setMainLetterMoved] = useState(false);
+  const [showSentComplete, setShowSentComplete] = useState(false);
+  const [animateExit, setAnimateExit] = useState(false);
   const containerRef = useRef(null);
   const textAreaRef = useRef(null);
   const token = localStorage.getItem("token");
@@ -24,21 +28,26 @@ function WriteLetter({ onClose, treeId, userId }) {
         containerRef.current &&
         !containerRef.current.contains(event.target)
       ) {
+        if (isWritten && letter.trim() === "") {
+          handleClose(true);
+          return;
+        }
+
         if (isWritten) {
           if (
             window.confirm("편지가 저장되지 않았습니다. 우체통을 닫을까요?")
           ) {
-            onClose();
+            handleClose();
           }
           return;
         }
-        onClose();
+        handleClose(true);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [onClose, isWritten]);
+  }, [isWritten, letter]);
 
   const handleInput = (event) => {
     const maxLength = 71;
@@ -113,10 +122,16 @@ function WriteLetter({ onClose, treeId, userId }) {
         const data = await response.json();
         console.log("data:", data);
         setIsSent(true);
+        setMainLetterMoved(true);
 
-        setTimeout(onClose, 2000);
-      }
-      if (!response.ok) {
+        setTimeout(() => {
+          setLetterTopClosed(true);
+        }, 1000);
+
+        setTimeout(() => {
+          handleClose();
+        }, 3000);
+      } else {
         throw new Error("Network response was not ok");
       }
     } catch (error) {
@@ -126,27 +141,48 @@ function WriteLetter({ onClose, treeId, userId }) {
 
   const handleSendClick = () => {
     if (isWritten) {
-      if (window.confirm("편지를 보낼까요?")) {
+      if (letter.trim() === "") {
+        handleClose(true);
+      } else if (window.confirm("편지를 보낼까요?")) {
         sendLetterToBackend();
       }
     } else {
-      onClose();
+      handleClose(true);
     }
   };
 
+  const handleClose = (instant = false) => {
+    if (instant) {
+      onClose();
+      return;
+    }
+    setAnimateExit(true);
+    setTimeout(() => {
+      onClose();
+      setShowSentComplete(true);
+    }, 1000);
+  };
+
+  const handleCloseSentComplete = () => {
+    setShowSentComplete(false);
+  };
+
   return (
-    <div className={styles.container} ref={containerRef}>
+    <div
+      className={`${styles.container} ${animateExit ? styles.animateExit : ""}`}
+      ref={containerRef}
+    >
       {showToast && (
-        <div className={`${styles.toastStyle} ${styles.toastAnimation}`}>
+        <div className={styles.toastStyle}>
           편지를 작성하신 후 편지봉투를 클릭하면 작성이 완료됩니다.
         </div>
       )}
       <div className={styles.letterWp}>
-        <div
-          className={`${styles.content} ${isSent ? styles.contentSent : ""}`}
-        >
+        <div className={styles.content}>
           <textarea
-            className={styles.mainLetter}
+            className={`${styles.mainLetter} ${
+              isSent ? styles.mainLetterSent : ""
+            } ${mainLetterMoved ? styles.mainLetterMoved : ""}`}
             placeholder="편지 내용을 입력해주세요."
             name="letter"
             value={letter}
@@ -169,9 +205,18 @@ function WriteLetter({ onClose, treeId, userId }) {
             }}
           ></textarea>
         </div>
-        <div className={styles.letterTop}>
+        <div
+          className={`${styles.letterTop} ${
+            letterTopClosed ? styles.letterTopClosed : ""
+          }`}
+        >
           <img src="/img/letterTop.png" alt="봉투 뚜껑" />
         </div>
+        <img
+          src="/img/letterBack.png"
+          alt="뒷 배경"
+          className={styles.letterBack}
+        />
         <div
           className={`${styles.envelopMain} ${
             showTooltip ? styles.hoverLetter : ""
@@ -185,11 +230,18 @@ function WriteLetter({ onClose, treeId, userId }) {
             onClick={handleSendClick}
           />
           {showTooltip && (
-            <div className={styles.tooltip}>편지를 저장하려면 클릭하세요.</div>
+            <div className={styles.tooltip}>편지를 발송하려면 클릭하세요.</div>
           )}
         </div>
       </div>
       <div className={styles.envelope}></div>
+
+      {showSentComplete && (
+        <div className={styles.sentCompleteModal}>
+          <p>편지가 성공적으로 발송되었습니다!</p>
+          <button onClick={handleCloseSentComplete}>확인</button>
+        </div>
+      )}
     </div>
   );
 }
