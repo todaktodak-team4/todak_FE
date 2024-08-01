@@ -11,32 +11,65 @@ function UploadImg({ onClose, treeId }) {
   const [isSaved, setIsSaved] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [transitionClass, setTransitionClass] = useState("");
-
+  const token  = localStorage.getItem('token');
   console.log("treeId", treeId);
+
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setImage(reader.result);
+        setImage(file); 
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isSaved) {
-      const data = {
-        image,
-        comments: { com1, com, date },
+      if (!image) {
+        alert("이미지를 업로드해 주세요.");
+        return;
       };
-      console.log("Saving to backend:", data);
 
-      setIsSaved(true);
-      setShowSuccessMessage(true);
-      setTransitionClass(styles.transitioning);
-      setTimeout(() => setShowSuccessMessage(false), 3000);
+      const formData = new FormData();
+
+// FormData 객체에 데이터 추가
+      formData.append('rememberPhoto', image); // 서버에서 이 키 이름이 중요
+      formData.append('description', com);
+      formData.append('rememberDate', date);
+      formData.append('comment', com1);
+      formData.append('rememberTree', treeId);
+
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8000/rememberTree/${treeId}/photos/`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+            body: formData
+          }
+        );
+
+        if (response.ok) {
+
+        console.log("token", token);
+
+          const data = await response.json();
+          console.log("Save response:", data);
+          setIsSaved(true);
+          setShowSuccessMessage(true);
+          setTransitionClass(styles.transitioning);
+          setTimeout(() => setShowSuccessMessage(false), 3000);
+        } else {
+          console.error("Failed to save image:", response.statusText);
+        }
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
     } else {
       navigate("/showAlbum");
     }
@@ -74,7 +107,7 @@ function UploadImg({ onClose, treeId }) {
         <div className={styles.img}>
           {image ? (
             <img
-              src={image}
+              src={URL.createObjectURL(image)}
               alt="main"
               className={styles.mainImg}
               style={{ width: "422px", height: "244px" }}
