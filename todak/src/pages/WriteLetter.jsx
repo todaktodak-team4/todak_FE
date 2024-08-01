@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "../css/StyledWriteLetter.module.css";
+import SentComplete from "../pages/SentComplete";
 
 function WriteLetter({ onClose, treeId, userId }) {
   const [letter, setLetter] = useState("");
@@ -10,7 +11,7 @@ function WriteLetter({ onClose, treeId, userId }) {
   const [letterTopClosed, setLetterTopClosed] = useState(false);
   const [mainLetterMoved, setMainLetterMoved] = useState(false);
   const [showSentComplete, setShowSentComplete] = useState(false);
-  const [animateExit, setAnimateExit] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
   const containerRef = useRef(null);
   const textAreaRef = useRef(null);
   const token = localStorage.getItem("token");
@@ -24,6 +25,9 @@ function WriteLetter({ onClose, treeId, userId }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Check if SentComplete modal is visible
+      if (showSentComplete) return;
+
       if (
         containerRef.current &&
         !containerRef.current.contains(event.target)
@@ -47,7 +51,7 @@ function WriteLetter({ onClose, treeId, userId }) {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isWritten, letter]);
+  }, [isWritten, letter, showSentComplete]);
 
   const handleInput = (event) => {
     const maxLength = 71;
@@ -130,7 +134,7 @@ function WriteLetter({ onClose, treeId, userId }) {
 
         setTimeout(() => {
           handleClose();
-        }, 3000);
+        }, 2000);
       } else {
         throw new Error("Network response was not ok");
       }
@@ -156,93 +160,101 @@ function WriteLetter({ onClose, treeId, userId }) {
       onClose();
       return;
     }
-    setAnimateExit(true);
-    setTimeout(() => {
-      onClose();
-      setShowSentComplete(true);
-    }, 1000);
+    setFadeOut(true);
   };
+
+  useEffect(() => {
+    if (fadeOut) {
+      const timer = setTimeout(() => {
+        setShowSentComplete(true);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [fadeOut]);
 
   const handleCloseSentComplete = () => {
     setShowSentComplete(false);
+    onClose();
   };
 
   return (
-    <div
-      className={`${styles.container} ${animateExit ? styles.animateExit : ""}`}
-      ref={containerRef}
-    >
-      {showToast && (
-        <div className={styles.toastStyle}>
-          편지를 작성하신 후 편지봉투를 클릭하면 작성이 완료됩니다.
-        </div>
-      )}
-      <div className={styles.letterWp}>
-        <div className={styles.content}>
-          <textarea
-            className={`${styles.mainLetter} ${
-              isSent ? styles.mainLetterSent : ""
-            } ${mainLetterMoved ? styles.mainLetterMoved : ""}`}
-            placeholder="편지 내용을 입력해주세요."
-            name="letter"
-            value={letter}
-            ref={textAreaRef}
-            onChange={handleInput}
-            onKeyDown={handleKeyDown}
-            style={{
-              backgroundImage: `url("/img/letterPaper.png")`,
-              backgroundRepeat: "no-repeat",
-              width: "1160px",
-              height: "1073px",
-              backgroundColor: "transparent",
-              border: "none",
-              whiteSpace: "pre-wrap",
-              overflowWrap: "break-word",
-              wordBreak: "break-all",
-              boxSizing: "border-box",
-              outline: "none",
-              lineHeight: "2.05",
-            }}
-          ></textarea>
-        </div>
-        <div
-          className={`${styles.letterTop} ${
-            letterTopClosed ? styles.letterTopClosed : ""
-          }`}
-        >
-          <img src="/img/letterTop.png" alt="봉투 뚜껑" />
-        </div>
-        <img
-          src="/img/letterBack.png"
-          alt="뒷 배경"
-          className={styles.letterBack}
-        />
-        <div
-          className={`${styles.envelopMain} ${
-            showTooltip ? styles.hoverLetter : ""
-          }`}
-          onMouseEnter={() => setShowTooltip(true)}
-          onMouseLeave={() => setShowTooltip(false)}
-        >
+    <>
+      <div
+        className={`${styles.container} ${fadeOut ? styles.fadeOut : ""}`}
+        ref={containerRef}
+      >
+        {showToast && (
+          <div className={styles.toastStyle}>
+            편지를 작성하신 후 편지봉투를 클릭하면 작성이 완료됩니다.
+          </div>
+        )}
+        <div className={styles.letterWp}>
+          <div className={styles.content}>
+            <textarea
+              className={`${styles.mainLetter} ${
+                isSent ? styles.mainLetterSent : ""
+              } ${mainLetterMoved ? styles.mainLetterMoved : ""}`}
+              placeholder="편지 내용을 입력해주세요."
+              name="letter"
+              value={letter}
+              ref={textAreaRef}
+              onChange={handleInput}
+              onKeyDown={handleKeyDown}
+              style={{
+                backgroundImage: `url("/img/letterPaper.png")`,
+                backgroundRepeat: "no-repeat",
+                width: "1160px",
+                height: "1073px",
+                backgroundColor: "transparent",
+                border: "none",
+                whiteSpace: "pre-wrap",
+                overflowWrap: "break-word",
+                wordBreak: "break-all",
+                boxSizing: "border-box",
+                outline: "none",
+                lineHeight: "2.05",
+              }}
+            ></textarea>
+          </div>
+          <div
+            className={`${styles.letterTop} ${
+              letterTopClosed ? styles.letterTopClosed : ""
+            }`}
+          >
+            <img src="/img/letterTop.png" alt="봉투 뚜껑" />
+          </div>
           <img
-            src={showTooltip ? "/img/hoverLetter.png" : "/img/envelopMain.png"}
-            alt="봉투 메인"
-            onClick={handleSendClick}
+            src="/img/letterBack.png"
+            alt="뒷 배경"
+            className={styles.letterBack}
           />
-          {showTooltip && (
-            <div className={styles.tooltip}>편지를 발송하려면 클릭하세요.</div>
-          )}
+          <div
+            className={`${styles.envelopMain} ${
+              showTooltip ? styles.hoverLetter : ""
+            }`}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+          >
+            <img
+              src={
+                showTooltip ? "/img/hoverLetter.png" : "/img/envelopMain.png"
+              }
+              alt="봉투 메인"
+              onClick={handleSendClick}
+            />
+            {showTooltip && (
+              <div className={styles.tooltip}>
+                편지를 발송하려면 클릭하세요.
+              </div>
+            )}
+          </div>
         </div>
+        <div className={styles.envelope}></div>
       </div>
-      <div className={styles.envelope}></div>
 
-      {showSentComplete && (
-        <div className={styles.sentCompleteModal}>
-          <p>편지가 성공적으로 발송되었습니다!</p>
-          <button onClick={handleCloseSentComplete}>확인</button>
-        </div>
-      )}
-    </div>
+      {showSentComplete && <SentComplete onClose={handleCloseSentComplete} />}
+    </>
   );
 }
 

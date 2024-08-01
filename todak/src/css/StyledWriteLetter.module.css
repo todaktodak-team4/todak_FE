@@ -116,3 +116,25 @@
   transform: translateY(700px);
   transition: transform 1s ease-in-out;
 }
+.fadeOut {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+.modalFadeOut {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+  z-index: 100000;
+}
+.sentCompleteModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1100;
+}
