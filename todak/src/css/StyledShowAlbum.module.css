@@ -1,3 +1,6 @@
+@import url("https://hangeul.pstatic.net/hangeul_static/css/NanumBuJangNimNunCiCe.css");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
 .container {
   position: fixed;
   top: 0;
@@ -9,7 +12,7 @@
 }
 .albumWp {
   position: fixed;
-  top: 50%;
+  top: 25%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
@@ -21,6 +24,25 @@
   position: relative;
   bottom: 750px;
   left: 90px;
+}
+.img1,
+.img2,
+.img3,
+.img4 {
+  position: absolute;
+}
+
+.img2 {
+  top: 123%;
+  left: 13%;
+}
+.img3 {
+  left: 58%;
+}
+
+.img4 {
+  left: 55%;
+  top: 129%;
 }
 .leftB {
   width: 0;
@@ -54,10 +76,110 @@
   z-index: 10000;
   position: relative;
   bottom: 950px;
-  right: 860px;
+  right: 300px;
   color: #2b2b2b;
   text-align: right;
   font-family: "Pretendard Variable";
   font-size: 14px;
   font-weight: 500;
+}
+
+.img2 > .defaultImg {
+  z-index: 300;
+  position: relative;
+  left: -177px;
+  transform: translateY(-8px);
+}
+
+.img2 > .comWp {
+  position: relative;
+  left: -177px;
+}
+
+.sticker,
+.mainComWp {
+  position: relative;
+  bottom: 1170px;
+}
+.sticker {
+  left: 155px;
+}
+
+.mainComWp {
+  position: relative;
+  right: 110px;
+}
+
+.mainCom {
+  z-index: 2000;
+  width: 149px;
+  color: #2b2b2b;
+  font-family: "NanumBuJangNimNunCiCe";
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: relative;
+  bottom: 190px;
+  left: 20px;
+}
+
+.img3 > .defaultImg {
+  position: relative;
+  left: 110px;
+  top: -1005px;
+}
+
+.img3 > .comWp {
+  position: relative;
+  left: -85px;
+  bottom: 1025px;
+}
+
+.clip {
+  position: relative;
+  bottom: 990px;
+  left: 70px;
+  z-index: 1000;
+}
+
+.img3 > .mainComWp {
+  position: relative;
+  top: -990px;
+  left: 20px;
+}
+
+.mainCom2 {
+  position: relative;
+  bottom: 80px;
+  left: 20px;
+  width: 300px;
+  color: #2b2b2b;
+  font-family: "NanumBuJangNimNunCiCe";
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.img4 > .defaultImg {
+  position: relative;
+  left: 110px;
+  top: -1005px;
+}
+
+.img4 > .leftB {
+  position: relative;
+  top: -1088px;
+  border-left: 83px solid rgba(255, 218, 87, 0.85);
+}
+.img4 > .rightB {
+  position: relative;
+  top: -1225px;
+  border-right: 83px solid rgba(255, 218, 87, 0.85);
+}
+.img4 > .comWp {
+  position: relative;
+  top: -1145px;
+  left: -125px;
 }

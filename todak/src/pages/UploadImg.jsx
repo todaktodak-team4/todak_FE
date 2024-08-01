@@ -92,7 +92,7 @@ function UploadImg({ onClose, treeId }) {
             onChange={(e) => setCom(e.target.value)}
           />
           <input
-            type="text"
+            type="date"
             className={styles.date}
             placeholder="YYYY-MM-DD"
             value={date}

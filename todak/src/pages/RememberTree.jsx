@@ -134,7 +134,6 @@ function RememberTree() {
           alt="bgimg"
           className={styles.container}
         />
-        <Nav></Nav>
         <div className={styles.treeName}>{treeName}</div>
         <div className={styles.nextTreeBtn}>
           <img src="/img/nextBtn.png" alt="다음 나무" />
