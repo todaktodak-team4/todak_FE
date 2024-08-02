@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledShowLetter.module.css";
+import LetterDetail from "./LetterDetail";
 
 function ShowLetter({ onClose, treeId }) {
   const [letters, setLetters] = useState([]);
@@ -9,6 +10,10 @@ function ShowLetter({ onClose, treeId }) {
   const navigate = useNavigate();
 
   console.log("treeId: ", treeId);
+
+  const [selectedLetterId, setSelectedLetterId] = useState(null);
+  const detailRef = useRef(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +31,6 @@ function ShowLetter({ onClose, treeId }) {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Response Data:", data);
           setLetters(data);
         } else if (response.status === 401) {
           // 토큰이 만료되었거나 유효하지 않음
@@ -35,7 +39,6 @@ function ShowLetter({ onClose, treeId }) {
           alert("30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
           navigate("/login");
         } else {
-          console.log("treeId: ", treeId);
           console.error("Failed to fetch data");
         }
       } catch (error) {
@@ -50,7 +53,8 @@ function ShowLetter({ onClose, treeId }) {
     const handleClickOutside = (event) => {
       if (
         containerRef.current &&
-        !containerRef.current.contains(event.target)
+        !containerRef.current.contains(event.target) &&
+        (!detailRef.current || !detailRef.current.contains(event.target))
       ) {
         onClose();
       }
@@ -62,9 +66,16 @@ function ShowLetter({ onClose, treeId }) {
     };
   }, [onClose]);
 
+  const handleLetterClick = (letterId) => {
+    setSelectedLetterId(letterId);
+  };
+
+  const handleDetailClose = () => {
+    setSelectedLetterId(null);
+  };
+
   return (
     <div className={styles.overlay}>
-      {" "}
       <img
         src="/img/letterClose.png"
         className={styles.closeButton}
@@ -72,7 +83,11 @@ function ShowLetter({ onClose, treeId }) {
       />
       <div className={styles.container} ref={containerRef}>
         {letters.map((letter, index) => (
-          <div key={index} className={styles.innerContainer}>
+          <div
+            key={index}
+            className={styles.innerContainer}
+            onClick={() => handleLetterClick(letter.id)}
+          >
             <div className={styles.letterWp}>
               <img src="/img/letterPreview.png" alt="미리보기" />
               <div className={styles.content}>{letter.content}</div>
@@ -96,6 +111,15 @@ function ShowLetter({ onClose, treeId }) {
           </div>
         ))}
       </div>
+      {selectedLetterId && (
+        <div ref={detailRef}>
+          <LetterDetail
+            treeId={treeId}
+            letterId={selectedLetterId}
+            onClose={handleDetailClose}
+          />
+        </div>
+      )}
     </div>
   );
 }
