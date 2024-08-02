@@ -63,8 +63,6 @@ const MemorialMessage2 = ({
             ? `${baseUrl}/message/${messageId}/${action}`
             : `${baseUrl}/wreath/${messageId}/${action}`;
 
-          console.log(`Fetching counts from URL: ${url}`); // URL 확인
-
           try {
             const response = await axios.get(url, {
               headers: {
