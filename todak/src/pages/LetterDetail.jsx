@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../css/StyledLetterDetail.module.css";
 
 function LetterDetail({ treeId, letterId, onClose }) {
   const [letterContent, setLetterContent] = useState("");
-  const token = localStorage.getItem("token");
-
+  const token = localStorage.getItem("access_token");
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchLetterContent = async () => {
       try {
@@ -14,7 +15,7 @@ function LetterDetail({ treeId, letterId, onClose }) {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Token ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -22,6 +23,12 @@ function LetterDetail({ treeId, letterId, onClose }) {
         if (response.ok) {
           const data = await response.json();
           setLetterContent(data.content);
+        }else if (response.status === 401) {
+        
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          alert("30분동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요."); 
+          navigate("/login");
         } else {
           console.error("Failed to fetch letter content");
         }

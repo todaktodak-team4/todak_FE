@@ -244,3 +244,16 @@ export const FinishBtn = styled.div`
     line-height: normal;
   }
 `;
+
+export const ErrorMessage = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-left: 40px;
+`;
+export const SuccessMessage = styled.div`
+  color: blue;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-left: 40px;
+`;

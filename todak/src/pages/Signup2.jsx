@@ -22,13 +22,71 @@ const Signup2 = () => {
     email: "",
   });
 
-  const handleInputChange = (e) => {
+  const [errors, setErrors] = useState({
+    nickname: "",
+    profile: "",
+    phone: "",
+    address: "",
+  });
+
+  const [successMessages, setSuccessMessages] = useState({
+    nickname: "",
+    profile: "",
+    phone: "",
+    address: "",
+  });
+
+
+ const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: type === "profile" ? files[0] : value,
+      [name]: type === "file" ? files[0] : value,
+    }));
+
+    validateField(name, type === "file" ? files[0] : value);
+  };
+
+  const validateField = (fieldName, value) => {
+    let error = "";
+    let successMessage = "";
+
+    switch (fieldName) {
+      case "nickname":
+        if (!value) {
+          error = "닉네임을 입력해주세요.";
+        } else {
+          successMessage = "유효한 닉네임입니다.";
+        }
+        break;
+      case "phone":
+        const phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
+        if (value && !phoneRegex.test(value)) {
+          error = "전화번호 형식이 올바르지 않습니다. (예: 010-0000-0000)";
+        } else if (value) {
+          successMessage = "유효한 전화번호입니다.";
+        }
+        break;
+      case "address":
+        if (value) {
+          successMessage = "유효한 주소입니다.";
+        }
+        break;
+      default:
+        break;
+    }
+
+    setErrors((prevState) => ({
+      ...prevState,
+      [fieldName]: error,
+    }));
+
+    setSuccessMessages((prevState) => ({
+      ...prevState,
+      [fieldName]: successMessage,
     }));
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,14 +156,18 @@ const Signup2 = () => {
             <S.NavName>
               <p>닉네임</p>
             </S.NavName>
-            <input
-              name="nickname"
-              id="nickname"
-              type="text"
-              placeholder="닉네임 (익명 보장)"
-              value={formData.nickname}
-              onChange={handleInputChange}
-            />
+            <div>
+              <input
+                name="nickname"
+                id="nickname"
+                type="text"
+                placeholder="닉네임 (익명 보장)"
+                value={formData.nickname}
+                onChange={handleInputChange}
+              />
+              {errors.nickname && <S.ErrorMessage>{errors.nickname}</S.ErrorMessage>}
+              {successMessages.nickname && <S.SuccessMessage>{successMessages.nickname}</S.SuccessMessage>}
+            </div>
           </S.Step1Item>
           <S.Step1Item>
             <S.Number>
@@ -140,14 +202,18 @@ const Signup2 = () => {
                 <span>*선택사항</span>
               </p>
             </S.NavName>
-            <input
-              name="phone"
-              id="phone"
-              type="text"
-              placeholder="010-0000-0000"
-              value={formData.phone}
-              onChange={handleInputChange}
-            />
+            <div>
+              <input
+                name="phone"
+                id="phone"
+                type="text"
+                placeholder="010-0000-0000"
+                value={formData.phone}
+                onChange={handleInputChange}
+              />
+              {errors.phone && <S.ErrorMessage>{errors.phone}</S.ErrorMessage>}
+              {successMessages.phone && <S.SuccessMessage>{successMessages.phone}</S.SuccessMessage>}
+            </div>
           </S.Step1Item>
           <S.Step1Item>
             <S.Number>
@@ -163,14 +229,18 @@ const Signup2 = () => {
             <S.SelectBtn>
               <p>우편번호 찾기</p>
             </S.SelectBtn>
-            <input
-              name="address"
-              id="address"
-              type="text"
-              placeholder="상세 주소 입력"
-              value={formData.address}
-              onChange={handleInputChange}
-            />
+            <div>
+              <input
+                name="address"
+                id="address"
+                type="text"
+                placeholder="상세 주소 입력"
+                value={formData.address}
+                onChange={handleInputChange}
+              />
+              {errors.address && <S.ErrorMessage>{errors.address}</S.ErrorMessage>}
+              {successMessages.address && <S.SuccessMessage>{successMessages.address}</S.SuccessMessage>}
+            </div>
           </S.Step1Item>
         </S.Step1Items>
         <S.BackBtn onClick={goBack}>
