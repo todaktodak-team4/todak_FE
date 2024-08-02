@@ -8,6 +8,7 @@ export const Container = styled.div`
   width: 100vw;
   max-height: 150vh;
   height: auto;
+  box-sizing: border-box;
   background: linear-gradient(180deg, #c3c3c3 0%, #fff 48%);
 `;
 export const Content = styled.div`
@@ -42,7 +43,7 @@ export const InputOption = styled.div`
 `;
 export const Input = styled.div`
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
   padding-left: 20px;
@@ -101,11 +102,27 @@ export const Option = styled.div`
   }
 `;
 export const ListContent = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 80vh;
+  width: 60vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
   gap: 4vw;
+  .upper-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 4vw;
+  }
+  .lower-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 4vw;
+  }
 `;
 export const ListContentItem = styled.div`
   /* Hover 시 스타일 */
