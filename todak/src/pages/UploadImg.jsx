@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledUploadImg.module.css";
 
-function UploadImg({ onClose, treeId }) {
+function UploadImg({ onClose, treeId, onShowAlbum }) {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [com1, setCom1] = useState("");
@@ -68,7 +68,7 @@ function UploadImg({ onClose, treeId }) {
         alert("네트워크 오류가 발생했습니다.");
       }
     } else {
-      navigate("/showAlbum");
+      onShowAlbum();
     }
   };
 
