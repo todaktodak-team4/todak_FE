@@ -25,7 +25,6 @@ function WriteLetter({ onClose, treeId, userId }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Check if SentComplete modal is visible
       if (showSentComplete) return;
 
       if (
@@ -253,7 +252,9 @@ function WriteLetter({ onClose, treeId, userId }) {
         <div className={styles.envelope}></div>
       </div>
 
-      {showSentComplete && <SentComplete onClose={handleCloseSentComplete} />}
+      {showSentComplete && (
+        <SentComplete onClose={handleCloseSentComplete} treeId={treeId} />
+      )}
     </>
   );
 }

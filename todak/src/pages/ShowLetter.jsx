@@ -5,7 +5,7 @@ function ShowLetter({ onClose, treeId }) {
   const [letters, setLetters] = useState([]);
   const token = localStorage.getItem("token");
   const containerRef = useRef(null);
-
+  console.log("treeId: ", treeId);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,6 +25,7 @@ function ShowLetter({ onClose, treeId }) {
           console.log("Response Data:", data);
           setLetters(data);
         } else {
+          console.log("treeId: ", treeId);
           console.error("Failed to fetch data");
         }
       } catch (error) {

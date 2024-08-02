@@ -226,7 +226,11 @@ function RememberTree() {
         />
       )}
       {isShowLetterOpen && (
-        <ShowLetter onClose={toggleShowLetterModal} treeId={treeId} />
+        <ShowLetter
+          onClose={toggleShowLetterModal}
+          treeId={treeId}
+          userId={userId}
+        />
       )}
     </>
   );

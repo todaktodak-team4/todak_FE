@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "../css/StyledSentComplete.module.css";
 import ShowLetter from "../pages/ShowLetter.jsx";
 
-function SentComplete({ onClose }) {
+function SentComplete({ onClose, treeId }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleGoListClick = () => {
@@ -44,7 +44,9 @@ function SentComplete({ onClose }) {
         </div>
       </div>
 
-      {isModalVisible && <ShowLetter onClose={handleCloseModal} />}
+      {isModalVisible && (
+        <ShowLetter onClose={handleCloseModal} treeId={treeId} />
+      )}
     </>
   );
 }
