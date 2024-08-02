@@ -25,24 +25,29 @@ function RememberTree() {
   const [treeId, setTreeId] = useState(null);
   const [userId, setUserId] = useState(null);
   const [username, setUserName] = useState("");
-  const [accessToken, setAccessToken] = useState(localStorage.getItem("access_token"));
-  const [refreshToken, setRefreshToken] = useState(localStorage.getItem("refresh_token"));
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem("access_token")
+  );
+  const [refreshToken, setRefreshToken] = useState(
+    localStorage.getItem("refresh_token")
+  );
   const navigate = useNavigate();
   const location = useLocation();
 
   const token = localStorage.getItem("token");
 
-
-
   const refreshAccessToken = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/accounts/token/refresh/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ refresh: refreshToken }),
-      });
+      const response = await fetch(
+        "http://127.0.0.1:8000/accounts/token/refresh/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ refresh: refreshToken }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -60,7 +65,6 @@ function RememberTree() {
       console.error("Error refreshing token:", error);
     }
   };
-
 
   useEffect(() => {
     const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
@@ -84,27 +88,29 @@ function RememberTree() {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             // Retry fetch with new access token
-            const retryResponse = await fetch("http://127.0.0.1:8000/rememberTree/", {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${newAccessToken}`,
-              },
-            });
+            const retryResponse = await fetch(
+              "http://127.0.0.1:8000/rememberTree/",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${newAccessToken}`,
+                },
+              }
+            );
             if (retryResponse.ok) {
               const data = await retryResponse.json();
-              console.log('data[0].myName:',data[0].myName);
+              console.log("data[0].myName:", data[0].myName);
               setTreeName(data[0].treeName);
               setTreeId(data[0].id);
               setUserName(data[0].myName);
-
             } else {
               console.error("Failed to fetch data after refreshing token");
             }
           }
         } else if (response.ok) {
           const data = await response.json();
-          console.log('data[0].myName:',data[0].myName);
+          console.log("data[0].myName:", data[0].myName);
           setTreeName(data[0].treeName);
           setTreeId(data[0].id);
           setUserName(data[0].myName);
@@ -113,30 +119,35 @@ function RememberTree() {
         }
       } catch (error) {
         console.error("An error occurred", error);
-    
-    }
+      }
     };
 
     const fetchUserId = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/accounts/api/get-user-id-from-token/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-  
+        const response = await fetch(
+          "http://127.0.0.1:8000/accounts/api/get-user-id-from-token/",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
         if (response.status === 401) {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
-            const retryResponse = await fetch("http://127.0.0.1:8000/accounts/api/get-user-id-from-token/", {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${newAccessToken}`,
-              },
-            });
+            const retryResponse = await fetch(
+              "http://127.0.0.1:8000/accounts/api/get-user-id-from-token/",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${newAccessToken}`,
+                },
+              }
+            );
             if (retryResponse.ok) {
               const data = await retryResponse.json();
               setUserId(data.userId);
@@ -153,7 +164,7 @@ function RememberTree() {
       } catch (error) {
         console.error("An error occurred", error);
       }
-    }
+    };
 
     fetchData();
     fetchUserId();
@@ -196,6 +207,11 @@ function RememberTree() {
   const toggleShowLetterModal = () => {
     console.log("Toggling ShowLetter Modal");
     setIsShowLetterOpen((prev) => !prev);
+  };
+
+  const handleShowAlbum = () => {
+    setIsUploadImgOpen(false);
+    setIsShowAlbumOpen(true);
   };
 
   return (
@@ -283,9 +299,15 @@ function RememberTree() {
         )}
       </div>
       {isModalOpen && <HelpModal onClose={toggleModal} />}
-      {isTalkModalOpen && <TalkModal onClose={toggleTalkModal} myname = {username} />}
+      {isTalkModalOpen && (
+        <TalkModal onClose={toggleTalkModal} myname={username} />
+      )}
       {isUploadImgOpen && (
-        <UploadImg onClose={toggleUploadImgModal} treeId={treeId} />
+        <UploadImg
+          onClose={toggleUploadImgModal}
+          treeId={treeId}
+          onShowAlbum={handleShowAlbum}
+        />
       )}
       {isShowAlbumOpen && (
         <ShowAlbum onClose={toggleShowAlbumModal} treeId={treeId} />
