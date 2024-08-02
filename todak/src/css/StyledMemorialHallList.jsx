@@ -106,7 +106,7 @@ export const ListContent = styled.div`
   width: 60vw;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   gap: 4vw;
   .upper-items {
