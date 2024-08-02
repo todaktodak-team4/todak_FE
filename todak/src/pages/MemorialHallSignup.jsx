@@ -16,7 +16,8 @@ const MemorialHallSignup = () => {
   });
 
   const { name, info, date, visibility, thumbnail } = inputs;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token"); // Use 'access_token' for JWT
+
 
   const onChange = (e) => {
     const { name, value, files } = e.target;
@@ -46,15 +47,28 @@ const MemorialHallSignup = () => {
         formData.append("thumbnail", thumbnail);
       }
 
-      await axios.post("http://127.0.0.1:8000/memorialHall", formData, {
+      const response = await axios.post("http://127.0.0.1:8000/memorialHall", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Token ${token}`,
+          Authorization: `Bearer ${token}`, // Use 'Bearer' for JWT
         },
       });
-      navigate(`/`);
+
+      if (response.status === 201) {
+        alert("추모관 신청이 완료되었습니다.");
+        navigate(`/`);
+      }
     } catch (error) {
-      console.error("Error creating new post:", error);
+      if (error.response && error.response.status === 401) {
+        // Unauthorized, possibly expired token
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        alert("30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+        navigate("/login");
+      } else {
+        console.error("Error creating new post:", error);
+        alert("Failed to create memorial hall. Please try again.");
+      }
     }
   };
 

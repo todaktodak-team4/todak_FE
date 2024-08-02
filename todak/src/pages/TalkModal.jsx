@@ -3,7 +3,7 @@ import styles from "../css/StyledTalkModal.module.css";
 
 import { useNavigate,useLocation  } from "react-router-dom";
 
-function TalkModal({ onClose }) {
+function TalkModal({ onClose, myname }) {
   const [getAnswer, setAnswer] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submittedAnswer, setSubmittedAnswer] = useState("");
@@ -60,8 +60,8 @@ function TalkModal({ onClose }) {
             "Authorization": `Bearer ${token}`,
           },
         });
-  
-        if (response.status === 401) { // 인증 오류 발생 시
+        // 인증 오류 발생 시
+        if (response.status === 401) { 
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             response = await fetch("http://127.0.0.1:8000/rememberTree/daily-question/", {
@@ -75,6 +75,7 @@ function TalkModal({ onClose }) {
           }
         }
   
+        //이미 답을 했을 때 자신이 한 답과 해당 질문 가져오기
         if (response.status === 404) {
           response = await fetch("http://127.0.0.1:8000/daily-question/today-answers/", {
             method: "GET",
@@ -82,7 +83,7 @@ function TalkModal({ onClose }) {
               "Authorization": `Bearer ${token}`,
             },
           });
-  
+        //자신이 한 답과 해당 질문 가져오기를 성공하면
           if (response.ok) {
             const jsonData = await response.json();
             if (jsonData.length > 0) {
@@ -95,9 +96,9 @@ function TalkModal({ onClose }) {
             }
           }
   
-        } else if (response.ok) {
+        } else if (response.status === 200) {
           const jsonData = await response.json();
-          console.log("Response data:", jsonData);
+          console.log("Response data222:", jsonData);
   
           // If the data is an array (for example, from `today-answers/`)
           if (Array.isArray(jsonData)) {
@@ -107,12 +108,12 @@ function TalkModal({ onClose }) {
               console.log("데이터4", answerData.question.questionText);
               setQuestion(answerData.question.questionText);
               setSubmittedAnswer(answerData.answerText);
-              setIsSubmitted(true);
+  
             }
           } else { // Handle object response
             console.log("데이터", jsonData.questionText);
             setQuestion(jsonData.questionText);
-            // Other properties handling
+            setQuestionId(jsonData.id);
           }
         }
       } catch (error) {
@@ -256,7 +257,7 @@ function TalkModal({ onClose }) {
           }`}
           ref={questRef}
         >
-          {question}
+        {myname}님  {question}
         </div>
         {isSubmitted && (
           <div className={styles.chatBox} ref={chatBoxRef}>
