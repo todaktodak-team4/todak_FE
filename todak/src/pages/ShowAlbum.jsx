@@ -1,13 +1,14 @@
-import styles from "../css/StyledShowAlbum.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "../css/StyledShowAlbum.module.css";
 
 function ShowAlbum({ onClose, treeId }) {
   const [albumData, setAlbumData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showModal, setShowModal] = useState(true);
   const itemsPerPage = 4;
   const navigate = useNavigate();
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem("access_token");
 
   const fetchData = async () => {
     try {
@@ -27,10 +28,11 @@ function ShowAlbum({ onClose, treeId }) {
         console.log("Fetched data:", data);
         setAlbumData(data);
       } else if (response.status === 401) {
-        // Token expired handling
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        alert("30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+        alert(
+          "30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+        );
         navigate("/login");
       } else {
         console.error("Failed to fetch images:", response.statusText);
@@ -42,25 +44,22 @@ function ShowAlbum({ onClose, treeId }) {
 
   useEffect(() => {
     fetchData();
-  }, []); 
+  }, []);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = albumData.slice(indexOfFirstItem, indexOfLastItem);
 
   const renderAlbumItem = (item, index) => {
-    // Ensure URL is properly formed
-    const imageUrl = item.rememberPhoto ? `http://127.0.0.1:8000${item.rememberPhoto}` : "/img/default.png";
+    const imageUrl = item.rememberPhoto
+      ? `http://127.0.0.1:8000${item.rememberPhoto}`
+      : "/img/default.png";
 
     switch (index % 4) {
       case 0:
         return (
           <div key={index} className={styles.img1}>
-            <img
-              className={styles.albumBg}
-              src="/img/albumBg.png"
-              alt="album"
-            />
+            <img className={styles.imgBg} src="/img/imgBg.png" alt="album" />
             <img
               src={imageUrl}
               alt=""
@@ -87,7 +86,7 @@ function ShowAlbum({ onClose, treeId }) {
               src={imageUrl}
               alt=""
               className={styles.defaultImg}
-              style={{ width: "253px", height: "245px" }}
+              style={{ width: "253px", height: "250px" }}
             />
             <div className={styles.sticker}>
               <img src="/img/sticker.png" alt="" />
@@ -105,7 +104,7 @@ function ShowAlbum({ onClose, treeId }) {
       case 2:
         return (
           <div key={index} className={styles.img3}>
-            <img src="/img/imgbg.png" alt="" className={styles.imgbg} />
+            <img src="/img/imgBg.png" alt="" className={styles.imgbg} />
             <img
               src={imageUrl}
               alt=""
@@ -116,12 +115,12 @@ function ShowAlbum({ onClose, treeId }) {
               <img src="/img/clip.png" alt="" />
             </div>
             <div className={styles.comWp}>
-              <div className={styles.com}>{item.description}</div>
+              <div className={styles.com}>{item.comment}</div>
               <div className={styles.date}>{item.rememberDate}</div>
             </div>
             <div className={styles.mainComWp}>
               <img src="/img/comPaper2.png" alt="" />
-              <div className={styles.mainCom2}>{item.comment}</div>
+              <div className={styles.mainCom2}>{item.description}</div>
             </div>
           </div>
         );
@@ -152,29 +151,45 @@ function ShowAlbum({ onClose, treeId }) {
 
   return (
     <>
+      {showModal && (
+        <div className={styles.modal}>
+          <button onClick={() => setShowModal(false)}>Close Modal</button>
+        </div>
+      )}
       <div className={styles.container}>
         <div className={styles.albumWp}>
           <div className={styles.album}>
+            <img className={styles.imgBg} src="/img/albumBg.png" alt="album" />
             {currentItems.map((item, index) => renderAlbumItem(item, index))}
           </div>
         </div>
+        (
         <div className={styles.pagination}>
           <button
+            className={styles.paginationButton}
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            이전
+            <img src="/img/albumBack.png" alt="Previous" />
           </button>
-          <span>
-            {currentPage} / {totalPages}
+          <span className={styles.pageNumber}>
+            <span className={styles.cur}>{currentPage} </span>
+            <span className={styles.slash}>/</span>
+            <span className={styles.tot}>{totalPages}</span>
           </span>
           <button
+            className={styles.paginationButton}
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
-            다음
+            <img src="/img/albumFront.png" alt="Next" />
           </button>
         </div>
+        {totalPages === 0 && (
+          <div className={styles.noPagesMessage}>
+            <p>넘길 페이지가 없습니다.</p>
+          </div>
+        )}
       </div>
     </>
   );
