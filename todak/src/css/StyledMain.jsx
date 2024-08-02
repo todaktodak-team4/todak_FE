@@ -43,6 +43,12 @@ export const NavBtnWrapper1 = styled.div`
   box-shadow: 0px 4px 12px 0px rgba(115, 156, 29, 0.25);
   align-items: center;
   justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.2); /* 확대 비율 조정 */
+    box-shadow: 0px 6px 20px 0px rgba(115, 156, 29, 0.35); /* 그림자 확대 */
+  }
 `;
 //3-2 버튼 wrapping 안쪽
 export const NavBtnWrapper2 = styled.div`
@@ -76,3 +82,6 @@ export const ImageGross = styled.div`
     width: 100%;
   }
 `;
+
+
+
