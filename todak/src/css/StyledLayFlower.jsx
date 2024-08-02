@@ -48,7 +48,7 @@ export const SignupItem = styled.div`
     margin-left: 10%;
     background: none;
     height: 30px;
-    width: 30vw;
+    width: 25rem;
     border: 0;
     border-bottom: 2px solid #2b2b2b;
     color: #2b2b2b;
@@ -61,8 +61,8 @@ export const SignupItem = styled.div`
   #name {
     margin-left: 10%;
     background: none;
-    height: 30px;
-    width: 10vw;
+    height: 1.5rem;
+    width: 10rem;
     border: 0;
     border-bottom: 2px solid #2b2b2b;
     color: #2b2b2b;
@@ -70,9 +70,19 @@ export const SignupItem = styled.div`
     font-size: 24px;
     font-weight: 300;
     position: absolute;
-    right: 20vw;
+    right: 15rem;
   }
-
+  textarea:focus {
+    outline: none;
+    background: none;
+  }
+  textarea::placeholder {
+    color: #2b2b2b;
+    font-family: "Pretendard Variable";
+    font-size: 1.3rem;
+    font-weight: 300;
+    background: none;
+  }
   input:focus {
     outline: none;
     background: none;
