@@ -21,7 +21,6 @@ const Main = () => {
     };
   }, []);
 
-
   useEffect(() => {
     // 토큰 유효성 검사
     const validateToken = async () => {

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Main from "./pages/Main";
 import * as A from "./css/StyledApp";
 import PlantTreeStepOne from "./pages/PlantTree_stepOne";
@@ -22,6 +23,46 @@ import LayFlower from "./pages/LayFlower";
 import SentComplete from "./pages/SentComplete";
 
 function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const navigate = useNavigate(); // useNavigate 훅을 사용하여 페이지 이동
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
+    setIsLoggedIn(!!accessToken && !!refreshToken);
+  }, []);
+
+  const handleLogout = async () => {
+    const token = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
+    
+    try {
+      const response = await fetch('http://127.0.0.1:8000/accounts/logout/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          refresh_token: refreshToken
+        })
+      });
+
+      if (response.ok) {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        setIsLoggedIn(false); // 로그인 상태를 업데이트
+        window.location.reload(); 
+      
+      } else {
+        console.error('Logout failed:', response.statusText);
+      }
+    } catch (error) {
+      console.error('There was a problem with the logout operation:', error);
+    }
+  };
+
   return (
     <BrowserRouter>
       <A.Header>
@@ -42,11 +83,20 @@ function App() {
           </Link>
         </A.Logo>
         <A.Privacy>
-          <Link to="/">MY</Link>
-          <Link to="/signup1">회원가입</Link>
-          <Link to="/login">로그인</Link>
-        </A.Privacy>
-      </A.Header>
+        <Link to="/">MY</Link>
+        {isLoggedIn ? (
+          <>
+            <button onClick={handleLogout}>로그아웃</button>
+            <Link to="/mypage">마이페이지</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/signup1">회원가입</Link>
+            <Link to="/login">로그인</Link>
+          </>
+        )}
+      </A.Privacy>
+    </A.Header>
 
       <Routes>
         <Route path="/" element={<Main />} />

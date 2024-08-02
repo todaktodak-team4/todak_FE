@@ -11,7 +11,7 @@ function UploadImg({ onClose, treeId }) {
   const [isSaved, setIsSaved] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [transitionClass, setTransitionClass] = useState("");
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
   console.log("treeId", treeId);
 
   const handleImageUpload = (event) => {
@@ -27,16 +27,44 @@ function UploadImg({ onClose, treeId }) {
 
   const handleSave = async () => {
     if (!isSaved) {
-      const data = {
-        image,
-        comments: { com1, com, date },
-      };
-      console.log("Saving to backend:", data);
+      const formData = new FormData();
+      formData.append("rememberPhoto", image);
+      formData.append("description", com1);
+      formData.append("rememberDate", date);
+      formData.append("comment", com);
+      formData.append("remember_tree", treeId);
 
-      setIsSaved(true);
-      setShowSuccessMessage(true);
-      setTransitionClass(styles.transitioning);
-      setTimeout(() => setShowSuccessMessage(false), 3000);
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8000/rememberTree/${treeId}/photos/`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          }
+        );
+
+        if (response.ok) {
+          setIsSaved(true);
+          setShowSuccessMessage(true);
+          setTransitionClass(styles.transitioning);
+          setTimeout(() => setShowSuccessMessage(false), 3000);
+        } else if (response.status === 401) {
+          // 토큰 만료 처리
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          alert("30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+          navigate("/login");
+        } else {
+          console.error("Failed to save the image and comments");
+          alert("저장에 실패했습니다. 다시 시도해주세요.");
+        }
+      } catch (error) {
+        console.error("An error occurred", error);
+        alert("네트워크 오류가 발생했습니다.");
+      }
     } else {
       navigate("/showAlbum");
     }

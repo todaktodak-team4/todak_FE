@@ -1,12 +1,14 @@
 import styles from "../css/StyledShowAlbum.module.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ShowAlbum({ onClose, treeId }) {
   const [albumData, setAlbumData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
-  const token  = localStorage.getItem('token');
-  // 비동기 함수 정의
+  const navigate = useNavigate();
+  const token = localStorage.getItem('access_token');
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -15,7 +17,7 @@ function ShowAlbum({ onClose, treeId }) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -23,7 +25,13 @@ function ShowAlbum({ onClose, treeId }) {
       if (response.ok) {
         const data = await response.json();
         console.log("Fetched data:", data);
-        setAlbumData(data); // 가져온 데이터를 상태에 저장
+        setAlbumData(data);
+      } else if (response.status === 401) {
+        // Token expired handling
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        alert("30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+        navigate("/login");
       } else {
         console.error("Failed to fetch images:", response.statusText);
       }
@@ -32,17 +40,18 @@ function ShowAlbum({ onClose, treeId }) {
     }
   };
 
-  // useEffect 훅을 사용하여 컴포넌트가 마운트될 때 fetchData 호출
   useEffect(() => {
     fetchData();
-  }, []); // 
-
+  }, []); 
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = albumData.slice(indexOfFirstItem, indexOfLastItem);
 
   const renderAlbumItem = (item, index) => {
+    // Ensure URL is properly formed
+    const imageUrl = item.rememberPhoto ? `http://127.0.0.1:8000${item.rememberPhoto}` : "/img/default.png";
+
     switch (index % 4) {
       case 0:
         return (
@@ -53,7 +62,7 @@ function ShowAlbum({ onClose, treeId }) {
               alt="album"
             />
             <img
-              src={item.img}
+              src={imageUrl}
               alt=""
               className={styles.defaultImg}
               style={{ width: "367px", height: "187px" }}
@@ -61,8 +70,8 @@ function ShowAlbum({ onClose, treeId }) {
             <div className={styles.rightB}></div>
             <div className={styles.leftB}></div>
             <div className={styles.comWp}>
-              <div className={styles.com}>{item.com1}</div>
-              <div className={styles.date}>{item.date}</div>
+              <div className={styles.com}>{item.description}</div>
+              <div className={styles.date}>{item.rememberDate}</div>
             </div>
           </div>
         );
@@ -75,7 +84,7 @@ function ShowAlbum({ onClose, treeId }) {
               className={styles.imgbg}
             />
             <img
-              src={item.img}
+              src={imageUrl}
               alt=""
               className={styles.defaultImg}
               style={{ width: "253px", height: "245px" }}
@@ -84,12 +93,12 @@ function ShowAlbum({ onClose, treeId }) {
               <img src="/img/sticker.png" alt="" />
             </div>
             <div className={styles.comWp}>
-              <div className={styles.com}>{item.com1}</div>
-              <div className={styles.date}>{item.date}</div>
+              <div className={styles.com}>{item.description}</div>
+              <div className={styles.date}>{item.rememberDate}</div>
             </div>
             <div className={styles.mainComWp}>
               <img src="/img/comPaper.png" alt="코멘트 메모지" />
-              <div className={styles.mainCom}>{item.mainCom}</div>
+              <div className={styles.mainCom}>{item.comment}</div>
             </div>
           </div>
         );
@@ -98,7 +107,7 @@ function ShowAlbum({ onClose, treeId }) {
           <div key={index} className={styles.img3}>
             <img src="/img/imgbg.png" alt="" className={styles.imgbg} />
             <img
-              src={item.img}
+              src={imageUrl}
               alt=""
               className={styles.defaultImg}
               style={{ width: "367px", height: "187px" }}
@@ -107,12 +116,12 @@ function ShowAlbum({ onClose, treeId }) {
               <img src="/img/clip.png" alt="" />
             </div>
             <div className={styles.comWp}>
-              <div className={styles.com}>{item.com1}</div>
-              <div className={styles.date}>{item.date}</div>
+              <div className={styles.com}>{item.description}</div>
+              <div className={styles.date}>{item.rememberDate}</div>
             </div>
             <div className={styles.mainComWp}>
               <img src="/img/comPaper2.png" alt="" />
-              <div className={styles.mainCom2}>{item.mainCom}</div>
+              <div className={styles.mainCom2}>{item.comment}</div>
             </div>
           </div>
         );
@@ -121,7 +130,7 @@ function ShowAlbum({ onClose, treeId }) {
           <div key={index} className={styles.img4}>
             <img src="/img/imgbg.png" alt="" className={styles.imgbg} />
             <img
-              src={item.img}
+              src={imageUrl}
               alt=""
               className={styles.defaultImg}
               style={{ width: "367px", height: "187px" }}
@@ -129,8 +138,8 @@ function ShowAlbum({ onClose, treeId }) {
             <div className={styles.rightB}></div>
             <div className={styles.leftB}></div>
             <div className={styles.comWp}>
-              <div className={styles.com}>{item.com1}</div>
-              <div className={styles.date}>{item.date}</div>
+              <div className={styles.com}>{item.description}</div>
+              <div className={styles.date}>{item.rememberDate}</div>
             </div>
           </div>
         );
