@@ -23,6 +23,7 @@
 }
 .closeBtn {
   position: relative;
+  cursor: pointer;
   left: 1040px;
   top: 10px;
   z-index: 1000;

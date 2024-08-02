@@ -11,15 +11,18 @@ body {
 .container {
   margin: 0;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   justify-content: center;
   align-items: center;
   background-size: cover;
   background-position: center;
   position: relative;
+  overflow: hidden;
 }
 
-.plantTreeWp {
+.plantTreeWp,
+.plantTreeWp2 {
   width: 800px;
   margin-top: 8%;
   align-items: center;
@@ -27,11 +30,13 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -40%);
   text-align: center;
   z-index: 1;
 }
-
+.plantTreeWp2 {
+  margin-top: -5%;
+}
 .ptTitle {
   color: #3d4c00;
   font-family: "Pretendard Variable";
@@ -117,7 +122,8 @@ body {
   font-weight: 300;
 }
 
-.nextBtn {
+.nextBtn,
+.nextBtn2 {
   width: 150px;
   height: 38px;
   color: #fff;
@@ -131,12 +137,14 @@ body {
   text-align: center;
   cursor: pointer;
   position: absolute;
-  top: 80%;
-  left: 60%;
+  top: 90%;
+  left: 70%;
   transform: translate(100%, 20%);
   z-index: 100;
 }
-
+.nextBtn2 {
+  top: 70%;
+}
 .line {
   position: relative;
   top: 150px;
@@ -192,6 +200,7 @@ li {
   position: relative;
   top: 30px;
   right: 5%;
+  cursor: pointer;
 }
 
 .flowerContainer {
@@ -259,6 +268,7 @@ li {
 }
 
 [type="radio"] {
+  cursor: pointer;
   appearance: none;
   width: 15px;
   height: 15px;

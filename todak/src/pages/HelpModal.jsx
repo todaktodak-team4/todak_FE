@@ -9,7 +9,7 @@ function HelpModal({ onClose }) {
           <img src="/img/whiteHelp.png" alt="close" />
         </div>
         <div className={styles.plantTree}>
-          <span className={styles.noticeTitle}>
+          {/* <span className={styles.noticeTitle}>
             <img
               src="/img/plantTreeArrow.png"
               alt="plantTreeArrow"
@@ -17,7 +17,7 @@ function HelpModal({ onClose }) {
             />
             기억 나무 심기
           </span>
-          <br /> 기억 나무는 최대 <br /> 3개까지 등록 가능해요.
+          <br /> 기억 나무는 최대 <br /> 3개까지 등록 가능해요. */}
         </div>
         <div className={styles.help}>
           <img
@@ -28,7 +28,7 @@ function HelpModal({ onClose }) {
           누르면 이 도움말을 다시
           <br /> 볼 수 있어요.
         </div>
-        <div className={styles.moveTree}>화살표로 기억 나무 이동</div>
+        {/* <div className={styles.moveTree}>화살표로 기억 나무 이동</div> */}
         {/*이 부분 나무 더 있을 때에는 화살표 양쪽, 인당 기억나무 번호 123 정해서 그 이상이면 못 만들고 첫번째,세번째 나무 일 때는 화살표 한 방향 씩만 표시, 없으면 다른 방향으로만 갈 수 있도록 추후 수정*/}
         <div className={styles.delivery}>
           <span className={styles.noticeTitle}>

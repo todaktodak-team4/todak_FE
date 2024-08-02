@@ -16,9 +16,11 @@
 .closeBtn {
   position: relative;
   left: 400px;
+  cursor: pointer;
 }
 
 .uploadBtn {
+  cursor: pointer;
   position: relative;
   left: 400px;
   top: 45px;
@@ -113,6 +115,7 @@
 }
 
 .saveBtn {
+  cursor: pointer;
   position: relative;
   left: 400px;
   bottom: 130px;

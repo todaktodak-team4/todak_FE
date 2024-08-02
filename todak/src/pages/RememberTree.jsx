@@ -216,6 +216,7 @@ function RememberTree() {
 
   return (
     <>
+      <Nav></Nav>
       <div className={styles.container}>
         <img
           src="/img/plantTree-bg.png"
@@ -224,10 +225,10 @@ function RememberTree() {
         />
         <div className={styles.treeName}>{treeName}</div>
         <div className={styles.nextTreeBtn}>
-          <img src="/img/nextBtn.png" alt="다음 나무" />
+          {/* <img src="/img/nextBtn.png" alt="다음 나무" /> */}
         </div>
         <div className={styles.addTreeBtn}>
-          <img src="/img/addTree.png" alt="나무 추가" />
+          {/* <img src="/img/addTree.png" alt="나무 추가" /> */}
         </div>
         <div className={styles.helpBtn} onClick={toggleModal}>
           <img src="/img/help.png" alt="도움말" />

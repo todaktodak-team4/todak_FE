@@ -14,7 +14,7 @@
   position: fixed;
   left: 50%;
   top: 100%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -45%);
 }
 
 .mainLetter {
@@ -54,6 +54,7 @@
   z-index: 10000000;
 }
 .envelopMain {
+  cursor: pointer;
   position: relative;
   bottom: 878px;
   z-index: 1000;
