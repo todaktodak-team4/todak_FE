@@ -93,9 +93,12 @@ function UploadImg({ onClose, treeId }) {
       >
         사진 업로드
       </div>
-      <div className={styles.closeBtn} onClick={onClose}>
-        <img src="/img/closeBtn.png" alt="닫기버튼" />
-      </div>
+      <img
+        className={styles.closeBtn}
+        onClick={onClose}
+        src="/img/closeBtn.png"
+        alt="닫기버튼"
+      />
       <div className={styles.imgWp}>
         <div className={styles.bg}>
           <img
