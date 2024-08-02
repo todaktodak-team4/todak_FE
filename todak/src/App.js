@@ -20,6 +20,7 @@ import MemorialHallList from "./pages/MemorialHallList";
 import MemorialHallSignup from "./pages/MemorialHallSignup";
 import LayFlower from "./pages/LayFlower";
 import SentComplete from "./pages/SentComplete";
+import LetterDetail from "./pages/LetterDetail";
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
         <Route path="/sentComplete" element={<SentComplete />} />
+        <Route path="/letterDetail" element={<LetterDetail />}></Route>
       </Routes>
 
       <A.Footer>

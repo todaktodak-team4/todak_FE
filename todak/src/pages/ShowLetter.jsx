@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import styles from "../css/StyledShowLetter.module.css";
+import LetterDetail from "./LetterDetail";
 
 function ShowLetter({ onClose, treeId }) {
   const [letters, setLetters] = useState([]);
+  const [selectedLetterId, setSelectedLetterId] = useState(null);
   const token = localStorage.getItem("token");
   const containerRef = useRef(null);
-  console.log("treeId: ", treeId);
+  const detailRef = useRef(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -22,10 +25,8 @@ function ShowLetter({ onClose, treeId }) {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Response Data:", data);
           setLetters(data);
         } else {
-          console.log("treeId: ", treeId);
           console.error("Failed to fetch data");
         }
       } catch (error) {
@@ -40,7 +41,8 @@ function ShowLetter({ onClose, treeId }) {
     const handleClickOutside = (event) => {
       if (
         containerRef.current &&
-        !containerRef.current.contains(event.target)
+        !containerRef.current.contains(event.target) &&
+        (!detailRef.current || !detailRef.current.contains(event.target))
       ) {
         onClose();
       }
@@ -52,9 +54,16 @@ function ShowLetter({ onClose, treeId }) {
     };
   }, [onClose]);
 
+  const handleLetterClick = (letterId) => {
+    setSelectedLetterId(letterId);
+  };
+
+  const handleDetailClose = () => {
+    setSelectedLetterId(null);
+  };
+
   return (
     <div className={styles.overlay}>
-      {" "}
       <img
         src="/img/letterClose.png"
         className={styles.closeButton}
@@ -62,7 +71,11 @@ function ShowLetter({ onClose, treeId }) {
       />
       <div className={styles.container} ref={containerRef}>
         {letters.map((letter, index) => (
-          <div key={index} className={styles.innerContainer}>
+          <div
+            key={index}
+            className={styles.innerContainer}
+            onClick={() => handleLetterClick(letter.id)}
+          >
             <div className={styles.letterWp}>
               <img src="/img/letterPreview.png" alt="미리보기" />
               <div className={styles.content}>{letter.content}</div>
@@ -86,6 +99,15 @@ function ShowLetter({ onClose, treeId }) {
           </div>
         ))}
       </div>
+      {selectedLetterId && (
+        <div ref={detailRef}>
+          <LetterDetail
+            treeId={treeId}
+            letterId={selectedLetterId}
+            onClose={handleDetailClose}
+          />
+        </div>
+      )}
     </div>
   );
 }
