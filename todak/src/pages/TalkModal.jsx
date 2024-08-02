@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "../css/StyledTalkModal.module.css";
 
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate,useLocation  } from "react-router-dom";
 
 function TalkModal({ onClose, myname }) {
   const [getAnswer, setAnswer] = useState("");
@@ -22,21 +22,19 @@ function TalkModal({ onClose, myname }) {
   const refreshToken = localStorage.getItem("refresh_token");
   const [questionId, setQuestionId] = useState(null);
   const navigate = useNavigate();
-  console.log("여부:", isSubmitted);
+  console.log("여부:",isSubmitted);
 
-  // 토큰 갱신 함수
-  async function refreshAccessToken() {
+
+   // 토큰 갱신 함수
+   async function refreshAccessToken() {
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/accounts/token/refresh/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ refresh: refreshToken }),
-        }
-      );
+      const response = await fetch("http://127.0.0.1:8000/accounts/token/refresh/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refresh: refreshToken }),
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -56,45 +54,36 @@ function TalkModal({ onClose, myname }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let response = await fetch(
-          "http://127.0.0.1:8000/rememberTree/daily-question/",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        let response = await fetch("http://127.0.0.1:8000/rememberTree/daily-question/", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        });
         // 인증 오류 발생 시
-        if (response.status === 401) {
+        if (response.status === 401) { 
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
-            response = await fetch(
-              "http://127.0.0.1:8000/rememberTree/daily-question/",
-              {
-                method: "GET",
-                headers: {
-                  Authorization: `Bearer ${newAccessToken}`,
-                },
-              }
-            );
+            response = await fetch("http://127.0.0.1:8000/rememberTree/daily-question/", {
+              method: "GET",
+              headers: {
+                "Authorization": `Bearer ${newAccessToken}`,
+              },
+            });
           } else {
             return; // Token refresh failed
           }
         }
-
+  
         //이미 답을 했을 때 자신이 한 답과 해당 질문 가져오기
         if (response.status === 404) {
-          response = await fetch(
-            "http://127.0.0.1:8000/daily-question/today-answers/",
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          //자신이 한 답과 해당 질문 가져오기를 성공하면
+          response = await fetch("http://127.0.0.1:8000/daily-question/today-answers/", {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+            },
+          });
+        //자신이 한 답과 해당 질문 가져오기를 성공하면
           if (response.ok) {
             const jsonData = await response.json();
             if (jsonData.length > 0) {
@@ -106,11 +95,11 @@ function TalkModal({ onClose, myname }) {
               setIsSubmitted(true);
             }
           }
+  
         } else if (response.status === 200) {
           const jsonData = await response.json();
           console.log("Response data222:", jsonData);
 
-          // If the data is an array (for example, from `today-answers/`)
           if (Array.isArray(jsonData)) {
             if (jsonData.length > 0) {
               const answerData = jsonData[0];
@@ -118,9 +107,9 @@ function TalkModal({ onClose, myname }) {
               console.log("데이터4", answerData.question.questionText);
               setQuestion(answerData.question.questionText);
               setSubmittedAnswer(answerData.answerText);
+  
             }
-          } else {
-            // Handle object response
+          } else { // Handle object response
             console.log("데이터", jsonData.questionText);
             setQuestion(jsonData.questionText);
             setQuestionId(jsonData.id);
@@ -130,9 +119,10 @@ function TalkModal({ onClose, myname }) {
         console.error("An error occurred", error);
       }
     };
-
+  
     fetchData();
   }, [token]);
+  
 
   useEffect(() => {
     const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
@@ -155,6 +145,7 @@ function TalkModal({ onClose, myname }) {
     }
   }, [onClose]);
 
+
   async function submitAnswer() {
     if (!isSubmitted && getAnswer.trim() !== "") {
       const today = new Date().toISOString().split("T")[0];
@@ -162,40 +153,33 @@ function TalkModal({ onClose, myname }) {
         question_id: questionId,
         answer_text: getAnswer,
       };
-
+  
       try {
-        let response = await fetch(
-          "http://127.0.0.1:8000/rememberTree/daily-question/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(payload),
-          }
-        );
-
-        if (response.status === 401) {
-          // 인증 오류 발생 시
+        let response = await fetch("http://127.0.0.1:8000/rememberTree/daily-question/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        });
+  
+        if (response.status === 401) { // 인증 오류 발생 시
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
-            response = await fetch(
-              "http://127.0.0.1:8000/rememberTree/daily-question/",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${newAccessToken}`,
-                },
-                body: JSON.stringify(payload),
-              }
-            );
+            response = await fetch("http://127.0.0.1:8000/rememberTree/daily-question/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${newAccessToken}`,
+              },
+              body: JSON.stringify(payload),
+            });
           } else {
             return;
           }
         }
-
+  
         if (response.ok) {
           const jsonData = await response.json();
           console.log("연동 완료");
@@ -208,22 +192,17 @@ function TalkModal({ onClose, myname }) {
           handleShowToast("배경을 클릭하면 5초 후 대화가 닫힙니다.", 3000);
         } else {
           console.error("Failed to submit data");
-          handleShowToast(
-            "데이터 제출에 실패했습니다. 다시 시도해주세요.",
-            3000
-          );
+          handleShowToast("데이터 제출에 실패했습니다. 다시 시도해주세요.", 3000);
         }
       } catch (error) {
         console.error("An error occurred", error);
-        handleShowToast(
-          "데이터 제출 중 오류가 발생했습니다. 다시 시도해주세요.",
-          3000
-        );
+        handleShowToast("데이터 제출 중 오류가 발생했습니다. 다시 시도해주세요.", 3000);
       }
     } else if (isSubmitted) {
       handleShowToast("내일 다시 방문해주세요.", 3000);
     }
   }
+  
 
   function handleShowToast(message, duration) {
     if (toastTimer) clearTimeout(toastTimer);
@@ -277,7 +256,7 @@ function TalkModal({ onClose, myname }) {
           }`}
           ref={questRef}
         >
-          {myname}님 {question}
+        {myname}님  {question}
         </div>
         {isSubmitted && (
           <div className={styles.chatBox} ref={chatBoxRef}>
