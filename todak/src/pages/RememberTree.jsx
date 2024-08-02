@@ -67,6 +67,9 @@ function RememberTree() {
   };
 
   useEffect(() => {
+    // Open HelpModal on component mount
+    setIsModalOpen(true);
+
     const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
     const today = new Date().toISOString().split("T")[0];
     if (lastSubmissionDate === today) {
@@ -168,7 +171,7 @@ function RememberTree() {
 
     fetchData();
     fetchUserId();
-  }, [accessToken]);
+  }, [accessToken, refreshToken, navigate]);
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
