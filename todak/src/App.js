@@ -24,43 +24,40 @@ import SentComplete from "./pages/SentComplete";
 import LetterDetail from "./pages/LetterDetail";
 
 function App() {
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const navigate = useNavigate(); // useNavigate 훅을 사용하여 페이지 이동
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('access_token');
-    const refreshToken = localStorage.getItem('refresh_token');
+    const accessToken = localStorage.getItem("access_token");
+    const refreshToken = localStorage.getItem("refresh_token");
     setIsLoggedIn(!!accessToken && !!refreshToken);
   }, []);
 
   const handleLogout = async () => {
-    const token = localStorage.getItem('access_token');
-    const refreshToken = localStorage.getItem('refresh_token');
-    
+    const token = localStorage.getItem("access_token");
+    const refreshToken = localStorage.getItem("refresh_token");
+
     try {
-      const response = await fetch('http://127.0.0.1:8000/accounts/logout/', {
-        method: 'POST',
+      const response = await fetch("http://127.0.0.1:8000/accounts/logout/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          refresh_token: refreshToken
-        })
+          refresh_token: refreshToken,
+        }),
       });
 
       if (response.ok) {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        setIsLoggedIn(false); // 로그인 상태를 업데이트
-        window.location.reload(); 
-      
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        setIsLoggedIn(false); // 로그인 상태 업데이트
+        window.location.reload();
       } else {
-        console.error('Logout failed:', response.statusText);
+        console.error("로그아웃 실패:", response.statusText);
       }
     } catch (error) {
-      console.error('There was a problem with the logout operation:', error);
+      console.error("로그아웃 중 문제가 발생했습니다:", error);
     }
   };
 
@@ -84,20 +81,22 @@ function App() {
           </Link>
         </A.Logo>
         <A.Privacy>
-        <Link to="/">MY</Link>
-        {isLoggedIn ? (
-          <>
-            <button onClick={handleLogout}>로그아웃</button>
-            <Link to="/mypage">마이페이지</Link>
-          </>
-        ) : (
-          <>
-            <Link to="/signup1">회원가입</Link>
-            <Link to="/login">로그인</Link>
-          </>
-        )}
-      </A.Privacy>
-    </A.Header>
+          <Link to="/">MY</Link>
+          {isLoggedIn ? (
+            <>
+              <div onClick={handleLogout} style={{ cursor: "pointer" }}>
+                로그아웃
+              </div>
+              <Link to="/mypage">마이페이지</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/signup1">회원가입</Link>
+              <Link to="/login">로그인</Link>
+            </>
+          )}
+        </A.Privacy>
+      </A.Header>
 
       <Routes>
         <Route path="/" element={<Main />} />
@@ -108,9 +107,6 @@ function App() {
         <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
         <Route path="/completeModal" element={<PlantCompleteModal />} />
         <Route path="/growCompleteModal" element={<GrowCompleteModal />} />
-
-        <Route path="/login" element={<Login />} />
-
         <Route path="/rememberTree" element={<RememberTree />} />
         <Route path="/deliveryInfo" element={<DeliveryInfo />} />
         <Route path="/deliveryProduct" element={<DeliveryProduct />} />
@@ -123,7 +119,7 @@ function App() {
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
         <Route path="/sentComplete" element={<SentComplete />} />
-        <Route path="/letterDetail" element={<LetterDetail />}></Route>
+        <Route path="/letterDetail" element={<LetterDetail />} />
       </Routes>
 
       <A.Footer>
