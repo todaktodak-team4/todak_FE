@@ -263,6 +263,7 @@
 }
 
 .closeBtn {
+  cursor: pointer;
   display: inline-block;
   position: relative;
   left: 600px;

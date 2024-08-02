@@ -17,6 +17,7 @@ function WriteLetter({ onClose, treeId, userId }) {
   const textAreaRef = useRef(null);
   const token = localStorage.getItem("access_token");
   const navigate = useNavigate();
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowToast(false);
@@ -134,7 +135,7 @@ function WriteLetter({ onClose, treeId, userId }) {
         }, 1000);
 
         setTimeout(() => {
-          handleClose();
+          setShowSentComplete(true);
         }, 2000);
       } else if (response.status === 401) {
         localStorage.removeItem("access_token");
@@ -147,8 +148,7 @@ function WriteLetter({ onClose, treeId, userId }) {
         const errorData = await response.json();
         console.error("Failed to submit data:", errorData);
         alert(
-          "데이터 제출에 실패했습니다: " +
-            (errorData.detail || "서버 오류")
+          "데이터 제출에 실패했습니다: " + (errorData.detail || "서버 오류")
         );
       }
     } catch (error) {
@@ -156,6 +156,7 @@ function WriteLetter({ onClose, treeId, userId }) {
       alert("네트워크 오류가 발생했습니다.");
     }
   };
+
   const handleSendClick = () => {
     if (isWritten) {
       if (letter.trim() === "") {
@@ -179,12 +180,12 @@ function WriteLetter({ onClose, treeId, userId }) {
   useEffect(() => {
     if (fadeOut) {
       const timer = setTimeout(() => {
-        setShowSentComplete(true);
+        onClose();
       }, 1000);
 
       return () => clearTimeout(timer);
     }
-  }, [fadeOut]);
+  }, [fadeOut, onClose]);
 
   const handleCloseSentComplete = () => {
     setShowSentComplete(false);

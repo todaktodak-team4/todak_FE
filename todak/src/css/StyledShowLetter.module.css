@@ -51,6 +51,7 @@
 }
 
 .innerContainer {
+  cursor: pointer;
   display: inline-block;
   position: relative;
   margin-bottom: 20px;

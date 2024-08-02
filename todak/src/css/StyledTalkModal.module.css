@@ -96,6 +96,7 @@
 }
 
 .submit {
+  cursor: pointer;
   position: relative;
   left: 10px;
   top: 3px;

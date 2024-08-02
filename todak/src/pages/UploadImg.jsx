@@ -144,7 +144,7 @@ function UploadImg({ onClose, treeId, onShowAlbum }) {
         <input
           type="text"
           className={styles.com1}
-          placeholder="사진에 대한 코멘트를 입력해주세요."
+          placeholder="언제 찍었던 사진인가요?"
           value={com1}
           onChange={(e) => setCom1(e.target.value)}
         />

@@ -152,6 +152,7 @@
   height: 60px;
   padding-left: 10px;
   padding-right: 10px;
+  cursor: pointer;
 }
 .deliBtn:hover {
   background-color: #2b3700;
