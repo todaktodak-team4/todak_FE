@@ -16,14 +16,21 @@ const MemorialMessage2 = ({
   const [sadCount, setSadCount] = useState(0);
   const [commemorateCount, setCommemorateCount] = useState(0);
   const [togetherCount, setTogetherCount] = useState(0);
+  const [updateTrigger, setUpdateTrigger] = useState(false); // 상태를 새로고침할지 결정하는 변수
   const token = localStorage.getItem("token");
 
   // API 요청 함수
   const sendRequest = async (action, setter) => {
+    const baseUrl = `http://127.0.0.1:8000/memorialHall/${hall}`;
+    const url = content
+      ? `${baseUrl}/message/${messageId}/${action}`
+      : `${baseUrl}/wreath/${messageId}/${action}`;
+
+    console.log(`Sending request to URL: ${url}`); // URL 확인
+
     try {
-      // POST 요청 보내기
-      const response = await axios.post(
-        `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/${action}`,
+      await axios.post(
+        url,
         {},
         {
           headers: {
@@ -32,11 +39,7 @@ const MemorialMessage2 = ({
           },
         }
       );
-      console.log(response);
-
-      // 응답 데이터에서 새로운 카운트 값 얻기
-      const newCount = response.data[action] || 0;
-      setter(newCount);
+      setUpdateTrigger((prev) => !prev);
     } catch (error) {
       console.error("API 요청 실패:", error);
     }
@@ -46,63 +49,48 @@ const MemorialMessage2 = ({
   useEffect(() => {
     const fetchInitialCounts = async () => {
       try {
-        // GET 요청 보내기
-        const todakResponse = await axios.get(
-          `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/todak`,
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
-        );
-        setTodakCount(todakResponse.data.totalTodak || 0);
+        const baseUrl = `http://127.0.0.1:8000/memorialHall/${hall}`;
+        const endpoints = [
+          { action: "todak", setter: setTodakCount },
+          { action: "sympathize", setter: setSympathizeCount },
+          { action: "sad", setter: setSadCount },
+          { action: "commemorate", setter: setCommemorateCount },
+          { action: "together", setter: setTogetherCount },
+        ];
 
-        const sympathizeResponse = await axios.get(
-          `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/sympathize`,
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
-        );
-        setSympathizeCount(sympathizeResponse.data.totalSympathize || 0);
+        for (const { action, setter } of endpoints) {
+          const url = content
+            ? `${baseUrl}/message/${messageId}/${action}`
+            : `${baseUrl}/wreath/${messageId}/${action}`;
 
-        const sadResponse = await axios.get(
-          `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/sad`,
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
-        );
-        setSadCount(sadResponse.data.totalSad || 0);
+          console.log(`Fetching counts from URL: ${url}`); // URL 확인
 
-        const commemorateResponse = await axios.get(
-          `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/commemorate`,
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
-        );
-        setCommemorateCount(commemorateResponse.data.totalCommemorate || 0);
+          try {
+            const response = await axios.get(url, {
+              headers: {
+                Authorization: `Token ${token}`,
+              },
+            });
 
-        const togetherResponse = await axios.get(
-          `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/together`,
-          {
-            headers: {
-              Authorization: `Token ${token}`,
-            },
+            setter(
+              response.data[
+                `total${action.charAt(0).toUpperCase() + action.slice(1)}`
+              ] || 0
+            );
+          } catch (error) {
+            console.error(
+              `Failed to fetch ${action} count from ${url}:`,
+              error
+            );
           }
-        );
-        setTogetherCount(togetherResponse.data.totalTogether || 0);
+        }
       } catch (error) {
         console.error("초기 카운트 로드 실패:", error);
       }
     };
 
     fetchInitialCounts();
-  }, [hall, messageId, token]);
+  }, [hall, messageId, token, content, updateTrigger]); // 의존성 배열에 content 추가
 
   return (
     <H.MemorialMessage2Content>
@@ -117,12 +105,11 @@ const MemorialMessage2 = ({
         <H.MM5>{nickname}</H.MM5>
       </H.MM2Profile>
       <H.MM2Content>
-        <H.MM6>{content ? content : comment}</H.MM6>
-
+        <H.MM6>{content || comment}</H.MM6>{" "}
+        {/* content가 있으면 content, 없으면 comment 표시 */}
         <H.MM7>
           <hr />
         </H.MM7>
-
         <H.MM8>
           <H.MM8Content>
             <button onClick={() => sendRequest("todak", setTodakCount)}>
@@ -132,7 +119,7 @@ const MemorialMessage2 = ({
                 alt="line"
                 style={{ width: "2rem", height: "2rem", margin: "0" }}
               />
-              토닥토닥
+              {content ? "토닥토닥" : "토닥토닥"}
             </button>
           </H.MM8Content>
           <p>x {todakCount}</p>
@@ -146,7 +133,7 @@ const MemorialMessage2 = ({
                 alt="line"
                 style={{ width: "2rem", height: "2rem", margin: "0" }}
               />
-              공감해요
+              {content ? "공감해요" : "공감해요"}
             </button>
           </H.MM8Content>
           <p>x {sympathizeCount}</p>
@@ -158,7 +145,7 @@ const MemorialMessage2 = ({
                 alt="line"
                 style={{ width: "2rem", height: "2rem", margin: "0" }}
               />
-              슬퍼요
+              {content ? "슬퍼요" : "슬퍼요"}
             </button>
           </H.MM8Content>
           <p>x {sadCount}</p>
@@ -171,7 +158,7 @@ const MemorialMessage2 = ({
                 src={`${process.env.PUBLIC_URL}/img/Imo4.svg`}
                 alt="line"
               />
-              추모해요
+              {content ? "추모해요" : "추모해요"}
             </button>
           </H.MM8Content>
           <p>x {commemorateCount}</p>
@@ -182,7 +169,7 @@ const MemorialMessage2 = ({
                 src={`${process.env.PUBLIC_URL}/img/Imo5.svg`}
                 alt="line"
               />
-              함께해요
+              {content ? "함께해요" : "함께해요"}
             </button>
           </H.MM8Content>
           <p style={{ margin: "0" }}>x {togetherCount}</p>
