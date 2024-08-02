@@ -6,6 +6,8 @@ export const Body = styled.div`
 `;
 export const Container = styled.div`
   width: 100vw;
+  max-height: 150vh;
+  height: auto;
   background: linear-gradient(180deg, #c3c3c3 0%, #fff 48%);
 `;
 export const Content = styled.div`
@@ -68,6 +70,10 @@ export const Input = styled.div`
     border: none;
     background: none;
   }
+  input:focus {
+    outline: none;
+    background: none;
+  }
 `;
 export const Option = styled.div`
   background: none;
@@ -94,7 +100,13 @@ export const Option = styled.div`
     border-bottom: 2px solid #2b2b2b;
   }
 `;
-export const ListContent = styled.div``;
+export const ListContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  gap: 4vw;
+`;
 export const ListContentItem = styled.div`
   /* Hover 시 스타일 */
   &:hover #img {
@@ -133,7 +145,7 @@ export const ListContentImg = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 22vw;
+  width: 21vw;
   height: 22vh;
   overflow: hidden;
   border-radius: 1.875rem 1.875rem 0rem 0rem;
@@ -144,7 +156,7 @@ export const ListContentImg = styled.div`
   }
 `;
 export const ListContentInfo = styled.div`
-  width: 22vw;
+  width: 21vw;
   min-height: 13vh;
   height: auto;
   padding-right: 2vw;
@@ -152,8 +164,8 @@ export const ListContentInfo = styled.div`
   box-sizing: border-box;
   border-radius: 0rem 0rem 1.875rem 1.875rem;
   background: linear-gradient(0deg, #ebebeb 0%, #fff 48%);
-
   box-shadow: 0px -2px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 `;
 export const C1 = styled.div`
   display: flex;

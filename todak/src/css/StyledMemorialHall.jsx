@@ -193,7 +193,6 @@ export const MemorialMessage = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 5vh;
   width: 100vw;
   height: 80vh;
   background: url(${process.env.PUBLIC_URL}/img/MemorialMessage.png);
@@ -207,8 +206,17 @@ export const MemorialMessage = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    margin: 0;
+    margin-top: 10vh;
+    margin-bottom: 0;
   }
+`;
+export const MemorialMessageContents = styled.div`
+  display: flex;
+  justify-content: top;
+  align-items: left;
+  padding: 2rem;
+  gap: 3vw;
+  flex-direction: row;
 `;
 export const MemorialMessageContent = styled.div`
   display: flex;
@@ -252,15 +260,29 @@ export const MMCContent = styled.div`
   line-height: 2.6rem; /* 160.714% */
   letter-spacing: -0.08rem;
 `;
-export const MemorialMessage2 = styled.div`
+export const MemorialMessages2 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 5vh;
+`;
+export const MemorialMessage2 = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 5vh;
   width: 100vw;
-  height: 150vh;
+  height: 200vh;
   background: #fff;
+`;
+export const MemorialMessage2Head = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10vh;
   p {
     color: #2b2b2b;
     font-family: "Pretendard Variable";
@@ -268,24 +290,24 @@ export const MemorialMessage2 = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    margin: 0;
   }
 `;
 export const MemorialMessage2Input = styled.div`
   display: flex;
-  justify-content: left;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   flex-direction: row;
 `;
 
 export const MM1 = styled.div``;
 export const MM2 = styled.div`
-  height: 20px;
-  resize: none;
   box-sizing: border-box;
-  width: 50vw;
+  width: 47rem;
+  margin-top: 0.8rem;
   textarea {
-    height: 20px;
-    margin-left: 2rem;
+    resize: none;
+    margin-left: 1rem;
     background: none;
     overflow: hidden; /* 스크롤바 숨기기 */
     width: 100%;
@@ -304,9 +326,29 @@ export const MM2 = styled.div`
   textarea::placeholder {
     color: #2b2b2b;
     font-family: "Pretendard Variable";
-    font-size: 24px;
+    font-size: 1.4rem;
     font-weight: 300;
     background: none;
+  }
+  #post {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 70px;
+    margin-left: 37rem;
+    flex-shrink: 0;
+    border-radius: 40px;
+    background: linear-gradient(0deg, #adadad 0%, #ebebeb 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #2b2b2b;
+    font-family: "Pretendard Variable";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 7vh;
+    margin-top: 3vh;
   }
 `;
 
@@ -334,10 +376,15 @@ export const MM3 = styled.div`
 export const MemorialMessage2Content = styled.div`
   display: flex;
   justify-content: center;
-  align-items: top;
+  align-items: flex-start;
   flex-direction: row;
-  width: 55vw;
-  height: 40vh;
+  width: 43rem; /* 최대 가로 길이 */
+  padding-left: 1vw;
+  padding-right: 1vw;
+  box-sizing: border-box;
+  height: auto;
+  max-height: 40vh;
+  padding: 3rem;
   border-radius: 3.125rem;
   background: linear-gradient(0deg, #ebebeb 0%, #fff 48%);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
@@ -349,11 +396,16 @@ export const MM2Profile = styled.div`
   align-items: center;
   flex-direction: column;
 `;
-export const MM4 = styled.div``;
+export const MM4 = styled.div`
+  img {
+    width: 3rem;
+    height: 3rem;
+  }
+`;
 export const MM5 = styled.div`
   color: #000;
   font-family: "Pretendard Variable";
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -366,20 +418,24 @@ export const MM2Content = styled.div`
   flex-direction: column;
 `;
 export const MM6 = styled.div`
-  width: 45vw;
+  width: 35rem;
   color: #000;
   font-family: "Pretendard Variable";
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 2.5rem; /* 178.571% */
+  line-height: 2rem; /* 178.571% */
   letter-spacing: -0.035rem;
+  margin-left: 0.7rem;
 `;
 export const MM7 = styled.div`
   hr {
-    width: 45vw;
-    height: 0.125rem;
+    width: 35rem;
+    height: 0.05em;
     background: #adadad;
+    margin: 0;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
   }
 `;
 export const MM8 = styled.div`
@@ -388,22 +444,25 @@ export const MM8 = styled.div`
   align-items: center;
   flex-direction: row;
   p {
+    width: 2rem;
     color: var(--, #2b2b2b);
     font-family: "Pretendard Variable";
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    margin-right: 3vw;
+    margin-right: 0.5vw;
   }
 `;
 
 export const MM8Content = styled.div`
   img {
-    width: 30px;
-    height: 30px;
+    width: 1.5rem;
+    height: 1.3rem;
   }
   button {
+    margin-left: 0.5rem;
+    width: 3.7rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -413,10 +472,10 @@ export const MM8Content = styled.div`
     cursor: pointer;
     color: var(--, #2b2b2b);
     font-family: "Pretendard Variable";
-    font-size: 1.25rem;
+    font-size: 0.8rem;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     line-height: normal;
-    margin-right: 1vw;
+    margin-right: 0.2rem;
   }
 `;
