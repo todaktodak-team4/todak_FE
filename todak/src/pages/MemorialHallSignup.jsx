@@ -1,9 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import * as S from "../css/StyledMemorialHallSignup";
 import Nav from "./Nav";
 
 const MemorialHallSignup = () => {
+  const navigate = useNavigate();
+
+  const [inputs, setInputs] = useState({
+    name: "",
+    info: "",
+    date: "",
+    visibility: "public",
+    thumbnail: null,
+  });
+
+  const { name, info, date, visibility, thumbnail } = inputs;
+  const token = localStorage.getItem("token");
+
+  const onChange = (e) => {
+    const { name, value, files } = e.target;
+
+    if (name === "thumbnail" && files.length > 0) {
+      setInputs({
+        ...inputs,
+        thumbnail: files[0],
+      });
+    } else {
+      setInputs({
+        ...inputs,
+        [name]: value,
+      });
+    }
+  };
+
+  const handleSaveBtn = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("info", info);
+      formData.append("date", date);
+      formData.append("visibility", visibility);
+
+      if (thumbnail) {
+        formData.append("thumbnail", thumbnail);
+      }
+
+      await axios.post("http://127.0.0.1:8000/memorialHall", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Token ${token}`,
+        },
+      });
+      navigate(`/`);
+    } catch (error) {
+      console.error("Error creating new post:", error);
+    }
+  };
+
   return (
     <S.Body>
       <S.Container>
@@ -31,7 +85,13 @@ const MemorialHallSignup = () => {
               <S.NavName>
                 <p>추모관 이름</p>
               </S.NavName>
-              <input id="hallname" placeholder="추모관 이름" />
+              <input
+                id="hallname"
+                name="name"
+                placeholder="추모관 이름"
+                value={name}
+                onChange={onChange}
+              />
             </S.SignupItem>
             <S.SignupItem>
               <S.Number>
@@ -40,10 +100,14 @@ const MemorialHallSignup = () => {
               <S.NavName>
                 <p>추모일</p>
               </S.NavName>
-              <S.SelectBtn>
-                <input type="file" id="profile" />
-                <p>날짜 선택</p>
-              </S.SelectBtn>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                placeholder="추모일"
+                value={date}
+                onChange={onChange}
+              />
             </S.SignupItem>
             <S.SignupItem>
               <S.Number>
@@ -54,7 +118,10 @@ const MemorialHallSignup = () => {
               </S.NavName>
               <input
                 id="introduce"
+                name="info"
                 placeholder="간단한 소개글을 적어주세요. (50자 이내)"
+                value={info}
+                onChange={onChange}
               />
             </S.SignupItem>
             <S.SignupItem>
@@ -65,22 +132,26 @@ const MemorialHallSignup = () => {
                 <p>공개/비공개</p>
               </S.NavName>
               <S.Checkbox>
-                <label for="radio1">
+                <label htmlFor="radio1">
                   <input
                     type="radio"
                     id="radio1"
-                    name="contact"
+                    name="visibility"
                     value="public"
+                    checked={visibility === "public"}
+                    onChange={onChange}
                   />
                   공개
                 </label>
 
-                <label for="radio2">
+                <label htmlFor="radio2">
                   <input
                     type="radio"
                     id="radio2"
-                    name="contact"
+                    name="visibility"
                     value="private"
+                    checked={visibility === "private"}
+                    onChange={onChange}
                   />
                   비공개
                 </label>
@@ -98,12 +169,17 @@ const MemorialHallSignup = () => {
                 </p>
               </S.NavName>
               <S.SelectBtn>
-                <input type="file" id="profile" />
+                <input
+                  type="file"
+                  id="profile"
+                  name="thumbnail"
+                  onChange={onChange}
+                />
                 <p>사진 선택</p>
               </S.SelectBtn>
             </S.SignupItem>
           </S.SignupItems>
-          <S.NextBtn>
+          <S.NextBtn onClick={handleSaveBtn}>
             <p>추모관 신청하기</p>
           </S.NextBtn>
         </S.Content>

@@ -1,9 +1,65 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 import * as S from "../css/StyledLayFlower";
 import Nav from "./Nav";
 
 const LayFlower = () => {
+  const textareaRef = useRef(null);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const hall = queryParams.get("hall");
+  const [inputs, setInputs] = useState({
+    donation: "",
+    customDonation: "",
+    comment: "",
+    name: "",
+  });
+
+  const { donation, customDonation, comment, name } = inputs;
+  const token = localStorage.getItem("token");
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  const handleSaveBtn = async () => {
+    try {
+      const formData = new FormData();
+      formData.append(
+        "donation",
+        donation === "custom" ? customDonation : donation
+      );
+      formData.append("name", name);
+      formData.append("comment", comment);
+      formData.append("hall", hall);
+
+      await axios.post(`/memorialHall/${hall}/wreath`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Token ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error("Error creating new post:", error);
+    }
+  };
+
+  const adjustHeight = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "20px";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
+
+  useEffect(() => {
+    adjustHeight();
+  }, [comment]);
+
   return (
     <S.Body>
       <S.Container>
@@ -32,25 +88,38 @@ const LayFlower = () => {
                 <p>헌화 금액</p>
               </S.NavName>
               <S.Checkbox>
-                <label for="price1">
+                <label htmlFor="price1">
                   <input
                     type="radio"
                     id="price1"
-                    name="contact"
-                    value="public"
+                    name="donation"
+                    value="1000"
+                    checked={donation === "1000"}
+                    onChange={onChange}
                   />
                   1,000원
                 </label>
 
-                <label for="price2">
+                <label htmlFor="price2">
                   <input
                     type="radio"
                     id="price2"
-                    name="contact"
-                    value="private"
+                    name="donation"
+                    value="custom"
+                    checked={donation === "custom"}
+                    onChange={onChange}
                   />
                   직접입력
                 </label>
+                {donation === "custom" && (
+                  <input
+                    type="text"
+                    name="customDonation"
+                    value={customDonation || ""}
+                    onChange={onChange}
+                    placeholder="금액을 입력하세요"
+                  />
+                )}
               </S.Checkbox>
             </S.SignupItem>
             <S.SignupItem>
@@ -64,9 +133,15 @@ const LayFlower = () => {
                   <span>*선택사항</span>
                 </p>
               </S.NavName>
-              <input
+              <textarea
                 id="memorialmessage"
                 placeholder="간단한 헌화의 말씀을 적어주세요. (50자 이내)"
+                ref={textareaRef}
+                value={comment}
+                onChange={onChange}
+                name="comment"
+                style={{ resize: "none", overflow: "hidden" }}
+                onInput={adjustHeight}
               />
             </S.SignupItem>
             <S.SignupItem>
@@ -76,7 +151,13 @@ const LayFlower = () => {
               <S.NavName>
                 <p>성함</p>
               </S.NavName>
-              <input id="name" placeholder="헌화자 성함" />
+              <input
+                id="name"
+                placeholder="헌화자 성함"
+                value={name}
+                onChange={onChange}
+                name="name"
+              />
             </S.SignupItem>
             <S.SignupItem>
               <S.Number>
@@ -85,8 +166,7 @@ const LayFlower = () => {
               <S.NavName>
                 <p>결제 진행</p>
               </S.NavName>
-              <S.SelectBtn>
-                <input type="file" id="pay" />
+              <S.SelectBtn onClick={handleSaveBtn}>
                 <p>결제하기</p>
               </S.SelectBtn>
             </S.SignupItem>
