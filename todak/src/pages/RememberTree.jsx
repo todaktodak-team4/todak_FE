@@ -24,9 +24,42 @@ function RememberTree() {
   const [treeName, setTreeName] = useState("");
   const [treeId, setTreeId] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [accessToken, setAccessToken] = useState(localStorage.getItem("access_token"));
+  const [refreshToken, setRefreshToken] = useState(localStorage.getItem("refresh_token"));
+  const navigate = useNavigate();
   const location = useLocation();
 
   const token = localStorage.getItem("token");
+
+
+
+  const refreshAccessToken = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/accounts/token/refresh/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refresh: refreshToken }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAccessToken(data.access);
+        localStorage.setItem("access_token", data.access);
+        return data.access;
+      } else {
+        // Handle refresh token errors
+        console.error("Failed to refresh token");
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        navigate("/login"); // Redirect to login if refresh fails
+      }
+    } catch (error) {
+      console.error("Error refreshing token:", error);
+    }
+  };
+
 
   useEffect(() => {
     const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
@@ -41,13 +74,32 @@ function RememberTree() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         });
 
-        if (response.ok) {
+        if (response.status === 401) {
+          // Access token이 만료되면 새로운 토큰 재발급
+          const newAccessToken = await refreshAccessToken();
+          if (newAccessToken) {
+            // Retry fetch with new access token
+            const retryResponse = await fetch("http://127.0.0.1:8000/rememberTree/", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+            });
+            if (retryResponse.ok) {
+              const data = await retryResponse.json();
+              setTreeName(data[0].treeName);
+              setTreeId(data[0].id);
+            } else {
+              console.error("Failed to fetch data after refreshing token");
+            }
+          }
+        } else if (response.ok) {
           const data = await response.json();
-          console.log("Response Data:", data);
           setTreeName(data[0].treeName);
           setTreeId(data[0].id);
         } else {
@@ -55,37 +107,51 @@ function RememberTree() {
         }
       } catch (error) {
         console.error("An error occurred", error);
-      }
+    
+    }
     };
 
-    const fetchData2 = async () => {
+    const fetchUserId = async () => {
       try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/accounts/api/get-user-id-from-token/",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Token ${token}`,
-            },
+        const response = await fetch("http://127.0.0.1:8000/accounts/api/get-user-id-from-token/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+  
+        if (response.status === 401) {
+          const newAccessToken = await refreshAccessToken();
+          if (newAccessToken) {
+            const retryResponse = await fetch("http://127.0.0.1:8000/accounts/api/get-user-id-from-token/", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+            });
+            if (retryResponse.ok) {
+              const data = await retryResponse.json();
+              setUserId(data.userId);
+            } else {
+              console.error("Failed to fetch user ID after refreshing token");
+            }
           }
-        );
-
-        if (response.ok) {
+        } else if (response.ok) {
           const data = await response.json();
-          console.log("Response Data:", data);
           setUserId(data.userId);
         } else {
-          console.error("Failed to fetch data");
+          console.error("Failed to fetch user ID");
         }
       } catch (error) {
         console.error("An error occurred", error);
       }
-    };
+    }
 
     fetchData();
-    fetchData2();
-  }, [token]);
+    fetchUserId();
+  }, [accessToken]);
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);

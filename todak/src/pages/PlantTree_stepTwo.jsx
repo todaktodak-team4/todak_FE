@@ -13,7 +13,7 @@ function PlantTreeStepTwo() {
   const [customDate, setCustomDate] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
 
   console.log("token:", token);
   async function submit() {
@@ -31,7 +31,7 @@ function PlantTreeStepTwo() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Token ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
       });
@@ -39,11 +39,21 @@ function PlantTreeStepTwo() {
       if (response.ok) {
         console.log("연동 완료");
         setIsModalVisible(true);
+      }  else if (response.status === 401) {
+        
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        alert("30분동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요."); 
+        navigate("/login");
       } else {
-        console.error("Failed to submit data");
+        const errorData = await response.json();
+        console.error("Failed to submit data:", errorData);
+        alert("데이터 제출에 실패했습니다: " + (errorData.detail || "서버 오류"));
+
       }
     } catch (error) {
-      console.error("An error occurred", error);
+      console.error("An error occurred:", error);
+      alert("네트워크 오류가 발생했습니다.");
     }
   }
 

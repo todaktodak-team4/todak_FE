@@ -21,7 +21,8 @@ const Login = () => {
       );
 
       console.log(response.data); // 서버로부터 받은 데이터 콘솔에 출력
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("access_token", response.data.access);
+      localStorage.setItem("refresh_token", response.data.refresh);
       navigate("/");
     } catch (error) {
       setError("로그인에 실패했습니다.");
