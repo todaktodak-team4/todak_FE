@@ -7,6 +7,9 @@ function ShowLetter({ onClose, treeId }) {
   const token = localStorage.getItem("access_token");
   const containerRef = useRef(null);
   const navigate = useNavigate();
+
+  console.log("treeId: ", treeId);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,6 +35,7 @@ function ShowLetter({ onClose, treeId }) {
           alert("30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
           navigate("/login");
         } else {
+          console.log("treeId: ", treeId);
           console.error("Failed to fetch data");
         }
       } catch (error) {
