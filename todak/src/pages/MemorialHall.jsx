@@ -84,12 +84,17 @@ const MemorialHall = () => {
     try {
       const response = await axios.post(
         `/memorialHall/${postId}/message`,
-        { content },
+        {
+          content,
+          hall: postId, // Add the "hall" field to the request body
+        },
         { headers: { Authorization: `Token ${token}` } }
       );
       const newComment = response.data;
       setComments((prevComments) => [...prevComments, newComment]);
       setInputs({ content: "" }); // Clear input field after posting
+      // 서버 응답 후 페이지 새로고침
+      window.location.reload();
     } catch (error) {
       console.error("Error creating new post:", error);
     }
@@ -106,10 +111,6 @@ const MemorialHall = () => {
         console.error("URL 복사 실패:", err);
       });
   };
-
-  const memorialMessages2 = messages.filter(
-    (item) => item.content && item.content.trim() !== ""
-  );
 
   const navigateToLayFlower = () => {
     navigate(`/layFlower?hall=${postId}`);
@@ -204,11 +205,12 @@ const MemorialHall = () => {
                 등록하기
               </div>
               <H.MemorialMessages2>
-                {memorialMessages2.slice(0, 3).map((item) => (
+                {messages.map((item) => (
                   <MemorialMessage2
                     key={item.id}
                     messageId={item.id}
                     content={item.content}
+                    comment={item.comment}
                     hall={item.hall}
                     nickname={item.nickname}
                     profile={item.profile}

@@ -11,11 +11,11 @@ const MemorialHallList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드 상태 추가
 
-  const fetchData = async (page) => {
+  const fetchData = async (page, keyword = "") => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/memorialHall?page=${page}`
+        `http://127.0.0.1:8000/memorialHall?page=${page}&q=${keyword}`
       );
       setListItems(response.data.results);
       setTotalPages(Math.ceil(response.data.count / 6)); // Assuming 6 items per page
@@ -75,7 +75,6 @@ const MemorialHallList = () => {
                   value={searchKeyword}
                   onChange={handleSearchChange}
                 />
-                <button type="submit">검색</button>
               </form>
             </H.Input>
             <H.Option>
@@ -100,10 +99,12 @@ const MemorialHallList = () => {
                       name={item.name}
                       date={item.date}
                       info={item.info}
-                      private={item.private}
+                      isPrivate={item.private}
                       public={item.public}
                       wreathCount={item.wreathCount}
                       messageCount={item.messageCount}
+                      status={item.status}
+                      oken={item.token}
                     />
                   ))}
                 </div>
@@ -117,10 +118,12 @@ const MemorialHallList = () => {
                       name={item.name}
                       date={item.date}
                       info={item.info}
-                      private={item.private}
+                      isPrivate={item.private}
                       public={item.public}
                       wreathCount={item.wreathCount}
                       messageCount={item.messageCount}
+                      status={item.status}
+                      isToken={item.token}
                     />
                   ))}
                 </div>
@@ -141,6 +144,7 @@ const MemorialHallList = () => {
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
+              style={{ border: "none", background: "none", color: "black" }}
             >
               {">"} {/* Next button */}
             </button>
