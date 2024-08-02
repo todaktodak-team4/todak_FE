@@ -24,6 +24,7 @@ function RememberTree() {
   const [treeName, setTreeName] = useState("");
   const [treeId, setTreeId] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [username, setUserName] = useState("");
   const [accessToken, setAccessToken] = useState(localStorage.getItem("access_token"));
   const [refreshToken, setRefreshToken] = useState(localStorage.getItem("refresh_token"));
   const navigate = useNavigate();
@@ -92,16 +93,21 @@ function RememberTree() {
             });
             if (retryResponse.ok) {
               const data = await retryResponse.json();
+              console.log('data[0].myName:',data[0].myName);
               setTreeName(data[0].treeName);
               setTreeId(data[0].id);
+              setUserName(data[0].myName);
+
             } else {
               console.error("Failed to fetch data after refreshing token");
             }
           }
         } else if (response.ok) {
           const data = await response.json();
+          console.log('data[0].myName:',data[0].myName);
           setTreeName(data[0].treeName);
           setTreeId(data[0].id);
+          setUserName(data[0].myName);
         } else {
           console.error("Failed to fetch data");
         }
@@ -277,7 +283,7 @@ function RememberTree() {
         )}
       </div>
       {isModalOpen && <HelpModal onClose={toggleModal} />}
-      {isTalkModalOpen && <TalkModal onClose={toggleTalkModal} />}
+      {isTalkModalOpen && <TalkModal onClose={toggleTalkModal} myname = {username} />}
       {isUploadImgOpen && (
         <UploadImg onClose={toggleUploadImgModal} treeId={treeId} />
       )}

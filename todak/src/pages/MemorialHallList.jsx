@@ -10,6 +10,7 @@ const MemorialHallList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드 상태 추가
+  const token = localStorage.getItem("access_token"); // Use 'access_token' for JWT
 
   const fetchData = async (page) => {
     setIsLoading(true);
