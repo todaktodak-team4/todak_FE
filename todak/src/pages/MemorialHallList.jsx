@@ -19,6 +19,7 @@ const MemorialHallList = () => {
       const response = await axios.get(
         `http://127.0.0.1:8000/memorialHall?page=${page}&q=${keyword}`
       );
+      console.log("리스트:", response.data.results);
       setListItems(response.data.results);
       setTotalPages(Math.ceil(response.data.count / 6)); // Assuming 6 items per page
     } catch (error) {

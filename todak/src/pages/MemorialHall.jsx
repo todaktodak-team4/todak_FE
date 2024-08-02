@@ -14,9 +14,18 @@ const MemorialHall = () => {
   const [inputs, setInputs] = useState({ content: "" });
   const { content } = inputs;
   const [comments, setComments] = useState([]);
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
   const [messages, setMessages] = useState([]);
   const [wreaths, setWreaths] = useState([]);
+
+
+  const handleUnauthorized = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+    navigate("/login");
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +43,7 @@ const MemorialHall = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/memorialHall/${postId}/wreath`);
+        console.log("?:", response.data);
         setWreaths(response.data);
       } catch (error) {
         console.error("Error fetching wreaths:", error);
@@ -42,11 +52,13 @@ const MemorialHall = () => {
     fetchData();
   }, [postId]);
 
+  //연동 완
   useEffect(() => {
     axios
       .get(`/memorialHall/${postId}`)
       .then((response) => {
         setPost(response.data);
+        console.log("온라인 추모관 디테일 응답:", response.data);
       })
       .catch((error) => {
         console.error("Error fetching post:", error);
@@ -80,23 +92,27 @@ const MemorialHall = () => {
     });
   };
 
-  const handlePostBtn = async () => {
+  //추모의 글 남기기 -> 연동 완
+const handlePostBtn = async () => {
     try {
       const response = await axios.post(
         `/memorialHall/${postId}/message`,
         {
           content,
-          hall: postId, // Add the "hall" field to the request body
+          hall: postId,
         },
-        { headers: { Authorization: `Token ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const newComment = response.data;
       setComments((prevComments) => [...prevComments, newComment]);
-      setInputs({ content: "" }); // Clear input field after posting
-      // 서버 응답 후 페이지 새로고침
+      setInputs({ content: "" });
       window.location.reload();
     } catch (error) {
-      console.error("Error creating new post:", error);
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      } else {
+        console.error("Error creating new post:", error);
+      }
     }
   };
 
@@ -106,6 +122,7 @@ const MemorialHall = () => {
       .writeText(currentURL)
       .then(() => {
         console.log("URL이 클립보드에 복사되었습니다.");
+        alert("URL이 클립보드에 복사되었습니다.");
       })
       .catch((err) => {
         console.error("URL 복사 실패:", err);

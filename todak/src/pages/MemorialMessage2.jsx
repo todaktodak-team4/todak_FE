@@ -16,7 +16,7 @@ const MemorialMessage2 = ({
   const [sadCount, setSadCount] = useState(0);
   const [commemorateCount, setCommemorateCount] = useState(0);
   const [togetherCount, setTogetherCount] = useState(0);
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
 
   // API 요청 함수
   const sendRequest = async (action, setter) => {
@@ -28,7 +28,7 @@ const MemorialMessage2 = ({
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -51,7 +51,7 @@ const MemorialMessage2 = ({
           `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/todak`,
           {
             headers: {
-              Authorization: `Token ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -61,7 +61,7 @@ const MemorialMessage2 = ({
           `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/sympathize`,
           {
             headers: {
-              Authorization: `Token ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -71,7 +71,7 @@ const MemorialMessage2 = ({
           `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/sad`,
           {
             headers: {
-              Authorization: `Token ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -81,7 +81,7 @@ const MemorialMessage2 = ({
           `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/commemorate`,
           {
             headers: {
-              Authorization: `Token ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -91,7 +91,7 @@ const MemorialMessage2 = ({
           `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/together`,
           {
             headers: {
-              Authorization: `Token ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );

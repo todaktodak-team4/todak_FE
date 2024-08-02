@@ -17,7 +17,7 @@ const LayFlower = () => {
   });
 
   const { donation, customDonation, comment, name } = inputs;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +27,7 @@ const LayFlower = () => {
     });
   };
 
+  //헌화하기 연동 완
   const handleSaveBtn = async () => {
     try {
       const formData = new FormData();
@@ -41,7 +42,7 @@ const LayFlower = () => {
       await axios.post(`/memorialHall/${hall}/wreath`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Token ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
     } catch (error) {
