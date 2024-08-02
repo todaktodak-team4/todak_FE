@@ -55,7 +55,9 @@ function UploadImg({ onClose, treeId }) {
           // 토큰 만료 처리
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
-          alert("30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+          alert(
+            "30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+          );
           navigate("/login");
         } else {
           console.error("Failed to save the image and comments");
@@ -91,6 +93,9 @@ function UploadImg({ onClose, treeId }) {
       >
         사진 업로드
       </div>
+      <div className={styles.closeBtn} onClick={onClose}>
+        <img src="/img/closeBtn.png" alt="닫기버튼" />
+      </div>
       <div className={styles.imgWp}>
         <div className={styles.bg}>
           <img
@@ -108,7 +113,11 @@ function UploadImg({ onClose, treeId }) {
               style={{ width: "422px", height: "244px" }}
             />
           ) : (
-            <img src="/img/mainImg.png" alt="main" className={styles.mainImg} />
+            <img
+              src="/img/defaultImg.png"
+              alt="main"
+              className={styles.mainImg}
+            />
           )}
         </div>
         <div className={styles.comment}>

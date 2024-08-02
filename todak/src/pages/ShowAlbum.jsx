@@ -6,6 +6,7 @@ function ShowAlbum({ onClose, treeId }) {
   const [albumData, setAlbumData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(true);
+  const [noItemsMessage, setNoItemsMessage] = useState(false);
   const itemsPerPage = 4;
   const navigate = useNavigate();
   const token = localStorage.getItem("access_token");
@@ -45,6 +46,17 @@ function ShowAlbum({ onClose, treeId }) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (albumData.length === 0) {
+      setNoItemsMessage(true);
+      const timer = setTimeout(() => {
+        setNoItemsMessage(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [albumData]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -115,12 +127,12 @@ function ShowAlbum({ onClose, treeId }) {
               <img src="/img/clip.png" alt="" />
             </div>
             <div className={styles.comWp}>
-              <div className={styles.com}>{item.comment}</div>
+              <div className={styles.com}>{item.description}</div>
               <div className={styles.date}>{item.rememberDate}</div>
             </div>
             <div className={styles.mainComWp}>
               <img src="/img/comPaper2.png" alt="" />
-              <div className={styles.mainCom2}>{item.description}</div>
+              <div className={styles.mainCom2}>{item.comment}</div>
             </div>
           </div>
         );
@@ -143,51 +155,75 @@ function ShowAlbum({ onClose, treeId }) {
           </div>
         );
       default:
-        return null;
+        return;
     }
   };
 
   const totalPages = Math.ceil(albumData.length / itemsPerPage);
 
+  const handlePrevClick = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    } else {
+      alert("이전 페이지가 없습니다.");
+    }
+  };
+
+  const handleNextClick = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    } else {
+      alert("다음 페이지가 없습니다.");
+    }
+  };
+
+  if (!showModal) {
+    return null;
+  }
+
   return (
     <>
-      {showModal && (
-        <div className={styles.modal}>
-          <button onClick={() => setShowModal(false)}>Close Modal</button>
-        </div>
-      )}
       <div className={styles.container}>
         <div className={styles.albumWp}>
+          {showModal && (
+            <div
+              className={styles.closeBtn}
+              onClick={() => setShowModal(false)}
+            >
+              앨범 닫기
+            </div>
+          )}
           <div className={styles.album}>
             <img className={styles.imgBg} src="/img/albumBg.png" alt="album" />
             {currentItems.map((item, index) => renderAlbumItem(item, index))}
           </div>
         </div>
-        (
         <div className={styles.pagination}>
-          <button
-            className={styles.paginationButton}
-            onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage === 1}
+          <div
+            className={`${styles.paginationButton} ${
+              currentPage === 1 ? styles.disabled : ""
+            }`}
+            onClick={handlePrevClick}
           >
             <img src="/img/albumBack.png" alt="Previous" />
-          </button>
+          </div>
           <span className={styles.pageNumber}>
             <span className={styles.cur}>{currentPage} </span>
             <span className={styles.slash}>/</span>
             <span className={styles.tot}>{totalPages}</span>
           </span>
-          <button
-            className={styles.paginationButton}
-            onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage === totalPages}
+          <div
+            className={`${styles.paginationButton} ${
+              currentPage === totalPages ? styles.disabled : ""
+            }`}
+            onClick={handleNextClick}
           >
             <img src="/img/albumFront.png" alt="Next" />
-          </button>
+          </div>
         </div>
-        {totalPages === 0 && (
+        {noItemsMessage && (
           <div className={styles.noPagesMessage}>
-            <p>넘길 페이지가 없습니다.</p>
+            <p>앨범에 사진이 없습니다.</p>
           </div>
         )}
       </div>
