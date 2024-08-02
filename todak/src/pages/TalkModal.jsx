@@ -56,14 +56,6 @@ function TalkModal({ onClose, myname }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let response = await fetch("http://127.0.0.1:8000/rememberTree/daily-question/", {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-          },
-        });
-        // 인증 오류 발생 시
-        if (response.status === 401) { 
         let response = await fetch(
           "http://127.0.0.1:8000/rememberTree/daily-question/",
           {
@@ -73,9 +65,8 @@ function TalkModal({ onClose, myname }) {
             },
           }
         );
-
+        // 인증 오류 발생 시
         if (response.status === 401) {
-          // 인증 오류 발생 시
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             response = await fetch(
@@ -91,15 +82,19 @@ function TalkModal({ onClose, myname }) {
             return; // Token refresh failed
           }
         }
-  
+
+        //이미 답을 했을 때 자신이 한 답과 해당 질문 가져오기
         if (response.status === 404) {
-          response = await fetch("http://127.0.0.1:8000/daily-question/today-answers/", {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${token}`,
-            },
-          });
-  
+          response = await fetch(
+            "http://127.0.0.1:8000/daily-question/today-answers/",
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          //자신이 한 답과 해당 질문 가져오기를 성공하면
           if (response.ok) {
             const jsonData = await response.json();
             if (jsonData.length > 0) {
@@ -111,11 +106,10 @@ function TalkModal({ onClose, myname }) {
               setIsSubmitted(true);
             }
           }
-  
-        } else if (response.ok) {
+        } else if (response.status === 200) {
           const jsonData = await response.json();
-          console.log("Response data:", jsonData);
-  
+          console.log("Response data222:", jsonData);
+
           // If the data is an array (for example, from `today-answers/`)
           if (Array.isArray(jsonData)) {
             if (jsonData.length > 0) {
@@ -124,7 +118,6 @@ function TalkModal({ onClose, myname }) {
               console.log("데이터4", answerData.question.questionText);
               setQuestion(answerData.question.questionText);
               setSubmittedAnswer(answerData.answerText);
-  
             }
           } else {
             // Handle object response
@@ -284,7 +277,7 @@ function TalkModal({ onClose, myname }) {
           }`}
           ref={questRef}
         >
-        {myname}님  {question}
+          {myname}님 {question}
         </div>
         {isSubmitted && (
           <div className={styles.chatBox} ref={chatBoxRef}>
