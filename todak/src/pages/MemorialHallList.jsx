@@ -9,6 +9,7 @@ const MemorialHallList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드 상태 추가
 
   const fetchData = async (page) => {
     setIsLoading(true);
@@ -17,7 +18,7 @@ const MemorialHallList = () => {
         `http://127.0.0.1:8000/memorialHall?page=${page}`
       );
       setListItems(response.data.results);
-      setTotalPages(Math.ceil(response.data.count / 6));
+      setTotalPages(Math.ceil(response.data.count / 6)); // Assuming 6 items per page
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -26,12 +27,26 @@ const MemorialHallList = () => {
   };
 
   useEffect(() => {
-    fetchData(currentPage);
-  }, [currentPage]);
+    fetchData(currentPage, searchKeyword);
+  }, [currentPage, searchKeyword]);
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
     setCurrentPage(newPage);
+  };
+
+  // Split listItems into two groups
+  const upperItems = listItems.slice(0, 3);
+  const lowerItems = listItems.slice(3, 6);
+
+  const handleSearchChange = (e) => {
+    setSearchKeyword(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    fetchData(1, searchKeyword);
   };
 
   return (
@@ -54,7 +69,14 @@ const MemorialHallList = () => {
                 src={`${process.env.PUBLIC_URL}/img/Search.svg`}
                 alt="Search"
               />
-              <input placeholder="찾고 싶은 추모관 키워드를 입력해보세요. (예: 세월호 추모)" />
+              <form onSubmit={handleSearchSubmit}>
+                <input
+                  placeholder="찾고 싶은 추모관 키워드를 입력해보세요. (예: 세월호 추모)"
+                  value={searchKeyword}
+                  onChange={handleSearchChange}
+                />
+                <button type="submit">검색</button>
+              </form>
             </H.Input>
             <H.Option>
               <select id="options">
@@ -68,20 +90,41 @@ const MemorialHallList = () => {
             {isLoading ? (
               <p>Loading...</p>
             ) : (
-              listItems.map((item) => (
-                <ContentItem
-                  key={item.id}
-                  postId={item.id}
-                  img={item.thumbnail}
-                  name={item.name}
-                  date={item.date}
-                  info={item.info}
-                  private={item.private}
-                  public={item.public}
-                  wreathCount={item.wreathCount}
-                  messageCount={item.messageCount}
-                />
-              ))
+              <>
+                <div className="upper-items">
+                  {upperItems.map((item) => (
+                    <ContentItem
+                      key={item.id}
+                      postId={item.id}
+                      img={item.thumbnail}
+                      name={item.name}
+                      date={item.date}
+                      info={item.info}
+                      private={item.private}
+                      public={item.public}
+                      wreathCount={item.wreathCount}
+                      messageCount={item.messageCount}
+                    />
+                  ))}
+                </div>
+
+                <div className="lower-items">
+                  {lowerItems.map((item) => (
+                    <ContentItem
+                      key={item.id}
+                      postId={item.id}
+                      img={item.thumbnail}
+                      name={item.name}
+                      date={item.date}
+                      info={item.info}
+                      private={item.private}
+                      public={item.public}
+                      wreathCount={item.wreathCount}
+                      messageCount={item.messageCount}
+                    />
+                  ))}
+                </div>
+              </>
             )}
           </H.ListContent>
 
@@ -90,16 +133,16 @@ const MemorialHallList = () => {
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              {"<"}
+              {"<"} {/* Previous button */}
             </button>
             <span>
-              {currentPage} / {totalPages}
+              페이지 {currentPage} / {totalPages}
             </span>
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
-              {">"}
+              {">"} {/* Next button */}
             </button>
           </H.NumberBtn>
         </H.Content>
