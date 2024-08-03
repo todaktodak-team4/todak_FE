@@ -11,10 +11,12 @@ const ContentItem = ({
   wreathCount,
   messageCount,
   initialStatus, // 초기 상태
+  isPrivate, // private 상태 추가
 }) => {
   const navigate = useNavigate();
   const defaultImg = `${process.env.PUBLIC_URL}/img/ListContentImg.png`;
   const token = localStorage.getItem("token");
+  console.log("count:", wreathCount, "private:", isPrivate);
 
   const [status, setStatus] = useState(
     localStorage.getItem(`status-${postId}`) || initialStatus
@@ -109,7 +111,17 @@ const ContentItem = ({
           <span onClick={() => navigate(`/memorialHall/${postId}`)}>
             {name}
           </span>
+          <H.C2>
+            {isPrivate && (
+              <img
+                id="Locked"
+                src={`${process.env.PUBLIC_URL}/img/ListContentLock.svg`}
+                alt="Locked"
+              />
+            )}
+          </H.C2>
         </H.C1>
+
         <H.C3>
           <H.C4>{formatDate(date)}</H.C4>
           <H.C5>
