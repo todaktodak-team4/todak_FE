@@ -4,7 +4,7 @@ export const Nav = styled.div`
   height: 60px;
   background: rgba(255, 255, 255, 0.45);
   position: absolute;
-  z-index: 9999;
+  z-index: 1;
   width: 100vw;
 `;
 export const Navbar = styled.div`
