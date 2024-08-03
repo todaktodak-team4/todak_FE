@@ -1,19 +1,35 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
-.container {
-  display: flex;
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0;
+  padding: 0;
+  background-color: #ffffed;
+}
+.conImg {
   width: 100vw;
-  justify-content: center;
-  background-size: cover;
-  background-position: center;
+  height: 100%;
+}
+
+.innerContainer {
+  display: flex;
   position: relative;
-  padding-top: 10%;
+  height: 1000px;
+  overflow: hidden;
+}
+.deliWp {
+  position: absolute;
+  top: 17%;
+}
+.botWp {
+  position: relative;
+  bottom: 450px;
 }
 .line {
-  position: absolute;
-  left: 400px;
-  top: 300px;
+  position: relative;
+  top: 500px;
+  left: 90px;
 }
 .top {
   position: relative;
@@ -148,7 +164,9 @@
 }
 .deliBtn,
 .backBtn {
-  /* position: absolute; */
+  position: absolute;
+  top: 60%;
+  left: 70%;
   padding-left: 30px;
   /* top: 85%; */
   /* right: 10%; */
