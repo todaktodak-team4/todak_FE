@@ -21,7 +21,10 @@
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 }
-
+.albumImg {
+  width: 1200px;
+  height: 700px;
+}
 .albumBg {
   position: absolute;
   left: 50%;
@@ -44,13 +47,13 @@
 }
 .img1 > .defaultImg {
   position: relative;
-  right: 387px;
+  right: 340px;
   bottom: 70px;
 }
 .img1 > .comWp {
   position: relative;
   bottom: 205px;
-  right: 387px;
+  right: 340px;
   color: #2b2b2b;
   text-align: right;
   font-family: "Pretendard Variable";
@@ -76,8 +79,8 @@
 }
 
 .rightB {
-  bottom: 284px;
-  left: 342px;
+  bottom: 254px;
+  left: 300px;
   border-width: 70px 0 0 70px;
   transform: rotate(0deg);
 }
@@ -88,8 +91,8 @@
 }
 .img2 > .defaultImg {
   position: relative;
-  right: 268px;
-  bottom: 75px;
+  right: 247px;
+  bottom: 70px;
 }
 .sticker {
   position: relative;
@@ -117,7 +120,7 @@
 .img2 > .comWp {
   position: relative;
   bottom: 200px;
-  right: 270px;
+  right: 250px;
   color: #2b2b2b;
   font-size: 14px;
   text-align: right;
@@ -136,11 +139,11 @@
 .img3 > .defaultImg {
   position: relative;
   left: 20px;
-  bottom: 260px;
+  bottom: 230px;
 }
 .img3 > .comWp {
   position: relative;
-  bottom: 280px;
+  bottom: 250px;
   right: 80px;
   color: #2b2b2b;
   text-align: right;
@@ -150,12 +153,12 @@
 }
 .clip {
   position: relative;
-  bottom: 250px;
+  bottom: 230px;
   right: 30px;
 }
 .img3 > .mainComWp {
   position: relative;
-  top: -250px;
+  top: -225px;
   left: -60px;
   width: 289px;
   height: 60px;
@@ -179,21 +182,21 @@
 .img4 > .defaultImg {
   position: relative;
   left: 20px;
-  bottom: 260px;
+  bottom: 230px;
 }
 .img4 > .leftB {
   position: relative;
-  bottom: 333px;
+  bottom: 305px;
   border-color: rgba(255, 218, 87, 0.85) transparent transparent transparent;
 }
 .img4 > .rightB {
   position: relative;
-  bottom: 473px;
+  bottom: 418px;
   border-color: rgba(255, 218, 87, 0.85) transparent transparent transparent;
 }
 .img4 > .comWp {
   position: relative;
-  bottom: 390px;
+  bottom: 365px;
   right: 108px;
   color: #2b2b2b;
   text-align: right;
@@ -266,7 +269,7 @@
   cursor: pointer;
   display: inline-block;
   position: relative;
-  left: 600px;
+  left: 535px;
   bottom: 40px;
   padding-top: 15px;
   text-align: center;
