@@ -94,3 +94,6 @@ export const ImageGross = styled.div`
     width: 100%;
   }
 `;
+
+
+

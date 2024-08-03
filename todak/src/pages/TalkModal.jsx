@@ -107,6 +107,7 @@ function TalkModal({ onClose, myname }) {
             }
           }
         } else if (response.status === 200) {
+          setIsSubmitted(false);
           const jsonData = await response.json();
           console.log("Response data222:", jsonData);
 
@@ -116,7 +117,8 @@ function TalkModal({ onClose, myname }) {
               console.log("데이터3", answerData.answerText);
               console.log("데이터4", answerData.question.questionText);
               setQuestion(answerData.question.questionText);
-              setSubmittedAnswer(answerData.answerText);
+              // setSubmittedAnswer(answerData.answerText);
+  
             }
           } else {
             // Handle object response
@@ -133,18 +135,18 @@ function TalkModal({ onClose, myname }) {
     fetchData();
   }, [token]);
 
-  useEffect(() => {
-    const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
-    const today = new Date().toISOString().split("T")[0];
+  // useEffect(() => {
+  //   const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
+  //   const today = new Date().toISOString().split("T")[0];
 
-    if (lastSubmissionDate === today) {
-      setIsSubmitted(true);
-      setHideAnswerWp(true);
+  //   if (lastSubmissionDate === today) {
+  //     setIsSubmitted(true);
+  //     setHideAnswerWp(true);
 
-      const storedAnswer = sessionStorage.getItem("submitAns");
-      if (storedAnswer) {
-        setSubmittedAnswer(storedAnswer);
-      }
+  //     // const storedAnswer = sessionStorage.getItem("submitAns");
+  //     // if (storedAnswer) {
+  //     //   setSubmittedAnswer(storedAnswer);
+  //     // }
 
       handleShowToast("5초 뒤에 대화가 닫힙니다.", 5000);
       const timer = setTimeout(() => {
@@ -153,6 +155,7 @@ function TalkModal({ onClose, myname }) {
       setCloseTimer(timer);
     }
   }, [onClose]);
+
 
   async function submitAnswer() {
     if (!isSubmitted && getAnswer.trim() !== "") {
