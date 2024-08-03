@@ -63,6 +63,9 @@
   border-width: 0 0 2px;
   border-bottom-color: #3d4c00;
   padding-bottom: 5px;
+  font-family: "Pretendard Variable";
+  font-size: 24px;
+  font-weight: 300;
 }
 
 .inputBox::placeholder {
@@ -76,6 +79,9 @@
 
 .inputBox:focus {
   outline: none;
+  font-family: "Pretendard Variable";
+  font-size: 24px;
+  font-weight: 300;
 }
 
 .bank,
