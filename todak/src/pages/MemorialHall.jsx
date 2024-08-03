@@ -19,30 +19,6 @@ const MemorialHall = () => {
   const [wreaths, setWreaths] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`/memorialHall/${postId}/message`);
-        setMessages(response.data.results);
-      } catch (error) {
-        console.error("Error fetching messages:", error);
-      }
-    };
-    fetchData();
-  }, [postId]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`/memorialHall/${postId}/wreath`);
-        setWreaths(response.data);
-      } catch (error) {
-        console.error("Error fetching wreaths:", error);
-      }
-    };
-    fetchData();
-  }, [postId]);
-
-  useEffect(() => {
     axios
       .get(`/memorialHall/${postId}`)
       .then((response) => {
@@ -51,6 +27,30 @@ const MemorialHall = () => {
       .catch((error) => {
         console.error("Error fetching post:", error);
       });
+  }, [postId]);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get(`/memorialHall/${postId}/message`);
+        setMessages(response.data.results);
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
+    };
+    fetchMessages();
+  }, [postId]);
+
+  useEffect(() => {
+    const fetchWreaths = async () => {
+      try {
+        const response = await axios.get(`/memorialHall/${postId}/wreath`);
+        setWreaths(response.data);
+      } catch (error) {
+        console.error("Error fetching wreaths:", error);
+      }
+    };
+    fetchWreaths();
   }, [postId]);
 
   const formatDate = (isoDate) => {
@@ -86,7 +86,7 @@ const MemorialHall = () => {
         `/memorialHall/${postId}/message`,
         {
           content,
-          hall: postId, // Add the "hall" field to the request body
+          hall: postId,
         },
         { headers: { Authorization: `Token ${token}` } }
       );
@@ -102,8 +102,18 @@ const MemorialHall = () => {
 
   const copyCurrentURL = () => {
     const currentURL = window.location.href;
+    let linkToCopy = currentURL;
+
+    if (post) {
+      if (post.private) {
+        linkToCopy = `http://localhost:3000/memorialHall/${postId}/access?token=${token}`;
+      } else {
+        linkToCopy = `http://localhost:3000/memorialHall/${postId}`;
+      }
+    }
+
     navigator.clipboard
-      .writeText(currentURL)
+      .writeText(linkToCopy)
       .then(() => {
         console.log("URL이 클립보드에 복사되었습니다.");
       })
