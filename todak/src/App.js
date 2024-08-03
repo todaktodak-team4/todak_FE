@@ -22,12 +22,10 @@ import MemorialHallSignup from "./pages/MemorialHallSignup";
 import LayFlower from "./pages/LayFlower";
 import SentComplete from "./pages/SentComplete";
 import LetterDetail from "./pages/LetterDetail";
-<<<<<<< HEAD
 import LockedMemorialHall from "./pages/LockedMemorialHall";
 import LayCheckout from "./pages/LayCheckout";
-=======
 import Mypage from "./pages/Mypage";
->>>>>>> a8a9e331a16b9f3abcd23d26f49f42f2e71d3b89
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
