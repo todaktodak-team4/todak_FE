@@ -21,6 +21,8 @@ import MemorialHallSignup from "./pages/MemorialHallSignup";
 import LayFlower from "./pages/LayFlower";
 import SentComplete from "./pages/SentComplete";
 import LetterDetail from "./pages/LetterDetail";
+import LockedMemorialHall from "./pages/LockedMemorialHall";
+import LayCheckout from "./pages/LayCheckout";
 
 function App() {
   return (
@@ -73,7 +75,13 @@ function App() {
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
         <Route path="/sentComplete" element={<SentComplete />} />
-        <Route path="/letterDetail" element={<LetterDetail />}></Route>
+        <Route path="/letterDetail" element={<LetterDetail />}>
+          <Route
+            path="/memorialHall/1/access"
+            element={<LockedMemorialHall />}
+          />
+          <Route path="/layCheckout" element={<LayCheckout />} />
+        </Route>
       </Routes>
 
       <A.Footer>

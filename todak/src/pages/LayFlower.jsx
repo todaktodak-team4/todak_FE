@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import * as S from "../css/StyledLayFlower";
 import Nav from "./Nav";
-import LayCheckout from "./LayCheckout";
 
 const LayFlower = () => {
   const textareaRef = useRef(null);
-  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const hall = queryParams.get("hall");
@@ -20,8 +18,6 @@ const LayFlower = () => {
 
   const { donation, customDonation, comment, name } = inputs;
   const token = localStorage.getItem("token");
-
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -48,9 +44,6 @@ const LayFlower = () => {
           Authorization: `Token ${token}`,
         },
       });
-
-      // 결제 모달 열기
-      setIsPaymentModalOpen(true);
     } catch (error) {
       console.error("Error creating new post:", error);
     }
@@ -66,10 +59,6 @@ const LayFlower = () => {
   useEffect(() => {
     adjustHeight();
   }, [comment]);
-
-  const closePaymentModal = () => {
-    setIsPaymentModalOpen(false);
-  };
 
   return (
     <S.Body>
@@ -186,13 +175,6 @@ const LayFlower = () => {
             <p>결제를 완료하시면 기부 증서를 발급해 드려요!</p>
           </S.Guide>
         </S.Content>
-        {isPaymentModalOpen && (
-          <LayCheckout
-            donation={donation === "custom" ? customDonation : donation}
-            name={name}
-            onClose={closePaymentModal}
-          />
-        )}
       </S.Container>
     </S.Body>
   );
