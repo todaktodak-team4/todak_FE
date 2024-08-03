@@ -58,6 +58,7 @@
 
 .inputBox {
   width: 390px;
+  height: 30px;
   background-color: transparent;
   border-width: 0 0 2px;
   border-bottom-color: #3d4c00;

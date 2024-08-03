@@ -22,6 +22,7 @@ import MemorialHallSignup from "./pages/MemorialHallSignup";
 import LayFlower from "./pages/LayFlower";
 import SentComplete from "./pages/SentComplete";
 import LetterDetail from "./pages/LetterDetail";
+import Mypage from "./pages/Mypage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -120,6 +121,7 @@ function App() {
         <Route path="/layFlower" element={<LayFlower />} />
         <Route path="/sentComplete" element={<SentComplete />} />
         <Route path="/letterDetail" element={<LetterDetail />} />
+        <Route path="/mypage" element={<Mypage />} />
       </Routes>
 
       <A.Footer>
