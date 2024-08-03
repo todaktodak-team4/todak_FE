@@ -63,6 +63,8 @@ const MemorialMessage2 = ({
             ? `${baseUrl}/message/${messageId}/${action}`
             : `${baseUrl}/wreath/${messageId}/${action}`;
 
+          console.log(`Fetching counts from URL: ${url}`); // URL 확인
+
           try {
             const response = await axios.get(url, {
               headers: {
@@ -95,9 +97,13 @@ const MemorialMessage2 = ({
       <H.MM2Profile>
         <H.MM4>
           <img
-            id="line"
-            src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`}
-            alt="line"
+            id="profile"
+            src={
+              profile
+                ? profile
+                : `${process.env.PUBLIC_URL}/img/standardProfile.svg`
+            } // 프로필 이미지 또는 기본 이미지
+            alt="profile"
           />
         </H.MM4>
         <H.MM5>{nickname}</H.MM5>

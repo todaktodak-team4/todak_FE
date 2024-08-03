@@ -9,16 +9,31 @@ const MemorialHallList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드 상태 추가
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [option, setOption] = useState("none");
 
-  const fetchData = async (page, keyword = "") => {
+  const fetchData = async (page, keyword = "", option = "none") => {
     setIsLoading(true);
     try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/memorialHall?page=${page}&q=${keyword}`
-      );
-      setListItems(response.data.results);
-      setTotalPages(Math.ceil(response.data.count / 6)); // Assuming 6 items per page
+      let response;
+      if (option === "myParticipation") {
+        response = await axios.get(
+          `http://127.0.0.1:8000/memorialHall/my-participation`,
+          {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        setListItems(response.data);
+        setTotalPages(1); // Assuming all participated halls are shown on one page
+      } else {
+        response = await axios.get(
+          `http://127.0.0.1:8000/memorialHall?page=${page}&q=${keyword}`
+        );
+        setListItems(response.data.results);
+        setTotalPages(Math.ceil(response.data.count / 6)); // Assuming 6 items per page
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -27,17 +42,13 @@ const MemorialHallList = () => {
   };
 
   useEffect(() => {
-    fetchData(currentPage, searchKeyword);
-  }, [currentPage, searchKeyword]);
+    fetchData(currentPage, searchKeyword, option);
+  }, [currentPage, searchKeyword, option]);
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
     setCurrentPage(newPage);
   };
-
-  // Split listItems into two groups
-  const upperItems = listItems.slice(0, 3);
-  const lowerItems = listItems.slice(3, 6);
 
   const handleSearchChange = (e) => {
     setSearchKeyword(e.target.value);
@@ -46,8 +57,18 @@ const MemorialHallList = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     setCurrentPage(1);
-    fetchData(1, searchKeyword);
+    fetchData(1, searchKeyword, option);
   };
+
+  const handleOptionChange = (e) => {
+    setOption(e.target.value);
+    setCurrentPage(1);
+    fetchData(1, searchKeyword, e.target.value);
+  };
+
+  // Split listItems into two groups
+  const upperItems = listItems.slice(0, 3);
+  const lowerItems = listItems.slice(3, 6);
 
   return (
     <H.Body>
@@ -78,9 +99,9 @@ const MemorialHallList = () => {
               </form>
             </H.Input>
             <H.Option>
-              <select id="options">
+              <select id="options" onChange={handleOptionChange}>
                 <option value="none">전체</option>
-                <option value="female">내가 참여한 추모관</option>
+                <option value="myParticipation">내가 참여한 추모관</option>
               </select>
             </H.Option>
           </H.InputOption>
@@ -104,7 +125,7 @@ const MemorialHallList = () => {
                       wreathCount={item.wreathCount}
                       messageCount={item.messageCount}
                       status={item.status}
-                      oken={item.token}
+                      token={item.token}
                     />
                   ))}
                 </div>
@@ -123,7 +144,7 @@ const MemorialHallList = () => {
                       wreathCount={item.wreathCount}
                       messageCount={item.messageCount}
                       status={item.status}
-                      isToken={item.token}
+                      token={item.token}
                     />
                   ))}
                 </div>
@@ -135,11 +156,12 @@ const MemorialHallList = () => {
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
+              style={{ border: "none", background: "none", color: "black" }}
             >
               {"<"} {/* Previous button */}
             </button>
             <span>
-              페이지 {currentPage} / {totalPages}
+              {currentPage} / {totalPages}
             </span>
             <button
               onClick={() => handlePageChange(currentPage + 1)}

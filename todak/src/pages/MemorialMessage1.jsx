@@ -19,9 +19,13 @@ const MemorialMessage = ({
       <H.MMCProfile>
         <H.MMC1>
           <img
-            id="line"
-            src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`}
-            alt="line"
+            id="profile"
+            src={
+              profile
+                ? profile
+                : `${process.env.PUBLIC_URL}/img/standardProfile.svg`
+            } // 프로필 이미지 또는 기본 이미지
+            alt="profile"
           />
         </H.MMC1>
         <H.MMC2>{name}</H.MMC2>
