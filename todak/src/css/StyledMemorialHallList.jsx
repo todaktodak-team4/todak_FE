@@ -12,6 +12,7 @@ export const Container = styled.div`
   background: linear-gradient(180deg, #c3c3c3 0%, #fff 48%);
 `;
 export const Content = styled.div`
+  background: linear-gradient(180deg, #c3c3c3 0%, #fff 48%);
   display: flex;
   justify-content: center;
   align-items: center;
