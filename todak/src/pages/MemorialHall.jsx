@@ -17,6 +17,7 @@ const MemorialHall = () => {
   const token = localStorage.getItem("token");
   const [messages, setMessages] = useState([]);
   const [wreaths, setWreaths] = useState([]);
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
 
   useEffect(() => {
     axios
@@ -115,7 +116,10 @@ const MemorialHall = () => {
     navigator.clipboard
       .writeText(linkToCopy)
       .then(() => {
+        setIsLinkCopied(true); // 링크 복사 완료 상태 설정
         console.log("URL이 클립보드에 복사되었습니다.");
+        // 3초 후에 복사 완료 메시지를 숨김
+        setTimeout(() => setIsLinkCopied(false), 3000);
       })
       .catch((err) => {
         console.error("URL 복사 실패:", err);
@@ -152,10 +156,26 @@ const MemorialHall = () => {
             <button id="copyPathBtn" onClick={copyCurrentURL}>
               <p id="btnp">링크 공유</p>
             </button>
+            {/* 복사 완료 메시지 */}
             <button id="layFlowerBtn" onClick={navigateToLayFlower}>
               <p id="btnp">헌화하기</p>
             </button>
           </H.Btns>
+          {isLinkCopied && (
+            <p
+              style={{
+                color: "rgba(61, 76, 0, 0.65)",
+                textAlign: "center",
+                fontFamily: "Pretendard Variable",
+                fontSize: "1.75rem",
+                fontStyle: "normal",
+                fontWeight: "500",
+                lineHeight: "normal",
+              }}
+            >
+              추모관 링크가 복사되었습니다.
+            </p>
+          )}{" "}
         </H.Content>
         <H.BannerBottom>
           <H.BannerContent>
