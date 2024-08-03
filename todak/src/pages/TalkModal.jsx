@@ -118,7 +118,6 @@ function TalkModal({ onClose, myname }) {
               console.log("데이터4", answerData.question.questionText);
               setQuestion(answerData.question.questionText);
               // setSubmittedAnswer(answerData.answerText);
-  
             }
           } else {
             // Handle object response
@@ -148,14 +147,13 @@ function TalkModal({ onClose, myname }) {
   //     //   setSubmittedAnswer(storedAnswer);
   //     // }
 
-      handleShowToast("5초 뒤에 대화가 닫힙니다.", 5000);
-      const timer = setTimeout(() => {
-        onClose();
-      }, 5000);
-      setCloseTimer(timer);
-    }
-  }, [onClose]);
-
+  //     handleShowToast("5초 뒤에 대화가 닫힙니다.", 5000);
+  //     const timer = setTimeout(() => {
+  //       onClose();
+  //     }, 5000);
+  //     setCloseTimer(timer);
+  //   }
+  // }, [onClose]);
 
   async function submitAnswer() {
     if (!isSubmitted && getAnswer.trim() !== "") {
