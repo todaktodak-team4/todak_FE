@@ -88,6 +88,7 @@ export const Option = styled.div`
     font-weight: 400;
     line-height: normal;
     background: none;
+    outline: none;
   }
   #options {
     background: none;
@@ -99,6 +100,7 @@ export const Option = styled.div`
     line-height: normal;
     border: 0;
     border-bottom: 2px solid #2b2b2b;
+    outline: none;
   }
 `;
 export const ListContent = styled.div`
@@ -254,7 +256,8 @@ export const C5 = styled.div`
     height: 1.1rem;
   }
 `;
-export const NumberBtn = styled.div`display: flex;
+export const NumberBtn = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem; /* 버튼 간의 간격 조절 */
@@ -272,7 +275,7 @@ export const NumberBtn = styled.div`display: flex;
     font-weight: 700;
     color: #2b2b2b;
     cursor: pointer;
-    
+
     &:disabled {
       background: #e0e0e0;
       cursor: not-allowed;
@@ -284,5 +287,5 @@ export const NumberBtn = styled.div`display: flex;
     font-size: 1.5rem;
     font-weight: 700;
     color: #2b2b2b;
-  }`;
-
+  }
+`;
