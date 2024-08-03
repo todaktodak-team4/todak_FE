@@ -21,6 +21,11 @@
   font-weight: 700;
   top: -30px;
 }
+.helpBtn {
+  position: absolute;
+  right: 10%;
+  top: -3%;
+}
 .rememberTreeBox {
   position: absolute;
   width: 100%;

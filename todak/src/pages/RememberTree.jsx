@@ -31,6 +31,8 @@ function RememberTree() {
   const [refreshToken, setRefreshToken] = useState(
     localStorage.getItem("refresh_token")
   );
+  const [isFirstVisit, setIsFirstVisit] = useState(true);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -55,7 +57,6 @@ function RememberTree() {
         localStorage.setItem("access_token", data.access);
         return data.access;
       } else {
-        // Handle refresh token errors
         console.error("Failed to refresh token");
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
@@ -67,8 +68,13 @@ function RememberTree() {
   };
 
   useEffect(() => {
-    // Open HelpModal on component mount
-    // setIsModalOpen(true);
+    const visitCount = sessionStorage.getItem("visitCount") || 0;
+    if (visitCount === 0) {
+      setIsModalOpen(true);
+      sessionStorage.setItem("visitCount", 1); // Set visit count to 1 after first visit
+    } else {
+      sessionStorage.setItem("visitCount", parseInt(visitCount) + 1); // Increment visit count
+    }
 
     const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
     const today = new Date().toISOString().split("T")[0];
@@ -87,10 +93,8 @@ function RememberTree() {
         });
 
         if (response.status === 401) {
-          // Access token이 만료되면 새로운 토큰 재발급
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
-            // Retry fetch with new access token
             const retryResponse = await fetch(
               "http://127.0.0.1:8000/rememberTree/",
               {
@@ -103,7 +107,6 @@ function RememberTree() {
             );
             if (retryResponse.ok) {
               const data = await retryResponse.json();
-              console.log("data[0].myName:", data[0].myName);
               setTreeName(data[0].treeName);
               setTreeId(data[0].id);
               setUserName(data[0].myName);
@@ -113,7 +116,6 @@ function RememberTree() {
           }
         } else if (response.ok) {
           const data = await response.json();
-          console.log("data[0].myName:", data[0].myName);
           setTreeName(data[0].treeName);
           setTreeId(data[0].id);
           setUserName(data[0].myName);
@@ -231,6 +233,13 @@ function RememberTree() {
         >
           <div className={styles.rememberTreeBox}>
             <div className={styles.treeName}>{treeName}</div>
+            <img
+              src="/img/help.png"
+              alt="도움말 버튼"
+              className={styles.helpBtn}
+              style={{ width: "44px", height: "44px" }}
+              onClick={toggleModal} // 도움말 버튼 클릭 시 모달 열기
+            />
             <div className={styles.rememberTreeInner}>
               <div className={styles.album}>
                 {isAlbumClicked && (
