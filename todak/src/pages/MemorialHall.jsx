@@ -14,10 +14,12 @@ const MemorialHall = () => {
   const [inputs, setInputs] = useState({ content: "" });
   const { content } = inputs;
   const [comments, setComments] = useState([]);
-  const token = localStorage.getItem("token");
   const [messages, setMessages] = useState([]);
   const [wreaths, setWreaths] = useState([]);
-  const [isLinkCopied, setIsLinkCopied] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     axios
@@ -31,16 +33,22 @@ const MemorialHall = () => {
   }, [postId]);
 
   useEffect(() => {
-    const fetchMessages = async () => {
+    const fetchMessages = async (page = 1) => {
+      setIsLoading(true);
       try {
-        const response = await axios.get(`/memorialHall/${postId}/message`);
+        const response = await axios.get(
+          `/memorialHall/${postId}/message?page=${page}`
+        );
         setMessages(response.data.results);
+        setTotalPages(Math.ceil(response.data.count / 3)); // Assuming 3 items per page
       } catch (error) {
         console.error("Error fetching messages:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchMessages();
-  }, [postId]);
+    fetchMessages(currentPage);
+  }, [postId, currentPage]);
 
   useEffect(() => {
     const fetchWreaths = async () => {
@@ -116,10 +124,7 @@ const MemorialHall = () => {
     navigator.clipboard
       .writeText(linkToCopy)
       .then(() => {
-        setIsLinkCopied(true); // 링크 복사 완료 상태 설정
         console.log("URL이 클립보드에 복사되었습니다.");
-        // 3초 후에 복사 완료 메시지를 숨김
-        setTimeout(() => setIsLinkCopied(false), 3000);
       })
       .catch((err) => {
         console.error("URL 복사 실패:", err);
@@ -128,6 +133,11 @@ const MemorialHall = () => {
 
   const navigateToLayFlower = () => {
     navigate(`/layFlower?hall=${postId}`);
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
   };
 
   return (
@@ -156,26 +166,10 @@ const MemorialHall = () => {
             <button id="copyPathBtn" onClick={copyCurrentURL}>
               <p id="btnp">링크 공유</p>
             </button>
-            {/* 복사 완료 메시지 */}
             <button id="layFlowerBtn" onClick={navigateToLayFlower}>
               <p id="btnp">헌화하기</p>
             </button>
           </H.Btns>
-          {isLinkCopied && (
-            <p
-              style={{
-                color: "rgba(61, 76, 0, 0.65)",
-                textAlign: "center",
-                fontFamily: "Pretendard Variable",
-                fontSize: "1.75rem",
-                fontStyle: "normal",
-                fontWeight: "500",
-                lineHeight: "normal",
-              }}
-            >
-              추모관 링크가 복사되었습니다.
-            </p>
-          )}{" "}
         </H.Content>
         <H.BannerBottom>
           <H.BannerContent>
@@ -218,9 +212,9 @@ const MemorialHall = () => {
           <H.MemorialMessage2Input>
             <H.MM1>
               <img
-                id="line"
-                src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`}
-                alt="line"
+                id="profile"
+                src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`} // 프로필 이미지
+                alt="profile"
               />
             </H.MM1>
             <H.MM2>
@@ -235,21 +229,45 @@ const MemorialHall = () => {
                 등록하기
               </div>
               <H.MemorialMessages2>
-                {messages.map((item) => (
-                  <MemorialMessage2
-                    key={item.id}
-                    messageId={item.id}
-                    content={item.content}
-                    comment={item.comment}
-                    hall={item.hall}
-                    nickname={item.nickname}
-                    profile={item.profile}
-                    createdAt={item.createdAt}
-                  />
-                ))}
+                {isLoading ? (
+                  <p>Loading...</p>
+                ) : (
+                  messages.map((item) => (
+                    <MemorialMessage2
+                      key={item.id}
+                      messageId={item.id}
+                      content={item.content}
+                      comment={item.comment}
+                      hall={item.hall}
+                      nickname={item.nickname}
+                      profile={item.profile}
+                      createdAt={item.createdAt}
+                    />
+                  ))
+                )}
               </H.MemorialMessages2>
             </H.MM2>
           </H.MemorialMessage2Input>
+
+          <H.NumberBtn>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              style={{ border: "none", background: "none", color: "black" }}
+            >
+              {"<"} {/* Previous button */}
+            </button>
+            <span>
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              style={{ border: "none", background: "none", color: "black" }}
+            >
+              {">"} {/* Next button */}
+            </button>
+          </H.NumberBtn>
         </H.MemorialMessage2>
       </H.Container>
     </H.Body>

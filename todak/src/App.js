@@ -26,8 +26,8 @@ import LayCheckout from "./pages/LayCheckout";
 
 function App() {
   return (
+    
     <BrowserRouter>
-      <GlobalStyle />
       <A.Header>
         <A.Logo>
           <Link to="/">
