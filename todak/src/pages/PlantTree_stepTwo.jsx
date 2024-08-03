@@ -69,11 +69,11 @@ function PlantTreeStepTwo() {
 
   return (
     <div className={styles.container}>
-      <Nav></Nav>
       <img
-        className={styles.container}
+        className={styles.conImg}
         src="/img/plantTree-bg.png"
         alt="plant tree background img"
+        style={{ position: "absolute", zIndex: " -1" }}
       />
       <div className={styles.innerContainer}>
         <div className={styles.plantTreeWp2}>

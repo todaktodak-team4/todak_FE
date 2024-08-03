@@ -219,7 +219,6 @@ function RememberTree() {
 
   return (
     <>
-      <Nav></Nav>
       <div className={styles.container} style={{ maxHeight: "1000px" }}>
         <img
           src="/img/plantTree-bg.png"

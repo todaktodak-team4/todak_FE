@@ -26,7 +26,7 @@ import LockedMemorialHall from "./pages/LockedMemorialHall";
 import LayCheckout from "./pages/LayCheckout";
 import Mypage from "./pages/Mypage";
 import TalkModal from "./pages/TalkModal";
-
+import Nav from "./pages/Nav";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -102,7 +102,7 @@ function App() {
           )}
         </A.Privacy>
       </A.Header>
-
+      <Nav></Nav>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/signup1" element={<Signup1 />} />
@@ -121,9 +121,11 @@ function App() {
         <Route path="/success" element={<SuccessModal />} />
         <Route path="/memorialHall/:postId?" element={<MemorialHall />} />
         <Route path="/memorialHallList" element={<MemorialHallList />} />
-        <Route path="memorialHall/:postId/access" element={<LockedMemorialHall />} />
+        <Route
+          path="memorialHall/:postId/access"
+          element={<LockedMemorialHall />}
+        />
         <Route path="layCheckout" element={<LayCheckout />} />
-
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
         <Route path="/sentComplete" element={<SentComplete />} />

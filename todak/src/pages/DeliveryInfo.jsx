@@ -47,7 +47,6 @@ function DeliveryInfo() {
 
   return (
     <>
-      <Nav></Nav>
       <div
         className={styles.container}
         style={{

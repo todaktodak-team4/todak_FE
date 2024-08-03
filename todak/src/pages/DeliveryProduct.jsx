@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledDeliveryProduct.module.css";
-
+import Nav from "./Nav";
 function DeliveryProduct() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
