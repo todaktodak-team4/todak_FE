@@ -27,6 +27,7 @@ import LayCheckout from "./pages/LayCheckout";
 import Mypage from "./pages/Mypage";
 import TalkModal from "./pages/TalkModal";
 import Nav from "./pages/Nav";
+import ModifyInfo from "./pages/ModifyInfo";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -132,6 +133,7 @@ function App() {
         <Route path="/letterDetail" element={<LetterDetail />} />
         <Route path="/mypage" element={<Mypage />} />{" "}
         <Route path="/talkModal" element={<TalkModal />} />
+        <Route path="/modifyInfo" element={<ModifyInfo />} />
       </Routes>
 
       <A.Footer>

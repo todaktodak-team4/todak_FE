@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Nav from "./Nav";
 import styles from "../css/StyledRememberTree.module.css";
 import HelpModal from "../pages/HelpModal";
 import TalkModal from "../pages/TalkModal";
@@ -34,7 +33,6 @@ function RememberTree() {
   const [isFirstVisit, setIsFirstVisit] = useState(true);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const token = localStorage.getItem("token");
 
@@ -60,7 +58,7 @@ function RememberTree() {
         console.error("Failed to refresh token");
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        navigate("/login"); // Redirect to login if refresh fails
+        navigate("/login");
       }
     } catch (error) {
       console.error("Error refreshing token:", error);
@@ -71,9 +69,9 @@ function RememberTree() {
     const visitCount = sessionStorage.getItem("visitCount") || 0;
     if (visitCount === 0) {
       setIsModalOpen(true);
-      sessionStorage.setItem("visitCount", 1); // Set visit count to 1 after first visit
+      sessionStorage.setItem("visitCount", 1);
     } else {
-      sessionStorage.setItem("visitCount", parseInt(visitCount) + 1); // Increment visit count
+      sessionStorage.setItem("visitCount", parseInt(visitCount) + 1);
     }
 
     const lastSubmissionDate = sessionStorage.getItem("lastSubmissionDate");
@@ -238,7 +236,7 @@ function RememberTree() {
               alt="도움말 버튼"
               className={styles.helpBtn}
               style={{ width: "44px", height: "44px" }}
-              onClick={toggleModal} // 도움말 버튼 클릭 시 모달 열기
+              onClick={toggleModal}
             />
             <div className={styles.rememberTreeInner}>
               <div className={styles.album}>
