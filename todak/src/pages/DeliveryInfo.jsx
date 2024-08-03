@@ -52,101 +52,131 @@ function DeliveryInfo() {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className={styles.deliWp}>
+      <div
+        className={styles.deliWp}
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <div className={styles.top}>
           <div className={styles.boxImg}>
             <img src="/img/deliBox.png" alt="tree icon" />
           </div>
           <div className={styles.deliTitle}>기억 나무 배송</div>
         </div>
-        <div className={styles.orderWp}>
-          <img src="/img/d_1.png" alt="1" />
-          <div className={`${styles.orderer} ${styles.title}`}>주문자</div>
-          <input
-            type="text"
-            className={styles.inputBox}
-            placeholder="주문자 성함"
-            value={ordererName}
-            onChange={(e) => setOrdererName(e.target.value)}
-          />
-        </div>
-        <div className={styles.recipientWp}>
-          <img src="/img/d_2.png" alt="2" />
-          <div className={`${styles.recipient} ${styles.title}`}>수령인</div>
-          <input
-            type="text"
-            className={styles.inputBox}
-            placeholder="수령인 성함"
-            value={recipientName}
-            onChange={(e) => setRecipientName(e.target.value)}
-          />
-        </div>
-        <div className={styles.telWp}>
-          <img src="/img/d_3.png" alt="3" />
-          <div className={`${styles.tel} ${styles.title}`}>전화번호</div>
-          <input
-            type="text"
-            className={styles.inputBox}
-            placeholder="010-0000-0000"
-            value={phoneNumber}
-            onChange={handlePhoneNumberChange}
-            maxLength="13"
-          />
-        </div>
-        <div className={styles.addressWp}>
-          <img src="/img/d_4.png" alt="4" />
-          <div className={`${styles.address} ${styles.title}`}>배송 주소</div>
-          <div className={styles.addressInputWp}>
-            <div className={styles.row}>
-              <input
-                type="text"
-                className={`${styles.inputBox} ${styles.zonecode}`}
-                placeholder="우편번호"
-                value={zoneCode}
-                readOnly
-              />
-              <div className={styles.postalCodeBtn} onClick={openPostCode}>
-                우편번호 찾기
+
+        <div
+          style={{
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <div className={styles.orderWp}>
+            <img src="/img/d_1.png" alt="1" />
+            <div className={`${styles.orderer} ${styles.title}`}>주문자</div>
+            <input
+              type="text"
+              className={styles.inputBox}
+              placeholder="주문자 성함"
+              value={ordererName}
+              onChange={(e) => setOrdererName(e.target.value)}
+            />
+          </div>
+          <div className={styles.recipientWp}>
+            <img src="/img/d_2.png" alt="2" />
+            <div className={`${styles.recipient} ${styles.title}`}>수령인</div>
+            <input
+              type="text"
+              className={styles.inputBox}
+              placeholder="수령인 성함"
+              value={recipientName}
+              onChange={(e) => setRecipientName(e.target.value)}
+            />
+          </div>
+          <div className={styles.telWp}>
+            <img src="/img/d_3.png" alt="3" />
+            <div className={`${styles.tel} ${styles.title}`}>전화번호</div>
+            <input
+              type="text"
+              className={styles.inputBox}
+              placeholder="010-0000-0000"
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange}
+              maxLength="13"
+            />
+          </div>
+          <div className={styles.addressWp}>
+            <img src="/img/d_4.png" alt="4" />
+            <div className={`${styles.address} ${styles.title}`}>배송 주소</div>
+            <div className={styles.addressInputWp}>
+              <div className={styles.row}>
+                <input
+                  type="text"
+                  className={`${styles.inputBox} ${styles.zonecode}`}
+                  placeholder="우편번호"
+                  value={zoneCode}
+                  readOnly
+                />
+                <div className={styles.postalCodeBtn} onClick={openPostCode}>
+                  우편번호 찾기
+                </div>
+                <div id="popupDom">
+                  {isPopupOpen && (
+                    <PopupDom>
+                      <PopupPostCode
+                        onClose={closePostCode}
+                        onSelect={handlePostCodeSelection}
+                      />
+                    </PopupDom>
+                  )}
+                </div>
               </div>
-              <div id="popupDom">
-                {isPopupOpen && (
-                  <PopupDom>
-                    <PopupPostCode
-                      onClose={closePostCode}
-                      onSelect={handlePostCodeSelection}
-                    />
-                  </PopupDom>
-                )}
+              <div className={styles.row}>
+                <input
+                  type="text"
+                  className={`${styles.inputBox} ${styles.postalAddress}`}
+                  placeholder="주소"
+                  value={postalAddress}
+                  readOnly
+                />
               </div>
-            </div>
-            <div className={styles.row}>
-              <input
-                type="text"
-                className={`${styles.inputBox} ${styles.postalAddress}`}
-                placeholder="주소"
-                value={postalAddress}
-                readOnly
-              />
-            </div>
-            <div className={styles.row}>
-              <input
-                type="text"
-                className={styles.inputBox}
-                placeholder="상세 주소 입력"
-                value={detailAddress}
-                onChange={(e) => setDetailAddress(e.target.value)}
-              />
+              <div className={styles.row}>
+                <input
+                  type="text"
+                  className={styles.inputBox}
+                  placeholder="상세 주소 입력"
+                  value={detailAddress}
+                  onChange={(e) => setDetailAddress(e.target.value)}
+                />
+              </div>
             </div>
           </div>
         </div>
         <div
-          className={styles.backBtn}
-          onClick={() => navigate("/deliveryProduct")}
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "",
+            height: "100%",
+          }}
         >
-          이전
-        </div>
-        <div className={styles.deliBtn} onClick={openPaymentModal}>
-          결제 및 배송 신청
+          <div
+            className={styles.backBtn}
+            onClick={() => navigate("/deliveryProduct")}
+            style={{ marginLeft: "10%" }}
+          >
+            이전
+          </div>
+          <div style={{ flex: 3 }}></div>
+          <div
+            className={styles.deliBtn}
+            onClick={openPaymentModal}
+            style={{ marginRight: "5%" }}
+          >
+            결제 및 배송 신청
+          </div>
         </div>
         {isPaymentModalOpen && (
           <CheckoutPage

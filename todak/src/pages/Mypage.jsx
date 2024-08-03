@@ -1,7 +1,16 @@
 import styles from "../css/StyledMypage.module.css";
 
 function Mypage() {
-  return <></>;
+  return (
+    <>
+      <div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </>
+  );
 }
 
 export default Mypage;

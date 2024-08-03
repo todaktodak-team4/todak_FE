@@ -1,23 +1,32 @@
 .container {
-  display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   position: relative;
+  height: 100px;
   width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 39%;
 }
 
+.innerContainer {
+  position: relative;
+
+  width: 70%;
+  height: 200px;
+  left: 50%;
+  bottom: 300%;
+  transform: translateX(-50%) translateY(50%);
+}
+.chatting {
+  width: 1000px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 2px;
+  position: relative;
+}
 .quest {
   display: flex;
   position: absolute;
-  top: 34%;
-  left: 25%;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  left: 0;
+  bottom: 100%;
   padding: 20px 25px;
   width: auto;
   height: auto;
@@ -33,20 +42,26 @@
   transition: transform 0.5s ease-out;
   overflow: hidden;
   overflow-wrap: break-word;
+  margin-bottom: 5%;
 }
+
 .questShift {
   transform: translateY(-100px);
 }
+
 .quest.expanded {
   height: auto;
   max-height: none;
 }
+
 .answerWp {
   display: flex;
-  position: absolute;
-  top: 50%;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
   border-radius: 60px;
   width: 1103px;
   height: 114px;
@@ -80,6 +95,7 @@
   font-size: 28px;
   font-weight: 400;
 }
+
 .submitted::placeholder {
   color: rgba(111, 111, 111, 0.65);
 }
@@ -96,7 +112,6 @@
 }
 
 .submit {
-  cursor: pointer;
   position: relative;
   left: 10px;
   top: 3px;
@@ -108,27 +123,28 @@
 }
 
 .chatBox {
-  text-align: right;
-  position: relative;
   opacity: 0;
+  position: absolute;
+  bottom: 90%;
+  right: 0%;
   animation: slideIn 0.5s ease-out forwards;
   text-align: right;
   margin-left: 36%;
-  bottom: 8%;
   padding: 20px 22px;
   color: #3d4c00;
   font-family: "Pretendard Variable";
   font-size: 32px;
   font-weight: 400;
   line-height: normal;
-  width: auto;
+  width: fit-content;
+  max-width: 90%;
   border-radius: 40px 40px 0px 40px;
   background: linear-gradient(180deg, #f0ffc8 0%, #cce685 100%);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25) inset,
     0px 7px 5px 0px rgba(0, 0, 0, 0.25);
   word-wrap: break-word;
   max-height: 300px;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .toast {

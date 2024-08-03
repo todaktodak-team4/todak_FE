@@ -23,6 +23,7 @@ import LayFlower from "./pages/LayFlower";
 import SentComplete from "./pages/SentComplete";
 import LetterDetail from "./pages/LetterDetail";
 import Mypage from "./pages/Mypage";
+import TalkModal from "./pages/TalkModal";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -121,7 +122,8 @@ function App() {
         <Route path="/layFlower" element={<LayFlower />} />
         <Route path="/sentComplete" element={<SentComplete />} />
         <Route path="/letterDetail" element={<LetterDetail />} />
-        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/mypage" element={<Mypage />} />{" "}
+        <Route path="/talkModal" element={<TalkModal />} />
       </Routes>
 
       <A.Footer>
