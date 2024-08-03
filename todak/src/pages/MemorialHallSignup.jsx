@@ -20,12 +20,18 @@ const MemorialHallSignup = () => {
 
 
   const onChange = (e) => {
-    const { name, value, files } = e.target;
-
-    if (name === "thumbnail" && files.length > 0) {
+    const { name, value, type, checked } = e.target;
+  
+    console.log("변화됨:",e.target);
+    if (type === "radio") {
       setInputs({
         ...inputs,
-        thumbnail: files[0],
+        [name]: value,
+      });
+    } else if (name === "thumbnail" && e.target.files.length > 0) {
+      setInputs({
+        ...inputs,
+        thumbnail: e.target.files[0],
       });
     } else {
       setInputs({
@@ -41,7 +47,15 @@ const MemorialHallSignup = () => {
       formData.append("name", name);
       formData.append("info", info);
       formData.append("date", date);
-      formData.append("visibility", visibility);
+      // formData.append("visibility", visibility);
+
+      if (visibility === "public") {
+        formData.append("public", true);
+        formData.append("private", false);
+      }else{
+        formData.append("private", true);
+        formData.append("public", false);
+      }  
 
       if (thumbnail) {
         formData.append("thumbnail", thumbnail);
@@ -133,7 +147,7 @@ const MemorialHallSignup = () => {
               <input
                 id="introduce"
                 name="info"
-                placeholder="간단한 소개글을 적어주세요. (50자 이내)"
+                placeholder="간단한 소개글을 적어주세요. (70자 이내)"
                 value={info}
                 onChange={onChange}
               />

@@ -14,14 +14,26 @@ const MemorialMessage = ({
   messageId,
   //props
 }) => {
+
+  console.log("프로필:", profile);
+
+  const baseUrl = 'http://127.0.0.1:8000';
+  // Set the profile image URL conditionally
+  const imageUrl = profile
+    ? `${baseUrl}${profile}`  // Profile image from server
+    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`;  // Default image
+
+
+
   return (
     <H.MemorialMessageContent>
       <H.MMCProfile>
         <H.MMC1>
-          <img
+        <img
             id="line"
-            src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`}
-            alt="line"
+            src={imageUrl}  // Set the profile image here
+            alt="Profile"
+            style={{ width: '100px', height: '100px', borderRadius: '50%' }}  // Adjust as needed
           />
         </H.MMC1>
         <H.MMC2>{name}</H.MMC2>

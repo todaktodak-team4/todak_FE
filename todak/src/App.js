@@ -22,6 +22,8 @@ import MemorialHallSignup from "./pages/MemorialHallSignup";
 import LayFlower from "./pages/LayFlower";
 import SentComplete from "./pages/SentComplete";
 import LetterDetail from "./pages/LetterDetail";
+import LockedMemorialHall from "./pages/LockedMemorialHall";
+import LayCheckout from "./pages/LayCheckout";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -116,10 +118,14 @@ function App() {
         <Route path="/success" element={<SuccessModal />} />
         <Route path="/memorialHall/:postId?" element={<MemorialHall />} />
         <Route path="/memorialHallList" element={<MemorialHallList />} />
+        <Route path="memorialHall/:postId/access" element={<LockedMemorialHall />} />
+        <Route path="layCheckout" element={<LayCheckout />} />
+
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
         <Route path="/sentComplete" element={<SentComplete />} />
-        <Route path="/letterDetail" element={<LetterDetail />} />
+        <Route path="/letterDetail" element={<LetterDetail />}> 
+  </Route>
       </Routes>
 
       <A.Footer>

@@ -20,6 +20,18 @@ const MemorialMessage2 = ({
 
   const [updateTrigger, setUpdateTrigger] = useState(false); // 상태를 새로고침할지 결정하는 변수
 
+
+
+  console.log("프로필:", profile);
+
+  const baseUrl = 'http://127.0.0.1:8000';
+  // Set the profile image URL conditionally
+  const imageUrl = profile
+    ? `${baseUrl}${profile}`  // Profile image from server
+    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`;  // Default image
+
+
+
   // API 요청 함수
   const sendRequest = async (action, setter) => {
     const baseUrl = `http://127.0.0.1:8000/memorialHall/${hall}`;
@@ -149,8 +161,9 @@ const MemorialMessage2 = ({
         <H.MM4>
           <img
             id="line"
-            src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`}
-            alt="line"
+            src={imageUrl}  // Set the profile image here
+            alt="Profile"
+            style={{ width: '50px', height: '50px', borderRadius: '50%' }}  // Adjust as needed
           />
         </H.MM4>
         <H.MM5>{nickname}</H.MM5>
