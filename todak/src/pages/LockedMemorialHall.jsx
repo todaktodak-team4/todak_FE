@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import ContentItem from "./ContentItem";
 import * as H from "../css/StyledMemorialHallList";
 import Nav from "./Nav";
 
 const LockedMemorialHall = () => {
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 상단으로 스크롤
+    window.scrollTo(0, 0);
+  }, []);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 

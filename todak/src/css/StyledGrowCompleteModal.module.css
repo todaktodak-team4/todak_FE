@@ -43,6 +43,7 @@
 
 .no,
 .yes {
+  cursor: pointer;
   float: left;
   position: absolute;
   left: 30%;

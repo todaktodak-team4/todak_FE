@@ -11,14 +11,6 @@
   z-index: 1000;
 }
 
-.container {
-  position: relative;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
 .closeButton {
   position: relative;
   top: -420px;
@@ -51,6 +43,7 @@
 }
 
 .innerContainer {
+  cursor: pointer;
   display: inline-block;
   position: relative;
   margin-bottom: 20px;

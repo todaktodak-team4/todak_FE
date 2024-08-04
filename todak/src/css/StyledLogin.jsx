@@ -12,7 +12,7 @@ export const Container = styled.div`
   position: relative;
   margin: 0;
   width: 100vw;
-  height: 120vh;
+  height: 100vh;
   justify-content: center;
   align-items: center;
   background: url(${process.env.PUBLIC_URL}/img/Background_last.png);

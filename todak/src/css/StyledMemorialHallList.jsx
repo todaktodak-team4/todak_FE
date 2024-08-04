@@ -16,7 +16,7 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 5vh;
+  padding-top: 10vh;
   padding-bottom: 10vh;
   gap: 5vh;
 `;
@@ -88,6 +88,7 @@ export const Option = styled.div`
     font-weight: 400;
     line-height: normal;
     background: none;
+    outline: none;
   }
   #options {
     background: none;
@@ -99,6 +100,7 @@ export const Option = styled.div`
     line-height: normal;
     border: 0;
     border-bottom: 2px solid #2b2b2b;
+    outline: none;
   }
 `;
 export const ListContent = styled.div`
@@ -254,4 +256,36 @@ export const C5 = styled.div`
     height: 1.1rem;
   }
 `;
-export const NumberBtn = styled.div``;
+export const NumberBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* 버튼 간의 간격 조절 */
+  margin-top: 2rem; /* 페이지네이션 위 여백 */
+  margin-bottom: 2rem; /* 페이지네이션 아래 여백 */
+
+  button {
+    border: none;
+    background: linear-gradient(0deg, #adadad 0%, #ebebeb 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 1.5rem;
+    padding: 0.5rem 1rem;
+    font-family: "Pretendard Variable";
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2b2b2b;
+    cursor: pointer;
+
+    &:disabled {
+      background: #e0e0e0;
+      cursor: not-allowed;
+    }
+  }
+
+  span {
+    font-family: "Pretendard Variable";
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2b2b2b;
+  }
+`;

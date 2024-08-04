@@ -1,22 +1,20 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 .container {
-  position: absolute;
-  top: 4.8%;
-  left: 0;
-  width: 100vw;
+  position: fixed;
+  top: 0;
+  width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: rgba(39, 16, 0, 0.45);
 }
-
+.modalContent {
+}
 .closeButton {
   color: #fff;
   font-size: 40px;
   position: absolute;
-  top: 13.2%;
-  right: 11.1%;
+  top: 14.6%;
+  right: 10%;
+  z-index: 100;
 }
 .post,
 .album,
@@ -45,16 +43,16 @@
   left: -10%;
 }
 .delivery {
-  left: 20%;
+  left: 18%;
   top: 15%;
 }
 .album {
-  left: 20%;
-  top: 38%;
+  left: 18%;
+  top: 44%;
 }
 .talkToTree {
-  left: 20%;
-  top: 72%;
+  left: 18%;
+  top: 77%;
 }
 .moveTree {
   top: 5%;
@@ -69,16 +67,17 @@
   right: -35%;
 }
 .help {
-  top: 23%;
-  right: 10%;
+  top: 25%;
+  right: 9%;
 }
 .helpArrow {
   left: 73%;
   bottom: 100%;
+  z-index: 1;
 }
 .post {
-  right: 20%;
-  top: 42%;
+  right: 18%;
+  top: 52%;
 }
 .postBoxArrow {
   top: 55%;
