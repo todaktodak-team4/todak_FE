@@ -132,3 +132,20 @@ input::placeholder {
   font-size: 32px;
   font-weight: 700;
 }
+
+.emailError,
+.pwError,
+.pwSuccess,
+.emailSuccess {
+  padding-top: 10px;
+  position: absolute;
+  left: 32%;
+  color: #d34f48;
+  font-family: "Pretendard Variable";
+  font-size: 20px;
+  font-weight: 400;
+}
+.pwSuccess,
+.emailSuccess {
+  color: #839c20;
+}
