@@ -12,7 +12,6 @@ export const Container = styled.div`
   background: linear-gradient(180deg, #c3c3c3 0%, #fff 48%);
 `;
 export const Content = styled.div`
-  background: linear-gradient(180deg, #c3c3c3 0%, #fff 48%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,7 +103,7 @@ export const Option = styled.div`
 `;
 export const ListContent = styled.div`
   height: 80vh;
-  width: 60vw;
+  width: auto;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
