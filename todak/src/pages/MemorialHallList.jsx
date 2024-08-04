@@ -25,7 +25,7 @@ const MemorialHallList = () => {
           `http://127.0.0.1:8000/memorialHall/my-participation`,
           {
             headers: {
-              Authorization: `Token ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             },
           }
         );
