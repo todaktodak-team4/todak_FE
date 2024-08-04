@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import * as S from "../css/StyledLayFlower";
 import Nav from "./Nav";
+import DonationCertificate from "./DonationCertificate";
 
 const LayFlower = () => {
   const textareaRef = useRef(null);
@@ -18,6 +19,7 @@ const LayFlower = () => {
 
   const { donation, customDonation, comment, name } = inputs;
   const token = localStorage.getItem("token");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -44,6 +46,7 @@ const LayFlower = () => {
           Authorization: `Token ${token}`,
         },
       });
+      setIsModalVisible(true); // Show modal on successful post
     } catch (error) {
       console.error("Error creating new post:", error);
     }
@@ -59,6 +62,10 @@ const LayFlower = () => {
   useEffect(() => {
     adjustHeight();
   }, [comment]);
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <S.Body>
@@ -176,6 +183,7 @@ const LayFlower = () => {
           </S.Guide>
         </S.Content>
       </S.Container>
+      {isModalVisible && <DonationCertificate onClose={handleCloseModal} />}
     </S.Body>
   );
 };
