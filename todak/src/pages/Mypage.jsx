@@ -216,13 +216,6 @@ function Mypage() {
                 ? " "
                 : "새싹  |"}
             </div>
-            <div className={styles.state}>
-              <div className={styles.treeState}>새싹</div>
-              <span className={styles.line}>|</span>
-              <div className={styles.flowerState}>수련</div>
-              <span className={styles.line}>|</span>
-              <div className={styles.plantDateState}>30일 째</div>
-            </div>
           </div>
         </div>
         <div className={styles.modifyBtn} onClick={GoModifyInfo}>
@@ -243,7 +236,7 @@ function Mypage() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
