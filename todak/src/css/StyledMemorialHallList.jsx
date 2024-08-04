@@ -16,7 +16,7 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 5vh;
+  padding-top: 10vh;
   padding-bottom: 10vh;
   gap: 5vh;
 `;

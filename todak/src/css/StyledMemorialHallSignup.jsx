@@ -15,7 +15,7 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 5vh;
+  padding-top: 10vh;
   padding-bottom: 10vh;
 `;
 export const Title = styled.div`
@@ -72,7 +72,7 @@ export const SignupItem = styled.div`
     position: absolute;
     right: 0;
   }
-    #date {
+  #date {
     margin-left: 10%;
     background: none;
     height: 30px;

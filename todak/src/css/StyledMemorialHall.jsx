@@ -13,9 +13,8 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 5vh;
+  padding-top: 10vh;
   padding-bottom: 10vh;
-
   background: linear-gradient(180deg, #c3c3c3 0%, #fff 48%);
 `;
 export const mainImg = styled.div`
@@ -488,7 +487,8 @@ export const MM8Content = styled.div`
   }
 `;
 
-export const NumberBtn = styled.div`display: flex;
+export const NumberBtn = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem; /* 버튼 간의 간격 조절 */
@@ -506,7 +506,7 @@ export const NumberBtn = styled.div`display: flex;
     font-weight: 700;
     color: #2b2b2b;
     cursor: pointer;
-    
+
     &:disabled {
       background: #e0e0e0;
       cursor: not-allowed;
@@ -518,4 +518,5 @@ export const NumberBtn = styled.div`display: flex;
     font-size: 1.5rem;
     font-weight: 700;
     color: #2b2b2b;
-  }`;
+  }
+`;

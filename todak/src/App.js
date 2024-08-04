@@ -28,7 +28,7 @@ import Mypage from "./pages/Mypage";
 import TalkModal from "./pages/TalkModal";
 import Nav from "./pages/Nav";
 import ModifyInfo from "./pages/ModifyInfo";
-
+import LaySuccessModal from "./pages/LaySuccessModal";
 import WreathList from "./pages/WreathList";
 import WrittenMessage from "./pages/WrittenMessage";
 
@@ -142,6 +142,7 @@ function App() {
         <Route path="/modifyInfo" element={<ModifyInfo />} />
         <Route path="/wreathList" element={<WreathList />} />
         <Route path="/writtenMessage" element={<WrittenMessage />} />
+        <Route path="/laysuccess" element={<LaySuccessModal />} />
         <Route path="/letterDetail" element={<LetterDetail />}></Route>
       </Routes>
 

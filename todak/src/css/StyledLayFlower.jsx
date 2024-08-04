@@ -15,7 +15,7 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 5vh;
+  padding-top: 10vh;
   padding-bottom: 10vh;
 `;
 export const Title = styled.div`
@@ -86,6 +86,9 @@ export const SignupItem = styled.div`
   input:focus {
     outline: none;
     background: none;
+    font-size: 24px;
+    color: #2b2b2b;
+    padding-bottom: 5px;
   }
   input::placeholder {
     color: #2b2b2b;
