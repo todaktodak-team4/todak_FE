@@ -10,30 +10,36 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    
     try {
-      //response에 사용자 정보 저장
-      const response = await axios.post(
-        "http://127.0.0.1:8000/accounts/login/",
-        {
-          username: username,
-          password: password,
-        }
-      );
-
-      console.log(response.data); // 서버로부터 받은 데이터 콘솔에 출력
-      localStorage.setItem("access_token", response.data.access);
-      localStorage.setItem("refresh_token", response.data.refresh);
-      alert(
-        "로그인 성공"
-      );
-      navigate("/", { replace: true });
-      window.location.reload();
+      // Make the POST request to the login endpoint
+      const response = await axios.post("http://127.0.0.1:8000/accounts/login/", {
+        username: username,
+        password: password,
+      });
+  
+      // Check if the status code is 200 (success)
+      if (response.status === 200) {
+        console.log(response.data); // Log the response data
+        localStorage.setItem("access_token", response.data.access);
+        localStorage.setItem("refresh_token", response.data.refresh);
+        alert("로그인 성공");
+        navigate("/", { replace: true });
+        window.location.reload();
+      } else {
+        // Handle other response statuses
+        alert("로그인 실패: " + response.statusText);
+      }
     } catch (error) {
-      setError("로그인에 실패했습니다.");
-
-      setTimeout(() => {
-        setError("");
-      }, 2000);
+      // Check for specific status codes in error response
+      if (error.response && error.response.status === 401) {
+        alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+      } else {
+        setError("로그인에 실패했습니다.");
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+      }
     }
   };
 
