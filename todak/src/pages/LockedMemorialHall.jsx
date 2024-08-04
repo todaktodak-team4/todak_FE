@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-<<<<<<< HEAD
 import { useParams, useLocation } from "react-router-dom";
-=======
-import { useLocation } from "react-router-dom";
->>>>>>> a8c766873151a628a7d3b367bd75c31fcfc6ec0a
 import ContentItem from "./ContentItem";
 import * as H from "../css/StyledMemorialHallList";
 import Nav from "./Nav";

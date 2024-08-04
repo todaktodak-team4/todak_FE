@@ -487,7 +487,7 @@ export const MM8Content = styled.div`
     margin-right: 0.2rem;
   }
 `;
-<<<<<<< HEAD
+
 export const NumberBtn = styled.div`display: flex;
   justify-content: center;
   align-items: center;
@@ -519,6 +519,3 @@ export const NumberBtn = styled.div`display: flex;
     font-weight: 700;
     color: #2b2b2b;
   }`;
-=======
-export const NumberBtn = styled.div``;
->>>>>>> a8c766873151a628a7d3b367bd75c31fcfc6ec0a

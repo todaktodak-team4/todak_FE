@@ -15,15 +15,13 @@ const ContentItem = ({
 }) => {
   const navigate = useNavigate();
   const defaultImg = `${process.env.PUBLIC_URL}/img/ListContentImg.png`;
-<<<<<<< HEAD
   const token = localStorage.getItem("access_token");
 
   const storedStatus = localStorage.getItem(`status-${postId}`);
   const [status, setStatus] = useState(storedStatus || initialStatus || "unparticipated");
-=======
-  const token = localStorage.getItem("token");
+
   console.log("count:", wreathCount, "private:", isPrivate);
->>>>>>> a8c766873151a628a7d3b367bd75c31fcfc6ec0a
+
 
 
   // 날짜 포맷팅 함수

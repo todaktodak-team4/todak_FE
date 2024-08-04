@@ -111,8 +111,4 @@ const LayCheckout = ({ donation, name, onClose }) => {
   );
 };
 
-<<<<<<< HEAD
 export default LayCheckout;
-=======
-export default LayCheckout;
->>>>>>> a8c766873151a628a7d3b367bd75c31fcfc6ec0a

@@ -1,49 +1,112 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../css/StyledModifyInfo.module.css";
-
+import PopupDom from "./PopupDom";
+import PopupPostCode from "./PopupPostCode"
 function ModifyInfo() {
-  const [id, setId] = useState("");
+  const [username, setUsername] = useState(""); // id를 username으로 변경
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
-  const [tel, setTel] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+  const [phone, setPhone] = useState("");
+  const [postalAddress, setPostalAddress] = useState("");
   const [address, setAddress] = useState("");
-  const [detailAddress, setDetailAddress] = useState("");
+  const [zoneCode, setZoneCode] = useState("");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+// http://127.0.0.1:8000/accounts/api/get-user-info-from-token/
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+const navigate = useNavigate();
+const token = localStorage.getItem('access_token');
+const openPostCode = () => setIsPopupOpen(true);
+const closePostCode = () => setIsPopupOpen(false);
 
-    const formData = {
-      id,
-      password,
-      email,
-      nickname,
-      tel,
-      postalCode,
-      address,
-      detailAddress,
-    };
+const handlePostCodeSelection = (data) => {
+  setPostalAddress(data.address);
+  setZoneCode(data.zonecode);
+  closePostCode();
+};
 
+useEffect(() => {
+  console.log("Token:", token); // Token 확인
+  const fetchUserInfo = async () => {
     try {
-      const response = await fetch("/api/modify-info", {
-        method: "POST",
+      const response = await fetch("http://127.0.0.1:8000/accounts/api/get-user-info-from-token/", {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
       });
-
+      console.log("Response status:", response.status);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
-      const result = await response.json();
-      console.log("Success:", result);
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log("User Data:", data); // Debug log to check API response
+        setUsername(data.username);
+        setEmail(data.email);
+        setNickname(data.nickname);
+        setPhone(data.phone);
+        setPostalAddress(data.postalAddress);
+        setAddress(data.address);
+        setZoneCode(data.zoneCode);
+      }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error fetching user info:", error);
     }
   };
+
+  if (token) {
+    fetchUserInfo();
+  }
+}, [token]);
+
+//http://localhost:8000/accounts/profile/update/
+
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  const formData = {
+    new_username: username,
+    password,
+    email,
+    nickname,
+    phone,
+    postalAddress,  // Assuming postalAddress is the correct field name in the API
+    address,
+    zoneCode,   // Assuming zoneCode is the correct field name in the API
+  };
+
+  try {
+    const response = await fetch("http://localhost:8000/accounts/profile/update/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`, // 토큰을 헤더에 추가
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      // You can also log the response status or text for debugging
+      const errorText = await response.text();
+      console.error("Network response was not ok:", errorText);
+      throw new Error("Network response was not ok");
+    }
+
+    if(response.ok){
+      const result = await response.json();
+      console.log("Success:", result);
+      alert("정보변경 성공");
+      navigate('/mypage');
+    }
+
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 
   return (
     <div className={styles.container}>
@@ -63,8 +126,8 @@ function ModifyInfo() {
             type="text"
             className={styles.id}
             placeholder="아이디"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className={`${styles.pwWp} ${styles.wp}`}>
@@ -101,41 +164,47 @@ function ModifyInfo() {
           <div className={styles.title}>전화번호</div>
           <span className={styles.choice}>*선택사항</span>
           <input
-            type="tel"
+            type="text"
             className={styles.tel}
-            placeholder="010-0000-0000"
-            value={tel}
-            onChange={(e) => setTel(e.target.value)}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
         </div>
         <div className={`${styles.addressWp} ${styles.wp}`}>
           <div className={`${styles.title} ${styles.addtitle}`}>배송 주소</div>
           <span className={styles.choice}>*선택사항</span>
           <div className={styles.addr}>
-            <div className={styles.zoneCodeBtn}>우편번호 찾기</div>
+            <div className={styles.zoneCodeBtn} onClick={openPostCode}>우편번호 찾기</div>
+            <div id="popupDom">
+              {isPopupOpen && (
+                <PopupDom>
+                  <PopupPostCode
+                    onClose={closePostCode}
+                    onSelect={handlePostCodeSelection}
+                  />
+                </PopupDom>
+              )}
+            </div>
             <input
               type="text"
               className={styles.zoneCode}
-              placeholder="우편번호"
-              value={postalCode}
-              onChange={(e) => setPostalCode(e.target.value)}
+              value={zoneCode}
+              onChange={(e) => setZoneCode(e.target.value)}
             />
             <input
               type="text"
               className={styles.postalAddress}
-              placeholder="도로명 주소"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={postalAddress}
+              onChange={(e) => setPostalAddress(e.target.value)}
             />
             <input
               type="text"
               className={styles.datailAddress}
-              placeholder="상세 주소 입력"
-              value={detailAddress}
-              onChange={(e) => setDetailAddress(e.target.value)}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
             />
           </div>
-          <div type="submit" className={styles.saveBtn}>
+          <div onClick={handleSubmit} className={styles.saveBtn}>
             변경 사항 저장
           </div>
         </div>

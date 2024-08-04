@@ -14,7 +14,6 @@ const MemorialHall = () => {
   const [inputs, setInputs] = useState({ content: "" });
   const { content } = inputs;
   const [comments, setComments] = useState([]);
-<<<<<<< HEAD
   const token = localStorage.getItem("access_token");
   const [messages, setMessages] = useState([]);
   const [wreaths, setWreaths] = useState([]);
@@ -63,14 +62,13 @@ const MemorialHall = () => {
     };
     fetchDatas();
   }, [postId]);
-=======
-  const [messages, setMessages] = useState([]);
-  const [wreaths, setWreaths] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+
+  // const [messages, setMessages] = useState([]);
+  // const [wreaths, setWreaths] = useState([]);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const token = localStorage.getItem("token");
->>>>>>> a8c766873151a628a7d3b367bd75c31fcfc6ec0a
+ 
 
   //연동 완
   useEffect(() => {
@@ -173,11 +171,7 @@ const handlePostBtn = async () => {
 
     if (post) {
       if (post.private) {
-<<<<<<< HEAD
         linkToCopy = `http://localhost:3000/memorialHall/${postId}/access?token=${halltoken}`;
-=======
-        linkToCopy = `http://localhost:3000/memorialHall/${postId}/access?token=${token}`;
->>>>>>> a8c766873151a628a7d3b367bd75c31fcfc6ec0a
       } else {
         linkToCopy = `http://localhost:3000/memorialHall/${postId}`;
       }
@@ -198,10 +192,10 @@ const handlePostBtn = async () => {
     navigate(`/layFlower?hall=${postId}`);
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage < 1 || newPage > totalPages) return;
-    setCurrentPage(newPage);
-  };
+  // const handlePageChange = (newPage) => {
+  //   if (newPage < 1 || newPage > totalPages) return;
+  //   setCurrentPage(newPage);
+  // };
 
   return (
     <H.Body>

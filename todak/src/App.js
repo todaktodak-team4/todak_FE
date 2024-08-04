@@ -32,10 +32,9 @@ import ModifyInfo from "./pages/ModifyInfo";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const accessToken = localStorage.getItem("access_token");
+  const refreshToken = localStorage.getItem("refresh_token");
   useEffect(() => {
-    const accessToken = localStorage.getItem("access_token");
-    const refreshToken = localStorage.getItem("refresh_token");
     setIsLoggedIn(!!accessToken && !!refreshToken);
   }, []);
 
@@ -48,7 +47,7 @@ function App() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           refresh_token: refreshToken,
@@ -59,8 +58,18 @@ function App() {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         setIsLoggedIn(false); // 로그인 상태 업데이트
+        alert(
+          "로그아웃 성공"
+        );
         window.location.reload();
       } else {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        alert(
+          "토큰이 완료되어 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+        );
+        setIsLoggedIn(false);
+
         console.error("로그아웃 실패:", response.statusText);
       }
     } catch (error) {
@@ -89,7 +98,7 @@ function App() {
           </Link>
         </A.Logo>
         <A.Privacy>
-          <Link to="/">MY</Link>
+        
           {isLoggedIn ? (
             <>
               <div onClick={handleLogout} style={{ cursor: "pointer" }}>
@@ -138,11 +147,7 @@ function App() {
         <Route path="/modifyInfo" element={<ModifyInfo />} />
 
         <Route path="/letterDetail" element={<LetterDetail />}>
-          <Route
-            path="/memorialHall/1/access"
-            element={<LockedMemorialHall />}
-          />
-          <Route path="/layCheckout" element={<LayCheckout />} />
+  
         </Route>
 
       </Routes>
