@@ -9,6 +9,7 @@ function Mypage() {
   const [username, setUsername] = useState(null);
   const [togetherDate, setTogetherDate] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [todayAnswers, setTodayAnswers] = useState(null);
   const [treeData, setTreeData] = useState(null);
   const baseUrl = 'http://127.0.0.1:8000';
   
@@ -40,7 +41,7 @@ function Mypage() {
         console.log("User info fetched successfully:", result);
         
         setImage(result.profile);
-        setUsername(result.username);
+        setUsername(result.nickname);
         setUserId(result.userId);
 
         const dateJoined = new Date(result.dateJoined); // Parse dateJoined to Date object
@@ -76,13 +77,39 @@ function Mypage() {
         console.error("Error fetching user info or tree data:", error);
       }
     };
+    const fetchTodayAnswers = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/daily-question/today-answers/", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          setTodayAnswers(result); // Set the answers to state
+          console.log("Today's answers fetched successfully:", result);
+        }else if(response.status === 404){
+          setTodayAnswers('');
+          return;
+        }
+         else {
+          console.error("Failed to fetch today's answers");
+        }
+      } catch (error) {
+        console.error("Error fetching today's answers:", error);
+      }
+    };
 
     // Call the async function
     if (token) {
       fetchUserInfo();
+      fetchTodayAnswers();
     }
   }, [token]); // Dependency array, `token` will trigger the effect when it changes
 
+  
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -112,6 +139,17 @@ function Mypage() {
       }
     }
   };
+
+  const getAnswerStateMessage = () => {
+    if (!treeData || (Array.isArray(treeData) && treeData.length === 0)) {
+      return "생성한 기억 나무가 없어요!";
+    } else if (todayAnswers.length === 0) {
+      return "오늘 기억 나무의 질문에 답을 하지 않았어요!";
+    } else {
+      return "오늘 기억 나무의 질문에 답을 했어요!";
+    }
+  };
+
 
   return (
     <div className={styles.container}>
@@ -169,9 +207,7 @@ function Mypage() {
             <div className={styles.user}> {username} 님</div>
             <div className={styles.days}>함께한지 {togetherDate}일째</div>
             <div className={styles.answerState}>
-            {!treeData || (Array.isArray(treeData) && treeData.length === 0)
-                ? "생성한 기억 나무가 없어요!"
-                : "오늘 기억 나무의 질문에 답을 하지 않았어요!"}
+            {getAnswerStateMessage()}
             </div>
           </div>
           <div className={styles.state}>
