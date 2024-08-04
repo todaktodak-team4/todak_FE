@@ -1,12 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledShowLetter.module.css";
 import LetterDetail from "./LetterDetail";
 
 function ShowLetter({ onClose, treeId }) {
   const [letters, setLetters] = useState([]);
-  const [selectedLetterId, setSelectedLetterId] = useState(null);
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
   const containerRef = useRef(null);
+  const navigate = useNavigate();
+
+  console.log("treeId: ", treeId);
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 상단으로 스크롤
+    window.scrollTo(0, 0);
+  }, []);
+  const [selectedLetterId, setSelectedLetterId] = useState(null);
   const detailRef = useRef(null);
 
   useEffect(() => {
@@ -18,7 +26,7 @@ function ShowLetter({ onClose, treeId }) {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Token ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -26,17 +34,25 @@ function ShowLetter({ onClose, treeId }) {
         if (response.ok) {
           const data = await response.json();
           setLetters(data);
+        } else if (response.status === 401) {
+          // 토큰이 만료되었거나 유효하지 않음
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          alert(
+            "30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+          );
+          navigate("/login");
         } else {
           console.error("Failed to fetch data");
         }
       } catch (error) {
         console.error("An error occurred", error);
+        alert("네트워크 오류가 발생했습니다.");
       }
     };
 
     fetchData();
-  }, [treeId, token]);
-
+  }, [treeId, token, navigate]);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -85,6 +101,7 @@ function ShowLetter({ onClose, treeId }) {
                 src={letter.writer.profile || "/img/profTemp.png"}
                 className={styles.profileImg}
                 alt="프로필 이미지"
+                style={{ width: "34px", height: "34px", borderRadius: "50%" }}
               />
               <div className={styles.userInfo}>
                 <div className={styles.user}>{letter.writer.nickname}</div>

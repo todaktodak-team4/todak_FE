@@ -7,29 +7,29 @@ body {
   padding: 0;
   background-color: #ffffed;
 }
-
-.container {
-  margin: 0;
+.conImg {
   width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
-  position: relative;
+  height: 100%;
 }
 
-.plantTreeWp {
+.innerContainer {
+  display: flex;
+  position: relative;
+  height: 1000px;
+  overflow: hidden;
+}
+.plantTreeWp,
+.plantTreeWp2 {
   width: 800px;
-  margin-top: 8%;
+  height: 500px;
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 1;
+  top: 35%;
 }
 
 .ptTitle {
@@ -117,7 +117,8 @@ body {
   font-weight: 300;
 }
 
-.nextBtn {
+.nextBtn,
+.nextBtn2 {
   width: 150px;
   height: 38px;
   color: #fff;
@@ -131,8 +132,8 @@ body {
   text-align: center;
   cursor: pointer;
   position: absolute;
-  top: 80%;
-  left: 60%;
+  top: 90%;
+  left: 70%;
   transform: translate(100%, 20%);
   z-index: 100;
 }

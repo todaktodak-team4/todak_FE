@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledDeliveryProduct.module.css";
-
+import Nav from "./Nav";
 function DeliveryProduct() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
@@ -20,7 +20,10 @@ function DeliveryProduct() {
     if (albumChoice === "50page") total += ALBUM_50_PRICE;
     return total;
   };
-
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 상단으로 스크롤
+    window.scrollTo(0, 0);
+  }, []);
   const getSelectedItemsDescription = () => {
     const items = [];
     if (terrariumSelected)

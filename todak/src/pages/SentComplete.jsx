@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Lottie from "react-lottie-player";
+import Airplane from "../assets/Paperplane.json";
 import styles from "../css/StyledSentComplete.module.css";
 import ShowLetter from "../pages/ShowLetter.jsx";
 
@@ -16,7 +18,10 @@ function SentComplete({ onClose, treeId }) {
   const handleClickInside = (event) => {
     event.stopPropagation();
   };
-
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 상단으로 스크롤
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <div className={styles.container} onClick={handleClickInside}>
@@ -27,13 +32,22 @@ function SentComplete({ onClose, treeId }) {
           <div className={styles.completeMessage}>
             소중한 편지가 전달되었어요{" "}
           </div>
-          <img
-            className={styles.airImg}
-            src="/img/airplane.gif"
-            alt="나무 이미지"
-            style={{ width: "400px", height: "300px" }}
-          />
-          <div className={styles.completeContent}>
+          <Lottie
+            loop
+            animationData={Airplane}
+            play
+            style={{
+              width: "450px",
+              height: "450px",
+              left: "250px",
+              bottom: "72px",
+              position: "relative",
+            }}
+          ></Lottie>
+          <div
+            className={styles.completeContent}
+            style={{ position: "relative", bottom: "200px" }}
+          >
             소중한 마음을 담은 편지가 멀리멀리 날아가 하늘에까지 닿을 거예요.{" "}
             <br />
             깊이 간직한 내 마음은 편지 목록에서 다시 확인할 수 있어요.

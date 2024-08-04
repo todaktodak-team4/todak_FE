@@ -1,5 +1,7 @@
 import React from "react";
 import * as I from "../css/StyledInfo";
+import LottieAnimation from "./LottieAnimation";
+import LottieAnimation2 from "./LottieAnimation2";
 
 const Info = () => {
   return (
@@ -16,7 +18,7 @@ const Info = () => {
           alt="LogoMessage"
         />
 
-        <p>
+        <p id="title">
           <I.BoldText>
             토닥토닥은 재난 경험자와 유족을 위한 공간입니다.
           </I.BoldText>
@@ -28,12 +30,19 @@ const Info = () => {
         </p>
       </I.Info1>
       <I.Info2>
+        <LottieAnimation2
+          src="https://lottie.host/2a698210-56a2-4a65-a464-d01a762173a1/xvBlkfKYyz.json"
+          speed={1}
+          loop={false}
+          autoplay={true}
+        />
         <p id="title"> 재난 참사 유족의 더 나은 삶을 위해</p>
         <p id="content1">
           재난으로 인한 갑작스러운 사별은 유족들에게 극심한 슬픔과 고통을
           야기하고,
           <br />
           <I.BoldText2>심각한 트라우마와 스트레스</I.BoldText2>를 유발할 수 있어
+          {""}
           <I.BoldText2>각별한 주의와 집중 심리 치료</I.BoldText2>가 필요합니다.
           <br />
         </p>
@@ -95,34 +104,25 @@ const Info = () => {
       <I.Info4>
         <p id="title">재난 참사 유족을 위한 애도 공간</p>
         <I.Info4Contents>
-          <I.Info4Content>
-            <img
-              id="Img"
-              src={`${process.env.PUBLIC_URL}/img/Info4Flower.svg`}
-              alt="Img"
-            />
-            <p id="contentTitle">온라인 헌화</p>
-            <p id="content">
-              온라인 헌화로 기억하고 싶은 대상을
-              <br /> 추모하며 같은 아픔을 가진 사람들과
-              <br /> 함께 애도를 나눠요.
-            </p>
-            <p id="boldContent">슬픔을 견디도록 도와줍니다.</p>
-          </I.Info4Content>
-          <I.Info4Content>
-            <img
-              id="Img"
-              src={`${process.env.PUBLIC_URL}/img/Info4Tree.svg`}
-              alt="Img"
-            />
-            <p id="contentTitle">기억 나무</p>
-            <p id="content">
-              사진과 편지로 추억하고, 나무의 질문에
-              <br /> 답하며 하루하루 자라는 나무와 함께
-              <br /> 나의 마음을 보듬어 줘요.
-            </p>
-            <p id="boldContent">슬픔에 매몰되지 않게 도와줍니다.</p>
-          </I.Info4Content>
+          <LottieAnimation
+            src="https://lottie.host/d1171e83-87af-45ae-b476-c1ceb513f4ac/MAzcJtTi5c.json"
+            width="35vw"
+            height="60vh"
+            speed={1}
+            loop={false}
+            autoplay={true}
+            boxShadow="7px 7px 5px 0px rgba(0, 0, 0, 0.25), 5px 5px 7px 0px rgba(0, 0, 0, 0.25) inset"
+          />
+
+          <LottieAnimation
+            src="https://lottie.host/3e892260-79dd-4708-abc7-495438641058/iOwTe665WP.json"
+            width="35vw"
+            height="60vh"
+            speed={1}
+            loop={false}
+            autoplay={true}
+            boxShadow="7px 7px 5px 0px rgba(0, 0, 0, 0.25), 5px 5px 7px 0px rgba(0, 0, 0, 0.25) inset"
+          />
         </I.Info4Contents>
       </I.Info4>
       <I.Info5>
@@ -156,15 +156,23 @@ const Info = () => {
       </I.InfoAdd>
       <I.Info6>
         <I.Info6Content>
-          <div>
-            <p>같은 경험을 한 사람들과 함께 극복하고 싶어요</p>
-          </div>
-          <div id="Info62">
-            <p>제 마음을 표현하고 공감받는 공간이 필요해요</p>
-          </div>
-          <div>
-            <p>이제는 볼 수 없는 대상을 같이 추억하고 싶어요</p>
-          </div>
+          <img
+            id="Info61"
+            src={`${process.env.PUBLIC_URL}/img/overcome.png`}
+            alt="Info61"
+          />
+
+          <img
+            id="Info62"
+            src={`${process.env.PUBLIC_URL}/img/space.png`}
+            alt="Info62"
+          />
+
+          <img
+            id="Info61"
+            src={`${process.env.PUBLIC_URL}/img/memorytogether.png`}
+            alt="Info61"
+          />
         </I.Info6Content>
         <I.Info6Information>
           <p id="title">희망 헌화 공간 신청</p>
@@ -186,7 +194,7 @@ const Info = () => {
         </I.Info7Content>
 
         <I.Info7Img>
-          <div>
+          <div id="imgdiv">
             <img
               id="Img"
               src={`${process.env.PUBLIC_URL}/img/Info7tree.png`}
@@ -207,6 +215,15 @@ const Info = () => {
               src={`${process.env.PUBLIC_URL}/img/Info7heart.svg`}
               alt="Heart"
             />
+            <div id="q1">
+              <p>오늘 기분은 어때요?</p>
+            </div>
+            <div id="q2">
+              <p>오늘 기억에 남는 일이 있나요?</p>
+            </div>
+            <div id="q3">
+              <p>그분과의 좋은 추억을 공유해 주세요.</p>
+            </div>
           </div>
         </I.Info7Img>
       </I.Info7>
@@ -242,7 +259,7 @@ const Info = () => {
       <I.Info9>
         <img
           id="Img"
-          src={`${process.env.PUBLIC_URL}/img/Info7tree.png`}
+          src={`${process.env.PUBLIC_URL}/img/treeIconInfo9.png`}
           alt="Img"
         />
         <p id="title">언제나 내 곁에서 머무는 나무</p>
@@ -304,7 +321,7 @@ const Info = () => {
           <p id="title">나와 너, 서로를 토닥이며</p>
           <p id="content">상실의 슬픔, 이제 혼자 견뎌내지 마세요.</p>
         </I.Info10Content>
-        <I.Info10Line1></I.Info10Line1>
+        <I.Info10Line2></I.Info10Line2>
       </I.Info10>
     </I.Info>
   );

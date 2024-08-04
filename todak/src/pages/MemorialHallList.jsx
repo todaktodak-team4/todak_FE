@@ -9,22 +9,28 @@ const MemorialHallList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [option, setOption] = useState("none");
 
+  const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드 상태 추가
+  const [option, setOption] = useState("none"); // 옵션 상태 추가
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 상단으로 스크롤
+    window.scrollTo(0, 0);
+  }, []);
   const fetchData = async (page, keyword = "", option = "none") => {
     setIsLoading(true);
     try {
       let response;
+
       if (option === "myParticipation") {
         response = await axios.get(
           `http://127.0.0.1:8000/memorialHall/my-participation`,
           {
             headers: {
-              Authorization: `Token ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             },
           }
         );
+
         setListItems(response.data);
         setTotalPages(1); // Assuming all participated halls are shown on one page
       } else {
@@ -73,7 +79,6 @@ const MemorialHallList = () => {
   return (
     <H.Body>
       <H.Container>
-        <Nav />
         <H.Content>
           <H.TitleContent>
             <img

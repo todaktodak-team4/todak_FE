@@ -15,7 +15,7 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 5vh;
+  padding-top: 10vh;
   padding-bottom: 10vh;
 `;
 export const Title = styled.div`
@@ -59,6 +59,20 @@ export const SignupItem = styled.div`
     right: 0;
   }
   #introduce {
+    margin-left: 10%;
+    background: none;
+    height: 30px;
+    width: 30vw;
+    border: 0;
+    border-bottom: 2px solid #2b2b2b;
+    color: #2b2b2b;
+    font-family: "Pretendard Variable";
+    font-size: 24px;
+    font-weight: 300;
+    position: absolute;
+    right: 0;
+  }
+  #date {
     margin-left: 10%;
     background: none;
     height: 30px;
@@ -199,27 +213,46 @@ export const SelectBtn = styled.label`
 `;
 export const Checkbox = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: row;
-  gap: 10vh;
+  gap: 5vw; /* 라벨 사이의 간격 */
   position: absolute;
   right: 10vw;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 라벨과 입력 필드 간의 간격 */
+    font-family: "Pretendard Variable";
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
   input {
     width: 1.25rem;
     height: 1.25rem;
-    flex-shrink: 0;
-    stroke-width: 2px;
-    background: #2b2b2b;
-    margin-right: 1rem;
-  }
+    border: 2px solid #2b2b2b; /* 선택되지 않은 상태의 경계 색상 */
+    border-radius: 50%; /* 둥근 모양 */
+    background: #fff; /* 기본 배경색 */
+    margin-right: 0.5rem; /* 라벨 텍스트와 체크박스 간의 간격 */
+    cursor: pointer; /* 클릭 가능한 요소로 마우스 커서를 변경 */
+    -webkit-appearance: none; /* 기본 스타일 제거 */
+    appearance: none; /* 기본 스타일 제거 */
 
-  font-family: "Pretendard Variable";
-  font-size: 1.5rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  input::checked {
-    color: #2b2b2b;
+    &:checked {
+      background: #2b2b2b; /* 선택된 상태의 배경색 */
+      border: 2px solid #2b2b2b; /* 선택된 상태의 경계 색상 */
+    }
+
+    &:checked::before {
+      content: ""; /* 체크 표시 */
+      display: block;
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 50%;
+      background: #fff; /* 체크 표시의 배경색 */
+      position: relative;
+      top: 0.125rem; /* 위치 조정 */
+      left: 0.125rem; /* 위치 조정 */
+    }
   }
 `;

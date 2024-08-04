@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as S from "../css/StyledMemorialHallSignup";
@@ -14,17 +14,26 @@ const MemorialHallSignup = () => {
     visibility: "public",
     thumbnail: null,
   });
-
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 상단으로 스크롤
+    window.scrollTo(0, 0);
+  }, []);
   const { name, info, date, visibility, thumbnail } = inputs;
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token"); // Use 'access_token' for JWT
 
   const onChange = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value, type, checked } = e.target;
 
-    if (name === "thumbnail" && files.length > 0) {
+    console.log("변화됨:", e.target);
+    if (type === "radio") {
       setInputs({
         ...inputs,
-        thumbnail: files[0],
+        [name]: value,
+      });
+    } else if (name === "thumbnail" && e.target.files.length > 0) {
+      setInputs({
+        ...inputs,
+        thumbnail: e.target.files[0],
       });
     } else {
       setInputs({
@@ -40,28 +49,54 @@ const MemorialHallSignup = () => {
       formData.append("name", name);
       formData.append("info", info);
       formData.append("date", date);
-      formData.append("visibility", visibility);
+      // formData.append("visibility", visibility);
+
+      if (visibility === "public") {
+        formData.append("public", true);
+        formData.append("private", false);
+      } else {
+        formData.append("private", true);
+        formData.append("public", false);
+      }
 
       if (thumbnail) {
         formData.append("thumbnail", thumbnail);
       }
 
-      await axios.post("http://127.0.0.1:8000/memorialHall", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Token ${token}`,
-        },
-      });
-      navigate(`/`);
+      const response = await axios.post(
+        "http://127.0.0.1:8000/memorialHall",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`, // Use 'Bearer' for JWT
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        alert("추모관 신청이 완료되었습니다.");
+        navigate(`/memorialHallList`);
+      }
     } catch (error) {
-      console.error("Error creating new post:", error);
+      if (error.response && error.response.status === 401) {
+        // Unauthorized, possibly expired token
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        alert(
+          "30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+        );
+        navigate("/login");
+      } else {
+        console.error("Error creating new post:", error);
+        alert("Failed to create memorial hall. Please try again.");
+      }
     }
   };
 
   return (
     <S.Body>
       <S.Container>
-        <Nav />
         <S.Content>
           <img
             id="flower"
@@ -119,7 +154,7 @@ const MemorialHallSignup = () => {
               <input
                 id="introduce"
                 name="info"
-                placeholder="간단한 소개글을 적어주세요. (50자 이내)"
+                placeholder="간단한 소개글을 적어주세요. (70자 이내)"
                 value={info}
                 onChange={onChange}
               />

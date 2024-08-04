@@ -16,8 +16,21 @@ const MemorialMessage2 = ({
   const [sadCount, setSadCount] = useState(0);
   const [commemorateCount, setCommemorateCount] = useState(0);
   const [togetherCount, setTogetherCount] = useState(0);
+  const token = localStorage.getItem("access_token");
+
   const [updateTrigger, setUpdateTrigger] = useState(false); // 상태를 새로고침할지 결정하는 변수
-  const token = localStorage.getItem("token");
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 상단으로 스크롤
+    window.scrollTo(0, 0);
+  }, []);
+
+  console.log("프로필:", profile);
+
+  const baseUrl = "http://127.0.0.1:8000";
+  // Set the profile image URL conditionally
+  const imageUrl = profile
+    ? `${baseUrl}${profile}` // Profile image from server
+    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`; // Default image
 
   // API 요청 함수
   const sendRequest = async (action, setter) => {
@@ -35,7 +48,7 @@ const MemorialMessage2 = ({
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -44,7 +57,6 @@ const MemorialMessage2 = ({
       console.error("API 요청 실패:", error);
     }
   };
-
   // 초기값을 서버에서 받아오기
   useEffect(() => {
     const fetchInitialCounts = async () => {
@@ -68,7 +80,7 @@ const MemorialMessage2 = ({
           try {
             const response = await axios.get(url, {
               headers: {
-                Authorization: `Token ${token}`,
+                Authorization: `Bearer ${token}`,
               },
             });
 
@@ -92,18 +104,122 @@ const MemorialMessage2 = ({
     fetchInitialCounts();
   }, [hall, messageId, token, content, updateTrigger]); // 의존성 배열에 content 추가
 
+  // // 초기값을 서버에서 받아오기
+  // useEffect(() => {
+  //   const fetchInitialCounts = async () => {
+  //     try {
+
+  //       // GET 요청 보내기
+  //       const todakResponse = await axios.get(
+  //         `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/todak`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setTodakCount(todakResponse.data.totalTodak || 0);
+
+  //       const todakResponse = await axios.get(
+  //         `http://127.0.0.1:8000/memorialHall/${hall}/wreath/${messageId}/todak`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setTodakCount(todakResponse.data.totalTodak || 0);
+
+  //       const sympathizeResponse = await axios.get(
+  //         `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/sympathize`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setSympathizeCount(sympathizeResponse.data.totalSympathize || 0);
+
+  //       const sadResponse = await axios.get(
+  //         `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/sad`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setSadCount(sadResponse.data.totalSad || 0);
+
+  //       const commemorateResponse = await axios.get(
+  //         `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/commemorate`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setCommemorateCount(commemorateResponse.data.totalCommemorate || 0);
+
+  //       const togetherResponse = await axios.get(
+  //         `http://127.0.0.1:8000/memorialHall/${hall}/message/${messageId}/together`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setTogetherCount(togetherResponse.data.totalTogether || 0);
+
+  //       const baseUrl = `http://127.0.0.1:8000/memorialHall/${hall}`;
+  //       const endpoints = [
+  //         { action: "todak", setter: setTodakCount },
+  //         { action: "sympathize", setter: setSympathizeCount },
+  //         { action: "sad", setter: setSadCount },
+  //         { action: "commemorate", setter: setCommemorateCount },
+  //         { action: "together", setter: setTogetherCount },
+  //       ];
+
+  //       for (const { action, setter } of endpoints) {
+  //         const url = content
+  //           ? `${baseUrl}/message/${messageId}/${action}`
+  //           : `${baseUrl}/wreath/${messageId}/${action}`;
+
+  //         try {
+  //           const response = await axios.get(url, {
+  //             headers: {
+  //               Authorization: `Bearer ${token}`,
+  //             },
+  //           });
+
+  //           setter(
+  //             response.data[
+  //               `total${action.charAt(0).toUpperCase() + action.slice(1)}`
+  //             ] || 0
+  //           );
+  //         } catch (error) {
+  //           console.error(
+  //             `Failed to fetch ${action} count from ${url}:`,
+  //             error
+  //           );
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("초기 카운트 로드 실패:", error);
+  //     }
+  //   };
+
+  //   fetchInitialCounts();
+  // }, [hall, messageId, token, content, updateTrigger]); // 의존성 배열에 content 추가
+
   return (
     <H.MemorialMessage2Content>
       <H.MM2Profile>
         <H.MM4>
           <img
-            id="profile"
-            src={
-              profile
-                ? profile
-                : `${process.env.PUBLIC_URL}/img/standardProfile.svg`
-            } // 프로필 이미지 또는 기본 이미지
-            alt="profile"
+            id="line"
+            src={imageUrl} // Set the profile image here
+            alt="Profile"
+            style={{ width: "50px", height: "50px", borderRadius: "50%" }} // Adjust as needed
           />
         </H.MM4>
         <H.MM5>{nickname}</H.MM5>
