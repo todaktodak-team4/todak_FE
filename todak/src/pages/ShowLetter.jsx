@@ -14,7 +14,6 @@ function ShowLetter({ onClose, treeId }) {
   const [selectedLetterId, setSelectedLetterId] = useState(null);
   const detailRef = useRef(null);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,7 +35,9 @@ function ShowLetter({ onClose, treeId }) {
           // 토큰이 만료되었거나 유효하지 않음
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
-          alert("30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+          alert(
+            "30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+          );
           navigate("/login");
         } else {
           console.error("Failed to fetch data");
@@ -97,6 +98,7 @@ function ShowLetter({ onClose, treeId }) {
                 src={letter.writer.profile || "/img/profTemp.png"}
                 className={styles.profileImg}
                 alt="프로필 이미지"
+                style={{ width: "34px", height: "34px" }}
               />
               <div className={styles.userInfo}>
                 <div className={styles.user}>{letter.writer.nickname}</div>
