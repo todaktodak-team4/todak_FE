@@ -5,33 +5,45 @@ import { useNavigate } from "react-router-dom";
 function Mypage() {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem("access_token");
   const [username, setUsername] = useState(null);
   const [togetherDate, setTogetherDate] = useState(null);
   const [userId, setUserId] = useState(null);
   const [todayAnswers, setTodayAnswers] = useState(null);
   const [treeData, setTreeData] = useState(null);
-  const baseUrl = 'http://127.0.0.1:8000';
-  
+  const baseUrl = "http://127.0.0.1:8000";
+
   // Set the profile image URL conditionally
   const imageUrl = image
-    ? `${baseUrl}${image}`  // Profile image from server
-    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`;  // Default image
+    ? `${baseUrl}${image}` // Profile image from server
+    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`; // Default image
 
   function GoModifyInfo() {
     navigate("/modifyInfo");
+  }
+  function GoWrittenMessage() {
+    navigate("/writtenMessage");
+  }
+  function GoWreathList() {
+    navigate("/wreathList");
+  }
+  function GoRememberTree() {
+    navigate("/rememberTree");
   }
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/accounts/api/get-user-info-from-token/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "http://127.0.0.1:8000/accounts/api/get-user-info-from-token/",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -39,30 +51,29 @@ function Mypage() {
 
         const result = await response.json();
         console.log("User info fetched successfully:", result);
-        
+
         setImage(result.profile);
         setUsername(result.nickname);
         setUserId(result.userId);
 
-        const dateJoined = new Date(result.dateJoined); // Parse dateJoined to Date object
-        const today = new Date(); // Today's date
-    
-        // Calculate difference in milliseconds
+        const dateJoined = new Date(result.dateJoined);
+        const today = new Date();
         const timeDiff = today - dateJoined;
-    
-        // Convert milliseconds to days
         const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    
+
         console.log("Days since joining:", daysDiff);
         setTogetherDate(daysDiff + 1);
 
         if (result.userId) {
-          const treeResponse = await fetch(`http://127.0.0.1:8000/rememberTree/user/${result.userId}/`, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`, // Token in the header
-            },
-          });
+          const treeResponse = await fetch(
+            `http://127.0.0.1:8000/rememberTree/user/${result.userId}/`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
 
           if (!treeResponse.ok) {
             throw new Error("Tree data fetch failed");
@@ -71,7 +82,7 @@ function Mypage() {
           const treeResult = await treeResponse.json();
           console.log("Tree data fetched successfully:", treeResult);
           setTreeData(treeResult);
-          console.log("flowerType:",treeResult.flowerType);
+          console.log("flowerType:", treeResult.flowerType);
         }
       } catch (error) {
         console.error("Error fetching user info or tree data:", error);
@@ -79,22 +90,24 @@ function Mypage() {
     };
     const fetchTodayAnswers = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/daily-question/today-answers/", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "http://127.0.0.1:8000/daily-question/today-answers/",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (response.ok) {
           const result = await response.json();
-          setTodayAnswers(result); // Set the answers to state
+          setTodayAnswers(result);
           console.log("Today's answers fetched successfully:", result);
-        }else if(response.status === 404){
-          setTodayAnswers('');
+        } else if (response.status === 404) {
+          setTodayAnswers("");
           return;
-        }
-         else {
+        } else {
           console.error("Failed to fetch today's answers");
         }
       } catch (error) {
@@ -102,38 +115,37 @@ function Mypage() {
       }
     };
 
-    // Call the async function
     if (token) {
       fetchUserInfo();
       fetchTodayAnswers();
     }
-  }, [token]); // Dependency array, `token` will trigger the effect when it changes
+  }, [token]);
 
-  
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const formData = new FormData();
       formData.append("profile", file);
       try {
-        const response = await fetch("http://127.0.0.1:8000/accounts/api/update-profile-image/", {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        });
+        const response = await fetch(
+          "http://127.0.0.1:8000/accounts/api/update-profile-image/",
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Image upload failed");
         }
         if (response.status === 200) {
           const result = await response.json();
-          
-          setImage(result.profile.replace(baseUrl, ""));
 
+          setImage(result.profile.replace(baseUrl, ""));
         }
-       
       } catch (error) {
         console.error("Error uploading image:", error);
       }
@@ -149,7 +161,6 @@ function Mypage() {
       return "오늘 기억 나무의 질문에 답을 했어요!";
     }
   };
-
 
   return (
     <div className={styles.container}>
@@ -206,34 +217,36 @@ function Mypage() {
           <div className={styles.userDetail}>
             <div className={styles.user}> {username} 님</div>
             <div className={styles.days}>함께한지 {togetherDate}일째</div>
-            <div className={styles.answerState}>
-            {getAnswerStateMessage()}
-            </div>
+            <div className={styles.answerState}>{getAnswerStateMessage()}</div>
           </div>
           <div className={styles.state}>
             <div className={styles.treeState}>
-            {!treeData || treeData.length === 0
-                ? " "
-                : "새싹  |"}
+              {!treeData || treeData.length === 0 ? " " : "새싹  |"}
             </div>
+            <div className={styles.flowerState}>
+              {!treeData || (Array.isArray(treeData) && treeData.length === 0)
+                ? " "
+                : treeData[0].flowerType + " | " || "정보 없음"}
+            </div>
+            <div className={styles.plantDateState}> {togetherDate}일 째</div>
           </div>
         </div>
-        <div className={styles.modifyBtn} onClick={GoModifyInfo}>
-          회원 정보 수정
+      </div>
+      <div className={styles.modifyBtn} onClick={GoModifyInfo}>
+        회원 정보 수정
+      </div>
+      <div className={styles.list}>
+        <div className={styles.write} onClick={GoWrittenMessage}>
+          <img src="/img/mypageWrite.png" alt="내가 남긴 추모글" />
+          내가 남긴 추모글
         </div>
-        <div className={styles.list}>
-          <div className={styles.write}>
-            <img src="/img/mypageWrite.png" alt="내가 남긴 추모글" />
-            내가 남긴 추모글
-          </div>
-          <div className={styles.flower}>
-            <img src="/img/mypageFlower.png" alt="헌화 내역" />
-            헌화 내역
-          </div>
-          <div className={styles.rememberTree}>
-            <img src="/img/mypageTree.png" alt="기억 나무" />
-            나무와 대화하기
-          </div>
+        <div className={styles.flower} onClick={GoWreathList}>
+          <img src="/img/mypageFlower.png" alt="헌화 내역" />
+          헌화 내역
+        </div>
+        <div className={styles.rememberTree} onClick={GoRememberTree}>
+          <img src="/img/mypageTree.png" alt="기억 나무" />
+          나무와 대화하기
         </div>
       </div>
     </div>
