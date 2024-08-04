@@ -98,7 +98,7 @@ function ShowLetter({ onClose, treeId }) {
                 src={letter.writer.profile || "/img/profTemp.png"}
                 className={styles.profileImg}
                 alt="프로필 이미지"
-                style={{ width: "34px", height: "34px" }}
+                style={{ width: "34px", height: "34px", borderRadius: "50%" }}
               />
               <div className={styles.userInfo}>
                 <div className={styles.user}>{letter.writer.nickname}</div>
