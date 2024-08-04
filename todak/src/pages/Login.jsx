@@ -10,20 +10,22 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    
     try {
       // Make the POST request to the login endpoint
-      const response = await axios.post("http://127.0.0.1:8000/accounts/login/", {
-        username: username,
-        password: password,
-      });
-  
+      const response = await axios.post(
+        "http://127.0.0.1:8000/accounts/login/",
+        {
+          username: username,
+          password: password,
+        }
+      );
+
       // Check if the status code is 200 (success)
       if (response.status === 200) {
         console.log(response.data); // Log the response data
         localStorage.setItem("access_token", response.data.access);
         localStorage.setItem("refresh_token", response.data.refresh);
-        alert("로그인 성공");
+        alert("로그인에 성공했습니다.");
         navigate("/", { replace: true });
         window.location.reload();
       } else {

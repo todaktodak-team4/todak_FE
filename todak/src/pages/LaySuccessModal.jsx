@@ -1,0 +1,37 @@
+import React from "react";
+import styles from "../css/StyledSuccessModal.module.css";
+import { navigate, useNavigate } from "react-router-dom";
+
+const LaySuccessModal = ({ onClose }) => {
+  const navigate = useNavigate();
+  function GoMemorial() {
+    navigate("/memorialHall");
+  }
+  function GoMain() {
+    navigate("/");
+  }
+  return (
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
+        <img
+          className={styles.growImg}
+          src="/img/lilyIcon.png"
+          alt="국화 이미지"
+        />
+        <div className={styles.completeMessage}>헌화가 완료되었습니다!</div>
+        <div className={styles.completeContent}>
+          헌화해주신 금액은 관련 기관에 기부될 예정입니다. <br />
+          따뜻한 관심에 감사드립니다.
+        </div>
+        <div className={styles.rem} onClick={GoMemorial}>
+          추모관으로 이동
+        </div>
+        <div className={styles.main} onClick={GoMain}>
+          메인 홈으로 이동
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LaySuccessModal;

@@ -13,13 +13,11 @@ const MemorialHallList = () => {
   const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드 상태 추가
   const [option, setOption] = useState("none"); // 옵션 상태 추가
 
-
   const fetchData = async (page, keyword = "", option = "none") => {
-
     setIsLoading(true);
     try {
       let response;
-  
+
       if (option === "myParticipation") {
         response = await axios.get(
           `http://127.0.0.1:8000/memorialHall/my-participation`,
@@ -71,14 +69,13 @@ const MemorialHallList = () => {
     fetchData(1, searchKeyword, e.target.value);
   };
 
-// Split listItems into two groups
-const upperItems = listItems.slice(0, 3);
-const lowerItems = listItems.slice(3, 6);
+  // Split listItems into two groups
+  const upperItems = listItems.slice(0, 3);
+  const lowerItems = listItems.slice(3, 6);
 
   return (
     <H.Body>
       <H.Container>
-        <Nav />
         <H.Content>
           <H.TitleContent>
             <img
