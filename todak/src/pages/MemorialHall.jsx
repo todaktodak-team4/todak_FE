@@ -14,13 +14,13 @@ const MemorialHall = () => {
   const [inputs, setInputs] = useState({ content: "" });
   const { content } = inputs;
   const [comments, setComments] = useState([]);
-  const accesstoken = localStorage.getItem("access_token");
+  const token = localStorage.getItem("access_token");
   const [messages, setMessages] = useState([]);
   const [wreaths, setWreaths] = useState([]);
   // const [currentIndex, setCurrentIndex] = useState(0); // State for tracking the current slide index
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const token = localStorage.getItem("token");
+  const halltoken = localStorage.getItem("halltoken");
 
   const handleUnauthorized = () => {
     localStorage.removeItem("access_token");
@@ -70,7 +70,7 @@ const MemorialHall = () => {
       .then((response) => {
         setPost(response.data);
         console.log("온라인 추모관 디테일 응답:", response.data);
-        localStorage.setItem('token',response.data.token);
+        localStorage.setItem('halltoken',response.data.token);
       })
       .catch((error) => {
         console.error("Error fetching post:", error);
@@ -113,7 +113,7 @@ const handlePostBtn = async () => {
           content,
           hall: postId,
         },
-        { headers: { Authorization: `Bearer ${accesstoken}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const newComment = response.data;
       setComments((prevComments) => [...prevComments, newComment]);
@@ -134,7 +134,7 @@ const handlePostBtn = async () => {
 
     if (post) {
       if (post.private) {
-        linkToCopy = `http://localhost:3000/memorialHall/${postId}/access?token=${token}`;
+        linkToCopy = `http://localhost:3000/memorialHall/${postId}/access?token=${halltoken}`;
       } else {
         linkToCopy = `http://localhost:3000/memorialHall/${postId}`;
       }
