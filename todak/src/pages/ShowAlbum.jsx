@@ -71,12 +71,17 @@ function ShowAlbum({ onClose, treeId }) {
       case 0:
         return (
           <div key={index} className={styles.img1}>
-            <img className={styles.imgBg} src="/img/imgBg.png" alt="album" />
+            <img
+              className={styles.imgBg}
+              src="/img/imgBg.png"
+              alt="album"
+              style={{ height: "240px" }}
+            />
             <img
               src={imageUrl}
               alt=""
               className={styles.defaultImg}
-              style={{ width: "367px", height: "187px" }}
+              style={{ width: "320px", height: "160px" }}
             />
             <div className={styles.rightB}></div>
             <div className={styles.leftB}></div>
@@ -93,12 +98,13 @@ function ShowAlbum({ onClose, treeId }) {
               src="/img/polaBg.png"
               alt="폴라로이드 이미지"
               className={styles.imgbg}
+              style={{ height: "320px" }}
             />
             <img
               src={imageUrl}
               alt=""
               className={styles.defaultImg}
-              style={{ width: "253px", height: "250px" }}
+              style={{ width: "233px", height: "230px" }}
             />
             <div className={styles.sticker}>
               <img src="/img/sticker.png" alt="" />
@@ -116,12 +122,17 @@ function ShowAlbum({ onClose, treeId }) {
       case 2:
         return (
           <div key={index} className={styles.img3}>
-            <img src="/img/imgBg.png" alt="" className={styles.imgbg} />
+            <img
+              src="/img/imgBg.png"
+              alt=""
+              className={styles.imgbg}
+              style={{ height: "240px" }}
+            />
             <img
               src={imageUrl}
               alt=""
               className={styles.defaultImg}
-              style={{ width: "367px", height: "187px" }}
+              style={{ width: "320px", height: "160px" }}
             />
             <div className={styles.clip}>
               <img src="/img/clip.png" alt="" />
@@ -139,12 +150,17 @@ function ShowAlbum({ onClose, treeId }) {
       case 3:
         return (
           <div key={index} className={styles.img4}>
-            <img src="/img/imgbg.png" alt="" className={styles.imgbg} />
+            <img
+              src="/img/imgbg.png"
+              alt=""
+              className={styles.imgbg}
+              style={{ height: "240px" }}
+            />
             <img
               src={imageUrl}
               alt=""
               className={styles.defaultImg}
-              style={{ width: "367px", height: "187px" }}
+              style={{ width: "320px", height: "160px" }}
             />
             <div className={styles.rightB}></div>
             <div className={styles.leftB}></div>
@@ -194,7 +210,11 @@ function ShowAlbum({ onClose, treeId }) {
             </div>
           )}
           <div className={styles.album}>
-            <img className={styles.imgBg} src="/img/albumBg.png" alt="album" />
+            <img
+              className={styles.albumImg}
+              src="/img/albumBg.png"
+              alt="album"
+            />
             {currentItems.map((item, index) => renderAlbumItem(item, index))}
           </div>
         </div>

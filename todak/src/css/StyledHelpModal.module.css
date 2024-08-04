@@ -1,23 +1,20 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 .container {
-  position: absolute;
-  top: 122px;
-  left: 0;
-  width: 100vw;
+  position: fixed;
+  top: 0;
+  width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: rgba(39, 16, 0, 0.45);
 }
-
+.modalContent {
+}
 .closeButton {
   color: #fff;
   font-size: 40px;
-  position: relative;
-  left: 1045px;
-  bottom: 177px;
-  cursor: pointer;
+  position: absolute;
+  top: 14.6%;
+  right: 10%;
+  z-index: 100;
 }
 .post,
 .album,
@@ -26,7 +23,7 @@
 .plantTree,
 .help,
 .moveTree {
-  position: relative;
+  position: absolute;
   color: #fff;
   font-family: "Pretendard Variable";
   font-size: 24px;
@@ -46,34 +43,41 @@
   left: -10%;
 }
 .delivery {
-  right: 400px;
-  bottom: 150px;
+  left: 18%;
+  top: 15%;
 }
 .album {
-  right: 400px;
-  bottom: 300px;
+  left: 18%;
+  top: 44%;
 }
 .talkToTree {
-  right: 400px;
-  top: 250px;
+  left: 18%;
+  top: 77%;
 }
 .moveTree {
+  top: 5%;
+  right: 15%;
 }
 .plantTree {
+  top: 10.6%;
+  right: 19%;
 }
 .plantTreeArrow {
+  top: 35%;
+  right: -35%;
 }
 .help {
-  left: 810px;
-  bottom: 150px;
+  top: 25%;
+  right: 9%;
 }
 .helpArrow {
-  left: 240px;
-  bottom: 40px;
+  left: 73%;
+  bottom: 100%;
+  z-index: 1;
 }
 .post {
-  left: 520px;
-  bottom: 130px;
+  right: 18%;
+  top: 52%;
 }
 .postBoxArrow {
   top: 55%;
@@ -87,10 +91,10 @@
   position: absolute;
 }
 .albumArrow {
-  top: 100px;
-  left: 40%;
+  top: 100%;
+  left: 60%;
 }
 .talkArrow {
   top: 110%;
-  left: 60%;
+  left: 55%;
 }

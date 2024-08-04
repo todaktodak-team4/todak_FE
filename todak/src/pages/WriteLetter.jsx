@@ -135,7 +135,7 @@ function WriteLetter({ onClose, treeId, userId }) {
         }, 1000);
 
         setTimeout(() => {
-          setShowSentComplete(true);
+          setFadeOut(true);
         }, 2000);
       } else if (response.status === 401) {
         localStorage.removeItem("access_token");
@@ -180,12 +180,12 @@ function WriteLetter({ onClose, treeId, userId }) {
   useEffect(() => {
     if (fadeOut) {
       const timer = setTimeout(() => {
-        onClose();
+        setShowSentComplete(true);
       }, 1000);
 
       return () => clearTimeout(timer);
     }
-  }, [fadeOut, onClose]);
+  }, [fadeOut]);
 
   const handleCloseSentComplete = () => {
     setShowSentComplete(false);
