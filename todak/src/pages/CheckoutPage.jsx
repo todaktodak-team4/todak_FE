@@ -118,19 +118,23 @@ const CheckoutPage = ({
             {detailAddress}
           </p>
         </div>
-        <div className={styles.price}>
+        <div className={styles.price} style={{ zIndex: "0" }}>
           <p className={styles.pTitle}>총 결제 금액</p>
-          <span className={styles.totalPrice}>{totalAmount}원</span>
+          <span style={{ fontSize: "20px" }} className={styles.totalPrice}>
+            {totalAmount}원
+          </span>
         </div>
-        <div id="payment-method" className={styles.paymentMethod}></div>
-        <div id="agreement" className={styles.agreement}></div>
-        <button
-          className={`${styles.payBtn} ${styles.button}`}
-          disabled={!ready}
-          onClick={handlePayment}
-        >
-          결제하기
-        </button>
+        <div className={styles.payment}>
+          <div id="payment-method" className={styles.paymentMethod}></div>
+          <div id="agreement" className={styles.agreement}></div>
+          <button
+            className={`${styles.payBtn} ${styles.button}`}
+            disabled={!ready}
+            onClick={handlePayment}
+          >
+            결제하기
+          </button>
+        </div>
       </div>
       {showSuccessModal && <SuccessModal onClose={handleCloseSuccessModal} />}
     </div>
