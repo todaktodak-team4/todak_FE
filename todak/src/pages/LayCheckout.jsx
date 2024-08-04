@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import styles from "../css/StyledLayCheckout.module.css";
-import SuccessModal from "./SuccessModal";
+import DonationModal from "./DonationCertificate";
 
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = "VQMfaA0KTAWJ8hFAOE9PL";
@@ -9,7 +9,7 @@ const customerKey = "VQMfaA0KTAWJ8hFAOE9PL";
 const LayCheckout = ({ donation, name, onClose }) => {
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showDonationModal, setShowDonationModal] = useState(false);
 
   useEffect(() => {
     async function fetchPaymentWidgets() {
@@ -65,18 +65,18 @@ const LayCheckout = ({ donation, name, onClose }) => {
       await widgets.requestPayment({
         orderId: `order_${Date.now()}`,
         orderName: `Donation by ${name}`,
-        successUrl: `${window.location.origin}/success`,
+        successUrl: `${window.location.origin}/laySuccess`,
         failUrl: `${window.location.origin}/fail`,
       });
-      setShowSuccessModal(true);
+      setShowDonationModal(true);
       console.log("Payment requested successfully.");
     } catch (error) {
       console.error("Payment error:", error);
     }
   };
 
-  const handleCloseSuccessModal = () => {
-    setShowSuccessModal(false);
+  const handleCloseDonationModal = () => {
+    setShowDonationModal(false);
     onClose();
   };
 
@@ -106,7 +106,7 @@ const LayCheckout = ({ donation, name, onClose }) => {
           결제하기
         </button>
       </div>
-      {showSuccessModal && <SuccessModal onClose={handleCloseSuccessModal} />}
+      {showDonationModal && <DonationModal Dname={name} onClose={handleCloseDonationModal} />}
     </div>
   );
 };

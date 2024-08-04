@@ -28,6 +28,7 @@ import Mypage from "./pages/Mypage";
 import TalkModal from "./pages/TalkModal";
 import Nav from "./pages/Nav";
 import ModifyInfo from "./pages/ModifyInfo";
+import DonationModal from "./pages/DonationCertificate";
 
 import WreathList from "./pages/WreathList";
 import WrittenMessage from "./pages/WrittenMessage";
@@ -136,6 +137,7 @@ function App() {
         <Route path="layCheckout" element={<LayCheckout />} />
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
+        <Route path="/laySuccess" element={<DonationModal />} />
         <Route path="/sentComplete" element={<SentComplete />} />
         <Route path="/mypage" element={<Mypage />} />{" "}
         <Route path="/talkModal" element={<TalkModal />} />

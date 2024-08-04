@@ -247,7 +247,7 @@ const handlePostBtn = async () => {
                 messageId={item.id}
                 donation={item.donation}
                 comment={item.comment}
-                name={item.name}
+                name={item.nickname}
                 hall={item.hall}
                 profile={item.profile}
                 createdAt={item.createdAt}
