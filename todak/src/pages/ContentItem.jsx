@@ -11,13 +11,19 @@ const ContentItem = ({
   wreathCount,
   messageCount,
   initialStatus, // 초기 상태
+  isPrivate, // private 상태 추가
 }) => {
   const navigate = useNavigate();
   const defaultImg = `${process.env.PUBLIC_URL}/img/ListContentImg.png`;
+<<<<<<< HEAD
   const token = localStorage.getItem("access_token");
 
   const storedStatus = localStorage.getItem(`status-${postId}`);
   const [status, setStatus] = useState(storedStatus || initialStatus || "unparticipated");
+=======
+  const token = localStorage.getItem("token");
+  console.log("count:", wreathCount, "private:", isPrivate);
+>>>>>>> a8c766873151a628a7d3b367bd75c31fcfc6ec0a
 
 
   // 날짜 포맷팅 함수
@@ -128,7 +134,17 @@ const ContentItem = ({
           <span onClick={() => navigate(`/memorialHall/${postId}`)}>
             {name}
           </span>
+          <H.C2>
+            {isPrivate && (
+              <img
+                id="Locked"
+                src={`${process.env.PUBLIC_URL}/img/ListContentLock.svg`}
+                alt="Locked"
+              />
+            )}
+          </H.C2>
         </H.C1>
+
         <H.C3>
           <H.C4>{formatDate(date)}</H.C4>
           <H.C5>

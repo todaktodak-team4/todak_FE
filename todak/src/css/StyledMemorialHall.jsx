@@ -15,6 +15,8 @@ export const Content = styled.div`
   flex-direction: column;
   padding-top: 5vh;
   padding-bottom: 10vh;
+
+  background: linear-gradient(180deg, #c3c3c3 0%, #fff 48%);
 `;
 export const mainImg = styled.div`
   position: relative;
@@ -240,6 +242,11 @@ export const MMCProfile = styled.div`
 `;
 export const MMC1 = styled.div`
   margin-right: 1rem;
+  img {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+  }
 `;
 export const MMC2 = styled.div`
   color: #000;
@@ -400,6 +407,7 @@ export const MM4 = styled.div`
   img {
     width: 3rem;
     height: 3rem;
+    border-radius: 50%;
   }
 `;
 export const MM5 = styled.div`
@@ -479,6 +487,7 @@ export const MM8Content = styled.div`
     margin-right: 0.2rem;
   }
 `;
+<<<<<<< HEAD
 export const NumberBtn = styled.div`display: flex;
   justify-content: center;
   align-items: center;
@@ -510,3 +519,6 @@ export const NumberBtn = styled.div`display: flex;
     font-weight: 700;
     color: #2b2b2b;
   }`;
+=======
+export const NumberBtn = styled.div``;
+>>>>>>> a8c766873151a628a7d3b367bd75c31fcfc6ec0a

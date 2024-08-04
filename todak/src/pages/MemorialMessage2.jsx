@@ -57,51 +57,53 @@ const MemorialMessage2 = ({
       console.error("API 요청 실패:", error);
     }
   };
-    // 초기값을 서버에서 받아오기
-    useEffect(() => {
-      const fetchInitialCounts = async () => {
-        try {
-          const baseUrl = `http://127.0.0.1:8000/memorialHall/${hall}`;
-          const endpoints = [
-            { action: "todak", setter: setTodakCount },
-            { action: "sympathize", setter: setSympathizeCount },
-            { action: "sad", setter: setSadCount },
-            { action: "commemorate", setter: setCommemorateCount },
-            { action: "together", setter: setTogetherCount },
-          ];
-  
-          for (const { action, setter } of endpoints) {
-            const url = content
-              ? `${baseUrl}/message/${messageId}/${action}`
-              : `${baseUrl}/wreath/${messageId}/${action}`;
-  
-            try {
-              const response = await axios.get(url, {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              });
-  
-              setter(
-                response.data[
-                  `total${action.charAt(0).toUpperCase() + action.slice(1)}`
-                ] || 0
-              );
-            } catch (error) {
-              console.error(
-                `Failed to fetch ${action} count from ${url}:`,
-                error
-              );
-            }
+   // 초기값을 서버에서 받아오기
+  useEffect(() => {
+    const fetchInitialCounts = async () => {
+      try {
+        const baseUrl = `http://127.0.0.1:8000/memorialHall/${hall}`;
+        const endpoints = [
+          { action: "todak", setter: setTodakCount },
+          { action: "sympathize", setter: setSympathizeCount },
+          { action: "sad", setter: setSadCount },
+          { action: "commemorate", setter: setCommemorateCount },
+          { action: "together", setter: setTogetherCount },
+        ];
+
+        for (const { action, setter } of endpoints) {
+          const url = content
+            ? `${baseUrl}/message/${messageId}/${action}`
+            : `${baseUrl}/wreath/${messageId}/${action}`;
+
+          console.log(`Fetching counts from URL: ${url}`); // URL 확인
+
+          try {
+            const response = await axios.get(url, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+
+            setter(
+              response.data[
+                `total${action.charAt(0).toUpperCase() + action.slice(1)}`
+              ] || 0
+            );
+          } catch (error) {
+            console.error(
+              `Failed to fetch ${action} count from ${url}:`,
+              error
+            );
           }
-        } catch (error) {
-          console.error("초기 카운트 로드 실패:", error);
         }
-      };
-  
-      fetchInitialCounts();
-    }, [hall, messageId, token, content, updateTrigger]); // 의존성 배열에 content 추가
-  
+      } catch (error) {
+        console.error("초기 카운트 로드 실패:", error);
+      }
+    };
+
+    fetchInitialCounts();
+  }, [hall, messageId, token, content, updateTrigger]); // 의존성 배열에 content 추가
+
 
   // // 초기값을 서버에서 받아오기
   // useEffect(() => {

@@ -29,6 +29,7 @@ import TalkModal from "./pages/TalkModal";
 import Nav from "./pages/Nav";
 import ModifyInfo from "./pages/ModifyInfo";
 
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -68,6 +69,7 @@ function App() {
   };
 
   return (
+    
     <BrowserRouter>
       <A.Header>
         <A.Logo>
@@ -130,10 +132,19 @@ function App() {
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
         <Route path="/sentComplete" element={<SentComplete />} />
-        <Route path="/letterDetail" element={<LetterDetail />} />
+
         <Route path="/mypage" element={<Mypage />} />{" "}
         <Route path="/talkModal" element={<TalkModal />} />
         <Route path="/modifyInfo" element={<ModifyInfo />} />
+
+        <Route path="/letterDetail" element={<LetterDetail />}>
+          <Route
+            path="/memorialHall/1/access"
+            element={<LockedMemorialHall />}
+          />
+          <Route path="/layCheckout" element={<LayCheckout />} />
+        </Route>
+
       </Routes>
 
       <A.Footer>
