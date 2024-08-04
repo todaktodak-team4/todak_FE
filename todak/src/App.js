@@ -28,6 +28,8 @@ import Mypage from "./pages/Mypage";
 import TalkModal from "./pages/TalkModal";
 import Nav from "./pages/Nav";
 import ModifyInfo from "./pages/ModifyInfo";
+import WreathList from "./pages/WreathList";
+import WrittenMessage from "./pages/WrittenMessage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -134,6 +136,8 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />{" "}
         <Route path="/talkModal" element={<TalkModal />} />
         <Route path="/modifyInfo" element={<ModifyInfo />} />
+        <Route path="/wreathList" element={<WreathList />} />
+        <Route path="/writtenMessage" element={<WrittenMessage />} />
       </Routes>
 
       <A.Footer>

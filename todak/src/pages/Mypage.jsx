@@ -9,6 +9,15 @@ function Mypage() {
   function GoModifyInfo() {
     navigate("/modifyInfo");
   }
+  function GoWrittenMessage() {
+    navigate("/writtenMessage");
+  }
+  function GoWreathList() {
+    navigate("/wreathList");
+  }
+  function GoRememberTree() {
+    navigate("/rememberTree");
+  }
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
@@ -113,15 +122,15 @@ function Mypage() {
           회원 정보 수정
         </div>
         <div className={styles.list}>
-          <div className={styles.write}>
+          <div className={styles.write} onClick={GoWrittenMessage}>
             <img src="/img/mypageWrite.png" alt="내가 남긴 추모글" />
             내가 남긴 추모글
           </div>
-          <div className={styles.flower}>
+          <div className={styles.flower} onClick={GoWreathList}>
             <img src="/img/mypageFlower.png" alt="헌화 내역" />
             헌화 내역
           </div>
-          <div className={styles.rememberTree}>
+          <div className={styles.rememberTree} onClick={GoRememberTree}>
             <img src="/img/mypageTree.png" alt="기억 나무" />
             나무와 대화하기
           </div>

@@ -52,12 +52,13 @@
   font-family: "Pretendard Variable";
   font-size: 24px;
   font-weight: 400;
+  margin-top: 5%;
 }
 
 .goList {
   position: relative;
   left: 380px;
-  top: 30px;
+  bottom: 150px;
   padding-top: 15px;
   width: 174px;
   height: 43px;
