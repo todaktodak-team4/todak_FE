@@ -16,7 +16,7 @@
 .innerContainer {
   height: 100%;
   width: 60%;
-  max-width: 1300px;
+  max-width: 1000px;
   min-width: 1000px;
   position: absolute;
   top: 55%;
@@ -26,17 +26,21 @@
 .profile {
   display: flex;
   position: absolute;
-  top: 20%;
+  top: 25%;
+}
+.profImg {
+  position: absolute;
 }
 .profileImgModifyBtn {
-  position: absolute;
-  top: 60%;
-  left: 17%;
+  position: relative;
+  left: 130px;
+  top: 115px;
   cursor: pointer;
 }
 .userDetail {
-  margin-left: 30px;
-  margin-top: 10px;
+  position: absolute;
+  top: 26%;
+  left: 20%;
 }
 .user {
   width: 193px;
@@ -69,8 +73,8 @@
 .modifyBtn {
   cursor: pointer;
   position: absolute;
-  right: 0;
-  top: 27%;
+  right: 10%;
+  top: 40%;
   text-align: center;
   width: 268px;
   height: 55px;
@@ -96,8 +100,8 @@
   align-items: center;
   padding-left: 20px;
   position: absolute;
-  left: 55%;
-  top: 9%;
+  left: 43%;
+  top: 27%;
 }
 .treeState,
 .flowerState,
@@ -116,7 +120,7 @@
   width: 950px;
   height: 200px;
   display: flex;
-  margin-top: 44%;
+  margin-top: 38%;
   position: relative;
   margin-left: 15%;
 }

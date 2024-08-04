@@ -4,7 +4,6 @@ import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import { useNavigate, useLocation } from "react-router-dom";
 import CheckoutPage from "./CheckoutPage";
-import Nav from "./Nav";
 
 function DeliveryInfo() {
   const navigate = useNavigate();
