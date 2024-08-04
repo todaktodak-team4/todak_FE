@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../css/StyledSuccessModal.module.css";
+import styles from "../css/StyledLaySuccessModal.module.css";
 import { navigate, useNavigate } from "react-router-dom";
 
 const LaySuccessModal = ({ onClose }) => {
