@@ -6,19 +6,15 @@ import * as H from "../css/StyledMemorialHallList";
 import Nav from "./Nav";
 
 const LockedMemorialHall = () => {
-//   const location = useLocation();
-//   const queryParams = new URLSearchParams(location.search);
 
-//   // Extract token and postId from query parameters
-//   const token = queryParams.get("token");
-//   const postId = queryParams.get("postId");
-
-  const { postId } = useParams();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get("token");
 
-  const [postItem, setPostItem] = useState(null);
+  // Extract token and postId from query parameters
+  const token = queryParams.get("token");
+  const postId = queryParams.get("postId");
+
+  const [postItem, setPostItem] = useState(null); // State to hold the specific memorial hall
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -30,11 +26,19 @@ const LockedMemorialHall = () => {
       setIsLoading(true);
 
       try {
-        const response = await axios.get(`/memorialHall/${postId}/access`, {
-          params: { token },
-          headers: { Authorization: `Token ${token}` },
-        });
-        setPostItem(response.data);
+        const response = await axios.get(
+          `/memorialHall/${postId}/access?token=${token}`,
+          {
+            params: {
+              token: token,
+            },
+            headers: {
+              Authorization: `Token ${token}`, // Ensure format is correct
+            },
+          }
+        );
+        setPostItem(response.data); // Set the specific memorial hall data
+
       } catch (error) {
         console.error(
           "Error fetching memorial hall:",
@@ -92,5 +96,6 @@ const LockedMemorialHall = () => {
     </H.Body>
   );
 };
+
 
 export default LockedMemorialHall;

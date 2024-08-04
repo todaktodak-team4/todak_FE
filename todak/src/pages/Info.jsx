@@ -142,7 +142,38 @@ const Info = () => {
           수 있어요.
         </p>
       </I.Info5>
-      <I.Info6></I.Info6>
+      <I.InfoAdd>
+        <p id="title">헌화금으로 지원 센터에 기부를</p>
+        <p id="content">
+          온라인 헌화 시 최소 1,000원 부터 헌화금을 결제해 기부를 진행할 수
+          있습니다.
+          <br />
+          추모관에 모인 헌화금은 같은 아픔이 반복되지 않도록 사건 관련 단체에
+          기부됩니다.
+          <br />
+          결제 이후 뜨는 기부 증서를 공유해 따뜻함을 나눠 보세요.
+        </p>
+      </I.InfoAdd>
+      <I.Info6>
+        <I.Info6Content>
+          <div>
+            <p>같은 경험을 한 사람들과 함께 극복하고 싶어요</p>
+          </div>
+          <div id="Info62">
+            <p>제 마음을 표현하고 공감받는 공간이 필요해요</p>
+          </div>
+          <div>
+            <p>이제는 볼 수 없는 대상을 같이 추억하고 싶어요</p>
+          </div>
+        </I.Info6Content>
+        <I.Info6Information>
+          <p id="title">희망 헌화 공간 신청</p>
+          <p id="content">
+            주변의 사람들과 함께 추모하고 싶은 대상이 있다면
+            <br /> 개인 희망 헌화 공간을 신청해 보세요.
+          </p>
+        </I.Info6Information>
+      </I.Info6>
       <I.Info7>
         <I.Info7Content>
           <p id="title">사랑하는 이를 기억하는 나무</p>
@@ -208,7 +239,60 @@ const Info = () => {
           />
         </I.Info8Container>
       </I.Info8>
-      <I.Info9></I.Info9>
+      <I.Info9>
+        <img
+          id="Img"
+          src={`${process.env.PUBLIC_URL}/img/Info7tree.png`}
+          alt="Img"
+        />
+        <p id="title">언제나 내 곁에서 머무는 나무</p>
+        <I.Info923>
+          {" "}
+          <I.Info92></I.Info92>
+          <I.Info93>
+            <I.NavBtnWrapper1>
+              <I.NavBtnWrapper2>
+                <p>
+                  배송 유무
+                  <br /> 선택
+                </p>
+              </I.NavBtnWrapper2>
+            </I.NavBtnWrapper1>
+            <I.NavBtnWrapper1>
+              <I.NavBtnWrapper2>
+                <p>
+                  배송 옵션 <br />
+                  선택
+                </p>
+              </I.NavBtnWrapper2>
+            </I.NavBtnWrapper1>
+            <I.NavBtnWrapper1>
+              <I.NavBtnWrapper2>
+                <p>
+                  배송 정보 <br />
+                  입력
+                </p>
+              </I.NavBtnWrapper2>
+            </I.NavBtnWrapper1>
+            <I.NavBtnWrapper1>
+              <I.NavBtnWrapper2>
+                <p>배송 시작</p>
+              </I.NavBtnWrapper2>
+            </I.NavBtnWrapper1>
+          </I.Info93>
+        </I.Info923>
+
+        <p id="content">
+          완전한 치유가 끝나면{" "}
+          <I.BoldText9>기억 나무를 자택으로 직접 배송</I.BoldText9>받을 수
+          있어요.
+          <br />
+          추억 사진, 나무 옵션 등 배송 키트를 선택해 추억할 수 있어요.
+          <br />
+          오랫동안 기억하고 싶은 사람처럼, 기억 나무는 곁에서 늘 항상 당신의
+          행복을 바라며 지켜볼 거예요.
+        </p>
+      </I.Info9>
       <I.Info10>
         <I.Info10Line1></I.Info10Line1>
         <I.Info10Content>

@@ -11,6 +11,7 @@ const ContentItem = ({
   wreathCount,
   messageCount,
   initialStatus, // 초기 상태
+  isPrivate, // private 상태 추가
 }) => {
   const navigate = useNavigate();
   const defaultImg = `${process.env.PUBLIC_URL}/img/ListContentImg.png`;
@@ -18,6 +19,9 @@ const ContentItem = ({
 
   const storedStatus = localStorage.getItem(`status-${postId}`);
   const [status, setStatus] = useState(storedStatus || initialStatus || "unparticipated");
+
+  console.log("count:", wreathCount, "private:", isPrivate);
+
 
 
   // 날짜 포맷팅 함수
@@ -67,6 +71,13 @@ const ContentItem = ({
 
   // Handle participation toggle
   const handleParticipation = async () => {
+    if (status === "participated") {
+      const confirmCancel = window.confirm("정말로 참여를 취소하시겠습니까? \n비공개 추모관의 경우 참여를 취소할 경우 해당 링크를 통해서만 다시 참여하기가 가능합니다.");
+      if (!confirmCancel) {
+        return;
+      }
+    }
+
     try {
       let newStatus;
       if (status === "participated") {
@@ -105,12 +116,16 @@ const ContentItem = ({
         alert("토큰이 만료되었습니다. 다시 로그인해주세요.");
         navigate("/login");
       } else {
-        alert("참여 상태를 변경하는 중 오류가 발생했습니다.");
+        alert("비공개 추모관이므로 링크를 통해 접근 가능합니다.");
       }
     }
   };
 
   const goContent = () => {
+    if (isPrivate) {
+      alert("비공개 추모관이므로 링크를 통해 접근 가능합니다.");
+      return;
+    }
     navigate(`/memorialHall/${postId}`);
   };
 
@@ -128,7 +143,17 @@ const ContentItem = ({
           <span onClick={() => navigate(`/memorialHall/${postId}`)}>
             {name}
           </span>
+          <H.C2>
+            {isPrivate && (
+              <img
+                id="Locked"
+                src={`${process.env.PUBLIC_URL}/img/ListContentLock.svg`}
+                alt="Locked"
+              />
+            )}
+          </H.C2>
         </H.C1>
+
         <H.C3>
           <H.C4>{formatDate(date)}</H.C4>
           <H.C5>

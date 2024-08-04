@@ -14,13 +14,13 @@ const MemorialHall = () => {
   const [inputs, setInputs] = useState({ content: "" });
   const { content } = inputs;
   const [comments, setComments] = useState([]);
-  const accesstoken = localStorage.getItem("access_token");
+  const token = localStorage.getItem("access_token");
   const [messages, setMessages] = useState([]);
   const [wreaths, setWreaths] = useState([]);
   // const [currentIndex, setCurrentIndex] = useState(0); // State for tracking the current slide index
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const token = localStorage.getItem("token");
+  const halltoken = localStorage.getItem("halltoken");
 
   const handleUnauthorized = () => {
     localStorage.removeItem("access_token");
@@ -63,6 +63,13 @@ const MemorialHall = () => {
     fetchDatas();
   }, [postId]);
 
+  // const [messages, setMessages] = useState([]);
+  // const [wreaths, setWreaths] = useState([]);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+ 
+
   //연동 완
   useEffect(() => {
     axios
@@ -70,11 +77,41 @@ const MemorialHall = () => {
       .then((response) => {
         setPost(response.data);
         console.log("온라인 추모관 디테일 응답:", response.data);
-        localStorage.setItem('token',response.data.token);
+        localStorage.setItem('halltoken',response.data.token);
       })
       .catch((error) => {
         console.error("Error fetching post:", error);
       });
+  }, [postId]);
+
+  useEffect(() => {
+    const fetchMessages = async (page = 1) => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(
+          `/memorialHall/${postId}/message?page=${page}`
+        );
+        setMessages(response.data.results);
+        setTotalPages(Math.ceil(response.data.count / 3)); // Assuming 3 items per page
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchMessages(currentPage);
+  }, [postId, currentPage]);
+
+  useEffect(() => {
+    const fetchWreaths = async () => {
+      try {
+        const response = await axios.get(`/memorialHall/${postId}/wreath`);
+        setWreaths(response.data);
+      } catch (error) {
+        console.error("Error fetching wreaths:", error);
+      }
+    };
+    fetchWreaths();
   }, [postId]);
 
   const formatDate = (isoDate) => {
@@ -113,7 +150,7 @@ const handlePostBtn = async () => {
           content,
           hall: postId,
         },
-        { headers: { Authorization: `Bearer ${accesstoken}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const newComment = response.data;
       setComments((prevComments) => [...prevComments, newComment]);
@@ -134,7 +171,7 @@ const handlePostBtn = async () => {
 
     if (post) {
       if (post.private) {
-        linkToCopy = `http://localhost:3000/memorialHall/${postId}/access?token=${token}`;
+        linkToCopy = `http://localhost:3000/memorialHall/${postId}/access?token=${halltoken}`;
       } else {
         linkToCopy = `http://localhost:3000/memorialHall/${postId}`;
       }
@@ -154,6 +191,11 @@ const handlePostBtn = async () => {
   const navigateToLayFlower = () => {
     navigate(`/layFlower?hall=${postId}`);
   };
+
+  // const handlePageChange = (newPage) => {
+  //   if (newPage < 1 || newPage > totalPages) return;
+  //   setCurrentPage(newPage);
+  // };
 
   return (
     <H.Body>
@@ -227,9 +269,9 @@ const handlePostBtn = async () => {
           <H.MemorialMessage2Input>
             <H.MM1>
               <img
-                id="line"
-                src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`}
-                alt="line"
+                id="profile"
+                src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`} // 프로필 이미지
+                alt="profile"
               />
             </H.MM1>
             <H.MM2>
@@ -244,21 +286,45 @@ const handlePostBtn = async () => {
                 등록하기
               </div>
               <H.MemorialMessages2>
-                {messages.map((item) => (
-                  <MemorialMessage2
-                    key={item.id}
-                    messageId={item.id}
-                    content={item.content}
-                    comment={item.comment}
-                    hall={item.hall}
-                    nickname={item.nickname}
-                    profile={item.profile}
-                    createdAt={item.createdAt}
-                  />
-                ))}
+                {isLoading ? (
+                  <p>Loading...</p>
+                ) : (
+                  messages.map((item) => (
+                    <MemorialMessage2
+                      key={item.id}
+                      messageId={item.id}
+                      content={item.content}
+                      comment={item.comment}
+                      hall={item.hall}
+                      nickname={item.nickname}
+                      profile={item.profile}
+                      createdAt={item.createdAt}
+                    />
+                  ))
+                )}
               </H.MemorialMessages2>
             </H.MM2>
           </H.MemorialMessage2Input>
+
+          <H.NumberBtn>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              style={{ border: "none", background: "none", color: "black" }}
+            >
+              {"<"} {/* Previous button */}
+            </button>
+            <span>
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              style={{ border: "none", background: "none", color: "black" }}
+            >
+              {">"} {/* Next button */}
+            </button>
+          </H.NumberBtn>
         </H.MemorialMessage2>
 
         <H.NumberBtn>

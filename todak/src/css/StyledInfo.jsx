@@ -363,7 +363,7 @@ export const BoldText4 = styled.p`
   font-weight: 600;
   line-height: normal;
 `;
-export const Info6 = styled.div`
+export const InfoAdd = styled.div`
   text-align: center;
   display: flex;
   justify-content: center;
@@ -374,6 +374,84 @@ export const Info6 = styled.div`
   background: url(${process.env.PUBLIC_URL}/img/Info6Img.png);
   background-size: cover;
   background-repeat: no-repeat;
+  #title {
+    color: var(--ff, #fff);
+    font-family: "Pretendard Variable";
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
+  #content {
+    color: var(--ff, #fff);
+    text-align: center;
+    font-family: "Pretendard Variable";
+    font-size: 1.625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2.5rem;
+  }
+`;
+export const Info6 = styled.div`
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10vw;
+  width: 100vw;
+  height: 70vh;
+  background: url(${process.env.PUBLIC_URL}/img/Info6Img.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+`;
+export const Info6Content = styled.div`
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+  div {
+    width: 32.5rem;
+    height: 3.5rem;
+    flex-shrink: 0;
+    border-radius: 4.375rem;
+    background: linear-gradient(0deg, #ebebeb 0%, #fff 48%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  #Info62 {
+    margin-left: 10rem;
+  }
+  p {
+    color: #6f6f6f;
+    font-family: "Pretendard Variable";
+    font-size: 1.625rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0.9rem;
+  }
+`;
+export const Info6Information = styled.div`
+  margin-right: 5vw;
+  #title {
+    color: var(--ff, #fff);
+    font-family: "Pretendard Variable";
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
+  #content {
+    color: var(--ff, #fff);
+    text-align: left;
+    font-family: "Pretendard Variable";
+    font-size: 1.625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2.5rem;
+  }
 `;
 export const Info7 = styled.div`
   display: flex;
@@ -386,7 +464,7 @@ export const Info7 = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   padding-left: 10vw;
-  gap: 10vw;
+  gap: 20vw;
 `;
 export const Info7Content = styled.div`
   text-align: left;
@@ -394,22 +472,22 @@ export const Info7Content = styled.div`
   flex-direction: column;
 
   #title {
-    z-index: 2;
     color: #3d4c00;
     font-family: "Pretendard Variable";
-    font-size: 40px;
+    font-size: 2.5rem;
     font-style: normal;
     font-weight: 800;
-    line-height: normal;
+    line-height: nomal;
+    margin: 0;
   }
   #content {
-    z-index: 2;
     color: #3d4c00;
+    text-align: left;
     font-family: "Pretendard Variable";
-    font-size: 26px;
+    font-size: 1.625rem;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    line-height: 2.5rem;
   }
 `;
 export const Info7Img = styled.div`
@@ -463,17 +541,17 @@ export const Info8 = styled.div`
   #title {
     color: #3d4c00;
     font-family: "Pretendard Variable";
-    font-size: 40px;
+    font-size: 2.5rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-    margin: 10px;
+    margin: 0;
   }
   #content {
     color: #3d4c00;
     text-align: center;
     font-family: "Pretendard Variable";
-    font-size: 26px;
+    font-size: 1.625rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -493,7 +571,7 @@ export const Info8Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   #Info8Img3 {
     width: 382px;
     height: 331px;
@@ -509,6 +587,7 @@ export const Info8Arrow = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   margin-left: 20px;
+  margin-bottom: 10%;
 `;
 export const Info9 = styled.div`
   text-align: center;
@@ -521,6 +600,97 @@ export const Info9 = styled.div`
   background: url(${process.env.PUBLIC_URL}/img/Info9Img.png);
   background-size: cover;
   background-repeat: no-repeat;
+  img {
+    width: 9rem;
+    height: 9rem;
+  }
+  #title {
+    color: #3d4c00;
+    font-family: "Pretendard Variable";
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    margin: 0;
+  }
+  #content {
+    color: #3d4c00;
+    text-align: center;
+    font-family: "Pretendard Variable";
+    font-size: 1.625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2.5rem;
+  }
+`;
+export const Info923 = styled.div`
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  height: 15rem;
+  width: 60rem;
+`;
+export const Info92 = styled.div`
+  position: absolute;
+  top: 6rem;
+  width: 46.9375rem;
+  height: 3.125rem;
+  flex-shrink: 0;
+  background: linear-gradient(90deg, #ffda57 0%, #b59a3d 100%);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+`;
+export const Info93 = styled.div`
+  z-index: 3;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 5rem;
+`;
+export const NavBtnWrapper1 = styled.div`
+  display: flex;
+  width: 11.25rem;
+  height: 11.25rem;
+  border-radius: 50%;
+  background: rgba(255, 218, 87, 0.45);
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+`;
+//3-2 버튼 wrapping 안쪽
+export const NavBtnWrapper2 = styled.div`
+  display: flex;
+  width: 8.6875rem;
+  height: 8.75rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #ffda57;
+
+  justify-content: center;
+  align-items: center;
+  p {
+    color: #3d4c00;
+    text-align: center;
+    font-family: "Pretendard Variable";
+    font-size: 1.625rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+`;
+export const BoldText9 = styled.p`
+  display: inline-block;
+  color: #3d4c00;
+  font-family: "Pretendard Variable";
+  font-size: 1.625rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
 `;
 export const Info10 = styled.div`
   text-align: center;

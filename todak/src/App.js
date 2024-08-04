@@ -28,15 +28,15 @@ import Mypage from "./pages/Mypage";
 import TalkModal from "./pages/TalkModal";
 import Nav from "./pages/Nav";
 import ModifyInfo from "./pages/ModifyInfo";
+
 import WreathList from "./pages/WreathList";
 import WrittenMessage from "./pages/WrittenMessage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const accessToken = localStorage.getItem("access_token");
+  const refreshToken = localStorage.getItem("refresh_token");
   useEffect(() => {
-    const accessToken = localStorage.getItem("access_token");
-    const refreshToken = localStorage.getItem("refresh_token");
     setIsLoggedIn(!!accessToken && !!refreshToken);
   }, []);
 
@@ -49,7 +49,7 @@ function App() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           refresh_token: refreshToken,
@@ -60,8 +60,14 @@ function App() {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         setIsLoggedIn(false); // 로그인 상태 업데이트
+        alert("로그아웃 성공");
         window.location.reload();
       } else {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        alert("토큰이 완료되어 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+        setIsLoggedIn(false);
+
         console.error("로그아웃 실패:", response.statusText);
       }
     } catch (error) {
@@ -89,7 +95,6 @@ function App() {
           </Link>
         </A.Logo>
         <A.Privacy>
-          <Link to="/">MY</Link>
           {isLoggedIn ? (
             <>
               <div onClick={handleLogout} style={{ cursor: "pointer" }}>
@@ -132,12 +137,12 @@ function App() {
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
         <Route path="/sentComplete" element={<SentComplete />} />
-        <Route path="/letterDetail" element={<LetterDetail />} />
         <Route path="/mypage" element={<Mypage />} />{" "}
         <Route path="/talkModal" element={<TalkModal />} />
         <Route path="/modifyInfo" element={<ModifyInfo />} />
         <Route path="/wreathList" element={<WreathList />} />
         <Route path="/writtenMessage" element={<WrittenMessage />} />
+        <Route path="/letterDetail" element={<LetterDetail />}></Route>
       </Routes>
 
       <A.Footer>

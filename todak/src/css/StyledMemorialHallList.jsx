@@ -105,7 +105,7 @@ export const Option = styled.div`
 `;
 export const ListContent = styled.div`
   height: 80vh;
-  width: 60vw;
+  width: auto;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;

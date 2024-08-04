@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledModifyInfo.module.css";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
@@ -10,19 +11,54 @@ const passwordRegEx =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 function ModifyInfo() {
-  const [id, setId] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phone, setPhone] = useState("");
   const [postalAddress, setPostalAddress] = useState("");
+  const [address, setAddress] = useState("");
   const [zoneCode, setZoneCode] = useState("");
-  const [detailAddress, setDetailAddress] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [emailSuccess, setEmailSuccess] = useState("");
   const [passwordSuccess, setPasswordSuccess] = useState("");
+
+  const navigate = useNavigate();
+  const token = localStorage.getItem('access_token');
+
+  useEffect(() => {
+    if (token) {
+      const fetchUserInfo = async () => {
+        try {
+          const response = await fetch("http://127.0.0.1:8000/accounts/api/get-user-info-from-token/", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log("Response status:", response.status);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          console.log("User Data:", data);
+          setUsername(data.username);
+          setEmail(data.email);
+          setNickname(data.nickname);
+          setPhone(data.phone);
+          setPostalAddress(data.postalAddress);
+          setAddress(data.address);
+          setZoneCode(data.zoneCode);
+        } catch (error) {
+          console.error("Error fetching user info:", error);
+        }
+      };
+      fetchUserInfo();
+    }
+  }, [token]);
 
   const openPostCode = () => setIsPopupOpen(true);
   const closePostCode = () => setIsPopupOpen(false);
@@ -41,10 +77,11 @@ function ModifyInfo() {
 
   const handlePhoneNumberChange = (e) => {
     const formattedNumber = formatPhoneNumber(e.target.value);
-    setPhoneNumber(formattedNumber);
+    setPhone(formattedNumber);
   };
 
   const handleEmailChange = (e) => {
+    
     const value = e.target.value;
     setEmail(value);
     if (!emailRegEx.test(value)) {
@@ -69,39 +106,73 @@ function ModifyInfo() {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (emailError || passwordError) {
+    if (!username) {
+      alert("아이디를 입력해주세요.");
       return;
     }
+    if (!password) {
+      alert("비밀번호를 입력해주세요.");
+      return;
+    }
+    if (!email) {
+      alert("이메일을 입력해주세요.");
+      return;
+    }
+    if (!nickname) {
+      alert("닉네임을 입력해주세요.");
+      return;
+    }
+    if (!phone) {
+      alert("전화번호를 입력해주세요.");
+      return;
+    }
+    if (!postalAddress) {
+      alert("도로명 주소를 입력해주세요.");
+      return;
+    }
+    if (!address) {
+      alert("상세 주소를 입력해주세요.");
+      return;
+    }
+    if (!zoneCode) {
+      alert("우편번호를 입력해주세요.");
+      return;
+    }
+    event.preventDefault();
 
     const formData = {
-      id,
+      new_username: username,
       password,
       email,
       nickname,
-      phoneNumber,
-      postalCode: zoneCode,
-      address: postalAddress,
-      detailAddress,
+      phone,
+      postalAddress,
+      address,
+      zoneCode,
     };
 
     try {
-      console.log("formData: ", formData);
-      const response = await fetch("/api/modify-info", {
-        method: "POST",
+      const response = await fetch("http://localhost:8000/accounts/profile/update/", {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Network response was not ok:", errorText);
         throw new Error("Network response was not ok");
       }
 
-      const result = await response.json();
-      console.log("Success:", result);
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Success:", result);
+        alert("정보변경 성공");
+        navigate('/mypage');
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -112,6 +183,9 @@ function ModifyInfo() {
       .getElementById("modifyForm")
       .dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
   };
+
+  // Remove conditional early returns here
+  const isFormInvalid = emailError || passwordError;
 
   return (
     <div className={styles.container}>
@@ -131,8 +205,8 @@ function ModifyInfo() {
             type="text"
             className={styles.id}
             placeholder="아이디"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className={`${styles.pwWp} ${styles.wp}`}>
@@ -179,10 +253,9 @@ function ModifyInfo() {
           <div className={styles.title}>전화번호</div>
           <span className={styles.choice}>*선택사항</span>
           <input
-            type="tel"
+            type="text"
             className={styles.tel}
-            placeholder="010-0000-0000"
-            value={phoneNumber}
+            value={phone}
             onChange={handlePhoneNumberChange}
             maxLength="13"
           />
@@ -207,23 +280,23 @@ function ModifyInfo() {
             <input
               type="text"
               className={styles.zoneCode}
-              placeholder="우편번호"
               value={zoneCode}
-              readOnly
+              onChange={(e) => setZoneCode(e.target.value)}
+              placeholder="우편번호"
             />
             <input
               type="text"
               className={styles.postalAddress}
               placeholder="도로명 주소"
               value={postalAddress}
-              readOnly
+              onChange={(e) => setPostalAddress(e.target.value)}
             />
             <input
               type="text"
               className={styles.detailAddress}
               placeholder="상세 주소 입력"
-              value={detailAddress}
-              onChange={(e) => setDetailAddress(e.target.value)}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
             />
           </div>
         </div>
