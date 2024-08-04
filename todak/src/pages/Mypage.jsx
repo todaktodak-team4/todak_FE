@@ -1,9 +1,11 @@
 import styles from "../css/StyledMypage.module.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import CreateTreeModal from "../pages/CreateTreeModal";
 
 function Mypage() {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
   const [image, setImage] = useState(null);
   const token = localStorage.getItem("access_token");
   const [username, setUsername] = useState(null);
@@ -28,7 +30,9 @@ function Mypage() {
     navigate("/wreathList");
   }
   function GoRememberTree() {
-    navigate("/rememberTree");
+    if (!treeData || (Array.isArray(treeData) && treeData.length === 0)) {
+      setShowModal(true);
+    } else navigate("/rememberTree");
   }
 
   useEffect(() => {
@@ -154,7 +158,7 @@ function Mypage() {
 
   const getAnswerStateMessage = () => {
     if (!treeData || (Array.isArray(treeData) && treeData.length === 0)) {
-      return "생성한 기억 나무가 없어요!";
+      return "아직 기억나무가 없어요. 기억 나무를 생성해주세요.";
     } else if (todayAnswers.length === 0) {
       return "오늘 기억 나무의 질문에 답을 하지 않았어요!";
     } else {
@@ -221,14 +225,16 @@ function Mypage() {
           </div>
           <div className={styles.state}>
             <div className={styles.treeState}>
-              {!treeData || treeData.length === 0 ? " " : "새싹  |"}
+              {!treeData || treeData.length === 0 ? "나무 없음 | " : "새싹  |"}
             </div>
             <div className={styles.flowerState}>
               {!treeData || (Array.isArray(treeData) && treeData.length === 0)
                 ? " "
                 : treeData[0].flowerType + " | " || "정보 없음"}
             </div>
-            <div className={styles.plantDateState}> {togetherDate}일 째</div>
+            <div className={styles.plantDateState}>
+              &nbsp;{togetherDate}일 째
+            </div>
           </div>
         </div>
       </div>
@@ -248,6 +254,7 @@ function Mypage() {
           <img src="/img/mypageTree.png" alt="기억 나무" />
           나무와 대화하기
         </div>
+        <CreateTreeModal show={showModal} onClose={() => setShowModal(false)} />
       </div>
     </div>
   );
