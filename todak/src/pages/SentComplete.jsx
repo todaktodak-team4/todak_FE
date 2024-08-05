@@ -34,7 +34,7 @@ function SentComplete({ onClose, treeId }) {
             style={{ width: "400px", height: "300px" }}
           />
           <div className={styles.completeContent}>
-            소중한 마음을 담은 편지가 멀리멀리 날아가 하늘에까지 닿을 거예요.{" "}
+            소중한 마음을 담은 편지가 멀리멀리 날아가 하늘에까지 닿을 거예요.
             <br />
             깊이 간직한 내 마음은 편지 목록에서 다시 확인할 수 있어요.
           </div>
