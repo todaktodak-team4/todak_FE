@@ -239,10 +239,10 @@ function WriteLetter({ onClose, treeId, userId }) {
               letterTopClosed ? styles.letterTopClosed : ""
             }`}
           >
-            <img src="/img/letterTop.png" alt="봉투 뚜껑" />
+            <img src="./static/img/letterTop.png" alt="봉투 뚜껑" />
           </div>
           <img
-            src="/img/letterBack.png"
+            src="./static/img/letterBack.png"
             alt="뒷 배경"
             className={styles.letterBack}
           />
@@ -255,7 +255,7 @@ function WriteLetter({ onClose, treeId, userId }) {
           >
             <img
               src={
-                showTooltip ? "/img/hoverLetter.png" : "/img/envelopMain.png"
+                showTooltip ? "./static/img/hoverLetter.png" : "./static/img/envelopMain.png"
               }
               alt="봉투 메인"
               onClick={handleSendClick}

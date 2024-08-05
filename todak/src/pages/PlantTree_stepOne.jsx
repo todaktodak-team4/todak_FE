@@ -22,7 +22,7 @@ function PlantTreeStepOne() {
     <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
         className={styles.conImg}
-        src="/img/plantTree-bg.png"
+        src="./static/img/plantTree-bg.png"
         alt="plant tree background img"
         style={{ position: "absolute", zIndex: " -1" }}
       />
@@ -31,13 +31,13 @@ function PlantTreeStepOne() {
           <div className={styles.ptTitle}>기억 나무 심기</div>
           <img
             className={styles.ptImg}
-            src="/img/tree-icon.png"
+            src="./static/img/tree-icon.png"
             alt="tree icon"
           />
           <div className={styles.step}>STEP 1</div>
-          <img src="/img/line.png" alt="line" className={styles.line} />
+          <img src="./static/img/line.png" alt="line" className={styles.line} />
           <div className={styles.treeNameWp}>
-            <img src="/img/step1_1.png" alt="1" className={styles.stepOne1} />
+            <img src="./static/img/step1_1.png" alt="1" className={styles.stepOne1} />
             <div className={styles.treeTitle}>기억 나무 이름</div>
             <input
               name="treename"
@@ -49,7 +49,7 @@ function PlantTreeStepOne() {
             />
           </div>
           <div className={styles.callNameWp}>
-            <img src="/img/step1_2.png" alt="1" className={styles.stepOne2} />
+            <img src="./static/img/step1_2.png" alt="1" className={styles.stepOne2} />
             <div className={styles.callTitle}>나의 호칭</div>
             <input
               name="callname"

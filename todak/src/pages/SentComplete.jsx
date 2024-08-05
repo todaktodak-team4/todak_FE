@@ -27,7 +27,7 @@ function SentComplete({ onClose, treeId }) {
       >
         <div className={styles.modal}>
           <div className={styles.closeBtn} onClick={onClose}>
-            <img src="/img/closeBtn2.png" alt="Close" />
+            <img src="./static/img/closeBtn2.png" alt="Close" />
           </div>
           <div className={styles.completeMessage}>
             소중한 편지가 전달되었어요{" "}

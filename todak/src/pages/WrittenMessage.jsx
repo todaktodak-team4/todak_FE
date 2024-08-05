@@ -29,13 +29,13 @@ function WrittenMessage() {
   return (
     <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
-        src="/img/mypageBg.png"
+        src="./static/img/mypageBg.png"
         alt="bgimg"
         style={{ width: "100%", minHeight: "1000px", objectFit: "cover" }}
         className={styles.containerBg}
       />
       <div className={styles.logo}>
-        <img src="/img/writtenMessage.png" alt="로고" />
+        <img src="./static/img/writtenMessage.png" alt="로고" />
       </div>
       <div className={styles.latest}>
         최신순
@@ -60,7 +60,7 @@ function WrittenMessage() {
           messages.map((message) => (
             <div key={message.id} className={styles.contentList}>
               <img
-                src="/img/point.png"
+                src="./static/img/point.png"
                 alt="점"
                 style={{
                   width: "15px",
@@ -70,7 +70,7 @@ function WrittenMessage() {
                 }}
               />
               <img
-                src="/img/writtenline.png"
+                src="./static/img/writtenline.png"
                 alt="점"
                 style={{
                   width: "2px",

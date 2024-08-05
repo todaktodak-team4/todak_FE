@@ -181,13 +181,13 @@ function Mypage() {
   return (
     <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
-        src="/img/mypageBg.png"
+        src="./static/img/mypageBg.png"
         alt="bgimg"
         style={{ width: "100%", minHeight: "1000px", objectFit: "cover" }}
         className={styles.containerBg}
       />
       <div className={styles.logo}>
-        <img src="/img/logo.png" alt="마이페이지 로고" />
+        <img src="./static/img/logo.png" alt="마이페이지 로고" />
       </div>
       <div className={styles.innerContainer}>
         <div className={styles.profile}>
@@ -205,7 +205,7 @@ function Mypage() {
                   className={styles.modifiedProf}
                 />
               ) : (
-                <img src="/img/mypageProfile.png" alt="프로필 사진" />
+                <img src="./static/img/mypageProfile.png" alt="프로필 사진" />
               )}
             </div>
             <input
@@ -222,7 +222,7 @@ function Mypage() {
               accept="image/*"
             />
             <img
-              src="/img/imgModifyBtn.png"
+              src="./static/img/imgModifyBtn.png"
               alt="이미지 수정 버튼"
               className={styles.profileImgModifyBtn}
               onClick={() => document.getElementById("upload").click()}
@@ -259,15 +259,15 @@ function Mypage() {
       </div>
       <div className={styles.list}>
         <div className={styles.write} onClick={GoWrittenMessage}>
-          <img src="/img/mypageWrite.png" alt="내가 남긴 추모글" />
+          <img src="./static/img/mypageWrite.png" alt="내가 남긴 추모글" />
           내가 남긴 추모글
         </div>
         <div className={styles.flower} onClick={GoWreathList}>
-          <img src="/img/mypageFlower.png" alt="헌화 내역" />
+          <img src="./static/img/mypageFlower.png" alt="헌화 내역" />
           헌화 내역
         </div>
         <div className={styles.rememberTree} onClick={GoRememberTree}>
-          <img src="/img/mypageTree.png" alt="기억 나무" />
+          <img src="./static/img/mypageTree.png" alt="기억 나무" />
           나무와 대화하기
         </div>
         <CreateTreeModal show={showModal} onClose={() => setShowModal(false)} />

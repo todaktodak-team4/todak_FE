@@ -43,13 +43,13 @@ function WreathList() {
   return (
     <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
-        src="/img/mypageBg.png"
+        src="./static/img/mypageBg.png"
         alt="bgimg"
         style={{ width: "100%", minHeight: "1000px", objectFit: "cover" }}
         className={styles.containerBg}
       />
       <div className={styles.logo}>
-        <img src="/img/wreathList.png" alt="마이페이지 로고" />
+        <img src="./static/img/wreathList.png" alt="마이페이지 로고" />
       </div>{" "}
       <div className={styles.latest}>최신순</div>
       <div className={styles.contentContainer}>
@@ -65,13 +65,13 @@ function WreathList() {
               return (
                 <div key={wreath.id} className={styles.wreathList}>
                   <img
-                    src="/img/point.png"
+                    src="./static/img/point.png"
                     alt="점"
                     className={styles.point}
                     style={{ position: "relative", top: "20px" }}
                   />
                   <img
-                    src="/img/writtenline.png"
+                    src="./static/img/writtenline.png"
                     alt="점"
                     style={{
                       width: "2px",
@@ -84,7 +84,7 @@ function WreathList() {
                   <div className={styles.memorialHall}>{wreath.hallName}</div>
                   <div className={styles.priceWp}>
                     <img
-                      src="/img/Wflo.png"
+                      src="./static/img/Wflo.png"
                       alt="헌화 이미지"
                       className={styles.fImg}
                       style={{

@@ -27,7 +27,7 @@ const HelpModal = ({ onClose }) => {
       <div className={styles.innerContainer}>
         <div className={styles.closeBtn} style={{ zIndex: "1000" }}>
           <img
-            src="/img/closeBtn.png"
+            src="./static/img/closeBtn.png"
             alt="닫기 버튼"
             onClick={onClose} // This will close the modal
           />
@@ -36,7 +36,7 @@ const HelpModal = ({ onClose }) => {
           <div className={styles.pageOne}>
             <div className={styles.title}>기억나무 이용 가이드</div>
             <div className={styles.albumWp}>
-              <img src="/img/albumGuide.png" alt="" />
+              <img src="./static/img/albumGuide.png" alt="" />
               <div className={styles.a}>
                 <div className={styles.subTitle}>추억 책장</div>
                 <div className={styles.detail}>
@@ -46,7 +46,7 @@ const HelpModal = ({ onClose }) => {
               </div>
             </div>
             <div className={styles.postBoxWp}>
-              <img src="/img/postBoxGuide.png" alt="" />
+              <img src="./static/img/postBoxGuide.png" alt="" />
               <div className={styles.p}>
                 <div className={styles.subTitle}>마음 우체통</div>
                 <div className={styles.detail}>
@@ -56,7 +56,7 @@ const HelpModal = ({ onClose }) => {
               </div>
             </div>
             <div className={styles.talkWp}>
-              <img src="/img/talkGuide.png" alt="" />
+              <img src="./static/img/talkGuide.png" alt="" />
               <div className={styles.t}>
                 <div className={styles.subTitle}>나무와 대화하기</div>
                 <div className={styles.detail}>
@@ -67,7 +67,7 @@ const HelpModal = ({ onClose }) => {
               </div>
             </div>
             <div className={styles.deliWp}>
-              <img src="/img/deliGuide.png" alt="" />
+              <img src="./static/img/deliGuide.png" alt="" />
               <div className={styles.d}>
                 <div className={styles.subTitle}>기억 나무 배송 안내</div>
                 <div className={styles.detail}>
@@ -81,7 +81,7 @@ const HelpModal = ({ onClose }) => {
           <div className={styles.pageTwo}>
             <div className={styles.title}>기억나무 성장 단계</div>
             <img
-              src="/img/growBg.png"
+              src="./static/img/growBg.png"
               alt="배경"
               style={{
                 width: "415px",
@@ -92,7 +92,7 @@ const HelpModal = ({ onClose }) => {
               }}
             />
             <img
-              src="/img/growMotion.gif"
+              src="./static/img/growMotion.gif"
               alt="성장 단계"
               style={{
                 width: "415px",
@@ -118,7 +118,7 @@ const HelpModal = ({ onClose }) => {
             <div className={styles.modal}>
               <img
                 className={styles.growImg}
-                src="/img/growComplete.png"
+                src="./static/img/growComplete.png"
                 alt="나무 이미지"
               />
               <div className={styles.completeMessage}>
@@ -146,7 +146,7 @@ const HelpModal = ({ onClose }) => {
 const NextArrow = ({ className, style, onClick }) => {
   return (
     <img
-      src="/img/nextBtn.png"
+      src="./static/img/nextBtn.png"
       alt="다음 버튼"
       style={{
         width: "30px",
@@ -165,7 +165,7 @@ const NextArrow = ({ className, style, onClick }) => {
 const PrevArrow = ({ className, style, onClick }) => {
   return (
     <img
-      src="/img/prevBtn.png"
+      src="./static/img/prevBtn.png"
       alt="이전 버튼"
       style={{
         width: "30px",

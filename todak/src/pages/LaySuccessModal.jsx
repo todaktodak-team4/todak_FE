@@ -23,7 +23,7 @@ const LaySuccessModal = ({ onClose }) => {
       <div className={styles.modalContent}>
         <img
           className={styles.growImg}
-          src="/img/lilyIcon.png"
+          src="./static/img/lilyIcon.png"
           alt="국화 이미지"
         />
         <div className={styles.completeMessage}>헌화가 완료되었습니다!</div>

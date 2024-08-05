@@ -49,12 +49,12 @@ function LetterDetail({ treeId, letterId, onClose }) {
         <div className={styles.letterWp}>
           <div className={styles.letter}>
             <div className={styles.closeBtn} onClick={onClose}>
-              <img src="/img/closeBtn2.png" alt="닫기 버튼" />
+              <img src="./static/img/closeBtn2.png" alt="닫기 버튼" />
             </div>
 
             <div className={styles.content}>
               <img
-                src="/img/letterPaper.png"
+                src="./static/img/letterPaper.png"
                 alt="편지지"
                 className={styles.contentImage}
               />
@@ -62,15 +62,15 @@ function LetterDetail({ treeId, letterId, onClose }) {
             </div>
           </div>
           <div className={styles.letterTop}>
-            <img src="/img/letterTop.png" alt="봉투 뚜껑" />
+            <img src="./static/img/letterTop.png" alt="봉투 뚜껑" />
           </div>
           <img
-            src="/img/letterBack.png"
+            src="./static/img/letterBack.png"
             alt="뒷 배경"
             className={styles.letterBack}
           />
           <div className={styles.envelopMain}>
-            <img src="/img/envelopMain.png" alt="봉투 메인" />
+            <img src="./static/img/envelopMain.png" alt="봉투 메인" />
           </div>
         </div>
       </div>

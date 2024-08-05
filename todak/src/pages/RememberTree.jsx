@@ -224,7 +224,7 @@ function RememberTree() {
         style={{ maxHeight: "1000px" }}
       >
         <img
-          src="/img/plantTree-bg.png"
+          src="./static/img/plantTree-bg.png"
           alt="bgimg"
           style={{ width: "100%", minHeight: "1000px", objectFit: "cover" }}
           className="container-bg"
@@ -235,7 +235,7 @@ function RememberTree() {
           <div className={styles.rememberTreeBox}>
             <div className={styles.treeName}>{treeName}</div>
             <img
-              src="/img/help.png"
+              src="./static/img/help.png"
               alt="도움말 버튼"
               className={styles.helpBtn}
               style={{ width: "44px", height: "44px" }}
@@ -261,14 +261,14 @@ function RememberTree() {
                 )}
                 <img
                   src={
-                    isAlbumHovered ? "/img/hoverAlbum.png" : "/img/album.png"
+                    isAlbumHovered ? "./static/img/hoverAlbum.png" : "./static/img/album.png"
                   }
                   onMouseEnter={() => setIsAlbumHovered(true)}
                   onMouseLeave={() => setIsAlbumHovered(false)}
                   onClick={handleAlbumClick}
                 />
               </div>
-              <img src="/img/rememberTree.png" />
+              <img src="./static/img/rememberTree.png" />
               <div className={styles.postBox}>
                 {isPostBoxClicked && (
                   <div className={styles.postBoxButtons}>
@@ -289,8 +289,8 @@ function RememberTree() {
                 <img
                   src={
                     isPostBoxHovered
-                      ? "/img/hoverPostBox.png"
-                      : "/img/postBox.png"
+                      ? "./static/img/hoverPostBox.png"
+                      : "./static/img/postBox.png"
                   }
                   onMouseEnter={() => setIsPostBoxHovered(true)}
                   onMouseLeave={() => setIsPostBoxHovered(false)}

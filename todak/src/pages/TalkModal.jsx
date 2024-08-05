@@ -314,7 +314,7 @@ function TalkModal({ onClose, myname }) {
               />
               <div className={styles.submit}>
                 <img
-                  src="/img/answerSubmit.png"
+                  src="./static/img/answerSubmit.png"
                   alt="submit button"
                   onClick={submitAnswer}
                   style={{

@@ -30,7 +30,7 @@ const Nav = () => {
           console.log("User ID:", userId);
 
           const treeResponse = await fetch(
-            `http://127.0.0.1:8000/rememberTree/user/${userId}/`,
+            `http://3.38.125.151/rememberTree/user/${userId}/`,
             {
               method: "GET",
               headers: {

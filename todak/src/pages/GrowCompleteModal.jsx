@@ -22,7 +22,7 @@ function GrowCompleteModal({ onClose }) {
           <div className={styles.modal}>
             <img
               className={styles.growImg}
-              src="/img/growComplete.png"
+              src="./static/img/growComplete.png"
               alt="나무 이미지"
             />
             <div className={styles.completeMessage}>

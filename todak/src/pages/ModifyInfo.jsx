@@ -155,7 +155,7 @@ function ModifyInfo() {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/accounts/profile/update/",
+        "http://3.38.125.151/accounts/profile/update/",
         {
           method: "PUT",
           headers: {
@@ -195,13 +195,13 @@ function ModifyInfo() {
   return (
     <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
-        src="/img/mypageBg.png"
+        src="./static/img/mypageBg.png"
         alt="bgimg"
         style={{ width: "100%", minHeight: "1000px", objectFit: "cover" }}
         className={styles.containerBg}
       />
       <div className={styles.logo}>
-        <img src="/img/modifyInfoLogo.png" alt="로고" />
+        <img src="./static/img/modifyInfoLogo.png" alt="로고" />
       </div>
       <form id="modifyForm" onSubmit={handleSubmit} className={styles.infoWp}>
         <div className={`${styles.idWp} ${styles.wp}`}>
