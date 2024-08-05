@@ -122,6 +122,14 @@ const Main = () => {
     }
   };
 
+  const goToHallSignup = () => {
+    if (token) {
+      navigate("/memorialHallSignup");
+    } else {
+      setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
+    }
+  };
+
   return (
     <M.Body>
       <M.Container>
@@ -141,7 +149,7 @@ const Main = () => {
             </M.NavBtnWrapper1>
             <M.NavBtnWrapper1>
               <M.NavBtnWrapper2>
-                <a href="/memorialHallSignup">
+                <a onClick={goToHallSignup}>
                   헌화 공간
                   <br />
                   신청
