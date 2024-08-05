@@ -8,7 +8,7 @@ function PlantCompleteModal() {
   }
   return (
     <div>
-      <div className={styles.container}>
+      <div className={`${styles.container} ${styles.fadeIn}`}>
         <div className={styles.modal}>
           <img
             className={styles.treeImg}

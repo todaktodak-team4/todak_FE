@@ -82,7 +82,10 @@ function ShowLetter({ onClose, treeId }) {
         className={styles.closeButton}
         onClick={onClose}
       />
-      <div className={styles.container} ref={containerRef}>
+      <div
+        className={`${styles.container} ${styles.fadeIn}`}
+        ref={containerRef}
+      >
         {letters.map((letter, index) => (
           <div
             key={index}

@@ -219,7 +219,10 @@ function RememberTree() {
 
   return (
     <>
-      <div className={styles.container} style={{ maxHeight: "1000px" }}>
+      <div
+        className={`${styles.container} ${styles.fadeIn}`}
+        style={{ maxHeight: "1000px" }}
+      >
         <img
           src="/img/plantTree-bg.png"
           alt="bgimg"

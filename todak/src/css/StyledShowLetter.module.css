@@ -1,3 +1,5 @@
+@import url("https://hangeul.pstatic.net/hangeul_static/css/NanumBuJangNimNunCiCe.css");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 .overlay {
   position: fixed;
   top: 0;
@@ -21,6 +23,17 @@
   cursor: pointer;
   z-index: 10;
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
 
 .container {
   position: absolute;
@@ -35,6 +48,7 @@
   max-height: 100vh;
   overflow-y: auto;
   padding-right: 15px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .container::-webkit-scrollbar {

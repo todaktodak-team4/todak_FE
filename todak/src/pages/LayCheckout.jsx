@@ -1,3 +1,5 @@
+// LayCheckout.js
+
 import React, { useEffect, useState } from "react";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import styles from "../css/StyledLayCheckout.module.css";
@@ -6,7 +8,8 @@ import DonationModal from "./DonationCertificate";
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = "VQMfaA0KTAWJ8hFAOE9PL";
 
-const LayCheckout = ({ donation, name, onClose }) => {
+const LayCheckout = ({ donation, name, hall, onClose }) => {
+  // Receive hall as a prop
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);
   const [showDonationModal, setShowDonationModal] = useState(false);
@@ -106,7 +109,9 @@ const LayCheckout = ({ donation, name, onClose }) => {
           결제하기
         </button>
       </div>
-      {showDonationModal && <DonationModal Dname={name} onClose={handleCloseDonationModal} />}
+      {showDonationModal && (
+        <DonationModal Dname={name} onClose={handleCloseDonationModal} />
+      )}
     </div>
   );
 };

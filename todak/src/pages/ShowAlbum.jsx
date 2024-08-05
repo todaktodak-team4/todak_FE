@@ -199,7 +199,7 @@ function ShowAlbum({ onClose, treeId }) {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} ${styles.fadeIn}`}>
         <div className={styles.albumWp}>
           {showModal && (
             <div

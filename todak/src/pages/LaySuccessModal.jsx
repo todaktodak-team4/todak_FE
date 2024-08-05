@@ -1,15 +1,23 @@
+// LaySuccessModal.js
+
 import React from "react";
 import styles from "../css/StyledLaySuccessModal.module.css";
-import { navigate, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const LaySuccessModal = ({ onClose }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const hall = queryParams.get("hall"); // Retrieve hall from query params
+
   function GoMemorial() {
-    navigate("/memorialHall");
+    navigate(`/memorialHall/${hall}`); // Redirect to memorial hall with hall query param
   }
+
   function GoMain() {
     navigate("/");
   }
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>

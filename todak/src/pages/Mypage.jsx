@@ -110,7 +110,7 @@ function Mypage() {
           setTodayAnswers(result);
           console.log("Today's answers fetched successfully:", result);
         } else if (response.status === 404) {
-          setTodayAnswers("");
+          setTodayAnswers([]);
           return;
         } else {
           console.error("Failed to fetch today's answers");
@@ -148,12 +148,24 @@ function Mypage() {
         }
         if (response.status === 200) {
           const result = await response.json();
-
           setImage(result.profile.replace(baseUrl, ""));
         }
       } catch (error) {
         console.error("Error uploading image:", error);
       }
+    }
+  };
+
+  const getFlowerTypeInKorean = (flowerType) => {
+    switch (flowerType) {
+      case "zinnia":
+        return "백일홍";
+      case "hydrangea":
+        return "수국";
+      case "lily":
+        return "백합";
+      default:
+        return "정보 없음";
     }
   };
 
@@ -169,7 +181,7 @@ function Mypage() {
   
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
         src="/img/mypageBg.png"
         alt="bgimg"
@@ -227,12 +239,16 @@ function Mypage() {
           </div>
           <div className={styles.state}>
             <div className={styles.treeState}>
-              {!treeData || treeData.length === 0 ? "나무 없음 | " : "새싹  |"}
+              &nbsp;
+              {!treeData || (Array.isArray(treeData) && treeData.length === 0)
+                ? "나무 없음 | "
+                : "새싹  |"}
+              &nbsp;
             </div>
             <div className={styles.flowerState}>
               {!treeData || (Array.isArray(treeData) && treeData.length === 0)
                 ? " "
-                : treeData[0].flowerType + " | " || "정보 없음"}
+                : getFlowerTypeInKorean(treeData[0].flowerType) + " | "}
             </div>
             <div className={styles.plantDateState}>
               &nbsp;{togetherDate}일 째

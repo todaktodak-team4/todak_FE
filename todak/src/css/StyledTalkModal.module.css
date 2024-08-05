@@ -1,9 +1,24 @@
+@import url("https://hangeul.pstatic.net/hangeul_static/css/NanumBuJangNimNunCiCe.css");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
 .container {
   flex-direction: column;
   justify-content: center;
   position: relative;
   height: 100px;
   width: 100%;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .innerContainer {

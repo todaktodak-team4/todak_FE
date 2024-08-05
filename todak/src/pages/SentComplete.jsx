@@ -21,7 +21,10 @@ function SentComplete({ onClose, treeId }) {
 
   return (
     <>
-      <div className={styles.container} onClick={handleClickInside}>
+      <div
+        className={`${styles.container} ${styles.fadeIn}`}
+        onClick={handleClickInside}
+      >
         <div className={styles.modal}>
           <div className={styles.closeBtn} onClick={onClose}>
             <img src="/img/closeBtn2.png" alt="Close" />

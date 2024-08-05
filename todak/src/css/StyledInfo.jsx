@@ -1,6 +1,29 @@
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
 
-export const Info = styled.div``;
+// Define the fade-in from bottom animation
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+export const Info = styled.div`
+  animation: ${fadeIn} 1.5s ease-in-out;
+`;
 export const Info1 = styled.div`
   text-align: center;
   display: flex;
