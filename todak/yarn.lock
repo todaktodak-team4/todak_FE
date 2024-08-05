@@ -6757,12 +6757,6 @@
   dependencies:
     "js-tokens" "^3.0.0 || ^4.0.0"
 
-<<<<<<< HEAD
-"lottie-react@^2.4.0":
-  "integrity" "sha512-pDJGj+AQlnlyHvOHFK7vLdsDcvbuqvwPZdMlJ360wrzGFurXeKPr8SiRCjLf3LrNYKANQtSsh5dz9UYQHuqx4w=="
-  "resolved" "https://registry.npmjs.org/lottie-react/-/lottie-react-2.4.0.tgz"
-  "version" "2.4.0"
-=======
 lottie-react@^2.4.0:
   version "2.4.0"
   resolved "https://registry.npmjs.org/lottie-react/-/lottie-react-2.4.0.tgz"
@@ -6779,7 +6773,6 @@ lower-case@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npmjs.org/lower-case/-/lower-case-2.0.2.tgz"
   integrity sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==
->>>>>>> 9adb4fd973962bcfb3caeaa74a70ee23c5440578
   dependencies:
     "lottie-web" "^5.10.2"
 
@@ -8331,17 +8324,10 @@ lower-case@^2.0.2:
   dependencies:
     "clsx" "^2.1.0"
 
-<<<<<<< HEAD
-"react@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.3.1", "react@>= 16", "react@>= 16.8.0", "react@>=16.8", "react@>=16.8.0", "react@>=18":
-  "integrity" "sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ=="
-  "resolved" "https://registry.npmjs.org/react/-/react-18.3.1.tgz"
-  "version" "18.3.1"
-=======
 "react@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.0.0, react@^18.3.1, "react@>= 16", "react@>= 16.8.0", react@>=16.8, react@>=16.8.0, react@>=18:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react/-/react-18.3.1.tgz"
   integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
->>>>>>> 9adb4fd973962bcfb3caeaa74a70ee23c5440578
   dependencies:
     "loose-envify" "^1.1.0"
 

@@ -17,8 +17,9 @@ function Mypage() {
 
   // Set the profile image URL conditionally
   const imageUrl = image
-    ? `${baseUrl}${image}` // Profile image from server
-    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`; // Default image
+  ? `${baseUrl}${image}`  // Profile image from server
+  : `${process.env.PUBLIC_URL}/img/standardProfile.svg`;  // Default image
+
 
   function GoModifyInfo() {
     navigate("/modifyInfo");
@@ -159,12 +160,13 @@ function Mypage() {
   const getAnswerStateMessage = () => {
     if (!treeData || (Array.isArray(treeData) && treeData.length === 0)) {
       return "아직 기억나무가 없어요. 기억 나무를 생성해주세요.";
-    } else if (todayAnswers.length === 0) {
+    } else if (!todayAnswers || todayAnswers.length === 0) {
       return "오늘 기억 나무의 질문에 답을 하지 않았어요!";
     } else {
       return "오늘 기억 나무의 질문에 답을 했어요!";
     }
   };
+  
 
   return (
     <div className={styles.container}>
