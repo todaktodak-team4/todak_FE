@@ -127,6 +127,16 @@ const Main = () => {
     <M.Body>
       <M.Container>
         {showLoginModal && <NeedLogin />}
+        <img
+          id="sill1"
+          src={`${process.env.PUBLIC_URL}/img/sill1.png`}
+          alt="Gross"
+        />
+        <img
+          id="sill2"
+          src={`${process.env.PUBLIC_URL}/img/sill2.png`}
+          alt="Gross"
+        />
         <Nav />
         <M.Content>
           <M.NavBtns>
@@ -158,8 +168,13 @@ const Main = () => {
             alt="Gross"
           />
         </M.ImageGross>
+        <img
+          id="Img"
+          src={`${process.env.PUBLIC_URL}/img/mainlanding.png`}
+          alt="Img"
+        />
       </M.Container>
-      {showInfo && <Info />}
+      <Info />
     </M.Body>
   );
 };

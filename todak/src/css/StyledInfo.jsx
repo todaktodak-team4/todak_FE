@@ -102,7 +102,8 @@ export const Info1 = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   > * {
-    animation: ${fadeInY} 2.5s ease-out;
+    animation: ${fadeInY} 3s ease-out;
+    animation-delay: 1.25s;
   }
   img {
     width: 146px;
@@ -143,6 +144,31 @@ export const Info2 = styled.div`
   background-position: center bottom;
   position: relative; /* Ensure the position is relative for absolute positioning of children */
   z-index: 0; /* Set z-index to 0 */
+  img {
+    z-index: 3;
+  }
+  #Info2Img1 {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  #Info2Img2 {
+    position: absolute;
+    left: 7rem;
+    top: 0;
+    width: 10rem;
+    height: 10rem;
+  }
+  #Info2Img3 {
+    position: absolute;
+    right: 7rem;
+    top: 0;
+  }
+  #Info2Img4 {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
   #title {
     color: #323232;
     font-family: "Pretendard Variable";
@@ -150,6 +176,7 @@ export const Info2 = styled.div`
     font-style: normal;
     font-weight: 800;
     line-height: normal;
+    animation: ${fadeInX} 2s ease-out forwards;
   }
   #content1 {
     color: #323232;
@@ -162,6 +189,7 @@ export const Info2 = styled.div`
     margin: 5px;
     margin-bottom: 30px;
     margin-top: 15px;
+    animation: ${fadeInX} 2s ease-out forwards;
   }
   #content2 {
     color: #323232;
@@ -728,6 +756,8 @@ export const Info8 = styled.div`
   width: 100vw;
   height: 40rem;
   background: linear-gradient(180deg, #c3e985 0%, #e7e985 100%);
+  overflow: hidden; /* Ensure animation does not overflow */
+
   #title {
     color: #3d4c00;
     font-family: "Pretendard Variable";
@@ -736,7 +766,10 @@ export const Info8 = styled.div`
     font-weight: 800;
     line-height: normal;
     margin: 0;
+    position: relative;
+    z-index: 1;
   }
+
   #content {
     color: #3d4c00;
     text-align: center;
@@ -745,6 +778,18 @@ export const Info8 = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    position: relative;
+    z-index: 1;
+  }
+
+  .animation-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none; /* Ensure animation does not capture mouse events */
   }
 `;
 export const BoldText5 = styled.p`

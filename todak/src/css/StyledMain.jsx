@@ -12,6 +12,21 @@ export const Container = styled.div`
   height: 100vh;
   margin: 0;
   background: linear-gradient(180deg, #ffda57 17.5%, #faffda 86%);
+  #sill1 {
+    position: absolute;
+    right: 0;
+    width: 10vw;
+    height: 100vh;
+  }
+  #sill2 {
+    position: absolute;
+    left: 0;
+    width: 10vw;
+    height: 100vh;
+  }
+  #img {
+    z-index: 99;
+  }
 `;
 
 // 본문 내용
