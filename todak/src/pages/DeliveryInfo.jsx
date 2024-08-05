@@ -46,10 +46,10 @@ function DeliveryInfo() {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} ${styles.fadeIn}`}>
         <img
           className={styles.conImg}
-          src="/img/plantTree-bg.png"
+          src="./static/img/plantTree-bg.png"
           alt="plant tree background img"
           style={{ position: "absolute", zIndex: " -1" }}
         />
@@ -64,7 +64,7 @@ function DeliveryInfo() {
           >
             <div className={styles.top}>
               <div className={styles.boxImg}>
-                <img src="/img/deliBox.png" alt="tree icon" />
+                <img src="./static/img/deliBox.png" alt="tree icon" />
               </div>
               <div className={styles.deliTitle}>기억 나무 배송</div>
             </div>
@@ -76,9 +76,9 @@ function DeliveryInfo() {
                 marginRight: "auto",
               }}
             >
-              <img src="/img/line.png" alt="line" className={styles.line} />
+              <img src="./static/img/line.png" alt="line" className={styles.line} />
               <div className={styles.orderWp}>
-                <img src="/img/d_1.png" alt="1" />
+                <img src="./static/img/d_1.png" alt="1" />
                 <div className={`${styles.orderer} ${styles.title}`}>
                   주문자
                 </div>
@@ -91,7 +91,7 @@ function DeliveryInfo() {
                 />
               </div>
               <div className={styles.recipientWp}>
-                <img src="/img/d_2.png" alt="2" />
+                <img src="./static/img/d_2.png" alt="2" />
                 <div className={`${styles.recipient} ${styles.title}`}>
                   수령인
                 </div>
@@ -104,7 +104,7 @@ function DeliveryInfo() {
                 />
               </div>
               <div className={styles.telWp}>
-                <img src="/img/d_3.png" alt="3" />
+                <img src="./static/img/d_3.png" alt="3" />
                 <div className={`${styles.tel} ${styles.title}`}>전화번호</div>
                 <input
                   type="text"
@@ -116,7 +116,7 @@ function DeliveryInfo() {
                 />
               </div>
               <div className={styles.addressWp}>
-                <img src="/img/d_4.png" alt="4" />
+                <img src="./static/img/d_4.png" alt="4" />
                 <div className={`${styles.address} ${styles.title}`}>
                   <span className={styles.adt}>배송 주소</span>
                 </div>

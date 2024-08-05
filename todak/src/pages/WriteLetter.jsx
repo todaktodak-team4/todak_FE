@@ -27,14 +27,14 @@ function WriteLetter({ onClose, treeId, userId }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (showSentComplete) return;
+      if (showSentComplete) return; // SentComplete 모달이 열려 있는 동안 클릭 무시
 
       if (
         containerRef.current &&
         !containerRef.current.contains(event.target)
       ) {
         if (isWritten && letter.trim() === "") {
-          handleClose(true);
+          handleClose(true, false); // 편지가 비어있을 때는 SentComplete 모달을 표시하지 않음
           return;
         }
 
@@ -42,11 +42,11 @@ function WriteLetter({ onClose, treeId, userId }) {
           if (
             window.confirm("편지가 저장되지 않았습니다. 우체통을 닫을까요?")
           ) {
-            handleClose();
+            handleClose(false, false); // 편지를 저장하지 않고 닫을 때도 SentComplete 모달을 표시하지 않음
           }
           return;
         }
-        handleClose(true);
+        handleClose(true, false); // 편지 작성하지 않고 닫을 때도 SentComplete 모달을 표시하지 않음
       }
     };
 
@@ -109,7 +109,7 @@ function WriteLetter({ onClose, treeId, userId }) {
     try {
       console.log(letter);
       const response = await fetch(
-        `http://127.0.0.1:8000/rememberTree/${treeId}/letters/`,
+        `http://3.38.125.151/rememberTree/${treeId}/letters/`,
         {
           method: "POST",
           headers: {
@@ -137,6 +137,11 @@ function WriteLetter({ onClose, treeId, userId }) {
         setTimeout(() => {
           setFadeOut(true);
         }, 2000);
+
+        // 애니메이션이 끝난 후 모달을 열기 위해 상태를 설정합니다.
+        setTimeout(() => {
+          setShowSentComplete(true);
+        }, 3000); // 애니메이션 시간에 맞춰 조절합니다.
       } else if (response.status === 401) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
@@ -160,32 +165,28 @@ function WriteLetter({ onClose, treeId, userId }) {
   const handleSendClick = () => {
     if (isWritten) {
       if (letter.trim() === "") {
-        handleClose(true);
+        handleClose(true, false); // 편지가 비어있을 때는 SentComplete 모달을 표시하지 않음
       } else if (window.confirm("편지를 보낼까요?")) {
         sendLetterToBackend();
       }
     } else {
-      handleClose(true);
+      handleClose(true, false); // 편지 작성하지 않고 닫을 때도 SentComplete 모달을 표시하지 않음
     }
   };
 
-  const handleClose = (instant = false) => {
+  const handleClose = (instant = false, showSentCompleteModal = true) => {
     if (instant) {
       onClose();
       return;
     }
     setFadeOut(true);
-  };
-
-  useEffect(() => {
-    if (fadeOut) {
-      const timer = setTimeout(() => {
+    setTimeout(() => {
+      onClose(); // 상태 업데이트 후 onClose를 호출합니다.
+      if (showSentCompleteModal && !isSent) {
         setShowSentComplete(true);
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [fadeOut]);
+      }
+    }, 1000); // 애니메이션 시간과 일치시킵니다.
+  };
 
   const handleCloseSentComplete = () => {
     setShowSentComplete(false);
@@ -195,7 +196,9 @@ function WriteLetter({ onClose, treeId, userId }) {
   return (
     <>
       <div
-        className={`${styles.container} ${fadeOut ? styles.fadeOut : ""}`}
+        className={`${styles.container} ${fadeOut ? styles.fadeOut : ""} ${
+          styles.fadeIn
+        }`}
         ref={containerRef}
       >
         {showToast && (
@@ -236,10 +239,10 @@ function WriteLetter({ onClose, treeId, userId }) {
               letterTopClosed ? styles.letterTopClosed : ""
             }`}
           >
-            <img src="/img/letterTop.png" alt="봉투 뚜껑" />
+            <img src="./static/img/letterTop.png" alt="봉투 뚜껑" />
           </div>
           <img
-            src="/img/letterBack.png"
+            src="./static/img/letterBack.png"
             alt="뒷 배경"
             className={styles.letterBack}
           />
@@ -252,7 +255,7 @@ function WriteLetter({ onClose, treeId, userId }) {
           >
             <img
               src={
-                showTooltip ? "/img/hoverLetter.png" : "/img/envelopMain.png"
+                showTooltip ? "./static/img/hoverLetter.png" : "./static/img/envelopMain.png"
               }
               alt="봉투 메인"
               onClick={handleSendClick}

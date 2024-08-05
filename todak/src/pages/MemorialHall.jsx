@@ -1,3 +1,4 @@
+// src/components/MemorialHall.js
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as H from "../css/StyledMemorialHall";
@@ -5,6 +6,7 @@ import Nav from "./Nav";
 import axios from "axios";
 import MemorialMessage from "./MemorialMessage1";
 import MemorialMessage2 from "./MemorialMessage2";
+import CountUpNumber from "./CountUpNumber";
 
 const MemorialHall = () => {
   const navigate = useNavigate();
@@ -17,33 +19,39 @@ const MemorialHall = () => {
   const token = localStorage.getItem("access_token");
   const [messages, setMessages] = useState([]);
   const [wreaths, setWreaths] = useState([]);
-  // const [currentIndex, setCurrentIndex] = useState(0); // State for tracking the current slide index
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const halltoken = localStorage.getItem("halltoken");
+  const [isLoading, setIsLoading] = useState(false);
+  const memorialMessageContentsRef = useRef(null);
+  const [countUpReset, setCountUpReset] = useState(false);
+  const wreathCountRef = useRef(null);
+  const messageCountRef = useRef(null);
 
   const handleUnauthorized = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
-    alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+    alert(
+      "로그인한지 30분이지나 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+    );
     navigate("/login");
   };
 
-
-  //헌화 한마디 데이터 가져오기
   useEffect(() => {
     const fetchData = async (page) => {
       try {
-        const response = await axios.get(`/memorialHall/${postId}/message?page=${page}`);
+        const response = await axios.get(
+          `/memorialHall/${postId}/message?page=${page}`
+        );
         console.log("추모글 조회 응답 데이터:", response.data);
         setMessages(response.data.results);
-        setTotalPages(Math.ceil(response.data.count / 3)); // Assuming 6 items per page
+        setTotalPages(Math.ceil(response.data.count / 3));
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
     };
     fetchData(currentPage);
-  }, [postId,currentPage]);
+  }, [postId, currentPage]);
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
@@ -63,21 +71,13 @@ const MemorialHall = () => {
     fetchDatas();
   }, [postId]);
 
-  // const [messages, setMessages] = useState([]);
-  // const [wreaths, setWreaths] = useState([]);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
- 
-
-  //연동 완
   useEffect(() => {
     axios
       .get(`/memorialHall/${postId}`)
       .then((response) => {
         setPost(response.data);
         console.log("온라인 추모관 디테일 응답:", response.data);
-        localStorage.setItem('halltoken',response.data.token);
+        localStorage.setItem("halltoken", response.data.token);
       })
       .catch((error) => {
         console.error("Error fetching post:", error);
@@ -92,7 +92,7 @@ const MemorialHall = () => {
           `/memorialHall/${postId}/message?page=${page}`
         );
         setMessages(response.data.results);
-        setTotalPages(Math.ceil(response.data.count / 3)); // Assuming 3 items per page
+        setTotalPages(Math.ceil(response.data.count / 3));
       } catch (error) {
         console.error("Error fetching messages:", error);
       } finally {
@@ -103,15 +103,17 @@ const MemorialHall = () => {
   }, [postId, currentPage]);
 
   useEffect(() => {
-    const fetchWreaths = async () => {
-      try {
-        const response = await axios.get(`/memorialHall/${postId}/wreath`);
-        setWreaths(response.data);
-      } catch (error) {
-        console.error("Error fetching wreaths:", error);
-      }
-    };
-    fetchWreaths();
+    axios
+      .get(`/memorialHall/${postId}`)
+      .then((response) => {
+        setPost(response.data);
+        console.log("온라인 추모관 디테일 응답:", response.data);
+        localStorage.setItem("halltoken", response.data.token);
+        console.log("프로필 이미지 URL:", response.data.profileImageUrl); // 로그 추가
+      })
+      .catch((error) => {
+        console.error("Error fetching post:", error);
+      });
   }, [postId]);
 
   const formatDate = (isoDate) => {
@@ -141,15 +143,11 @@ const MemorialHall = () => {
     });
   };
 
-  //추모의 글 남기기 -> 연동 완
-const handlePostBtn = async () => {
+  const handlePostBtn = async () => {
     try {
       const response = await axios.post(
         `/memorialHall/${postId}/message`,
-        {
-          content,
-          hall: postId,
-        },
+        { content, hall: postId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const newComment = response.data;
@@ -192,10 +190,37 @@ const handlePostBtn = async () => {
     navigate(`/layFlower?hall=${postId}`);
   };
 
-  // const handlePageChange = (newPage) => {
-  //   if (newPage < 1 || newPage > totalPages) return;
-  //   setCurrentPage(newPage);
-  // };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setCountUpReset((prev) => !prev); // Toggle reset state
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const wreathElement = wreathCountRef.current;
+    const messageElement = messageCountRef.current;
+
+    if (wreathElement instanceof Element) {
+      observer.observe(wreathElement);
+    }
+    if (messageElement instanceof Element) {
+      observer.observe(messageElement);
+    }
+
+    return () => {
+      if (wreathElement instanceof Element) {
+        observer.unobserve(wreathElement);
+      }
+      if (messageElement instanceof Element) {
+        observer.unobserve(messageElement);
+      }
+    };
+  }, []);
 
   return (
     <H.Body>
@@ -231,23 +256,39 @@ const handlePostBtn = async () => {
         <H.BannerBottom>
           <H.BannerContent>
             지금까지의 헌화 수량
-            <p id="count">{post && post.wreathCount} 개</p>
+            <CountUpNumber
+              style={{ fontFamily: "NanumBuJangNimNunCiCe" }}
+              ref={wreathCountRef}
+              end={12340}
+              // end={post ? post.wreathCount : 0}
+              unit=" 개"
+            />
           </H.BannerContent>
           <H.BannerContent>
-            보내주신 추모 글<p id="count">{post && post.messageCount} 개</p>
+            보내주신 추모 글
+            <CountUpNumber
+              style={{ fontFamily: "NanumBuJangNimNunCiCe" }}
+              ref={messageCountRef}
+              end={1825}
+              // end={post ? post.messageCount : 0}
+              unit=" 개"
+            />
           </H.BannerContent>
         </H.BannerBottom>
 
         <H.MemorialMessage>
           <p>남겨주신 헌화의 한 마디</p>
-          <H.MemorialMessageContents>
-            {wreaths.map((item) => ( 
+          <H.MemorialMessageContents
+            ref={memorialMessageContentsRef}
+            className="animated"
+          >
+            {wreaths.map((item) => (
               <MemorialMessage
                 key={item.id}
                 messageId={item.id}
                 donation={item.donation}
                 comment={item.comment}
-                name={item.name}
+                name={item.nickname}
                 hall={item.hall}
                 profile={item.profile}
                 createdAt={item.createdAt}
@@ -265,14 +306,17 @@ const handlePostBtn = async () => {
             />
             <p>추모의 글</p>
           </H.MemorialMessage2Head>
-        
+
           <H.MemorialMessage2Input>
             <H.MM1>
-              <img
+              {/* <img
                 id="profile"
-                src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`} // 프로필 이미지
-                alt="profile"
-              />
+                src={
+                  post && post.profileImageUrl
+                    ? `${post.profileImageUrl}?${new Date().getTime()}`
+                    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`
+                }
+                alt="profile" */}
             </H.MM1>
             <H.MM2>
               <textarea
@@ -328,23 +372,23 @@ const handlePostBtn = async () => {
         </H.MemorialMessage2>
 
         <H.NumberBtn>
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              {"<"} {/* Previous button */}
-            </button>
-            <span>
-              페이지 {currentPage} / {totalPages}
-            </span>
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              style={{ border: "none", background: "none", color: "black" }}
-            >
-              {">"} {/* Next button */}
-            </button>
-          </H.NumberBtn>
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            {"<"} {/* Previous button */}
+          </button>
+          <span>
+            페이지 {currentPage} / {totalPages}
+          </span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            style={{ border: "none", background: "none", color: "black" }}
+          >
+            {">"} {/* Next button */}
+          </button>
+        </H.NumberBtn>
       </H.Container>
     </H.Body>
   );

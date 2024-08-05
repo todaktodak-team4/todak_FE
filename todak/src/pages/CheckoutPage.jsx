@@ -90,7 +90,7 @@ const CheckoutPage = ({
     <div className={styles.checkoutModal}>
       <div className={styles.checkoutModalContent}>
         <span className={styles.closeBtn} onClick={onClose}>
-          <img src="/img/union.png" alt="Close" />
+          <img src="./static/img/union.png" alt="Close" />
         </span>
         <h2 className={styles.title}>결제 정보</h2>
         <div className={styles.infoSection}>

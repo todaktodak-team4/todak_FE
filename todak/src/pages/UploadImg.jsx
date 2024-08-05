@@ -36,7 +36,7 @@ function UploadImg({ onClose, treeId, onShowAlbum }) {
 
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/rememberTree/${treeId}/photos/`,
+          `http://3.38.125.151/rememberTree/${treeId}/photos/`,
           {
             method: "POST",
             headers: {
@@ -73,7 +73,7 @@ function UploadImg({ onClose, treeId, onShowAlbum }) {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <input
         type="file"
         id="upload"
@@ -96,13 +96,13 @@ function UploadImg({ onClose, treeId, onShowAlbum }) {
       <img
         className={styles.closeBtn}
         onClick={onClose}
-        src="/img/closeBtn.png"
+        src="./static/img/closeBtn.png"
         alt="닫기버튼"
       />
       <div className={styles.imgWp}>
         <div className={styles.bg}>
           <img
-            src="/img/uploadImgBg.png"
+            src="./static/img/uploadImgBg.png"
             alt="이미지 배경"
             className={styles.bgImg}
           />
@@ -117,7 +117,7 @@ function UploadImg({ onClose, treeId, onShowAlbum }) {
             />
           ) : (
             <img
-              src="/img/defaultImg.png"
+              src="./static/img/defaultImg.png"
               alt="main"
               className={styles.mainImg}
             />

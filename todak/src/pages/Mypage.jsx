@@ -13,7 +13,7 @@ function Mypage() {
   const [userId, setUserId] = useState(null);
   const [todayAnswers, setTodayAnswers] = useState(null);
   const [treeData, setTreeData] = useState(null);
-  const baseUrl = "http://127.0.0.1:8000";
+  const baseUrl = "http://3.38.125.151";
 
   // Set the profile image URL conditionally
   const imageUrl = image
@@ -39,7 +39,7 @@ function Mypage() {
     const fetchUserInfo = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/accounts/api/get-user-info-from-token/",
+          "http://3.38.125.151/accounts/api/get-user-info-from-token/",
           {
             method: "GET",
             headers: {
@@ -70,7 +70,7 @@ function Mypage() {
 
         if (result.userId) {
           const treeResponse = await fetch(
-            `http://127.0.0.1:8000/rememberTree/user/${result.userId}/`,
+            `http://3.38.125.151/rememberTree/user/${result.userId}/`,
             {
               method: "GET",
               headers: {
@@ -95,7 +95,7 @@ function Mypage() {
     const fetchTodayAnswers = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/daily-question/today-answers/",
+          "http://3.38.125.151/daily-question/today-answers/",
           {
             method: "GET",
             headers: {
@@ -109,7 +109,7 @@ function Mypage() {
           setTodayAnswers(result);
           console.log("Today's answers fetched successfully:", result);
         } else if (response.status === 404) {
-          setTodayAnswers("");
+          setTodayAnswers([]);
           return;
         } else {
           console.error("Failed to fetch today's answers");
@@ -132,7 +132,7 @@ function Mypage() {
       formData.append("profile", file);
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/accounts/api/update-profile-image/",
+          "http://3.38.125.151/accounts/api/update-profile-image/",
           {
             method: "PUT",
             headers: {
@@ -147,7 +147,6 @@ function Mypage() {
         }
         if (response.status === 200) {
           const result = await response.json();
-
           setImage(result.profile.replace(baseUrl, ""));
         }
       } catch (error) {
@@ -156,10 +155,23 @@ function Mypage() {
     }
   };
 
+  const getFlowerTypeInKorean = (flowerType) => {
+    switch (flowerType) {
+      case "zinnia":
+        return "백일홍";
+      case "hydrangea":
+        return "수국";
+      case "lily":
+        return "백합";
+      default:
+        return "정보 없음";
+    }
+  };
+
   const getAnswerStateMessage = () => {
     if (!treeData || (Array.isArray(treeData) && treeData.length === 0)) {
       return "아직 기억나무가 없어요. 기억 나무를 생성해주세요.";
-    } else if (todayAnswers.length === 0) {
+    } else if (!todayAnswers || todayAnswers.length === 0) {
       return "오늘 기억 나무의 질문에 답을 하지 않았어요!";
     } else {
       return "오늘 기억 나무의 질문에 답을 했어요!";
@@ -167,15 +179,15 @@ function Mypage() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
-        src="/img/mypageBg.png"
+        src="./static/img/mypageBg.png"
         alt="bgimg"
         style={{ width: "100%", minHeight: "1000px", objectFit: "cover" }}
         className={styles.containerBg}
       />
       <div className={styles.logo}>
-        <img src="/img/logo.png" alt="마이페이지 로고" />
+        <img src="./static/img/logo.png" alt="마이페이지 로고" />
       </div>
       <div className={styles.innerContainer}>
         <div className={styles.profile}>
@@ -193,7 +205,7 @@ function Mypage() {
                   className={styles.modifiedProf}
                 />
               ) : (
-                <img src="/img/mypageProfile.png" alt="프로필 사진" />
+                <img src="./static/img/mypageProfile.png" alt="프로필 사진" />
               )}
             </div>
             <input
@@ -210,7 +222,7 @@ function Mypage() {
               accept="image/*"
             />
             <img
-              src="/img/imgModifyBtn.png"
+              src="./static/img/imgModifyBtn.png"
               alt="이미지 수정 버튼"
               className={styles.profileImgModifyBtn}
               onClick={() => document.getElementById("upload").click()}
@@ -225,12 +237,16 @@ function Mypage() {
           </div>
           <div className={styles.state}>
             <div className={styles.treeState}>
-              {!treeData || treeData.length === 0 ? "나무 없음 | " : "새싹  |"}
+              &nbsp;
+              {!treeData || (Array.isArray(treeData) && treeData.length === 0)
+                ? "나무 없음 | "
+                : "새싹  |"}
+              &nbsp;
             </div>
             <div className={styles.flowerState}>
               {!treeData || (Array.isArray(treeData) && treeData.length === 0)
                 ? " "
-                : treeData[0].flowerType + " | " || "정보 없음"}
+                : getFlowerTypeInKorean(treeData[0].flowerType) + " | "}
             </div>
             <div className={styles.plantDateState}>
               &nbsp;{togetherDate}일 째
@@ -243,15 +259,15 @@ function Mypage() {
       </div>
       <div className={styles.list}>
         <div className={styles.write} onClick={GoWrittenMessage}>
-          <img src="/img/mypageWrite.png" alt="내가 남긴 추모글" />
+          <img src="./static/img/mypageWrite.png" alt="내가 남긴 추모글" />
           내가 남긴 추모글
         </div>
         <div className={styles.flower} onClick={GoWreathList}>
-          <img src="/img/mypageFlower.png" alt="헌화 내역" />
+          <img src="./static/img/mypageFlower.png" alt="헌화 내역" />
           헌화 내역
         </div>
         <div className={styles.rememberTree} onClick={GoRememberTree}>
-          <img src="/img/mypageTree.png" alt="기억 나무" />
+          <img src="./static/img/mypageTree.png" alt="기억 나무" />
           나무와 대화하기
         </div>
         <CreateTreeModal show={showModal} onClose={() => setShowModal(false)} />

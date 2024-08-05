@@ -26,19 +26,22 @@ function ModifyInfo() {
   const [passwordSuccess, setPasswordSuccess] = useState("");
 
   const navigate = useNavigate();
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem("access_token");
 
   useEffect(() => {
     if (token) {
       const fetchUserInfo = async () => {
         try {
-          const response = await fetch("http://127.0.0.1:8000/accounts/api/get-user-info-from-token/", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const response = await fetch(
+            "http://3.38.125.151/accounts/api/get-user-info-from-token/",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           console.log("Response status:", response.status);
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -81,7 +84,6 @@ function ModifyInfo() {
   };
 
   const handleEmailChange = (e) => {
-    
     const value = e.target.value;
     setEmail(value);
     if (!emailRegEx.test(value)) {
@@ -152,14 +154,17 @@ function ModifyInfo() {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/accounts/profile/update/", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "http://3.38.125.151/accounts/profile/update/",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -171,7 +176,7 @@ function ModifyInfo() {
         const result = await response.json();
         console.log("Success:", result);
         alert("정보변경 성공");
-        navigate('/mypage');
+        navigate("/mypage");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -188,15 +193,15 @@ function ModifyInfo() {
   const isFormInvalid = emailError || passwordError;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
-        src="/img/mypageBg.png"
+        src="./static/img/mypageBg.png"
         alt="bgimg"
         style={{ width: "100%", minHeight: "1000px", objectFit: "cover" }}
         className={styles.containerBg}
       />
       <div className={styles.logo}>
-        <img src="/img/modifyInfoLogo.png" alt="로고" />
+        <img src="./static/img/modifyInfoLogo.png" alt="로고" />
       </div>
       <form id="modifyForm" onSubmit={handleSubmit} className={styles.infoWp}>
         <div className={`${styles.idWp} ${styles.wp}`}>

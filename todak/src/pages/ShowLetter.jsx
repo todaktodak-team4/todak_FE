@@ -18,7 +18,7 @@ function ShowLetter({ onClose, treeId }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/rememberTree/${treeId}/letters/`,
+          `http://3.38.125.151/rememberTree/${treeId}/letters/`,
           {
             method: "GET",
             headers: {
@@ -78,11 +78,14 @@ function ShowLetter({ onClose, treeId }) {
   return (
     <div className={styles.overlay}>
       <img
-        src="/img/letterClose.png"
+        src="./static/img/letterClose.png"
         className={styles.closeButton}
         onClick={onClose}
       />
-      <div className={styles.container} ref={containerRef}>
+      <div
+        className={`${styles.container} ${styles.fadeIn}`}
+        ref={containerRef}
+      >
         {letters.map((letter, index) => (
           <div
             key={index}
@@ -90,12 +93,12 @@ function ShowLetter({ onClose, treeId }) {
             onClick={() => handleLetterClick(letter.id)}
           >
             <div className={styles.letterWp}>
-              <img src="/img/letterPreview.png" alt="미리보기" />
+              <img src="./static/img/letterPreview.png" alt="미리보기" />
               <div className={styles.content}>{letter.content}</div>
             </div>
             <div className={styles.letterInfo}>
               <img
-                src={letter.writer.profile || "/img/profTemp.png"}
+                src={letter.writer.profile || "./static/img/profTemp.png"}
                 className={styles.profileImg}
                 alt="프로필 이미지"
                 style={{ width: "34px", height: "34px", borderRadius: "50%" }}

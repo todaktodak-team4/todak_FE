@@ -1,9 +1,21 @@
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
+
+// Define the fade-in keyframes
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 export const Body = styled.div`
   overflow-x: hidden;
   overflow-y: hidden;
+  animation: ${fadeIn} 1s ease-in-out; // Apply the fade-in animation
 `;
+
 export const Container = styled.div`
   width: 100vw;
   max-height: 150vh;
@@ -46,12 +58,10 @@ export const Input = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  padding-left: 20px;
   margin-left: 35vw;
   gap: 10px;
   width: 650px;
   height: 50px;
-  flex-shrink: 0;
   border-radius: 40px;
   background: linear-gradient(0deg, #ebebeb 0%, #fff 48%);
   box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.25);

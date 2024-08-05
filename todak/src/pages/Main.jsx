@@ -5,6 +5,8 @@ import Nav from "./Nav";
 import Info from "./Info";
 import NeedLogin from "./NeedLogin";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const Main = () => {
   const navigate = useNavigate();
   const [showInfo, setShowInfo] = useState(false);
@@ -27,7 +29,7 @@ const Main = () => {
     const validateToken = async () => {
       if (token) {
         try {
-          const response = await fetch("http://127.0.0.1:8000/token/verify/", {
+          const response = await fetch(`${BACKEND_URL}/token/verify/`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -58,7 +60,7 @@ const Main = () => {
     if (token) {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/accounts/api/get-user-id-from-token",
+          `${BACKEND_URL}/accounts/api/get-user-id-from-token`,
           {
             method: "GET",
             headers: {
@@ -75,7 +77,7 @@ const Main = () => {
           console.log("User ID:", userId);
 
           const treeResponse = await fetch(
-            `http://127.0.0.1:8000/rememberTree/user/${userId}/`,
+            `${BACKEND_URL}/rememberTree/user/${userId}/`,
             {
               method: "GET",
               headers: {
@@ -151,7 +153,7 @@ const Main = () => {
         <M.ImageGross>
           <img
             id="Gross"
-            src={`${process.env.PUBLIC_URL}/img/Gross.png`}
+            src={`${process.env.PUBLIC_URL}/static/img/Gross.png`}
             alt="Gross"
           />
         </M.ImageGross>

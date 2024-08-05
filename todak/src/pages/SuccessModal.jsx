@@ -11,11 +11,13 @@ const SuccessModal = ({ onClose }) => {
     navigate("/");
   }
   return (
-    <div className={styles.modalOverlay}>
+    <div
+      className={`${styles.container} ${styles.fadeIn} ${styles.modalOverlay}`}
+    >
       <div className={styles.modalContent}>
         <img
           className={styles.growImg}
-          src="/img/growComplete.png"
+          src="./static/img/growComplete.png"
           alt="나무 이미지"
         />
         <div className={styles.completeMessage}>

@@ -27,7 +27,7 @@ function PlantTreeStepTwo() {
 
     try {
       console.log(payload);
-      const response = await fetch("http://127.0.0.1:8000/rememberTree/", {
+      const response = await fetch("http://3.38.125.151/rememberTree/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,10 +68,10 @@ function PlantTreeStepTwo() {
   const isBlurred = (flower) => selectedFlower && selectedFlower !== flower;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
         className={styles.conImg}
-        src="/img/plantTree-bg.png"
+        src="./static/img/plantTree-bg.png"
         alt="plant tree background img"
         style={{ position: "absolute", zIndex: " -1" }}
       />
@@ -80,13 +80,13 @@ function PlantTreeStepTwo() {
           <div className={styles.ptTitle}>기억 나무 심기</div>
           <img
             className={styles.ptImg}
-            src="/img/tree-icon.png"
+            src="./static/img/tree-icon.png"
             alt="tree icon"
           />
           <div className={styles.step}>STEP 2</div>
-          <img src="/img/line.png" alt="line" className={styles.line2} />
+          <img src="./static/img/line.png" alt="line" className={styles.line2} />
           <div className={styles.selectFlowerWp}>
-            <img src="/img/step2_3.png" alt="1" className={styles.stepTwo3} />
+            <img src="./static/img/step2_3.png" alt="1" className={styles.stepTwo3} />
             <div className={styles.flowerTitle}>꽃 종류 선택</div>
             <div className={styles.selectFlower}>
               <div className={styles.sFNotice}>
@@ -103,7 +103,7 @@ function PlantTreeStepTwo() {
                   }`}
                 >
                   <img
-                    src="/img/lily.png"
+                    src="./static/img/lily.png"
                     alt="lily"
                     className={styles.flo}
                     onClick={() => setSelectedFlower("lily")}
@@ -119,7 +119,7 @@ function PlantTreeStepTwo() {
                   }`}
                 >
                   <img
-                    src="/img/zinnia.png"
+                    src="./static/img/zinnia.png"
                     alt="zinna"
                     className={styles.flo}
                     onClick={() => setSelectedFlower("zinnia")}
@@ -135,7 +135,7 @@ function PlantTreeStepTwo() {
                   }`}
                 >
                   <img
-                    src="/img/hydrangea.png"
+                    src="./static/img/hydrangea.png"
                     alt="hydrangea"
                     className={styles.flo}
                     onClick={() => setSelectedFlower("hydrangea")}
@@ -149,7 +149,7 @@ function PlantTreeStepTwo() {
             </div>
           </div>
           <div className={styles.growTimeWp}>
-            <img src="/img/step2_4.png" alt="1" className={styles.stepTwo4} />
+            <img src="./static/img/step2_4.png" alt="1" className={styles.stepTwo4} />
             <div className={styles.growTitle}>성장 기간 설정</div>
             <div className={styles.gTNotice}>
               <li>

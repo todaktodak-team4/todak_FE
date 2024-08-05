@@ -8,11 +8,11 @@ function PlantCompleteModal() {
   }
   return (
     <div>
-      <div className={styles.container}>
+      <div className={`${styles.container} ${styles.fadeIn}`}>
         <div className={styles.modal}>
           <img
             className={styles.treeImg}
-            src="/img/completeTreeImg.png"
+            src="./static/img/completeTreeImg.png"
             alt="나무 이미지"
           />
           <div className={styles.completeMessage}>기억 나무를 심었어요!</div>

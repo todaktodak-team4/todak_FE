@@ -39,7 +39,7 @@ function RememberTree() {
   const refreshAccessToken = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/accounts/token/refresh/",
+        "http://3.38.125.151/accounts/token/refresh/",
         {
           method: "POST",
           headers: {
@@ -82,7 +82,7 @@ function RememberTree() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/rememberTree/", {
+        const response = await fetch("http://3.38.125.151/rememberTree/", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -94,7 +94,7 @@ function RememberTree() {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             const retryResponse = await fetch(
-              "http://127.0.0.1:8000/rememberTree/",
+              "http://3.38.125.151/rememberTree/",
               {
                 method: "GET",
                 headers: {
@@ -128,7 +128,7 @@ function RememberTree() {
     const fetchUserId = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/accounts/api/get-user-id-from-token/",
+          "http://3.38.125.151/accounts/api/get-user-id-from-token/",
           {
             method: "GET",
             headers: {
@@ -142,7 +142,7 @@ function RememberTree() {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             const retryResponse = await fetch(
-              "http://127.0.0.1:8000/accounts/api/get-user-id-from-token/",
+              "http://3.38.125.151/accounts/api/get-user-id-from-token/",
               {
                 method: "GET",
                 headers: {
@@ -219,9 +219,12 @@ function RememberTree() {
 
   return (
     <>
-      <div className={styles.container} style={{ maxHeight: "1000px" }}>
+      <div
+        className={`${styles.container} ${styles.fadeIn}`}
+        style={{ maxHeight: "1000px" }}
+      >
         <img
-          src="/img/plantTree-bg.png"
+          src="./static/img/plantTree-bg.png"
           alt="bgimg"
           style={{ width: "100%", minHeight: "1000px", objectFit: "cover" }}
           className="container-bg"
@@ -232,7 +235,7 @@ function RememberTree() {
           <div className={styles.rememberTreeBox}>
             <div className={styles.treeName}>{treeName}</div>
             <img
-              src="/img/help.png"
+              src="./static/img/help.png"
               alt="도움말 버튼"
               className={styles.helpBtn}
               style={{ width: "44px", height: "44px" }}
@@ -258,14 +261,14 @@ function RememberTree() {
                 )}
                 <img
                   src={
-                    isAlbumHovered ? "/img/hoverAlbum.png" : "/img/album.png"
+                    isAlbumHovered ? "./static/img/hoverAlbum.png" : "./static/img/album.png"
                   }
                   onMouseEnter={() => setIsAlbumHovered(true)}
                   onMouseLeave={() => setIsAlbumHovered(false)}
                   onClick={handleAlbumClick}
                 />
               </div>
-              <img src="/img/rememberTree.png" />
+              <img src="./static/img/rememberTree.png" />
               <div className={styles.postBox}>
                 {isPostBoxClicked && (
                   <div className={styles.postBoxButtons}>
@@ -286,8 +289,8 @@ function RememberTree() {
                 <img
                   src={
                     isPostBoxHovered
-                      ? "/img/hoverPostBox.png"
-                      : "/img/postBox.png"
+                      ? "./static/img/hoverPostBox.png"
+                      : "./static/img/postBox.png"
                   }
                   onMouseEnter={() => setIsPostBoxHovered(true)}
                   onMouseLeave={() => setIsPostBoxHovered(false)}

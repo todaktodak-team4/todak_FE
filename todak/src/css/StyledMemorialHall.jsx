@@ -1,8 +1,30 @@
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
+
+// Define the fade-in from bottom animation
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 export const Body = styled.div`
   overflow-x: hidden;
   overflow-y: hidden;
+  animation: ${fadeIn} 1.5s ease-in-out;
 `;
 export const Container = styled.div`
   width: 100vw;
@@ -218,6 +240,18 @@ export const MemorialMessageContents = styled.div`
   padding: 2rem;
   gap: 3vw;
   flex-direction: row;
+
+  &.animated {
+    opacity: 0; // 초기 상태
+    transform: translateY(20px); // 초기 상태
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+    animation: ${fadeInUp} 0.6s ease-out; // 애니메이션 적용
+  }
 `;
 export const MemorialMessageContent = styled.div`
   display: flex;

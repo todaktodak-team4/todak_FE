@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledGrowCompleteModal.module.css";
 
-function GrowCompleteModal() {
+function GrowCompleteModal({ onClose }) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
 
@@ -12,16 +12,17 @@ function GrowCompleteModal() {
 
   const handleNoClick = () => {
     setIsOpen(false);
+    onClose();
   };
 
   return (
     <>
       {isOpen && (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${styles.fadeIn}`}>
           <div className={styles.modal}>
             <img
               className={styles.growImg}
-              src="/img/growComplete.png"
+              src="./static/img/growComplete.png"
               alt="나무 이미지"
             />
             <div className={styles.completeMessage}>

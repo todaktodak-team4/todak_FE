@@ -1,9 +1,23 @@
+@import url("https://hangeul.pstatic.net/hangeul_static/css/NanumBuJangNimNunCiCe.css");
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
 .container {
   display: flex;
   justify-content: center;
   position: relative;
   height: 130vh;
+  animation: fadeIn 1s ease-in-out;
 }
 .containerBg {
   position: absolute;
@@ -12,14 +26,13 @@
 .contentContainer {
   position: absolute;
   width: 80%;
-  top: 30%;
+  max-width: 1300px;
+  max-height: 700px;
+  top: 35%;
   left: auto;
   right: auto;
-  width: 1200px;
-  height: 600px;
-  min-width: 1000px;
-  min-height: 600px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .wreathList {
   display: flex;
@@ -30,13 +43,14 @@
   top: 12%;
 }
 .latest {
+  min-width: 700px;
   color: #3d4c00;
   font-family: "Pretendard Variable";
   font-size: 38px;
   font-weight: 800;
   position: absolute;
-  top: 22%;
-  left: 25.5%;
+  top: 25%;
+  left: 14%;
 }
 .point {
   width: 15px;

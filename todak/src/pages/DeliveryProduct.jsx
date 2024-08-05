@@ -74,7 +74,7 @@ function DeliveryProduct() {
   return (
     <>
       <div
-        className={styles.container}
+        className={`${styles.container} ${styles.fadeIn}`}
         style={{
           backgroundImage: `url("/img/plantTree-bg.png")`,
           backgroundRepeat: "no-repeat",
@@ -83,13 +83,13 @@ function DeliveryProduct() {
         <div className={styles.deliWp}>
           <div className={styles.top}>
             <div className={styles.boxImg}>
-              <img src="/img/deliBox.png" alt="tree icon" />
+              <img src="./static/img/deliBox.png" alt="tree icon" />
             </div>
             <div className={styles.deliTitle}>기억 나무 배송</div>
           </div>
           <div className={styles.wp}>
             <div className={styles.optionWp}>
-              <img src="/img/d_1.png" alt="" />
+              <img src="./static/img/d_1.png" alt="" />
               <div className={styles.title}>배송 옵션 선택</div>
               <div className={styles.radioWp}>
                 <label className={styles.radioLabel}>
@@ -125,11 +125,11 @@ function DeliveryProduct() {
               </div>
             </div>
             <div className={styles.trWp}>
-              <img src="/img/d_2.png" alt="" />
+              <img src="./static/img/d_2.png" alt="" />
               <div className={styles.title}>테라리움</div>
               <div className={`${styles.radioWp} ${styles.tWp}`}>
                 <img
-                  src="/img/terrarium.png"
+                  src="./static/img/terrarium.png"
                   alt="terrarium"
                   className={styles.trImg}
                 />
@@ -152,12 +152,12 @@ function DeliveryProduct() {
               </div>
             </div>
             <div className={styles.alWp}>
-              <img src="/img/d_3.png" alt="" />
+              <img src="./static/img/d_3.png" alt="" />
               <div className={styles.title}>맞춤 제작 앨범</div>
               <div className={styles.radioWp}>
                 <label className={styles.radioLabel}>
                   <img
-                    src="/img/delialbum.png"
+                    src="./static/img/delialbum.png"
                     alt="album"
                     className={styles.albumImg}
                   />

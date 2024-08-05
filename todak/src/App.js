@@ -1,5 +1,7 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+// App.js
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "./App.css";
 import Main from "./pages/Main";
 import * as A from "./css/StyledApp";
 import PlantTreeStepOne from "./pages/PlantTree_stepOne";
@@ -28,24 +30,28 @@ import Mypage from "./pages/Mypage";
 import TalkModal from "./pages/TalkModal";
 import Nav from "./pages/Nav";
 import ModifyInfo from "./pages/ModifyInfo";
+import DonationModal from "./pages/DonationCertificate";
+
 import LaySuccessModal from "./pages/LaySuccessModal";
 import WreathList from "./pages/WreathList";
 import WrittenMessage from "./pages/WrittenMessage";
+import HelpModal from "./pages/HelpModal";
+
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const accessToken = localStorage.getItem("access_token");
   const refreshToken = localStorage.getItem("refresh_token");
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
   useEffect(() => {
     setIsLoggedIn(!!accessToken && !!refreshToken);
-  }, []);
+  }, [accessToken, refreshToken]);
 
   const handleLogout = async () => {
-    const token = localStorage.getItem("access_token");
-    const refreshToken = localStorage.getItem("refresh_token");
-
     try {
-      const response = await fetch("http://127.0.0.1:8000/accounts/logout/", {
+      const response = await fetch(`${BACKEND_URL}/accounts/logout/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,15 +66,16 @@ function App() {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         setIsLoggedIn(false); // 로그인 상태 업데이트
-        alert("로그아웃 성공");
-        window.location.reload();
+        alert("로그아웃 되었습니다.");
+        navigate("/login"); // 로그아웃 후 로그인 페이지로 리다이렉트
       } else {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        alert("토큰이 완료되어 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+        alert(
+          "로그인한지 30분이 지나 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+        );
         setIsLoggedIn(false);
-
-        console.error("로그아웃 실패:", response.statusText);
+        navigate("/login"); // 로그아웃 후 로그인 페이지로 리다이렉트
       }
     } catch (error) {
       console.error("로그아웃 중 문제가 발생했습니다:", error);
@@ -76,20 +83,20 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <div>
       <A.Header>
         <A.Logo>
           <Link to="/">
             <img
               id="Logo"
-              src={`${process.env.PUBLIC_URL}/img/TodakLogo2.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/TodakLogo2.svg`}
               alt="Logo"
             />
           </Link>
           <Link to="/">
             <img
               id="LogoMessage"
-              src={`${process.env.PUBLIC_URL}/img/LogoMessage.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/LogoMessage.svg`}
               alt="LogoMessage"
             />
           </Link>
@@ -110,7 +117,7 @@ function App() {
           )}
         </A.Privacy>
       </A.Header>
-      <Nav></Nav>
+      <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/signup1" element={<Signup1 />} />
@@ -127,45 +134,46 @@ function App() {
         <Route path="/writeLetter" element={<WriteLetter />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/success" element={<SuccessModal />} />
+        <Route path="/helpModal" element={<HelpModal />} />
         <Route path="/memorialHall/:postId?" element={<MemorialHall />} />
         <Route path="/memorialHallList" element={<MemorialHallList />} />
         <Route
           path="memorialHall/:postId/access"
           element={<LockedMemorialHall />}
         />
-        <Route path="layCheckout" element={<LayCheckout />} />
+        <Route path="/layCheckout" element={<LayCheckout />} />
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
+        <Route path="/laySuccess" element={<DonationModal />} />
         <Route path="/sentComplete" element={<SentComplete />} />
-        <Route path="/mypage" element={<Mypage />} />{" "}
+        <Route path="/mypage" element={<Mypage />} />
         <Route path="/talkModal" element={<TalkModal />} />
         <Route path="/modifyInfo" element={<ModifyInfo />} />
         <Route path="/wreathList" element={<WreathList />} />
         <Route path="/writtenMessage" element={<WrittenMessage />} />
         <Route path="/laysuccess" element={<LaySuccessModal />} />
-        <Route path="/letterDetail" element={<LetterDetail />}></Route>
+        <Route path="/letterDetail" element={<LetterDetail />} />
       </Routes>
-
       <A.Footer>
         <A.Footer1>
           <img
             id="Logo"
-            src={`${process.env.PUBLIC_URL}/img/TodakLogo3.svg`}
+            src={`${process.env.PUBLIC_URL}/static/img/TodakLogo3.svg`}
             alt="Logo"
           />
           <img
             id="LogoMessage"
-            src={`${process.env.PUBLIC_URL}/img/LogoMessage2.svg`}
+            src={`${process.env.PUBLIC_URL}/static/img/LogoMessage2.svg`}
             alt="LogoMessage"
           />
           <p id="ment11">
-            <img id="img" src={`${process.env.PUBLIC_URL}/img/footer1.svg`} />
+            <img id="img" src={`${process.env.PUBLIC_URL}/static/img/footer1.svg`} />
             서울특별시 성북구 화랑로13길 60
             <br />
             60 Hwarang-ro 13-gil, Seongbuk-gu, Seoul
           </p>
           <p id="ment13">
-            <img id="img" src={`${process.env.PUBLIC_URL}/img/footer2.svg`} />
+            <img id="img" src={`${process.env.PUBLIC_URL}/static/img/footer2.svg`} />
             멋쟁이사자처럼 동덕여자대학교 12기 팀 우리사이
           </p>
         </A.Footer1>
@@ -183,7 +191,7 @@ function App() {
           </p>
         </A.Footer2>
       </A.Footer>
-    </BrowserRouter>
+    </div>
   );
 }
 

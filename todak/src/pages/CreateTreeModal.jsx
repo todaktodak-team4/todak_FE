@@ -14,7 +14,7 @@ const CreateTreeModal = ({ show, onClose }) => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <div className={styles.content}>
         <div className={styles.noTree}>아직 생성된 나무가 없어요.</div>
         <div className={styles.content}>

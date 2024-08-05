@@ -14,7 +14,7 @@ function ShowAlbum({ onClose, treeId }) {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/rememberTree/${treeId}/photos/`,
+        `http://3.38.125.151/rememberTree/${treeId}/photos/`,
         {
           method: "GET",
           headers: {
@@ -64,8 +64,8 @@ function ShowAlbum({ onClose, treeId }) {
 
   const renderAlbumItem = (item, index) => {
     const imageUrl = item.rememberPhoto
-      ? `http://127.0.0.1:8000${item.rememberPhoto}`
-      : "/img/default.png";
+      ? `http://3.38.125.151${item.rememberPhoto}`
+      : "./static/img/default.png";
 
     switch (index % 4) {
       case 0:
@@ -73,7 +73,7 @@ function ShowAlbum({ onClose, treeId }) {
           <div key={index} className={styles.img1}>
             <img
               className={styles.imgBg}
-              src="/img/imgBg.png"
+              src="./static/img/imgBg.png"
               alt="album"
               style={{ height: "240px" }}
             />
@@ -95,7 +95,7 @@ function ShowAlbum({ onClose, treeId }) {
         return (
           <div key={index} className={styles.img2}>
             <img
-              src="/img/polaBg.png"
+              src="./static/img/polaBg.png"
               alt="폴라로이드 이미지"
               className={styles.imgbg}
               style={{ height: "320px" }}
@@ -107,14 +107,14 @@ function ShowAlbum({ onClose, treeId }) {
               style={{ width: "233px", height: "230px" }}
             />
             <div className={styles.sticker}>
-              <img src="/img/sticker.png" alt="" />
+              <img src="./static/img/sticker.png" alt="" />
             </div>
             <div className={styles.comWp}>
               <div className={styles.com}>{item.description}</div>
               <div className={styles.date}>{item.rememberDate}</div>
             </div>
             <div className={styles.mainComWp}>
-              <img src="/img/comPaper.png" alt="코멘트 메모지" />
+              <img src="./static/img/comPaper.png" alt="코멘트 메모지" />
               <div className={styles.mainCom}>{item.comment}</div>
             </div>
           </div>
@@ -123,7 +123,7 @@ function ShowAlbum({ onClose, treeId }) {
         return (
           <div key={index} className={styles.img3}>
             <img
-              src="/img/imgBg.png"
+              src="./static/img/imgBg.png"
               alt=""
               className={styles.imgbg}
               style={{ height: "240px" }}
@@ -135,14 +135,14 @@ function ShowAlbum({ onClose, treeId }) {
               style={{ width: "320px", height: "160px" }}
             />
             <div className={styles.clip}>
-              <img src="/img/clip.png" alt="" />
+              <img src="./static/img/clip.png" alt="" />
             </div>
             <div className={styles.comWp}>
               <div className={styles.com}>{item.description}</div>
               <div className={styles.date}>{item.rememberDate}</div>
             </div>
             <div className={styles.mainComWp}>
-              <img src="/img/comPaper2.png" alt="" />
+              <img src="./static/img/comPaper2.png" alt="" />
               <div className={styles.mainCom2}>{item.comment}</div>
             </div>
           </div>
@@ -151,7 +151,7 @@ function ShowAlbum({ onClose, treeId }) {
         return (
           <div key={index} className={styles.img4}>
             <img
-              src="/img/imgbg.png"
+              src="./static/img/imgbg.png"
               alt=""
               className={styles.imgbg}
               style={{ height: "240px" }}
@@ -199,7 +199,7 @@ function ShowAlbum({ onClose, treeId }) {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} ${styles.fadeIn}`}>
         <div className={styles.albumWp}>
           {showModal && (
             <div
@@ -212,7 +212,7 @@ function ShowAlbum({ onClose, treeId }) {
           <div className={styles.album}>
             <img
               className={styles.albumImg}
-              src="/img/albumBg.png"
+              src="./static/img/albumBg.png"
               alt="album"
             />
             {currentItems.map((item, index) => renderAlbumItem(item, index))}
@@ -225,7 +225,7 @@ function ShowAlbum({ onClose, treeId }) {
             }`}
             onClick={handlePrevClick}
           >
-            <img src="/img/albumBack.png" alt="Previous" />
+            <img src="./static/img/albumBack.png" alt="Previous" />
           </div>
           <span className={styles.pageNumber}>
             <span className={styles.cur}>{currentPage} </span>
@@ -238,7 +238,7 @@ function ShowAlbum({ onClose, treeId }) {
             }`}
             onClick={handleNextClick}
           >
-            <img src="/img/albumFront.png" alt="Next" />
+            <img src="./static/img/albumFront.png" alt="Next" />
           </div>
         </div>
         {noItemsMessage && (

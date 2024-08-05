@@ -61,7 +61,7 @@ const MemorialHallSignup = () => {
       }
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/memorialHall",
+        "http://3.38.125.151/memorialHall",
         formData,
         {
           headers: {
