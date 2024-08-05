@@ -3,6 +3,8 @@ import * as H from "../css/StyledMemorialHallList";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const ContentItem = ({
   postId,
   img,
@@ -15,7 +17,7 @@ const ContentItem = ({
   token, // 비공개 추모관의 토큰
 }) => {
   const navigate = useNavigate();
-  const defaultImg = `${process.env.PUBLIC_URL}/img/ListContentImg.png`;
+  const defaultImg = `${process.env.PUBLIC_URL}/static/img/ListContentImg.png`;
   const storedToken = localStorage.getItem("access_token");
 
   const [status, setStatus] = useState(initialStatus || "unparticipated");
@@ -40,7 +42,7 @@ const ContentItem = ({
     const fetchStatus = async () => {
       try {
         const response = await axios.get(
-          `http://3.38.125.151/memorialHall/${postId}/participate`,
+          `${BACKEND_URL}/memorialHall/${postId}/participate`,
           {
             headers: {
               Authorization: `Bearer ${storedToken}`,
@@ -82,7 +84,7 @@ const ContentItem = ({
     try {
       let newStatus;
       const body = isPrivate ? { token } : {};
-      const url = `http://3.38.125.151/memorialHall/${postId}/${
+      const url = `${BACKEND_URL}/memorialHall/${postId}/${
         status === "participated" ? "unparticipate" : "participate"
       }`;
 

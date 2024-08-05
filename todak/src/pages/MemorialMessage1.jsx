@@ -2,6 +2,9 @@ import React from "react";
 import * as H from "../css/StyledMemorialHall";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const MemorialMessage = ({
   memorialHall,
   key,
@@ -17,11 +20,11 @@ const MemorialMessage = ({
 
   console.log("프로필:", profile);
 
-  const baseUrl = 'http://3.38.125.151';
+  const baseUrl = `${BACKEND_URL}`;
   // Set the profile image URL conditionally
   const imageUrl = profile
     ? `${baseUrl}${profile}`  // Profile image from server
-    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`;  // Default image
+    : `${process.env.PUBLIC_URL}/static/img/standardProfile.svg`;  // Default image
 
 
 

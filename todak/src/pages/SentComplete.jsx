@@ -4,6 +4,8 @@ import Airplane from "../assets/Paperplane.json";
 import styles from "../css/StyledSentComplete.module.css";
 import ShowLetter from "../pages/ShowLetter.jsx";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 function SentComplete({ onClose, treeId }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
 

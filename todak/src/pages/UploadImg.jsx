@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledUploadImg.module.css";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 function UploadImg({ onClose, treeId, onShowAlbum }) {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
@@ -36,7 +38,7 @@ function UploadImg({ onClose, treeId, onShowAlbum }) {
 
       try {
         const response = await fetch(
-          `http://3.38.125.151/rememberTree/${treeId}/photos/`,
+          `${BACKEND_URL}/rememberTree/${treeId}/photos/`,
           {
             method: "POST",
             headers: {

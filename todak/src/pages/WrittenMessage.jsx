@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "../css/StyledWrittenMessage.module.css";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 function WrittenMessage() {
   const [messages, setMessages] = useState([]);
   const [hoveredId, setHoveredId] = useState(null); // New state for hovered message ID
@@ -10,7 +12,7 @@ function WrittenMessage() {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(
-          "http://3.38.125.151/message/my-messages/",
+          `${BACKEND_URL}/message/my-messages/`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,

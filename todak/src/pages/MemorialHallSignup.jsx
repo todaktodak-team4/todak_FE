@@ -4,6 +4,9 @@ import axios from "axios";
 import * as S from "../css/StyledMemorialHallSignup";
 import Nav from "./Nav";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
+
 const MemorialHallSignup = () => {
   const navigate = useNavigate();
 
@@ -61,7 +64,7 @@ const MemorialHallSignup = () => {
       }
 
       const response = await axios.post(
-        "http://3.38.125.151/memorialHall",
+        `${BACKEND_URL}/memorialHall`,
         formData,
         {
           headers: {
@@ -97,7 +100,7 @@ const MemorialHallSignup = () => {
         <S.Content>
           <img
             id="flower"
-            src={`${process.env.PUBLIC_URL}/img/flower.svg`}
+            src={`${process.env.PUBLIC_URL}/static/img/flower.svg`}
             alt="flower"
           />
           <S.Title>온라인 헌화 추모관 신청</S.Title>
@@ -106,7 +109,7 @@ const MemorialHallSignup = () => {
             <S.Line>
               <img
                 id="Logo"
-                src={`${process.env.PUBLIC_URL}/img/Line_1.png`}
+                src={`${process.env.PUBLIC_URL}/static/img/Line_1.png`}
                 alt="Logo"
               />
             </S.Line>

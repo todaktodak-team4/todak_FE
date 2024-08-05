@@ -8,6 +8,8 @@ import MemorialMessage from "./MemorialMessage1";
 import MemorialMessage2 from "./MemorialMessage2";
 import CountUpNumber from "./CountUpNumber";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const MemorialHall = () => {
   const navigate = useNavigate();
   const textareaRef = useRef(null);
@@ -169,9 +171,9 @@ const MemorialHall = () => {
 
     if (post) {
       if (post.private) {
-        linkToCopy = `http://localhost:3000/memorialHall/${postId}/access?token=${halltoken}`;
+        linkToCopy = `${BACKEND_URL}/memorialHall/${postId}/access?token=${halltoken}`;
       } else {
-        linkToCopy = `http://localhost:3000/memorialHall/${postId}`;
+        linkToCopy = `${BACKEND_URL}/memorialHall/${postId}`;
       }
     }
 
@@ -229,7 +231,7 @@ const MemorialHall = () => {
         <H.Content>
           <img
             id="flower"
-            src={`${process.env.PUBLIC_URL}/img/flower.svg`}
+            src={`${process.env.PUBLIC_URL}/static/img/flower.svg`}
             alt="flower"
           />
           <H.mainImg>
@@ -301,7 +303,7 @@ const MemorialHall = () => {
           <H.MemorialMessage2Head>
             <img
               id="line"
-              src={`${process.env.PUBLIC_URL}/img/Memoryhalls.png`}
+              src={`${process.env.PUBLIC_URL}/static/img/Memoryhalls.png`}
               alt="line"
             />
             <p>추모의 글</p>

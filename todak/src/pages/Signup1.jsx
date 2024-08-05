@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import * as S from "../css/StyledSignup";
 import axios from "axios";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const Signup1 = () => {
   const navigate = useNavigate();
 
@@ -132,7 +134,7 @@ const Signup1 = () => {
 
     // 사용자 등록 API 호출
     axios
-      .post("http://3.38.125.151/accounts/register/step1/", requestData)
+      .post(`${BACKEND_URL}/accounts/register/step1/`, requestData)
       .then((response) => {
         console.log("Step 1 completed. Proceed to step 2.", response.data);
         const receivedUserId = response.data.userId;
@@ -162,7 +164,7 @@ const Signup1 = () => {
           <S.Line>
             <img
               id="Logo"
-              src={`${process.env.PUBLIC_URL}/img/Line.png`}
+              src={`${process.env.PUBLIC_URL}/static/img/Line.png`}
               alt="Logo"
             />
           </S.Line>

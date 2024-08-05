@@ -3,6 +3,8 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 //회원가입 완료 모달
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 export const Contaianer = styled.div`
   position: fixed;
   z-index: 100;

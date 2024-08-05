@@ -1,18 +1,20 @@
 import React from "react";
 import * as I from "../css/StyledInfo";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const Info = () => {
   return (
     <I.Info>
       <I.Info1>
         <img
           id="Logo"
-          src={`${process.env.PUBLIC_URL}/img/TodakLogo2.svg`}
+          src={`${process.env.PUBLIC_URL}/static/img/TodakLogo2.svg`}
           alt="Logo"
         />
         <img
           id="LogoMessage"
-          src={`${process.env.PUBLIC_URL}/img/LogoMessage.svg`}
+          src={`${process.env.PUBLIC_URL}/static/img/LogoMessage.svg`}
           alt="LogoMessage"
         />
 
@@ -53,12 +55,12 @@ const Info = () => {
       <I.Info3>
         <img
           id="Info3Left"
-          src={`${process.env.PUBLIC_URL}/img/Info3Left.png`}
+          src={`${process.env.PUBLIC_URL}/static/img/Info3Left.png`}
           alt="Info3Left"
         />
         <img
           id="Info3Right"
-          src={`${process.env.PUBLIC_URL}/img/Info3Right.png`}
+          src={`${process.env.PUBLIC_URL}/static/img/Info3Right.png`}
           alt="Info3Right"
         />
         <p id="title">천천히 내 감정을 이해할 수 있게</p>
@@ -98,7 +100,7 @@ const Info = () => {
           <I.Info4Content>
             <img
               id="Img"
-              src={`${process.env.PUBLIC_URL}/img/Info4Flower.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/Info4Flower.svg`}
               alt="Img"
             />
             <p id="contentTitle">온라인 헌화</p>
@@ -112,7 +114,7 @@ const Info = () => {
           <I.Info4Content>
             <img
               id="Img"
-              src={`${process.env.PUBLIC_URL}/img/Info4Tree.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/Info4Tree.svg`}
               alt="Img"
             />
             <p id="contentTitle">기억 나무</p>
@@ -128,7 +130,7 @@ const Info = () => {
       <I.Info5>
         <img
           id="Img"
-          src={`${process.env.PUBLIC_URL}/img/whiteFlower.png`}
+          src={`${process.env.PUBLIC_URL}/static/img/whiteFlower.png`}
           alt="Img"
         />
         <p id="title">재난 참사 유족을 위한 온라인 헌화장</p>
@@ -189,22 +191,22 @@ const Info = () => {
           <div>
             <img
               id="Img"
-              src={`${process.env.PUBLIC_URL}/img/Info7tree.png`}
+              src={`${process.env.PUBLIC_URL}/static/img/Info7tree.png`}
               alt="Img"
             />
             <img
               id="Heart1"
-              src={`${process.env.PUBLIC_URL}/img/Info7heart.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/Info7heart.svg`}
               alt="Heart"
             />
             <img
               id="Heart2"
-              src={`${process.env.PUBLIC_URL}/img/Info7heart.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/Info7heart.svg`}
               alt="Heart"
             />
             <img
               id="Heart3"
-              src={`${process.env.PUBLIC_URL}/img/Info7heart.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/Info7heart.svg`}
               alt="Heart"
             />
           </div>
@@ -221,20 +223,20 @@ const Info = () => {
         <I.Info8Container>
           <img
             id="Info8Img1"
-            src={`${process.env.PUBLIC_URL}/img/Info8Img1.png`}
+            src={`${process.env.PUBLIC_URL}/static/img/Info8Img1.png`}
             alt="Info8Img1"
           />
 
           <I.Info8Arrow></I.Info8Arrow>
           <img
             id="Info8Img2"
-            src={`${process.env.PUBLIC_URL}/img/Info8Img2.png`}
+            src={`${process.env.PUBLIC_URL}/static/img/Info8Img2.png`}
             alt="Info8Img2"
           />
           <I.Info8Arrow></I.Info8Arrow>
           <img
             id="Info8Img3"
-            src={`${process.env.PUBLIC_URL}/img/Info7tree.png`}
+            src={`${process.env.PUBLIC_URL}/static/img/Info7tree.png`}
             alt="Info8Img3"
           />
         </I.Info8Container>
@@ -242,7 +244,7 @@ const Info = () => {
       <I.Info9>
         <img
           id="Img"
-          src={`${process.env.PUBLIC_URL}/img/Info7tree.png`}
+          src={`${process.env.PUBLIC_URL}/static/img/Info7tree.png`}
           alt="Img"
         />
         <p id="title">언제나 내 곁에서 머무는 나무</p>
@@ -298,7 +300,7 @@ const Info = () => {
         <I.Info10Content>
           <img
             id="TodakLogo3"
-            src={`${process.env.PUBLIC_URL}/img/TodakLogo3.svg`}
+            src={`${process.env.PUBLIC_URL}/static/img/TodakLogo3.svg`}
             alt="TodakLogo3"
           />
           <p id="title">나와 너, 서로를 토닥이며</p>

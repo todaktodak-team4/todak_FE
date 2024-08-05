@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledPlantCompleteModal.module.css";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 function PlantCompleteModal() {
   const navigate = useNavigate();
   function goToTree() {

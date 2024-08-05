@@ -3,6 +3,8 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 //로그인, 회원가입 후 이용하세요 모달
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 export const Contaianer = styled.div`
   position: fixed;
   z-index: 100;
@@ -87,7 +89,7 @@ const NeedLogin = () => {
     <Contaianer>
       <img
         id="logo"
-        src={`${process.env.PUBLIC_URL}/img/TodakLogo4.svg`}
+        src={`${process.env.PUBLIC_URL}/static/img/TodakLogo4.svg`}
         alt="logo"
       />
       <p id="message">로그인 이후 이용이 가능합니다.</p>

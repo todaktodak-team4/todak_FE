@@ -150,7 +150,7 @@ const ContentItem = ({
             {isPrivate && (
               <img
                 id="Locked"
-                src={`${process.env.PUBLIC_URL}/img/ListContentLock.svg`}
+                src={`${process.env.PUBLIC_URL}/static/img/ListContentLock.svg`}
                 alt="Locked"
               />
             )}

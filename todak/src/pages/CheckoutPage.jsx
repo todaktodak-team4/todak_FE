@@ -8,7 +8,6 @@ const customerKey = "VQMfaA0KTAWJ8hFAOE9PL";
 
 const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
 
-
 const CheckoutPage = ({
   totalAmount,
   selectedItems,

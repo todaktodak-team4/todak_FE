@@ -6,6 +6,9 @@ import CompleteSignup from "./CompleteSignup";
 import styles from "../css/StyledDeliveryInfo.module.css"
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
+
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const Signup2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -132,7 +135,7 @@ const Signup2 = () => {
 
     try {
       const response = await axios.post(
-        "http://3.38.125.151/accounts/register/step2/",
+        `${BACKEND_URL}/accounts/register/step2/`,
         dataToSend,
         {
           headers: {
@@ -168,7 +171,7 @@ const Signup2 = () => {
           <S.Line>
             <img
               id="Logo"
-              src={`${process.env.PUBLIC_URL}/img/Line.png`}
+              src={`${process.env.PUBLIC_URL}/static/img/Line.png`}
               alt="Logo"
             />
           </S.Line>

@@ -8,6 +8,8 @@ import ShowAlbum from "../pages/ShowAlbum";
 import WriteLetter from "../pages/WriteLetter";
 import ShowLetter from "../pages/ShowLetter";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 function RememberTree() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTalkModalOpen, setIsTalkModalOpen] = useState(false);
@@ -39,7 +41,7 @@ function RememberTree() {
   const refreshAccessToken = async () => {
     try {
       const response = await fetch(
-        "http://3.38.125.151/accounts/token/refresh/",
+        `${BACKEND_URL}/accounts/token/refresh/`,
         {
           method: "POST",
           headers: {
@@ -82,7 +84,7 @@ function RememberTree() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://3.38.125.151/rememberTree/", {
+        const response = await fetch(`${BACKEND_URL}/rememberTree/`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -94,7 +96,7 @@ function RememberTree() {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             const retryResponse = await fetch(
-              "http://3.38.125.151/rememberTree/",
+              `${BACKEND_URL}/rememberTree/`,
               {
                 method: "GET",
                 headers: {
@@ -128,7 +130,7 @@ function RememberTree() {
     const fetchUserId = async () => {
       try {
         const response = await fetch(
-          "http://3.38.125.151/accounts/api/get-user-id-from-token/",
+          `${BACKEND_URL}/accounts/api/get-user-id-from-token/`,
           {
             method: "GET",
             headers: {
@@ -142,7 +144,7 @@ function RememberTree() {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             const retryResponse = await fetch(
-              "http://3.38.125.151/accounts/api/get-user-id-from-token/",
+              `${BACKEND_URL}/accounts/api/get-user-id-from-token/`,
               {
                 method: "GET",
                 headers: {

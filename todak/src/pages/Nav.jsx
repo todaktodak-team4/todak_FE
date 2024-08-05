@@ -3,6 +3,8 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as M from "../css/StyledNav";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation(); // 현재 경로를 가져오기 위한 훅
@@ -14,7 +16,7 @@ const Nav = () => {
     if (token) {
       try {
         const response = await fetch(
-          "http://3.38.125.151/accounts/api/get-user-id-from-token",
+          `${BACKEND_URL}/accounts/api/get-user-id-from-token`,
           {
             method: "GET",
             headers: {
@@ -30,7 +32,7 @@ const Nav = () => {
           console.log("User ID:", userId);
 
           const treeResponse = await fetch(
-            `http://3.38.125.151/rememberTree/user/${userId}/`,
+            `${BACKEND_URL}/rememberTree/user/${userId}/`,
             {
               method: "GET",
               headers: {

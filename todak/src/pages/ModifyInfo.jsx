@@ -4,6 +4,8 @@ import styles from "../css/StyledModifyInfo.module.css";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const emailRegEx =
   /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
 
@@ -33,7 +35,7 @@ function ModifyInfo() {
       const fetchUserInfo = async () => {
         try {
           const response = await fetch(
-            "http://3.38.125.151/accounts/api/get-user-info-from-token/",
+            `${BACKEND_URL}/accounts/api/get-user-info-from-token/`,
             {
               method: "GET",
               headers: {
@@ -155,7 +157,7 @@ function ModifyInfo() {
 
     try {
       const response = await fetch(
-        "http://3.38.125.151/accounts/profile/update/",
+        `${BACKEND_URL}/accounts/profile/update/`,
         {
           method: "PUT",
           headers: {

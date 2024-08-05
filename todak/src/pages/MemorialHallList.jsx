@@ -4,6 +4,8 @@ import * as H from "../css/StyledMemorialHallList";
 import Nav from "./Nav";
 import axios from "axios";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const MemorialHallList = () => {
   const [listItems, setListItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +22,7 @@ const MemorialHallList = () => {
 
       if (option === "myParticipation") {
         response = await axios.get(
-          `http://3.38.125.151/memorialHall/my-participation`,
+          `${BACKEND_URL}/memorialHall/my-participation`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -32,7 +34,7 @@ const MemorialHallList = () => {
         setTotalPages(1); // Assuming all participated halls are shown on one page
       } else {
         response = await axios.get(
-          `http://3.38.125.151/memorialHall?page=${page}&q=${keyword}`
+          `${BACKEND_URL}/memorialHall?page=${page}&q=${keyword}`
         );
         setListItems(response.data.results);
         setTotalPages(Math.ceil(response.data.count / 6)); // Assuming 6 items per page
@@ -80,7 +82,7 @@ const MemorialHallList = () => {
           <H.TitleContent>
             <img
               id="flower"
-              src={`${process.env.PUBLIC_URL}/img/flower.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/flower.svg`}
               alt="flower"
             />
             <H.Title>온라인 헌화 추모관 목록</H.Title>
@@ -89,7 +91,7 @@ const MemorialHallList = () => {
             <H.Input>
               <img
                 id="Search"
-                src={`${process.env.PUBLIC_URL}/img/Search.svg`}
+                src={`${process.env.PUBLIC_URL}/static/img/Search.svg`}
                 alt="Search"
               />
               <form onSubmit={handleSearchSubmit}>

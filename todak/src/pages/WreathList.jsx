@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "../css/StyledWreathList.module.css";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 function WreathList() {
   const [wreaths, setWreaths] = useState([]);
 
@@ -9,7 +11,7 @@ function WreathList() {
     const fetchWreaths = async () => {
       try {
         const response = await axios.get(
-          "http://3.38.125.151/wreath/my-wreaths/",
+          `${BACKEND_URL}/wreath/my-wreaths/`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,
