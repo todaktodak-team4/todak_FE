@@ -1,5 +1,7 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+// App.js
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "./App.css";
 import Main from "./pages/Main";
 import * as A from "./css/StyledApp";
 import PlantTreeStepOne from "./pages/PlantTree_stepOne";
@@ -31,19 +33,19 @@ import ModifyInfo from "./pages/ModifyInfo";
 import LaySuccessModal from "./pages/LaySuccessModal";
 import WreathList from "./pages/WreathList";
 import WrittenMessage from "./pages/WrittenMessage";
+import HelpModal from "./pages/HelpModal";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const accessToken = localStorage.getItem("access_token");
   const refreshToken = localStorage.getItem("refresh_token");
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
   useEffect(() => {
     setIsLoggedIn(!!accessToken && !!refreshToken);
-  }, []);
+  }, [accessToken, refreshToken]);
 
   const handleLogout = async () => {
-    const token = localStorage.getItem("access_token");
-    const refreshToken = localStorage.getItem("refresh_token");
-
     try {
       const response = await fetch("http://127.0.0.1:8000/accounts/logout/", {
         method: "POST",
@@ -60,15 +62,16 @@ function App() {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         setIsLoggedIn(false); // 로그인 상태 업데이트
-        alert("로그아웃 성공");
-        window.location.reload();
+        alert("로그아웃 되었습니다.");
+        navigate("/login"); // 로그아웃 후 로그인 페이지로 리다이렉트
       } else {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        alert("토큰이 완료되어 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+        alert(
+          "로그인한지 30분이 지나 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+        );
         setIsLoggedIn(false);
-
-        console.error("로그아웃 실패:", response.statusText);
+        navigate("/login"); // 로그아웃 후 로그인 페이지로 리다이렉트
       }
     } catch (error) {
       console.error("로그아웃 중 문제가 발생했습니다:", error);
@@ -76,7 +79,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <div>
       <A.Header>
         <A.Logo>
           <Link to="/">
@@ -110,7 +113,7 @@ function App() {
           )}
         </A.Privacy>
       </A.Header>
-      <Nav></Nav>
+      <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/signup1" element={<Signup1 />} />
@@ -127,25 +130,25 @@ function App() {
         <Route path="/writeLetter" element={<WriteLetter />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/success" element={<SuccessModal />} />
+        <Route path="/helpModal" element={<HelpModal />} />
         <Route path="/memorialHall/:postId?" element={<MemorialHall />} />
         <Route path="/memorialHallList" element={<MemorialHallList />} />
         <Route
           path="memorialHall/:postId/access"
           element={<LockedMemorialHall />}
         />
-        <Route path="layCheckout" element={<LayCheckout />} />
+        <Route path="/layCheckout" element={<LayCheckout />} />
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
         <Route path="/sentComplete" element={<SentComplete />} />
-        <Route path="/mypage" element={<Mypage />} />{" "}
+        <Route path="/mypage" element={<Mypage />} />
         <Route path="/talkModal" element={<TalkModal />} />
         <Route path="/modifyInfo" element={<ModifyInfo />} />
         <Route path="/wreathList" element={<WreathList />} />
         <Route path="/writtenMessage" element={<WrittenMessage />} />
         <Route path="/laysuccess" element={<LaySuccessModal />} />
-        <Route path="/letterDetail" element={<LetterDetail />}></Route>
+        <Route path="/letterDetail" element={<LetterDetail />} />
       </Routes>
-
       <A.Footer>
         <A.Footer1>
           <img
@@ -183,7 +186,7 @@ function App() {
           </p>
         </A.Footer2>
       </A.Footer>
-    </BrowserRouter>
+    </div>
   );
 }
 

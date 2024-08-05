@@ -68,7 +68,7 @@ function PlantTreeStepTwo() {
   const isBlurred = (flower) => selectedFlower && selectedFlower !== flower;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
         className={styles.conImg}
         src="/img/plantTree-bg.png"

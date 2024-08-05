@@ -73,7 +73,7 @@ function UploadImg({ onClose, treeId, onShowAlbum }) {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <input
         type="file"
         id="upload"

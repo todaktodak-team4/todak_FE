@@ -41,7 +41,7 @@ function WreathList() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
         src="/img/mypageBg.png"
         alt="bgimg"

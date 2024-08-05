@@ -270,7 +270,7 @@ function TalkModal({ onClose, myname }) {
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} ${styles.fadeIn}`}>
         <div className={styles.innerContainer}>
           <div className={styles.chatting}>
             <div

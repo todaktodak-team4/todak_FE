@@ -1,3 +1,5 @@
+// LayFlower.js
+
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -255,6 +257,7 @@ const LayFlower = () => {
           <LayCheckout
             donation={donation === "custom" ? customDonation : donation}
             name={name}
+            hall={hall} // Pass hall to LayCheckout
             onClose={closePaymentModal}
           />
         )}

@@ -74,7 +74,7 @@ function DeliveryProduct() {
   return (
     <>
       <div
-        className={styles.container}
+        className={`${styles.container} ${styles.fadeIn}`}
         style={{
           backgroundImage: `url("/img/plantTree-bg.png")`,
           backgroundRepeat: "no-repeat",

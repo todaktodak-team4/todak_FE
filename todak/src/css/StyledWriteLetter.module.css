@@ -1,6 +1,25 @@
 @import url("https://hangeul.pstatic.net/hangeul_static/css/NanumBuJangNimNunCiCe.css");
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
-
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToBottom {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(65%);
+    opacity: 1;
+  }
+}
 .container {
   z-index: 10;
   position: absolute;
@@ -28,6 +47,7 @@
   padding-left: 120px;
   line-height: 60px;
   z-index: 50;
+  animation: slideInFromBottom 0.5s ease-out forwards;
 }
 .letterBack {
   position: relative;
@@ -117,6 +137,7 @@
 .mainLetterSent {
   transform: translateY(700px);
   transition: transform 1s ease-in-out;
+  animation: slideOutToBottom 0.5s ease-out forwards;
 }
 .fadeOut {
   opacity: 0;

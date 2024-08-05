@@ -27,7 +27,7 @@ function WrittenMessage() {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
       <img
         src="/img/mypageBg.png"
         alt="bgimg"
@@ -45,6 +45,7 @@ function WrittenMessage() {
             position: "relative",
             left: "15px",
             fontWeight: "400",
+            color: "#627b00",
           }}
         >
           *글에 마우스를 가져다대면 작성한 추모글의 전체 내용을 볼 수 있습니다.
