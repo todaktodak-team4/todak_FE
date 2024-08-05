@@ -37,6 +37,8 @@ import WreathList from "./pages/WreathList";
 import WrittenMessage from "./pages/WrittenMessage";
 import HelpModal from "./pages/HelpModal";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const accessToken = localStorage.getItem("access_token");
@@ -49,7 +51,7 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://3.38.125.151/api/accounts/logout/", {
+      const response = await fetch(`${BACKEND_URL}/accounts/logout/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,14 +89,14 @@ function App() {
           <Link to="/">
             <img
               id="Logo"
-              src={`${process.env.PUBLIC_URL}/img/TodakLogo2.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/TodakLogo2.svg`}
               alt="Logo"
             />
           </Link>
           <Link to="/">
             <img
               id="LogoMessage"
-              src={`${process.env.PUBLIC_URL}/img/LogoMessage.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/LogoMessage.svg`}
               alt="LogoMessage"
             />
           </Link>
@@ -156,22 +158,22 @@ function App() {
         <A.Footer1>
           <img
             id="Logo"
-            src={`${process.env.PUBLIC_URL}/img/TodakLogo3.svg`}
+            src={`${process.env.PUBLIC_URL}/static/img/TodakLogo3.svg`}
             alt="Logo"
           />
           <img
             id="LogoMessage"
-            src={`${process.env.PUBLIC_URL}/img/LogoMessage2.svg`}
+            src={`${process.env.PUBLIC_URL}/static/img/LogoMessage2.svg`}
             alt="LogoMessage"
           />
           <p id="ment11">
-            <img id="img" src={`${process.env.PUBLIC_URL}/img/footer1.svg`} />
+            <img id="img" src={`${process.env.PUBLIC_URL}/static/img/footer1.svg`} />
             서울특별시 성북구 화랑로13길 60
             <br />
             60 Hwarang-ro 13-gil, Seongbuk-gu, Seoul
           </p>
           <p id="ment13">
-            <img id="img" src={`${process.env.PUBLIC_URL}/img/footer2.svg`} />
+            <img id="img" src={`${process.env.PUBLIC_URL}/static/img/footer2.svg`} />
             멋쟁이사자처럼 동덕여자대학교 12기 팀 우리사이
           </p>
         </A.Footer1>
