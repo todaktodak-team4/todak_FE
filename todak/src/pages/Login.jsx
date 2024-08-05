@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import * as S from "../css/StyledLogin";
 import axios from "axios";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
 const Login = () => {
   const [username, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +15,7 @@ const Login = () => {
     try {
       // Make the POST request to the login endpoint
       const response = await axios.post(
-        "http://3.38.125.151/api/accounts/login/",
+        `${BACKEND_URL}/accounts/login/`,
         {
           username: username,
           password: password,
@@ -50,7 +52,7 @@ const Login = () => {
       <S.Container>
         <img
           id="Img"
-          src={`${process.env.PUBLIC_URL}/img/TodakLogo5.svg`}
+          src={`${process.env.PUBLIC_URL}/static/img/TodakLogo5.svg`}
           alt="Img"
         />
         <S.Title>로그인</S.Title>

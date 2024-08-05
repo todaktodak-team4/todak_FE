@@ -68,7 +68,7 @@ const CompleteSignup = () => {
     <Contaianer>
       <img
         id="logo"
-        src={`${process.env.PUBLIC_URL}/img/TodakLogo4.svg`}
+        src={`${process.env.PUBLIC_URL}/static/img/TodakLogo4.svg`}
         alt="logo"
       />
       <p id="message">회원가입을 완료했습니다.</p>

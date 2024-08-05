@@ -3,6 +3,9 @@ import * as H from "../css/StyledMemorialHallList";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+
+
 const ContentItem = ({
   postId,
   img,
@@ -14,7 +17,7 @@ const ContentItem = ({
   isPrivate, // private 상태 추가
 }) => {
   const navigate = useNavigate();
-  const defaultImg = `${process.env.PUBLIC_URL}/img/ListContentImg.png`;
+  const defaultImg = `${process.env.PUBLIC_URL}/static/img/ListContentImg.png`;
   const token = localStorage.getItem("access_token");
 
   const storedStatus = localStorage.getItem(`status-${postId}`);
@@ -40,7 +43,7 @@ const ContentItem = ({
       const fetchStatus = async () => {
         try {
           const response = await axios.get(
-            `http://3.38.125.151/memorialHall/${postId}/participate`,
+            `${BACKEND_URL}/memorialHall/${postId}/participate`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -82,7 +85,7 @@ const ContentItem = ({
       let newStatus;
       if (status === "participated") {
         await axios.post(
-          `http://3.38.125.151/memorialHall/${postId}/unparticipate`,
+          `${BACKEND_URL}/memorialHall/${postId}/unparticipate`,
           { status: "unparticipated" },
           {
             headers: {
@@ -94,7 +97,7 @@ const ContentItem = ({
         newStatus = "unparticipated";
       } else {
         await axios.post(
-          `http://3.38.125.151/memorialHall/${postId}/participate`,
+          `${BACKEND_URL}/memorialHall/${postId}/participate`,
           { status: "participated" },
           {
             headers: {

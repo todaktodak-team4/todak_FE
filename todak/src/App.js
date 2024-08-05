@@ -84,8 +84,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <React.StrictMode>
+   
     <div>
       <A.Header>
         <A.Logo>
@@ -195,8 +194,7 @@ function App() {
         </A.Footer2>
       </A.Footer>
     </div>
-    </React.StrictMode>
-    </BrowserRouter>
+   
   );
 }
 
