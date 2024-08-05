@@ -27,7 +27,7 @@ const Main = () => {
     const validateToken = async () => {
       if (token) {
         try {
-          const response = await fetch("http://3.38.125.151/token/verify/", {
+          const response = await fetch("http://3.38.125.151/api/token/verify/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const Main = () => {
     if (token) {
       try {
         const response = await fetch(
-          "http://3.38.125.151/accounts/api/get-user-id-from-token",
+          "http://3.38.125.151/api/accounts/api/get-user-id-from-token",
           {
             method: "GET",
             headers: {
@@ -75,7 +75,7 @@ const Main = () => {
           console.log("User ID:", userId);
 
           const treeResponse = await fetch(
-            `http://3.38.125.151/rememberTree/user/${userId}/`,
+            `http://3.38.125.151/api/rememberTree/user/${userId}/`,
             {
               method: "GET",
               headers: {

@@ -49,7 +49,7 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/accounts/logout/", {
+      const response = await fetch("http://3.38.125.151/api/accounts/logout/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -13,7 +13,7 @@ const Login = () => {
     try {
       // Make the POST request to the login endpoint
       const response = await axios.post(
-        "http://3.38.125.151/accounts/login/",
+        "http://3.38.125.151/api/accounts/login/",
         {
           username: username,
           password: password,
