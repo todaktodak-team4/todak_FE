@@ -7,7 +7,7 @@ import styles from "../css/StyledDeliveryInfo.module.css"
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 
-const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+const BACKEND_URL = "http://3.38.125.151";
 
 const Signup2 = () => {
   const navigate = useNavigate();

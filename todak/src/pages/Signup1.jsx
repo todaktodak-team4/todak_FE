@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as S from "../css/StyledSignup";
 import axios from "axios";
 
-const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+const BACKEND_URL = "http://3.38.125.151";
 
 const Signup1 = () => {
   const navigate = useNavigate();
@@ -66,11 +66,11 @@ const Signup1 = () => {
           }
           break;
         case "password":
-          const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
+          const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
           if (!value) {
             error = "비밀번호를 입력해주세요.";
           } else if (!passwordRegex.test(value)) {
-            error = "비밀번호는 최소 12자 이상이며, 영문, 숫자, 특수문자를 포함해야 합니다.";
+            error = "비밀번호는 최소 8자 이상이며, 영문, 숫자, 특수문자를 포함해야 합니다.";
           } else {
             success = "사용 가능한 비밀번호입니다.";
           }
