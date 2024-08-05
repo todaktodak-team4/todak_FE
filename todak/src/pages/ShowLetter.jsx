@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledShowLetter.module.css";
 import LetterDetail from "./LetterDetail";
 
-const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+const BACKEND_URL = "http://3.38.125.151";
 
 function ShowLetter({ onClose, treeId }) {
   const [letters, setLetters] = useState([]);

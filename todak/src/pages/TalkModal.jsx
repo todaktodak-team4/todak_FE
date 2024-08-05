@@ -3,7 +3,7 @@ import styles from "../css/StyledTalkModal.module.css";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
-const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+const BACKEND_URL = "http://3.38.125.151";
 
 function TalkModal({ onClose, myname }) {
   const [getAnswer, setAnswer] = useState("");

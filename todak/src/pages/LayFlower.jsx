@@ -7,7 +7,7 @@ import * as S from "../css/StyledLayFlower";
 import Nav from "./Nav";
 import LayCheckout from "./LayCheckout";
 
-const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+const BACKEND_URL = "http://3.38.125.151";
 
 const LayFlower = () => {
   const textareaRef = useRef(null);
