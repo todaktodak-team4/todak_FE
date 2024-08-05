@@ -132,7 +132,7 @@ const Signup1 = () => {
 
     // 사용자 등록 API 호출
     axios
-      .post("http://127.0.0.1:8000/accounts/register/step1/", requestData)
+      .post("http://3.38.125.151/accounts/register/step1/", requestData)
       .then((response) => {
         console.log("Step 1 completed. Proceed to step 2.", response.data);
         const receivedUserId = response.data.userId;

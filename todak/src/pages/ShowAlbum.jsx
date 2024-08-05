@@ -14,7 +14,7 @@ function ShowAlbum({ onClose, treeId }) {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/rememberTree/${treeId}/photos/`,
+        `http://3.38.125.151/rememberTree/${treeId}/photos/`,
         {
           method: "GET",
           headers: {
@@ -64,7 +64,7 @@ function ShowAlbum({ onClose, treeId }) {
 
   const renderAlbumItem = (item, index) => {
     const imageUrl = item.rememberPhoto
-      ? `http://127.0.0.1:8000${item.rememberPhoto}`
+      ? `http://3.38.125.151${item.rememberPhoto}`
       : "/img/default.png";
 
     switch (index % 4) {

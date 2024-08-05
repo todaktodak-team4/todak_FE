@@ -33,7 +33,7 @@ function ModifyInfo() {
       const fetchUserInfo = async () => {
         try {
           const response = await fetch(
-            "http://127.0.0.1:8000/accounts/api/get-user-info-from-token/",
+            "http://3.38.125.151/accounts/api/get-user-info-from-token/",
             {
               method: "GET",
               headers: {

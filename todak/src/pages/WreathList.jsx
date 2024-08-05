@@ -9,7 +9,7 @@ function WreathList() {
     const fetchWreaths = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/wreath/my-wreaths/",
+          "http://3.38.125.151/wreath/my-wreaths/",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,
