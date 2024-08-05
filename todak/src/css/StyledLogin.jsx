@@ -37,7 +37,7 @@ export const Container = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: url(${process.env.PUBLIC_URL}/img/Background_last.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/Background_last.png);
   background-size: cover;
   background-position: center;
   flex-direction: column;
