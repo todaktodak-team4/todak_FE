@@ -12,7 +12,7 @@ const Nav = () => {
   const goToRemeberTree = async () => {
     if (token) {
       try {
-        const response = await fetch('http://127.0.0.1:8000/accounts/api/get-user-id-from-token', {
+        const response = await fetch('http://3.38.125.151/accounts/api/get-user-id-from-token', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`, // 토큰을 헤더에 추가
@@ -26,7 +26,7 @@ const Nav = () => {
           // 사용자 ID를 상태에 저장하거나 필요한 작업 수행
           console.log('User ID:', userId);
 
-          const treeResponse = await fetch(`http://127.0.0.1:8000/rememberTree/user/${userId}/`, {
+          const treeResponse = await fetch(`http://3.38.125.151/rememberTree/user/${userId}/`, {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`, // 토큰을 헤더에 추가

@@ -27,7 +27,7 @@ function PlantTreeStepTwo() {
 
     try {
       console.log(payload);
-      const response = await fetch("http://127.0.0.1:8000/rememberTree/", {
+      const response = await fetch("http://3.38.125.151/rememberTree/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -132,7 +132,7 @@ const Signup2 = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/accounts/register/step2/",
+        "http://3.38.125.151/accounts/register/step2/",
         dataToSend,
         {
           headers: {

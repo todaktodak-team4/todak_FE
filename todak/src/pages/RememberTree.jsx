@@ -39,7 +39,7 @@ function RememberTree() {
   const refreshAccessToken = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/accounts/token/refresh/",
+        "http://3.38.125.151/accounts/token/refresh/",
         {
           method: "POST",
           headers: {
@@ -82,7 +82,7 @@ function RememberTree() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/rememberTree/", {
+        const response = await fetch("http://3.38.125.151/rememberTree/", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -94,7 +94,7 @@ function RememberTree() {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             const retryResponse = await fetch(
-              "http://127.0.0.1:8000/rememberTree/",
+              "http://3.38.125.151/rememberTree/",
               {
                 method: "GET",
                 headers: {
@@ -128,7 +128,7 @@ function RememberTree() {
     const fetchUserId = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/accounts/api/get-user-id-from-token/",
+          "http://3.38.125.151/accounts/api/get-user-id-from-token/",
           {
             method: "GET",
             headers: {
@@ -142,7 +142,7 @@ function RememberTree() {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             const retryResponse = await fetch(
-              "http://127.0.0.1:8000/accounts/api/get-user-id-from-token/",
+              "http://3.38.125.151/accounts/api/get-user-id-from-token/",
               {
                 method: "GET",
                 headers: {
