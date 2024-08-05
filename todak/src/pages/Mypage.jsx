@@ -97,7 +97,7 @@ function Mypage() {
     const fetchTodayAnswers = async () => {
       try {
         const response = await fetch(
-          `${BACKEND_URL}/daily-question/today-answers/`,
+          `${BACKEND_URL}/api/daily-question/today-answers/`,
           {
             method: "GET",
             headers: {

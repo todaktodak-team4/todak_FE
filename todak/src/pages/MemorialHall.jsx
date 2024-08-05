@@ -43,7 +43,7 @@ const MemorialHall = () => {
     const fetchData = async (page) => {
       try {
         const response = await axios.get(
-          `/memorialHall/${postId}/message?page=${page}`
+          `${BACKEND_URL}/api/memorialHall/${postId}/message?page=${page}`
         );
         console.log("추모글 조회 응답 데이터:", response.data);
         setMessages(response.data.results);
@@ -63,7 +63,7 @@ const MemorialHall = () => {
   useEffect(() => {
     const fetchDatas = async () => {
       try {
-        const response = await axios.get(`/api/memorialHall/${postId}/wreath`);
+        const response = await axios.get(`${BACKEND_URL}/api/memorialHall/${postId}/wreath`);
         console.log("헌화한마디 응답 데이터 이건뭐지:", response.data);
         setWreaths(response.data);
       } catch (error) {
@@ -75,7 +75,7 @@ const MemorialHall = () => {
 
   useEffect(() => {
     axios
-      .get(`/memorialHall/${postId}`)
+      .get(`${BACKEND_URL}/api/memorialHall/${postId}`)
       .then((response) => {
         setPost(response.data);
         console.log("온라인 추모관 디테일 응답:", response.data);
@@ -91,7 +91,7 @@ const MemorialHall = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `/memorialHall/${postId}/message?page=${page}`
+          `${BACKEND_URL}/api/memorialHall/${postId}/message?page=${page}`
         );
         setMessages(response.data.results);
         setTotalPages(Math.ceil(response.data.count / 3));
@@ -106,7 +106,7 @@ const MemorialHall = () => {
 
   useEffect(() => {
     axios
-      .get(`/memorialHall/${postId}`)
+      .get(`${BACKEND_URL}/api/memorialHall/${postId}`)
       .then((response) => {
         setPost(response.data);
         console.log("온라인 추모관 디테일 응답:", response.data);
@@ -148,7 +148,7 @@ const MemorialHall = () => {
   const handlePostBtn = async () => {
     try {
       const response = await axios.post(
-        `/memorialHall/${postId}/message`,
+        `${BACKEND_URL}/api/memorialHall/${postId}/message`,
         { content, hall: postId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

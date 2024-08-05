@@ -88,7 +88,7 @@ function TalkModal({ onClose, myname }) {
         //이미 답을 했을 때 자신이 한 답과 해당 질문 가져오기
         if (response.status === 404) {
           response = await fetch(
-            `${BACKEND_URL}/daily-question/today-answers/`,
+            `${BACKEND_URL}/api/daily-question/today-answers/`,
             {
               method: "GET",
               headers: {
