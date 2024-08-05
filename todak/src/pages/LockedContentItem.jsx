@@ -19,10 +19,10 @@ const ContentItem = ({
   const storedToken = localStorage.getItem("access_token");
 
   const [status, setStatus] = useState(initialStatus || "unparticipated");
-  
+
   // 추모관 목록으로 이동
   const goToMemorialHallList = () => {
-    navigate('/memorialHallList'); 
+    navigate("/memorialHallList");
   };
 
   // 날짜 포맷팅 함수
@@ -47,7 +47,9 @@ const ContentItem = ({
             },
           }
         );
-        const newStatus = response.data.is_participated ? "participated" : "unparticipated";
+        const newStatus = response.data.is_participated
+          ? "participated"
+          : "unparticipated";
         setStatus(newStatus);
       } catch (error) {
         console.error("Error fetching status:", error);
@@ -69,31 +71,29 @@ const ContentItem = ({
   // Handle participation toggle
   const handleParticipation = async () => {
     if (status === "participated") {
-      const confirmCancel = window.confirm("정말로 참여를 취소하시겠습니까? \n비공개 추모관의 경우 참여를 취소할 경우 해당 링크를 통해서만 다시 참여하기가 가능합니다.");
+      const confirmCancel = window.confirm(
+        "정말로 참여를 취소하시겠습니까? \n비공개 추모관의 경우 참여를 취소하면 해당 링크를 통해서만 다시 참여하기가 가능합니다."
+      );
       if (!confirmCancel) {
         return;
       }
     }
 
-
     try {
       let newStatus;
       const body = isPrivate ? { token } : {};
-      const url = `http://127.0.0.1:8000/memorialHall/${postId}/${status === "participated" ? "unparticipate" : "participate"}`;
+      const url = `http://127.0.0.1:8000/memorialHall/${postId}/${
+        status === "participated" ? "unparticipate" : "participate"
+      }`;
 
-      await axios.post(
-        url,
-        body,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${storedToken}`,
-          },
-        }
-      );
+      await axios.post(url, body, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${storedToken}`,
+        },
+      });
       newStatus = status === "participated" ? "unparticipated" : "participated";
       setStatus(newStatus);
-      
     } catch (error) {
       console.error("Error updating participation status:", error);
       if (error.response && error.response.status === 401) {

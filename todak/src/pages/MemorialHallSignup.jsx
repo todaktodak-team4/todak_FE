@@ -18,11 +18,10 @@ const MemorialHallSignup = () => {
   const { name, info, date, visibility, thumbnail } = inputs;
   const token = localStorage.getItem("access_token"); // Use 'access_token' for JWT
 
-
   const onChange = (e) => {
     const { name, value, type, checked } = e.target;
-  
-    console.log("변화됨:",e.target);
+
+    console.log("변화됨:", e.target);
     if (type === "radio") {
       setInputs({
         ...inputs,
@@ -52,32 +51,38 @@ const MemorialHallSignup = () => {
       if (visibility === "public") {
         formData.append("public", true);
         formData.append("private", false);
-      }else{
+      } else {
         formData.append("private", true);
         formData.append("public", false);
-      }  
+      }
 
       if (thumbnail) {
         formData.append("thumbnail", thumbnail);
       }
 
-      const response = await axios.post("http://127.0.0.1:8000/memorialHall", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`, // Use 'Bearer' for JWT
-        },
-      });
+      const response = await axios.post(
+        "http://127.0.0.1:8000/memorialHall",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`, // Use 'Bearer' for JWT
+          },
+        }
+      );
 
       if (response.status === 201) {
         alert("추모관 신청이 완료되었습니다.");
-        navigate(`/`);
+        navigate(`/memorialHallList`);
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Unauthorized, possibly expired token
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        alert("30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+        alert(
+          "30분 동안 활동이 없어서 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+        );
         navigate("/login");
       } else {
         console.error("Error creating new post:", error);
@@ -89,7 +94,6 @@ const MemorialHallSignup = () => {
   return (
     <S.Body>
       <S.Container>
-        <Nav />
         <S.Content>
           <img
             id="flower"
