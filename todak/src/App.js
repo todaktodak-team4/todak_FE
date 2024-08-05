@@ -1,5 +1,5 @@
 // App.js
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
 import Main from "./pages/Main";
@@ -83,6 +83,8 @@ function App() {
   };
 
   return (
+    <BrowserRouter>
+      <React.StrictMode>
     <div>
       <A.Header>
         <A.Logo>
@@ -192,6 +194,8 @@ function App() {
         </A.Footer2>
       </A.Footer>
     </div>
+    </React.StrictMode>
+    </BrowserRouter>
   );
 }
 
