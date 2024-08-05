@@ -28,7 +28,7 @@ function TalkModal({ onClose, myname }) {
   async function refreshAccessToken() {
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/accounts/token/refresh/",
+        "http://3.38.125.151/accounts/token/refresh/",
         {
           method: "POST",
           headers: {
@@ -57,7 +57,7 @@ function TalkModal({ onClose, myname }) {
     const fetchData = async () => {
       try {
         let response = await fetch(
-          "http://127.0.0.1:8000/rememberTree/daily-question/",
+          "http://3.38.125.151/rememberTree/daily-question/",
           {
             method: "GET",
             headers: {
@@ -70,7 +70,7 @@ function TalkModal({ onClose, myname }) {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             response = await fetch(
-              "http://127.0.0.1:8000/rememberTree/daily-question/",
+              "http://3.38.125.151/rememberTree/daily-question/",
               {
                 method: "GET",
                 headers: {
@@ -86,7 +86,7 @@ function TalkModal({ onClose, myname }) {
         //이미 답을 했을 때 자신이 한 답과 해당 질문 가져오기
         if (response.status === 404) {
           response = await fetch(
-            "http://127.0.0.1:8000/daily-question/today-answers/",
+            "http://3.38.125.151/daily-question/today-answers/",
             {
               method: "GET",
               headers: {
@@ -165,7 +165,7 @@ function TalkModal({ onClose, myname }) {
 
       try {
         let response = await fetch(
-          "http://127.0.0.1:8000/rememberTree/daily-question/",
+          "http://3.38.125.151/rememberTree/daily-question/",
           {
             method: "POST",
             headers: {
@@ -181,7 +181,7 @@ function TalkModal({ onClose, myname }) {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             response = await fetch(
-              "http://127.0.0.1:8000/rememberTree/daily-question/",
+              "http://3.38.125.151/rememberTree/daily-question/",
               {
                 method: "POST",
                 headers: {

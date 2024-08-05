@@ -13,7 +13,7 @@ function Mypage() {
   const [userId, setUserId] = useState(null);
   const [todayAnswers, setTodayAnswers] = useState(null);
   const [treeData, setTreeData] = useState(null);
-  const baseUrl = "http://127.0.0.1:8000";
+  const baseUrl = "http://3.38.125.151";
 
   // Set the profile image URL conditionally
   const imageUrl = image
@@ -39,7 +39,7 @@ function Mypage() {
     const fetchUserInfo = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/accounts/api/get-user-info-from-token/",
+          "http://3.38.125.151/accounts/api/get-user-info-from-token/",
           {
             method: "GET",
             headers: {
@@ -70,7 +70,7 @@ function Mypage() {
 
         if (result.userId) {
           const treeResponse = await fetch(
-            `http://127.0.0.1:8000/rememberTree/user/${result.userId}/`,
+            `http://3.38.125.151/rememberTree/user/${result.userId}/`,
             {
               method: "GET",
               headers: {
@@ -95,7 +95,7 @@ function Mypage() {
     const fetchTodayAnswers = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/daily-question/today-answers/",
+          "http://3.38.125.151/daily-question/today-answers/",
           {
             method: "GET",
             headers: {
@@ -132,7 +132,7 @@ function Mypage() {
       formData.append("profile", file);
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/accounts/api/update-profile-image/",
+          "http://3.38.125.151/accounts/api/update-profile-image/",
           {
             method: "PUT",
             headers: {

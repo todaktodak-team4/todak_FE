@@ -32,7 +32,7 @@ function ModifyInfo() {
     if (token) {
       const fetchUserInfo = async () => {
         try {
-          const response = await fetch("http://127.0.0.1:8000/accounts/api/get-user-info-from-token/", {
+          const response = await fetch("http://3.38.125.151/accounts/api/get-user-info-from-token/", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -152,7 +152,7 @@ function ModifyInfo() {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/accounts/profile/update/", {
+      const response = await fetch("http://3.38.125.151/accounts/profile/update/", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

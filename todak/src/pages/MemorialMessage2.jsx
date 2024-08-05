@@ -24,7 +24,7 @@ const MemorialMessage2 = ({
 
   console.log("프로필:", profile);
 
-  const baseUrl = 'http://127.0.0.1:8000';
+  const baseUrl = 'http://3.38.125.151';
   // Set the profile image URL conditionally
   const imageUrl = profile
     ? `${baseUrl}${profile}`  // Profile image from server
@@ -34,7 +34,7 @@ const MemorialMessage2 = ({
 
   // API 요청 함수
   const sendRequest = async (action, setter) => {
-    const baseUrl = `http://127.0.0.1:8000/memorialHall/${hall}`;
+    const baseUrl = `http://3.38.125.151/memorialHall/${hall}`;
     const url = content
       ? `${baseUrl}/message/${messageId}/${action}`
       : `${baseUrl}/wreath/${messageId}/${action}`;
@@ -61,7 +61,7 @@ const MemorialMessage2 = ({
   useEffect(() => {
     const fetchInitialCounts = async () => {
       try {
-        const baseUrl = `http://127.0.0.1:8000/memorialHall/${hall}`;
+        const baseUrl = `http://3.38.125.151/memorialHall/${hall}`;
         const endpoints = [
           { action: "todak", setter: setTodakCount },
           { action: "sympathize", setter: setSympathizeCount },

@@ -17,7 +17,7 @@ const MemorialMessage = ({
 
   console.log("프로필:", profile);
 
-  const baseUrl = 'http://127.0.0.1:8000';
+  const baseUrl = 'http://3.38.125.151';
   // Set the profile image URL conditionally
   const imageUrl = profile
     ? `${baseUrl}${profile}`  // Profile image from server

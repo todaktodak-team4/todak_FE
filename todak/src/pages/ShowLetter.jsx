@@ -18,7 +18,7 @@ function ShowLetter({ onClose, treeId }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/rememberTree/${treeId}/letters/`,
+          `http://3.38.125.151/rememberTree/${treeId}/letters/`,
           {
             method: "GET",
             headers: {
