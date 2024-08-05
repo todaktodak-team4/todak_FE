@@ -63,7 +63,7 @@ const MemorialHall = () => {
   useEffect(() => {
     const fetchDatas = async () => {
       try {
-        const response = await axios.get(`/memorialHall/${postId}/wreath`);
+        const response = await axios.get(`/api/memorialHall/${postId}/wreath`);
         console.log("헌화한마디 응답 데이터 이건뭐지:", response.data);
         setWreaths(response.data);
       } catch (error) {

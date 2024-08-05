@@ -167,7 +167,7 @@ function TalkModal({ onClose, myname }) {
 
       try {
         let response = await fetch(
-          `${BACKEND_URL}/rememberTree/daily-question/`,
+          `${BACKEND_URL}/api/rememberTree/daily-question/`,
           {
             method: "POST",
             headers: {
