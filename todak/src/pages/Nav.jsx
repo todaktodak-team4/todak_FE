@@ -32,7 +32,7 @@ const Nav = () => {
           console.log("User ID:", userId);
 
           const treeResponse = await fetch(
-            `${BACKEND_URL}/rememberTree/user/${userId}/`,
+            `${BACKEND_URL}/api/rememberTree/user/${userId}/`,
             {
               method: "GET",
               headers: {

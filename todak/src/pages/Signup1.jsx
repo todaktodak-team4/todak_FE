@@ -164,7 +164,7 @@ const Signup1 = () => {
           <S.Line>
             <img
               id="Logo"
-              src={`${process.env.PUBLIC_URL}/static/img/Line.png`}
+              src={`${process.env.PUBLIC_URL}/static/img/line.png`}
               alt="Logo"
             />
           </S.Line>

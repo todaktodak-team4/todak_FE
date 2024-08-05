@@ -64,7 +64,7 @@ const MemorialHallSignup = () => {
       }
 
       const response = await axios.post(
-        `${BACKEND_URL}/memorialHall`,
+        `${BACKEND_URL}/api/memorialHall`,
         formData,
         {
           headers: {

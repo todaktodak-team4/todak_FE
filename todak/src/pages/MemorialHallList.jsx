@@ -22,7 +22,7 @@ const MemorialHallList = () => {
 
       if (option === "myParticipation") {
         response = await axios.get(
-          `${BACKEND_URL}/memorialHall/my-participation`,
+          `${BACKEND_URL}/api/memorialHall/my-participation`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -34,7 +34,7 @@ const MemorialHallList = () => {
         setTotalPages(1); // Assuming all participated halls are shown on one page
       } else {
         response = await axios.get(
-          `${BACKEND_URL}/memorialHall?page=${page}&q=${keyword}`
+          `${BACKEND_URL}/api/memorialHall?page=${page}&q=${keyword}`
         );
         setListItems(response.data.results);
         setTotalPages(Math.ceil(response.data.count / 6)); // Assuming 6 items per page

@@ -36,7 +36,7 @@ const MemorialMessage2 = ({
 
   // API 요청 함수
   const sendRequest = async (action, setter) => {
-    const baseUrl = `${BACKEND_URL}/memorialHall/${hall}`;
+    const baseUrl = `${BACKEND_URL}/api/memorialHall/${hall}`;
     const url = content
       ? `${baseUrl}/message/${messageId}/${action}`
       : `${baseUrl}/wreath/${messageId}/${action}`;
@@ -63,7 +63,7 @@ const MemorialMessage2 = ({
   useEffect(() => {
     const fetchInitialCounts = async () => {
       try {
-        const baseUrl = `${BACKEND_URL}/memorialHall/${hall}`;
+        const baseUrl = `${BACKEND_URL}/api/memorialHall/${hall}`;
         const endpoints = [
           { action: "todak", setter: setTodakCount },
           { action: "sympathize", setter: setSympathizeCount },

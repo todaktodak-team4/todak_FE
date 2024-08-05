@@ -171,9 +171,9 @@ const MemorialHall = () => {
 
     if (post) {
       if (post.private) {
-        linkToCopy = `${BACKEND_URL}/memorialHall/${postId}/access?token=${halltoken}`;
+        linkToCopy = `${BACKEND_URL}/api/memorialHall/${postId}/access?token=${halltoken}`;
       } else {
-        linkToCopy = `${BACKEND_URL}/memorialHall/${postId}`;
+        linkToCopy = `${BACKEND_URL}/api/memorialHall/${postId}`;
       }
     }
 

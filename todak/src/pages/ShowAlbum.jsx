@@ -16,7 +16,7 @@ function ShowAlbum({ onClose, treeId }) {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `${BACKEND_URL}/rememberTree/${treeId}/photos/`,
+        `${BACKEND_URL}/api/rememberTree/${treeId}/photos/`,
         {
           method: "GET",
           headers: {

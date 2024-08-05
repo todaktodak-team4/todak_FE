@@ -29,7 +29,7 @@ function PlantTreeStepTwo() {
 
     try {
       console.log(payload);
-      const response = await fetch(`${BACKEND_URL}/rememberTree/`, {
+      const response = await fetch(`${BACKEND_URL}/api/rememberTree/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -59,7 +59,7 @@ function TalkModal({ onClose, myname }) {
     const fetchData = async () => {
       try {
         let response = await fetch(
-          `${BACKEND_URL}/rememberTree/daily-question/`,
+          `${BACKEND_URL}/api/rememberTree/daily-question/`,
           {
             method: "GET",
             headers: {
@@ -72,7 +72,7 @@ function TalkModal({ onClose, myname }) {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             response = await fetch(
-              `${BACKEND_URL}/rememberTree/daily-question/`,
+              `${BACKEND_URL}/api/rememberTree/daily-question/`,
               {
                 method: "GET",
                 headers: {
@@ -183,7 +183,7 @@ function TalkModal({ onClose, myname }) {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             response = await fetch(
-              `${BACKEND_URL}/rememberTree/daily-question/`,
+              `${BACKEND_URL}/api/rememberTree/daily-question/`,
               {
                 method: "POST",
                 headers: {

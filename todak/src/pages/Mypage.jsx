@@ -72,7 +72,7 @@ function Mypage() {
 
         if (result.userId) {
           const treeResponse = await fetch(
-            `${BACKEND_URL}/rememberTree/user/${result.userId}/`,
+            `${BACKEND_URL}/api/rememberTree/user/${result.userId}/`,
             {
               method: "GET",
               headers: {

@@ -38,7 +38,7 @@ function UploadImg({ onClose, treeId, onShowAlbum }) {
 
       try {
         const response = await fetch(
-          `${BACKEND_URL}/rememberTree/${treeId}/photos/`,
+          `${BACKEND_URL}/api/rememberTree/${treeId}/photos/`,
           {
             method: "POST",
             headers: {

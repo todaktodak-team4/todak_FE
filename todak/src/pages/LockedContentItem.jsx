@@ -42,7 +42,7 @@ const ContentItem = ({
     const fetchStatus = async () => {
       try {
         const response = await axios.get(
-          `${BACKEND_URL}/memorialHall/${postId}/participate`,
+          `${BACKEND_URL}/api/memorialHall/${postId}/participate`,
           {
             headers: {
               Authorization: `Bearer ${storedToken}`,
@@ -84,7 +84,7 @@ const ContentItem = ({
     try {
       let newStatus;
       const body = isPrivate ? { token } : {};
-      const url = `${BACKEND_URL}/memorialHall/${postId}/${
+      const url = `${BACKEND_URL}/api/memorialHall/${postId}/${
         status === "participated" ? "unparticipate" : "participate"
       }`;
 

@@ -84,7 +84,7 @@ function RememberTree() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/rememberTree/`, {
+        const response = await fetch(`${BACKEND_URL}/api/rememberTree/`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -96,7 +96,7 @@ function RememberTree() {
           const newAccessToken = await refreshAccessToken();
           if (newAccessToken) {
             const retryResponse = await fetch(
-              `${BACKEND_URL}/rememberTree/`,
+              `${BACKEND_URL}/api/rememberTree/`,
               {
                 method: "GET",
                 headers: {

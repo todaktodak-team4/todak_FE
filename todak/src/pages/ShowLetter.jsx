@@ -20,7 +20,7 @@ function ShowLetter({ onClose, treeId }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${BACKEND_URL}</Back>/rememberTree/${treeId}/letters/`,
+          `${BACKEND_URL}/api/rememberTree/${treeId}/letters/`,
           {
             method: "GET",
             headers: {

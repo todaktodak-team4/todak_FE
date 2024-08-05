@@ -111,7 +111,7 @@ function WriteLetter({ onClose, treeId, userId }) {
     try {
       console.log(letter);
       const response = await fetch(
-        `${BACKEND_URL}/rememberTree/${treeId}/letters/`,
+        `${BACKEND_URL}/api/rememberTree/${treeId}/letters/`,
         {
           method: "POST",
           headers: {

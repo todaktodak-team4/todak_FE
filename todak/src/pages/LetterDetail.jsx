@@ -12,7 +12,7 @@ function LetterDetail({ treeId, letterId, onClose }) {
     const fetchLetterContent = async () => {
       try {
         const response = await fetch(
-          `${BACKEND_URL}/rememberTree/${treeId}/letters/${letterId}/`,
+          `${BACKEND_URL}/api/rememberTree/${treeId}/letters/${letterId}/`,
           {
             method: "GET",
             headers: {
