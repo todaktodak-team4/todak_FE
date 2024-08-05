@@ -11,14 +11,17 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 .closeBtn {
   position: relative;
   left: 400px;
+  cursor: pointer;
 }
 
 .uploadBtn {
+  cursor: pointer;
   position: relative;
   left: 400px;
   top: 45px;
@@ -113,9 +116,10 @@
 }
 
 .saveBtn {
+  cursor: pointer;
   position: relative;
   left: 400px;
-  bottom: 110px;
+  bottom: 130px;
   width: 168px;
   height: 40px;
   padding-top: 15px;
@@ -138,7 +142,7 @@
 
 .successMessage {
   position: relative;
-  bottom: 200px;
+  bottom: 210px;
   left: 400px;
   width: 165px;
   color: #3d4c00;

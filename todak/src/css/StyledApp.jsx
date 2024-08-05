@@ -61,11 +61,9 @@ export const Footer = styled.div`
   display: flex;
   flex-direction: row;
   height: 40vh;
-  flex-shrink: 0;
   background: #ffda57;
   gap: 15vw;
   justify-content: center;
-  align-iltems: center;
 `;
 
 export const Footer1 = styled.div`

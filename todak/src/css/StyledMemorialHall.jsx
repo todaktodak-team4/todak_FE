@@ -13,8 +13,9 @@ export const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 5vh;
+  padding-top: 10vh;
   padding-bottom: 10vh;
+  background: linear-gradient(180deg, #c3c3c3 0%, #fff 48%);
 `;
 export const mainImg = styled.div`
   position: relative;
@@ -240,6 +241,11 @@ export const MMCProfile = styled.div`
 `;
 export const MMC1 = styled.div`
   margin-right: 1rem;
+  img {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+  }
 `;
 export const MMC2 = styled.div`
   color: #000;
@@ -400,6 +406,7 @@ export const MM4 = styled.div`
   img {
     width: 3rem;
     height: 3rem;
+    border-radius: 50%;
   }
 `;
 export const MM5 = styled.div`
@@ -477,5 +484,39 @@ export const MM8Content = styled.div`
     font-weight: 700;
     line-height: normal;
     margin-right: 0.2rem;
+  }
+`;
+
+export const NumberBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* 버튼 간의 간격 조절 */
+  margin-top: 2rem; /* 페이지네이션 위 여백 */
+  margin-bottom: 2rem; /* 페이지네이션 아래 여백 */
+
+  button {
+    border: none;
+    background: linear-gradient(0deg, #adadad 0%, #ebebeb 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 1.5rem;
+    padding: 0.5rem 1rem;
+    font-family: "Pretendard Variable";
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2b2b2b;
+    cursor: pointer;
+
+    &:disabled {
+      background: #e0e0e0;
+      cursor: not-allowed;
+    }
+  }
+
+  span {
+    font-family: "Pretendard Variable";
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2b2b2b;
   }
 `;

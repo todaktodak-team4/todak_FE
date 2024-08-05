@@ -14,24 +14,99 @@ const MemorialHall = () => {
   const [inputs, setInputs] = useState({ content: "" });
   const { content } = inputs;
   const [comments, setComments] = useState([]);
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
   const [messages, setMessages] = useState([]);
   const [wreaths, setWreaths] = useState([]);
-
+  // const [currentIndex, setCurrentIndex] = useState(0); // State for tracking the current slide index
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const halltoken = localStorage.getItem("halltoken");
   useEffect(() => {
-    const fetchData = async () => {
+    // 컴포넌트가 마운트되면 상단으로 스크롤
+    window.scrollTo(0, 0);
+  }, []);
+  const handleUnauthorized = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+    navigate("/login");
+  };
+
+  //헌화 한마디 데이터 가져오기
+  useEffect(() => {
+    const fetchData = async (page) => {
       try {
-        const response = await axios.get(`/memorialHall/${postId}/message`);
+        const response = await axios.get(
+          `/memorialHall/${postId}/message?page=${page}`
+        );
+        console.log("추모글 조회 응답 데이터:", response.data);
         setMessages(response.data.results);
+        setTotalPages(Math.ceil(response.data.count / 3)); // Assuming 6 items per page
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
     };
-    fetchData();
+    fetchData(currentPage);
+  }, [postId, currentPage]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setCurrentPage(newPage);
+  };
+
+  useEffect(() => {
+    const fetchDatas = async () => {
+      try {
+        const response = await axios.get(`/memorialHall/${postId}/wreath`);
+        console.log("헌화한마디 응답 데이터 이건뭐지:", response.data);
+        setWreaths(response.data);
+      } catch (error) {
+        console.error("Error fetching wreaths:", error);
+      }
+    };
+    fetchDatas();
+  }, [postId]);
+
+  // const [messages, setMessages] = useState([]);
+  // const [wreaths, setWreaths] = useState([]);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
+  //연동 완
+  useEffect(() => {
+    axios
+      .get(`/memorialHall/${postId}`)
+      .then((response) => {
+        setPost(response.data);
+        console.log("온라인 추모관 디테일 응답:", response.data);
+        localStorage.setItem("halltoken", response.data.token);
+      })
+      .catch((error) => {
+        console.error("Error fetching post:", error);
+      });
   }, [postId]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchMessages = async (page = 1) => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(
+          `/memorialHall/${postId}/message?page=${page}`
+        );
+        setMessages(response.data.results);
+        setTotalPages(Math.ceil(response.data.count / 3)); // Assuming 3 items per page
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchMessages(currentPage);
+  }, [postId, currentPage]);
+
+  useEffect(() => {
+    const fetchWreaths = async () => {
       try {
         const response = await axios.get(`/memorialHall/${postId}/wreath`);
         setWreaths(response.data);
@@ -39,18 +114,7 @@ const MemorialHall = () => {
         console.error("Error fetching wreaths:", error);
       }
     };
-    fetchData();
-  }, [postId]);
-
-  useEffect(() => {
-    axios
-      .get(`/memorialHall/${postId}`)
-      .then((response) => {
-        setPost(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching post:", error);
-      });
+    fetchWreaths();
   }, [postId]);
 
   const formatDate = (isoDate) => {
@@ -80,40 +144,61 @@ const MemorialHall = () => {
     });
   };
 
+  //추모의 글 남기기 -> 연동 완
   const handlePostBtn = async () => {
     try {
       const response = await axios.post(
         `/memorialHall/${postId}/message`,
-        { content },
-        { headers: { Authorization: `Token ${token}` } }
+        {
+          content,
+          hall: postId,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const newComment = response.data;
       setComments((prevComments) => [...prevComments, newComment]);
-      setInputs({ content: "" }); // Clear input field after posting
+      setInputs({ content: "" });
+      window.location.reload();
     } catch (error) {
-      console.error("Error creating new post:", error);
+      if (error.response && error.response.status === 401) {
+        handleUnauthorized();
+      } else {
+        console.error("Error creating new post:", error);
+      }
     }
   };
 
   const copyCurrentURL = () => {
     const currentURL = window.location.href;
+    let linkToCopy = currentURL;
+
+    if (post) {
+      if (post.private) {
+        linkToCopy = `http://localhost:3000/memorialHall/${postId}/access?token=${halltoken}`;
+      } else {
+        linkToCopy = `http://localhost:3000/memorialHall/${postId}`;
+      }
+    }
+
     navigator.clipboard
-      .writeText(currentURL)
+      .writeText(linkToCopy)
       .then(() => {
         console.log("URL이 클립보드에 복사되었습니다.");
+        alert("URL이 클립보드에 복사되었습니다.");
       })
       .catch((err) => {
         console.error("URL 복사 실패:", err);
       });
   };
 
-  const memorialMessages2 = messages.filter(
-    (item) => item.content && item.content.trim() !== ""
-  );
-
   const navigateToLayFlower = () => {
     navigate(`/layFlower?hall=${postId}`);
   };
+
+  // const handlePageChange = (newPage) => {
+  //   if (newPage < 1 || newPage > totalPages) return;
+  //   setCurrentPage(newPage);
+  // };
 
   return (
     <H.Body>
@@ -178,7 +263,7 @@ const MemorialHall = () => {
           <H.MemorialMessage2Head>
             <img
               id="line"
-              src={`${process.env.PUBLIC_URL}/img/ribonblack.svg`}
+              src={`${process.env.PUBLIC_URL}/img/Memoryhalls.png`}
               alt="line"
             />
             <p>추모의 글</p>
@@ -187,9 +272,9 @@ const MemorialHall = () => {
           <H.MemorialMessage2Input>
             <H.MM1>
               <img
-                id="line"
-                src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`}
-                alt="line"
+                id="profile"
+                src={`${process.env.PUBLIC_URL}/img/standardProfile.svg`} // 프로필 이미지
+                alt="profile"
               />
             </H.MM1>
             <H.MM2>
@@ -204,21 +289,65 @@ const MemorialHall = () => {
                 등록하기
               </div>
               <H.MemorialMessages2>
-                {memorialMessages2.slice(0, 3).map((item) => (
-                  <MemorialMessage2
-                    key={item.id}
-                    messageId={item.id}
-                    content={item.content}
-                    hall={item.hall}
-                    nickname={item.nickname}
-                    profile={item.profile}
-                    createdAt={item.createdAt}
-                  />
-                ))}
+                {isLoading ? (
+                  <p>Loading...</p>
+                ) : (
+                  messages.map((item) => (
+                    <MemorialMessage2
+                      key={item.id}
+                      messageId={item.id}
+                      content={item.content}
+                      comment={item.comment}
+                      hall={item.hall}
+                      nickname={item.nickname}
+                      profile={item.profile}
+                      createdAt={item.createdAt}
+                    />
+                  ))
+                )}
               </H.MemorialMessages2>
             </H.MM2>
           </H.MemorialMessage2Input>
+
+          <H.NumberBtn>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              style={{ border: "none", background: "none", color: "black" }}
+            >
+              {"<"} {/* Previous button */}
+            </button>
+            <span>
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              style={{ border: "none", background: "none", color: "black" }}
+            >
+              {">"} {/* Next button */}
+            </button>
+          </H.NumberBtn>
         </H.MemorialMessage2>
+
+        <H.NumberBtn>
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            {"<"} {/* Previous button */}
+          </button>
+          <span>
+            페이지 {currentPage} / {totalPages}
+          </span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            style={{ border: "none", background: "none", color: "black" }}
+          >
+            {">"} {/* Next button */}
+          </button>
+        </H.NumberBtn>
       </H.Container>
     </H.Body>
   );

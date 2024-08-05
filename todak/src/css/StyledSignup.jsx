@@ -153,6 +153,7 @@ export const NavName = styled.div`
   align-items: center;
   text-align: center;
   height: 6vh;
+
   p {
     color: #3d4c00;
     font-family: "Pretendard Variable";
@@ -243,4 +244,17 @@ export const FinishBtn = styled.div`
     font-weight: 700;
     line-height: normal;
   }
+`;
+
+export const ErrorMessage = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-left: 40px;
+`;
+export const SuccessMessage = styled.div`
+  color: blue;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-left: 40px;
 `;

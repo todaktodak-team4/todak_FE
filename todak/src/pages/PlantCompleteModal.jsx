@@ -6,6 +6,7 @@ function PlantCompleteModal() {
   function goToTree() {
     navigate("/rememberTree");
   }
+
   return (
     <div>
       <div className={styles.container}>
