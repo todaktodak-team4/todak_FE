@@ -39,7 +39,7 @@ const Login = () => {
           setModalVisible(false); // 2초 후 모달 숨기기
           navigate("/", { replace: true });
           window.location.reload();
-        }, 2000);
+        }, 1000);
       } else {
         // Handle other response statuses
         alert("로그인 실패: " + response.statusText);
