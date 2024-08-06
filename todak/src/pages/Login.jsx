@@ -39,7 +39,7 @@ const Login = () => {
           setModalVisible(false); // 2초 후 모달 숨기기
           navigate("/", { replace: true });
           window.location.reload();
-        }, 1000);
+        }, 500);
       } else {
         // Handle other response statuses
         alert("로그인 실패: " + response.statusText);
@@ -89,7 +89,13 @@ const Login = () => {
               name="password"
               id="password"
               type="password"
-              placeholder="비밀번호(영어, 숫자, 특수문자 조합 12자 이상)"
+              placeholder="비밀번호"
+              style={{
+                width: "275px",
+                position: "relative",
+                marginLeft: "256px",
+                fontSize: "40px",
+              }}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={handleKeyDown}

@@ -1,6 +1,6 @@
 // App.js
 import React from "react";
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import { HashRouter as Router, Route, Routes, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
 import Main from "./pages/Main";
@@ -29,18 +29,27 @@ import LockedMemorialHall from "./pages/LockedMemorialHall";
 import LayCheckout from "./pages/LayCheckout";
 import Mypage from "./pages/Mypage";
 import TalkModal from "./pages/TalkModal";
-import Nav from "./pages/Nav";
 import ModifyInfo from "./pages/ModifyInfo";
 import DonationModal from "./pages/DonationCertificate";
-
 import LaySuccessModal from "./pages/LaySuccessModal";
 import WreathList from "./pages/WreathList";
 import WrittenMessage from "./pages/WrittenMessage";
 import HelpModal from "./pages/HelpModal";
 
+// Nav import 추가
+import Nav from "./pages/Nav";
+
 const BACKEND_URL = "http://3.38.125.151";
 
 function App() {
+  return (
+    <Router>
+      <MainApp />
+    </Router>
+  );
+}
+
+function MainApp() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const accessToken = localStorage.getItem("access_token");
   const refreshToken = localStorage.getItem("refresh_token");
@@ -84,7 +93,6 @@ function App() {
   };
 
   return (
-   
     <div>
       <A.Header>
         <A.Logo>
@@ -194,7 +202,6 @@ function App() {
         </A.Footer2>
       </A.Footer>
     </div>
-   
   );
 }
 

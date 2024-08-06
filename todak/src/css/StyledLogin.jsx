@@ -37,12 +37,13 @@ export const Container = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: url(${process.env.PUBLIC_URL}/static/img/Background_last.png);
+  background: url(${process.env.PUBLIC_URL}/img/Background_last.png);
   background-size: cover;
   background-position: center;
   flex-direction: column;
   position: relative;
   gap: 8vh;
+  z-index: 0;
 `;
 export const Title = styled.div`
   color: #3d4c00;
@@ -180,6 +181,7 @@ export const NavName = styled.div`
 
 export const LoginBtn = styled.div`
   display: flex;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
   width: 200px;

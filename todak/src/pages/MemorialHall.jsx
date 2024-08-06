@@ -289,18 +289,22 @@ const MemorialHall = () => {
             ref={memorialMessageContentsRef}
             className="animated"
           >
-            {wreaths.map((item) => (
-              <MemorialMessage
-                key={item.id}
-                messageId={item.id}
-                donation={item.donation}
-                comment={item.comment}
-                name={item.nickname}
-                hall={item.hall}
-                profile={item.profile}
-                createdAt={item.createdAt}
-              />
-            ))}
+             {wreaths.length > 0 ? (
+              wreaths.map((item) => (
+                <MemorialMessage
+                    key={item.id}
+                    messageId={item.id}
+                    donation={item.donation}
+                    comment={item.comment}
+                    name={item.nickname}
+                    hall={item.hall}
+                    profile={item.profile}
+                    createdAt={item.createdAt}
+                      />
+                    ))
+                  ) : (
+                    <p>데이터가 없습니다.</p>
+                  )}
           </H.MemorialMessageContents>
         </H.MemorialMessage>
 
