@@ -71,7 +71,7 @@ const Nav = () => {
     if (token) {
       navigate("/memorialHallList"); // 페이지 이동
     } else {
-      setShowLoginModal(true);
+      setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
     }
   };
 
@@ -79,7 +79,7 @@ const Nav = () => {
     if (token) {
       navigate("/memorialHallSignup"); // 페이지 이동
     } else {
-      setShowLoginModal(true);
+      setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
     }
   };
 
@@ -92,7 +92,7 @@ const Nav = () => {
           <hr />
         </M.NavItem>
         <M.NavItem isActive={location.pathname === "/memorialHallList"}>
-          <a onClick={goToMemorialHallList}>온라인 헌화</a>
+          <a onClick={goToMemorialHall}>온라인 헌화</a>
           <hr />
         </M.NavItem>
         <M.NavItem isActive={location.pathname === "/rememberTree"}>

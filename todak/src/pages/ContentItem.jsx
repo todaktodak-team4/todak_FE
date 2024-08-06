@@ -5,7 +5,6 @@ import axios from "axios";
 
 const BACKEND_URL = "http://3.38.125.151";
 
-
 const ContentItem = ({
   postId,
   img,
@@ -21,11 +20,11 @@ const ContentItem = ({
   const token = localStorage.getItem("access_token");
 
   const storedStatus = localStorage.getItem(`status-${postId}`);
-  const [status, setStatus] = useState(storedStatus || initialStatus || "unparticipated");
+  const [status, setStatus] = useState(
+    storedStatus || initialStatus || "unparticipated"
+  );
 
   console.log("count:", wreathCount, "private:", isPrivate);
-
-
 
   // 날짜 포맷팅 함수
   const formatDate = (isoDate) => {
@@ -39,11 +38,12 @@ const ContentItem = ({
 
   // Fetch status from server if not already in localStorage
   useEffect(() => {
-    if (!storedStatus) {
-      const fetchStatus = async () => {
+    const fetchStatus = async () => {
+      const storedStatus = localStorage.getItem(`status-${postId}`);
+      if (!storedStatus) {
         try {
           const response = await axios.get(
-            `${BACKEND_URL}/api/memorialHall/${postId}/participate`,
+            `http://127.0.0.1:8000/memorialHall/${postId}/participate`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -66,16 +66,20 @@ const ContentItem = ({
             localStorage.setItem(`status-${postId}`, "unparticipated");
           }
         }
-      };
+      } else {
+        setStatus(storedStatus);
+      }
+    };
 
-      fetchStatus();
-    }
-  }, [postId, token, storedStatus, navigate]);
+    fetchStatus();
+  }, [postId, token, navigate]);
 
   // Handle participation toggle
   const handleParticipation = async () => {
     if (status === "participated") {
-      const confirmCancel = window.confirm("정말로 참여를 취소하시겠습니까? \n비공개 추모관의 경우 참여를 취소할 경우 해당 링크를 통해서만 다시 참여하기가 가능합니다.");
+      const confirmCancel = window.confirm(
+        "정말로 참여를 취소하시겠습니까? \n비공개 추모관의 경우 참여를 취소할 경우 해당 링크를 통해서만 다시 참여하기가 가능합니다."
+      );
       if (!confirmCancel) {
         return;
       }
@@ -85,7 +89,7 @@ const ContentItem = ({
       let newStatus;
       if (status === "participated") {
         await axios.post(
-          `${BACKEND_URL}/api/memorialHall/${postId}/unparticipate`,
+          `http://127.0.0.1:8000/memorialHall/${postId}/unparticipate`,
           { status: "unparticipated" },
           {
             headers: {
@@ -97,7 +101,7 @@ const ContentItem = ({
         newStatus = "unparticipated";
       } else {
         await axios.post(
-          `${BACKEND_URL}/api/memorialHall/${postId}/participate`,
+          `http://127.0.0.1:8000/memorialHall/${postId}/participate`,
           { status: "participated" },
           {
             headers: {
@@ -137,7 +141,7 @@ const ContentItem = ({
       <H.ListContentImg>
         <img id="img" src={img || defaultImg} alt="images" />
         <button className="hover-button" onClick={handleParticipation}>
-          {status=== "participated" ? "참여 취소하기" : "참여하기"}{" "}
+          {status === "participated" ? "참여 취소하기" : "참여하기"}{" "}
           {/* 버튼 텍스트 */}
         </button>
       </H.ListContentImg>
