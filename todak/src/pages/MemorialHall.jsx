@@ -170,15 +170,16 @@ const MemorialHall = () => {
   const copyCurrentURL = () => {
     const currentURL = window.location.href;
     let linkToCopy = currentURL;
-  
+
     if (post) {
-      linkToCopy = post.private 
+      linkToCopy = post.private
         ? `${BACKEND_URL}/memorialHall/${postId}/access?token=${halltoken}`
         : `${BACKEND_URL}/api/memorialHall/${postId}`;
     }
-  
+
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(linkToCopy)
+      navigator.clipboard
+        .writeText(linkToCopy)
         .then(() => {
           console.log("URL이 클립보드에 복사되었습니다.");
           alert("URL이 클립보드에 복사되었습니다.");
@@ -191,7 +192,7 @@ const MemorialHall = () => {
       alert("이 브라우저는 클립보드 복사 기능을 지원하지 않습니다.");
     }
   };
-  
+
   const navigateToLayFlower = () => {
     navigate(`/layFlower?hall=${postId}`);
   };
@@ -339,6 +340,9 @@ const MemorialHall = () => {
               <div onClick={handlePostBtn} id="post">
                 등록하기
               </div>
+              <p>
+                목록에서 추모의 글과 헌화의 한 마디를 함께 확인할 수 있습니다.
+              </p>
               <H.MemorialMessages2>
                 {isLoading ? (
                   <p>Loading...</p>

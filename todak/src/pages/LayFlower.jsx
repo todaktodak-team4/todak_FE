@@ -60,12 +60,16 @@ const LayFlower = () => {
       formData.append("comment", comment);
       formData.append("hall", hall);
 
-      await axios.post(`${BACKEND_URL}/api/memorialHall/${hall}/wreath`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.post(
+        `${BACKEND_URL}/api/memorialHall/${hall}/wreath`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       // 결제 모달 열기
       setIsPaymentModalOpen(true);
     } catch (error) {
@@ -113,7 +117,18 @@ const LayFlower = () => {
                 <p>1</p>
               </S.Number>
               <S.NavName>
-                <p>헌화 금액</p>
+                <p>
+                  헌화 금액
+                  <span
+                    style={{
+                      position: "relative",
+                      right: "40px",
+                      bottom: "5px",
+                    }}
+                  >
+                    *선택사항
+                  </span>
+                </p>
               </S.NavName>
               <S.Checkbox>
                 <label htmlFor="price1">

@@ -370,6 +370,13 @@ export const MM2 = styled.div`
     font-weight: 300;
     background: none;
   }
+  p {
+    color: #2b2b2b;
+    font-family: "Pretendard Variable";
+    font-size: 1.4rem;
+    font-weight: 300;
+    background: none;
+  }
   #post {
     display: flex;
     justify-content: center;
