@@ -221,7 +221,7 @@ function WriteLetter({ onClose, treeId, userId }) {
               onChange={handleInput}
               onKeyDown={handleKeyDown}
               style={{
-                backgroundImage: `url("/img/letterPaper.png")`,
+                backgroundImage: `url("/static/img/letterPaper.png")`,
                 backgroundRepeat: "no-repeat",
                 width: "1160px",
                 height: "1073px",
