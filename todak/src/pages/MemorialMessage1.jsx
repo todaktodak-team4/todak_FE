@@ -17,7 +17,9 @@ const MemorialMessage = ({
   messageId,
   //props
 }) => {
-
+  
+  console.log("이름:", name);
+  console.log("한마디:", comment);
   console.log("프로필:", profile);
 
   const baseUrl = `${BACKEND_URL}`;
