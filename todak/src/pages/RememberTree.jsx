@@ -25,7 +25,6 @@ function RememberTree() {
   const [treeName, setTreeName] = useState("");
   const [treeId, setTreeId] = useState(null);
   const [userId, setUserId] = useState(null);
-  const [flowerType, setFlowerType] = useState(null);
   const [username, setUserName] = useState("");
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("access_token")
@@ -41,13 +40,16 @@ function RememberTree() {
 
   const refreshAccessToken = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/accounts/token/refresh/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ refresh: refreshToken }),
-      });
+      const response = await fetch(
+        `${BACKEND_URL}/accounts/token/refresh/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ refresh: refreshToken }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -108,7 +110,6 @@ function RememberTree() {
               setTreeName(data[0].treeName);
               setTreeId(data[0].id);
               setUserName(data[0].myName);
-              setFlowerType(data[0].flowerType);
             } else {
               console.error("Failed to fetch data after refreshing token");
             }
@@ -118,7 +119,6 @@ function RememberTree() {
           setTreeName(data[0].treeName);
           setTreeId(data[0].id);
           setUserName(data[0].myName);
-          setFlowerType(data[0].flowerType);
         } else {
           console.error("Failed to fetch data");
         }
@@ -218,6 +218,7 @@ function RememberTree() {
     setIsUploadImgOpen(false);
     setIsShowAlbumOpen(true);
   };
+
   return (
     <>
       <div
