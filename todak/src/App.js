@@ -53,7 +53,7 @@ function MainApp() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const accessToken = localStorage.getItem("access_token");
   const refreshToken = localStorage.getItem("refresh_token");
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
     setIsLoggedIn(!!accessToken && !!refreshToken);
@@ -75,15 +75,17 @@ function MainApp() {
       if (response.ok) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        setIsLoggedIn(false);
+        setIsLoggedIn(false); // 로그인 상태 업데이트
         alert("로그아웃 되었습니다.");
-        navigate("/");
+        navigate("/"); // 로그아웃 후 로그인 페이지로 리다이렉트
       } else {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        alert("로그인한지 30분이 지나 자동 로그아웃 되었습니다. 다시 로그인해주세요.");
+        alert(
+          "로그인한지 30분이 지나 자동 로그아웃 되었습니다. 다시 로그인해주세요."
+        );
         setIsLoggedIn(false);
-        navigate("/login");
+        navigate("/login"); // 로그아웃 후 로그인 페이지로 리다이렉트
       }
     } catch (error) {
       console.error("로그아웃 중 문제가 발생했습니다:", error);
@@ -133,8 +135,8 @@ function MainApp() {
         <Route path="/login" element={<Login />} />
         <Route path="/plantTreeStepOne" element={<PlantTreeStepOne />} />
         <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
-        <Route path="/plantComplete" element={<PlantCompleteModal />} />
-        <Route path="/growComplete" element={<GrowCompleteModal />} />
+        <Route path="/completeModal" element={<PlantCompleteModal />} />
+        <Route path="/growCompleteModal" element={<GrowCompleteModal />} />
         <Route path="/rememberTree" element={<RememberTree />} />
         <Route path="/deliveryInfo" element={<DeliveryInfo />} />
         <Route path="/deliveryProduct" element={<DeliveryProduct />} />
@@ -142,23 +144,63 @@ function MainApp() {
         <Route path="/writeLetter" element={<WriteLetter />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/success" element={<SuccessModal />} />
-        <Route path="/memorialHall" element={<MemorialHall />} />
+        <Route path="/helpModal" element={<HelpModal />} />
+        <Route path="/memorialHall/:postId?" element={<MemorialHall />} />
         <Route path="/memorialHallList" element={<MemorialHallList />} />
+        <Route
+          path="memorialHall/:postId/access"
+          element={<LockedMemorialHall />}
+        />
+        <Route path="/layCheckout" element={<LayCheckout />} />
         <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
         <Route path="/layFlower" element={<LayFlower />} />
+        <Route path="/laySuccess" element={<DonationModal />} />
         <Route path="/sentComplete" element={<SentComplete />} />
-        <Route path="/letterDetail" element={<LetterDetail />} />
-        <Route path="/lockedMemorialHall" element={<LockedMemorialHall />} />
-        <Route path="/layCheckout" element={<LayCheckout />} />
         <Route path="/mypage" element={<Mypage />} />
-        <Route path="/talk" element={<TalkModal />} />
+        <Route path="/talkModal" element={<TalkModal />} />
         <Route path="/modifyInfo" element={<ModifyInfo />} />
-        <Route path="/donation" element={<DonationModal />} />
-        <Route path="/laySuccess" element={<LaySuccessModal />} />
         <Route path="/wreathList" element={<WreathList />} />
         <Route path="/writtenMessage" element={<WrittenMessage />} />
-        <Route path="/help" element={<HelpModal />} />
+        <Route path="/laysuccess" element={<LaySuccessModal />} />
+        <Route path="/letterDetail" element={<LetterDetail />} />
       </Routes>
+      <A.Footer>
+        <A.Footer1>
+          <img
+            id="Logo"
+            src={`${process.env.PUBLIC_URL}/static/img/TodakLogo3.svg`}
+            alt="Logo"
+          />
+          <img
+            id="LogoMessage"
+            src={`${process.env.PUBLIC_URL}/static/img/LogoMessage2.svg`}
+            alt="LogoMessage"
+          />
+          <p id="ment11">
+            <img id="img" src={`${process.env.PUBLIC_URL}/static/img/footer1.svg`} />
+            서울특별시 성북구 화랑로13길 60
+            <br />
+            60 Hwarang-ro 13-gil, Seongbuk-gu, Seoul
+          </p>
+          <p id="ment13">
+            <img id="img" src={`${process.env.PUBLIC_URL}/static/img/footer2.svg`} />
+            멋쟁이사자처럼 동덕여자대학교 12기 팀 우리사이
+          </p>
+        </A.Footer1>
+        <A.Footer2>
+          <p id="ment21">당장 도움이 필요하신가요?</p>
+          <p id="ment22">
+            삶을 포기하고 싶다는 생각이 반복적으로 들거나 정신건강 질환의
+            <br />
+            고통이 심할 경우 즉각적으로 전문기관에 도움을 요청하세요.
+          </p>
+          <p id="ment23">
+            보건복지부 자살 예방 상담 전화: 109
+            <br />
+            정신건강 위기 상담 전화: 1577-0199
+          </p>
+        </A.Footer2>
+      </A.Footer>
     </div>
   );
 }
