@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as M from "../css/StyledNav";
+import NeedLogin from "./NeedLogin";
 
 const BACKEND_URL = "http://3.38.125.151";
 
@@ -66,17 +67,17 @@ const Nav = () => {
     }
   };
 
-  const goToMemorialHallList = async () => {
+  const goToMemorialHallList = () => {
     if (token) {
-      navigate("/MemorialHallList"); // 페이지 이동
+      navigate("/memorialHallList"); // 페이지 이동
     } else {
       setShowLoginModal(true);
     }
   };
 
-  const goToHallSingup = async () => {
+  const goToHallSingup = () => {
     if (token) {
-      navigate("/MemorialHallSignup"); // 페이지 이동
+      navigate("/memorialHallSignup"); // 페이지 이동
     } else {
       setShowLoginModal(true);
     }
@@ -84,6 +85,7 @@ const Nav = () => {
 
   return (
     <M.Nav>
+      {showLoginModal && <NeedLogin />}
       <M.Navbar>
         <M.NavItem isActive={location.pathname === "/"}>
           <a href="/">HOME</a>
