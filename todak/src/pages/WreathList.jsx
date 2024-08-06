@@ -11,7 +11,7 @@ function WreathList() {
     const fetchWreaths = async () => {
       try {
         const response = await axios.get(
-          `${BACKEND_URL}/wreath/my-wreaths/`,
+          `${BACKEND_URL}/api/wreath/my-wreaths/`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,

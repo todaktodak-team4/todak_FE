@@ -265,7 +265,7 @@ function Mypage() {
           내가 남긴 추모글
         </div>
         <div className={styles.flower} onClick={GoWreathList}>
-          <img src="./static/img/mypageFlower.png" alt="헌화 내역" />
+          <img src="./static/img/myPageFlower.png" alt="헌화 내역" />
           헌화 내역
         </div>
         <div className={styles.rememberTree} onClick={GoRememberTree}>
