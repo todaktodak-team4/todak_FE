@@ -219,29 +219,20 @@ function RememberTree() {
     setIsShowAlbumOpen(true);
   };
 
-  const FlowerImages = ({ flowerType, style }) => {
-    const getFlowerImage = (type) => {
-      switch (type) {
-        case "zinnia":
-          return "./static/img/treeZinnia.png";
-        case "hydrangea":
-          return "./static/img/treeHydrangea.png";
-        case "lily":
-          return "./static/img/treeLily.png";
-        default:
-          return; // 기본 이미지 경로 설정
-      }
-    };
-
-    const flowerImage = getFlowerImage(flowerType);
-
-    return (
-      <div className={styles.flowers}>
-        <img src={flowerImage} alt={flowerType} style={style} />
-      </div>
-    );
+ const getFlowerImage = (type) => {
+    switch (type) {
+      case "zinnia":
+        return "/img/treeZinnia.png";
+      case "hydrangea":
+        return "/img/treeHydrangea.png";
+      case "lily":
+        return "/img/treeLily.png";
+      default:
+        return null; // No image if type is unknown
+    }
   };
 
+  const flowerImage = getFlowerImage(flowerType);
   return (
     <>
       <div
@@ -267,7 +258,9 @@ function RememberTree() {
               onClick={toggleModal}
             />
             <div className={styles.rememberTreeInner}>
-              <FlowerImages
+              <img
+                src={flowerImage}
+                alt="꽃 이미지"
                 style={{
                   zIndex: "10",
                   width: "434px",
