@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import * as S from "../css/StyledSignup";
 import axios from "axios";
 import CompleteSignup from "./CompleteSignup";
-import styles from "../css/StyledDeliveryInfo.module.css"
+import styles from "../css/StyledDeliveryInfo.module.css";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 
@@ -14,9 +14,9 @@ const Signup2 = () => {
   const location = useLocation();
   const userId = location.state.userId;
   const [showCompleteModal, setShowCompleteModal] = useState(false);
-  const [zoneCode, setZoneCode] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [postalAddress, setPostalAddress] = useState("");
+  const [selectedFileName, setSelectedFileName] = useState(""); // State for the selected file name
+
   const openPostCode = () => setIsPopupOpen(true);
   const closePostCode = () => setIsPopupOpen(false);
 
@@ -26,7 +26,6 @@ const Signup2 = () => {
       zoneCode: data.zonecode,
       postalAddress: data.address,
     }));
-    // setZoneCode(data.zonecode);
     closePostCode();
   };
 
@@ -35,14 +34,13 @@ const Signup2 = () => {
     nickname: "",
     profile: "",
     phone: "",
-    zoneCode:"",
-    postalAddress:"",
+    zoneCode: "",
+    postalAddress: "",
     address: "",
     username: "",
     password: "",
     passwordConfirm: "",
     email: "",
-   
   });
 
   const [errors, setErrors] = useState({
@@ -59,16 +57,42 @@ const Signup2 = () => {
     address: "",
   });
 
-
- const handleInputChange = (e) => {
-  console.log("data:", e.target);
+  const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: type === "file" ? files[0] : value,
-    }));
 
-    validateField(name, type === "file" ? files[0] : value);
+    if (name === "phone") {
+      const formattedPhone = formatPhoneNumber(value);
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: formattedPhone,
+      }));
+      validateField(name, formattedPhone);
+    } else {
+      if (name === "profile" && files && files.length > 0) {
+        setSelectedFileName(files[0].name); // Update the selected file name
+      }
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: type === "file" ? files[0] : value,
+      }));
+      validateField(name, type === "file" ? files[0] : value);
+    }
+  };
+
+  const formatPhoneNumber = (phone) => {
+    const cleaned = phone.replace(/\D/g, "");
+    let formatted = cleaned;
+
+    if (cleaned.length > 3 && cleaned.length <= 7) {
+      formatted = `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
+    } else if (cleaned.length > 7) {
+      formatted = `${cleaned.slice(0, 3)}-${cleaned.slice(
+        3,
+        7
+      )}-${cleaned.slice(7, 11)}`;
+    }
+
+    return formatted;
   };
 
   const validateField = (fieldName, value) => {
@@ -79,24 +103,7 @@ const Signup2 = () => {
       case "nickname":
         if (!value) {
           error = "닉네임을 입력해주세요.";
-        } else {
-          successMessage = "유효한 닉네임입니다.";
         }
-        break;
-      case "phone":
-        const phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
-        if (value && !phoneRegex.test(value)) {
-          error = "전화번호 형식이 올바르지 않습니다. (예: 010-0000-0000)";
-        } else if (value) {
-          successMessage = "유효한 전화번호입니다.";
-        }
-        break;
-      case "address":
-        if (value) {
-          successMessage = "유효한 주소입니다.";
-        }
-        break;
-      default:
         break;
     }
 
@@ -111,11 +118,9 @@ const Signup2 = () => {
     }));
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 필수 입력 항목 검사
     if (!formData.nickname) {
       alert("닉네임은 필수 입력 항목입니다.");
       return;
@@ -157,7 +162,7 @@ const Signup2 = () => {
   const goBack = () => {
     navigate("/Signup1");
   };
-  
+
   return (
     <S.Body>
       <S.Contaianer>
@@ -171,7 +176,7 @@ const Signup2 = () => {
           <S.Line>
             <img
               id="Logo"
-              src={`${process.env.PUBLIC_URL}/static/img/line.png`}
+              src={`${process.env.PUBLIC_URL}/img/Line.png`}
               alt="Logo"
             />
           </S.Line>
@@ -191,8 +196,12 @@ const Signup2 = () => {
                 value={formData.nickname}
                 onChange={handleInputChange}
               />
-              {errors.nickname && <S.ErrorMessage>{errors.nickname}</S.ErrorMessage>}
-              {successMessages.nickname && <S.SuccessMessage>{successMessages.nickname}</S.SuccessMessage>}
+              {errors.nickname && (
+                <S.ErrorMessage>{errors.nickname}</S.ErrorMessage>
+              )}
+              {successMessages.nickname && (
+                <S.SuccessMessage>{successMessages.nickname}</S.SuccessMessage>
+              )}
             </div>
           </S.Step1Item>
           <S.Step1Item>
@@ -214,8 +223,32 @@ const Signup2 = () => {
                 name="profile"
                 id="profile"
               />
-              <p>사진 선택하기</p>
+              <p
+                style={{
+                  color: "#3D4C00",
+                  fontFamily: "Pretendard Variable",
+                  fontSize: "20px",
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  lineHeight: "normal",
+                }}
+              >
+                사진 선택하기
+              </p>
             </S.SelectBtn>
+            {selectedFileName && (
+              <p
+                style={{
+                  color: "#3D4C00",
+                  marginLeft: "220px",
+                  fontSize: "20px",
+                  position: "absolute",
+                  bottom: "2px",
+                }}
+              >
+                {selectedFileName}
+              </p>
+            )}
           </S.Step1Item>
           <S.Step1Item>
             <S.Number>
@@ -238,7 +271,9 @@ const Signup2 = () => {
                 onChange={handleInputChange}
               />
               {errors.phone && <S.ErrorMessage>{errors.phone}</S.ErrorMessage>}
-              {successMessages.phone && <S.SuccessMessage>{successMessages.phone}</S.SuccessMessage>}
+              {successMessages.phone && (
+                <S.SuccessMessage>{successMessages.phone}</S.SuccessMessage>
+              )}
             </div>
           </S.Step1Item>
           <S.Step1Item>
@@ -252,53 +287,67 @@ const Signup2 = () => {
                 <span>*선택사항</span>
               </p>
             </S.NavName>
-            {/* <S.SelectBtn>
-              <p>우편번호 찾기</p>
-            </S.SelectBtn> */}
             <S.SelectBtn>
-              <div onClick={openPostCode}>
-                      우편번호 찾기
-                    </div>
-                    </S.SelectBtn>
+              <div
+                onClick={openPostCode}
+                style={{
+                  color: "#3D4C00",
+                  fontFamily: "Pretendard Variable",
+                  fontSize: "20px",
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  lineHeight: "normal",
+                }}
+              >
+                우편번호 찾기
+              </div>
+            </S.SelectBtn>
             <div>
-            <div id="popupDom">
-                      {isPopupOpen && (
-                        <PopupDom>
-                          <PopupPostCode
-                            onClose={closePostCode}
-                            onSelect={handlePostCodeSelection}
-                          />
-                        </PopupDom>
-                      )}
-                    </div>
-                    <input
-                      type="text"
-                      className={`${styles.inputBox} ${styles.zonecode}`}
-                      placeholder="우편번호"
-                      value={formData.zoneCode}
-                      onChange={handleInputChange}
-                      readOnly
+              <div id="popupDom">
+                {isPopupOpen && (
+                  <PopupDom>
+                    <PopupPostCode
+                      onClose={closePostCode}
+                      onSelect={handlePostCodeSelection}
                     />
-                      <div className={styles.row}>
-                    <input
-                      type="text"
-                      className={`${styles.inputBox} ${styles.postalAddress}`}
-                      placeholder="주소"
-                      value={formData.postalAddress}
-                      onChange={handleInputChange}
-                      readOnly
-                    />
-                  </div>
+                  </PopupDom>
+                )}
+              </div>
+              <input
+                type="text"
+                className={`${styles.inputBox} ${styles.zonecode}`}
+                style={{ width: "200px", marginLeft: "50px" }}
+                placeholder="우편번호"
+                value={formData.zoneCode}
+                onChange={handleInputChange}
+                readOnly
+              />
+              <div className={styles.row}>
+                <input
+                  type="text"
+                  className={`${styles.inputBox} ${styles.postalAddress}`}
+                  placeholder="주소"
+                  style={{ width: "300px", marginLeft: "50px" }}
+                  value={formData.postalAddress}
+                  onChange={handleInputChange}
+                  readOnly
+                />
+              </div>
               <input
                 name="address"
                 id="address"
                 type="text"
+                style={{ width: "300px", marginLeft: "50px" }}
                 placeholder="상세 주소 입력"
                 value={formData.address}
                 onChange={handleInputChange}
               />
-              {errors.address && <S.ErrorMessage>{errors.address}</S.ErrorMessage>}
-              {successMessages.address && <S.SuccessMessage>{successMessages.address}</S.SuccessMessage>}
+              {errors.address && (
+                <S.ErrorMessage>{errors.address}</S.ErrorMessage>
+              )}
+              {successMessages.address && (
+                <S.SuccessMessage>{successMessages.address}</S.SuccessMessage>
+              )}
             </div>
           </S.Step1Item>
         </S.Step1Items>
