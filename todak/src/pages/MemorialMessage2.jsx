@@ -74,8 +74,8 @@ const MemorialMessage2 = ({
 
         for (const { action, setter } of endpoints) {
           const url = content
-            ? `${baseUrl}/api/message/${messageId}/${action}`
-            : `${baseUrl}/api/wreath/${messageId}/${action}`;
+            ? `${baseUrl}/message/${messageId}/${action}`
+            : `${baseUrl}/wreath/${messageId}/${action}`;
 
           console.log(`Fetching counts from URL: ${url}`); // URL 확인
 
