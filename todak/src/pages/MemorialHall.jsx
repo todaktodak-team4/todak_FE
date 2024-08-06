@@ -63,7 +63,9 @@ const MemorialHall = () => {
   useEffect(() => {
     const fetchDatas = async () => {
       try {
-        const response = await axios.get(`${BACKEND_URL}/api/memorialHall/${postId}/wreath`);
+        const response = await axios.get(
+          `${BACKEND_URL}/api/memorialHall/${postId}/wreath`
+        );
         console.log("헌화한마디 응답 데이터 이건뭐지:", response.data);
         setWreaths(response.data);
       } catch (error) {
@@ -263,8 +265,8 @@ const MemorialHall = () => {
             <CountUpNumber
               style={{ fontFamily: "NanumBuJangNimNunCiCe" }}
               ref={wreathCountRef}
-              end={12340}
-              // end={post ? post.wreathCount : 0}
+              // end={12340}
+              end={post ? post.wreathCount : 0}
               unit=" 개"
             />
           </H.BannerContent>
@@ -273,8 +275,8 @@ const MemorialHall = () => {
             <CountUpNumber
               style={{ fontFamily: "NanumBuJangNimNunCiCe" }}
               ref={messageCountRef}
-              end={1825}
-              // end={post ? post.messageCount : 0}
+              // end={1825}
+              end={post ? post.messageCount : 0}
               unit=" 개"
             />
           </H.BannerContent>
