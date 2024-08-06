@@ -1,6 +1,6 @@
 // App.js
 import React from "react";
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import { HasRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
 import Main from "./pages/Main";
@@ -84,7 +84,7 @@ function App() {
   };
 
   return (
-   
+   <Router>
     <div>
       <A.Header>
         <A.Logo>
@@ -194,7 +194,7 @@ function App() {
         </A.Footer2>
       </A.Footer>
     </div>
-   
+    </Router>
   );
 }
 
