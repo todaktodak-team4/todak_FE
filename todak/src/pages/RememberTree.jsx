@@ -218,21 +218,6 @@ function RememberTree() {
     setIsUploadImgOpen(false);
     setIsShowAlbumOpen(true);
   };
-
- const getFlowerImage = (type) => {
-    switch (type) {
-      case "zinnia":
-        return "/img/treeZinnia.png";
-      case "hydrangea":
-        return "/img/treeHydrangea.png";
-      case "lily":
-        return "/img/treeLily.png";
-      default:
-        return null; // No image if type is unknown
-    }
-  };
-
-  const flowerImage = getFlowerImage(flowerType);
   return (
     <>
       <div
@@ -258,18 +243,6 @@ function RememberTree() {
               onClick={toggleModal}
             />
             <div className={styles.rememberTreeInner}>
-              <img
-                src={flowerImage}
-                alt="꽃 이미지"
-                style={{
-                  zIndex: "10",
-                  width: "434px",
-                  height: "213px",
-                  position: "absolute",
-                  left: "20%",
-                  top: "13%",
-                }}
-              />
               <div className={styles.album}>
                 {isAlbumClicked && (
                   <div className={styles.albumButtons}>
