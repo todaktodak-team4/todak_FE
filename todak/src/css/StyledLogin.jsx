@@ -43,6 +43,7 @@ export const Container = styled.div`
   flex-direction: column;
   position: relative;
   gap: 8vh;
+  z-index: 0;
 `;
 export const Title = styled.div`
   color: #3d4c00;
