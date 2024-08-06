@@ -218,7 +218,7 @@ const MemorialHallSignup = () => {
                 <p
                   style={{
                     marginLeft: "600px",
-                    bottom: "4px",
+                    bottom: "-15px",
                     fontSize: "20px",
                     position: "absolute",
                     fontWeight: "400",
