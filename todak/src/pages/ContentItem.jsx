@@ -43,7 +43,7 @@ const ContentItem = ({
       if (!storedStatus) {
         try {
           const response = await axios.get(
-            `http://127.0.0.1:8000/memorialHall/${postId}/participate`,
+            `${BACKEND_URL}/api/memorialHall/${postId}/participate`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -89,7 +89,7 @@ const ContentItem = ({
       let newStatus;
       if (status === "participated") {
         await axios.post(
-          `http://127.0.0.1:8000/memorialHall/${postId}/unparticipate`,
+          `${BACKEND_URL}/api/memorialHall/${postId}/unparticipate`,
           { status: "unparticipated" },
           {
             headers: {
@@ -101,7 +101,7 @@ const ContentItem = ({
         newStatus = "unparticipated";
       } else {
         await axios.post(
-          `http://127.0.0.1:8000/memorialHall/${postId}/participate`,
+          `${BACKEND_URL}/api/memorialHall/${postId}/participate`,
           { status: "participated" },
           {
             headers: {
