@@ -136,12 +136,12 @@ const Main = () => {
         {showLoginModal && <NeedLogin />}
         <img
           id="sill1"
-          src={`${process.env.PUBLIC_URL}/img/sill1.png`}
+          src={`${process.env.PUBLIC_URL}/static/img/sill1.png`}
           alt="Gross"
         />
         <img
           id="sill2"
-          src={`${process.env.PUBLIC_URL}/img/sill2.png`}
+          src={`${process.env.PUBLIC_URL}/static/img/sill2.png`}
           alt="Gross"
         />
         <Nav />

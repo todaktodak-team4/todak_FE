@@ -88,7 +88,7 @@ const Login = () => {
               style={{
                 width: "275px",
                 position: "relative",
-                marginLeft: "256px",
+                marginLeft: "208px",
                 fontSize: "40px",
               }}
               value={password}

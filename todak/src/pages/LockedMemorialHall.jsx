@@ -29,7 +29,7 @@ const LockedMemorialHall = () => {
 
       try {
         const response = await axios.get(
-          `/memorialHall/${postId}/access?token=${token}`,
+          `${BACKEND_URL}/api/memorialHall/${postId}/access?token=${token}`,
           {
             params: {
               token: token,

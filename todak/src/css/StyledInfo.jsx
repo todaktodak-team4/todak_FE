@@ -98,7 +98,7 @@ export const Info1 = styled.div`
       rgba(153, 153, 153, 1) 0%,
       rgba(153, 153, 153, 0) 30%
     ),
-    url(${process.env.PUBLIC_URL}/img/Info1.png);
+    url(${process.env.PUBLIC_URL}/static/img/Info1.png);
   background-size: cover;
   background-repeat: no-repeat;
   > * {
@@ -138,7 +138,7 @@ export const Info2 = styled.div`
   flex-direction: column;
   width: 100vw;
   height: 35rem;
-  background: url(${process.env.PUBLIC_URL}/img/Background2.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/Background2.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center bottom;
@@ -330,7 +330,7 @@ export const Info3Content2Wrapp1 = styled.div`
   height: 152px;
   flex-shrink: 0;
   fill: rgba(50, 46, 47, 0.35);
-  background: url(${process.env.PUBLIC_URL}/img/Ellipse17.svg);
+  background: url(${process.env.PUBLIC_URL}/static/img/Ellipse17.svg);
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -342,7 +342,7 @@ export const Info3Content2Wrapp2 = styled.div`
   height: 152px;
   flex-shrink: 0;
   fill: rgba(50, 46, 47, 0.25);
-  background: url(${process.env.PUBLIC_URL}/img/Ellipse18.svg);
+  background: url(${process.env.PUBLIC_URL}/static/img/Ellipse18.svg);
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -354,7 +354,7 @@ export const Info3Content2Wrapp3 = styled.div`
   height: 152px;
   flex-shrink: 0;
   fill: rgba(50, 46, 47, 0.2);
-  background: url(${process.env.PUBLIC_URL}/img/Ellipse19.svg);
+  background: url(${process.env.PUBLIC_URL}/static/img/Ellipse19.svg);
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -366,7 +366,7 @@ export const Info3Content2Wrapp4 = styled.div`
   height: 152px;
   flex-shrink: 0;
   fill: rgba(50, 46, 47, 0.15);
-  background: url(${process.env.PUBLIC_URL}/img/Ellipse20.svg);
+  background: url(${process.env.PUBLIC_URL}/static/img/Ellipse20.svg);
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -378,7 +378,7 @@ export const Info3Content2Wrapp5 = styled.div`
   height: 152px;
   flex-shrink: 0;
   fill: rgba(50, 46, 47, 0.1);
-  background: url(${process.env.PUBLIC_URL}/img/Ellipse21.svg);
+  background: url(${process.env.PUBLIC_URL}/static/img/Ellipse21.svg);
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -386,7 +386,7 @@ export const Info3Content2Wrapp5 = styled.div`
   align-items: center;
 `;
 export const Info3Arrow = styled.div`
-  background: url(${process.env.PUBLIC_URL}/img/Arrow.svg);
+  background: url(${process.env.PUBLIC_URL}/static/img/Arrow.svg);
   width: 40px;
   height: 30px;
   flex-shrink: 0;
@@ -411,7 +411,7 @@ export const Info4 = styled.div`
   flex-direction: column;
   width: 100vw;
   height: 40rem;
-  background: url(${process.env.PUBLIC_URL}/img/Info4Background.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/Info4Background.png);
   background-size: cover;
   background-repeat: no-repeat;
   #title {
@@ -534,7 +534,7 @@ export const InfoAdd = styled.div`
   flex-direction: column;
   width: 100vw;
   height: 30rem;
-  background: url(${process.env.PUBLIC_URL}/img/InfoAdd.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/InfoAdd.png);
   background-size: 140%;
   background-repeat: no-repeat;
   background-position: center; /* Centers the image in the container */
@@ -568,7 +568,7 @@ export const Info6 = styled.div`
   gap: 10vw;
   width: 100vw;
   height: 30rem;
-  background: url(${process.env.PUBLIC_URL}/img/Info6Img.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/Info6Img.png);
   background-size: cover;
   background-repeat: no-repeat;
 `;
@@ -624,7 +624,7 @@ export const Info7 = styled.div`
   flex-direction: row;
   width: 100vw;
   height: 25rem;
-  background: url(${process.env.PUBLIC_URL}/img/plantTree-bg.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/plantTree-bg.png);
   background-size: cover;
   background-repeat: no-repeat;
   padding-left: 10vw;
@@ -815,7 +815,7 @@ export const Info8Container = styled.div`
 `;
 
 export const Info8Arrow = styled.div`
-  background: url(${process.env.PUBLIC_URL}/img/Arrow.svg);
+  background: url(${process.env.PUBLIC_URL}/static/img/Arrow.svg);
   width: 67px;
   height: 42px;
   flex-shrink: 0;
@@ -832,7 +832,7 @@ export const Info9 = styled.div`
   flex-direction: column;
   width: 100vw;
   height: 40rem;
-  background: url(${process.env.PUBLIC_URL}/img/Info9Img.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/Info9Img.png);
   background-size: cover;
   background-repeat: no-repeat;
   img {
@@ -943,7 +943,7 @@ export const Info10 = styled.div`
   flex-direction: row;
   width: 100vw;
   height: 25rem;
-  background: url(${process.env.PUBLIC_URL}/img/Info10Img.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/Info10Img.png);
   background-size: cover;
   background-repeat: no-repeat;
   gap: 5vw;

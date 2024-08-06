@@ -173,7 +173,7 @@ const MemorialHall = () => {
 
     if (post) {
       linkToCopy = post.private
-        ? `${BACKEND_URL}/memorialHall/${postId}/access?token=${halltoken}`
+        ? `${BACKEND_URL}/api/memorialHall/${postId}/access?token=${halltoken}`
         : `${BACKEND_URL}/api/memorialHall/${postId}`;
     }
 
@@ -320,14 +320,14 @@ const MemorialHall = () => {
 
           <H.MemorialMessage2Input>
             <H.MM1>
-              {/* <img
+              <img
                 id="profile"
                 src={
                   post && post.profileImageUrl
                     ? `${post.profileImageUrl}?${new Date().getTime()}`
-                    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`
+                    : `${process.env.PUBLIC_URL}/static/img/standardProfile.svg`
                 }
-                alt="profile" */}
+                alt="profile"/>
             </H.MM1>
             <H.MM2>
               <textarea

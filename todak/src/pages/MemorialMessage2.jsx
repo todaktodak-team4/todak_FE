@@ -38,8 +38,8 @@ const MemorialMessage2 = ({
   const sendRequest = async (action, setter) => {
     const baseUrl = `${BACKEND_URL}/api/memorialHall/${hall}`;
     const url = content
-      ? `${baseUrl}/message/${messageId}/${action}`
-      : `${baseUrl}/wreath/${messageId}/${action}`;
+      ? `${baseUrl}/api/message/${messageId}/${action}`
+      : `${baseUrl}/api/wreath/${messageId}/${action}`;
 
     console.log(`Sending request to URL: ${url}`); // URL 확인
 
@@ -74,8 +74,8 @@ const MemorialMessage2 = ({
 
         for (const { action, setter } of endpoints) {
           const url = content
-            ? `${baseUrl}/message/${messageId}/${action}`
-            : `${baseUrl}/wreath/${messageId}/${action}`;
+            ? `${baseUrl}/api/message/${messageId}/${action}`
+            : `${baseUrl}/api/wreath/${messageId}/${action}`;
 
           console.log(`Fetching counts from URL: ${url}`); // URL 확인
 
