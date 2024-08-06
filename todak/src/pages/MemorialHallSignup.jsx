@@ -4,6 +4,8 @@ import axios from "axios";
 import * as S from "../css/StyledMemorialHallSignup";
 import Nav from "./Nav";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 const MemorialHallSignup = () => {
   const navigate = useNavigate();
 
@@ -14,14 +16,13 @@ const MemorialHallSignup = () => {
     visibility: "public",
     thumbnail: null,
   });
-
+  const [selectedFileName, setSelectedFileName] = useState("");
   const { name, info, date, visibility, thumbnail } = inputs;
   const token = localStorage.getItem("access_token"); // Use 'access_token' for JWT
 
   const onChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target;
 
-    console.log("변화됨:", e.target);
     if (type === "radio") {
       setInputs({
         ...inputs,
@@ -32,6 +33,7 @@ const MemorialHallSignup = () => {
         ...inputs,
         thumbnail: e.target.files[0],
       });
+      setSelectedFileName(e.target.files[0].name);
     } else {
       setInputs({
         ...inputs,
@@ -46,7 +48,6 @@ const MemorialHallSignup = () => {
       formData.append("name", name);
       formData.append("info", info);
       formData.append("date", date);
-      // formData.append("visibility", visibility);
 
       if (visibility === "public") {
         formData.append("public", true);
@@ -61,7 +62,7 @@ const MemorialHallSignup = () => {
       }
 
       const response = await axios.post(
-        "http://3.38.125.151/memorialHall",
+        `${BACKEND_URL}/api/memorialHall`,
         formData,
         {
           headers: {
@@ -72,7 +73,9 @@ const MemorialHallSignup = () => {
       );
 
       if (response.status === 201) {
-        alert("추모관 신청이 완료되었습니다.");
+        alert(
+          "추모관 신청이 완료되었습니다. 신청하신 추모관 내용 확인 후 승인 예정입니다."
+        );
         navigate(`/memorialHallList`);
       }
     } catch (error) {
@@ -86,7 +89,9 @@ const MemorialHallSignup = () => {
         navigate("/login");
       } else {
         console.error("Error creating new post:", error);
-        alert("Failed to create memorial hall. Please try again.");
+        alert(
+          "추모관 신청에 실패했습니다. 필수 입력 사항을 확인하고 다시 시도해주세요."
+        );
       }
     }
   };
@@ -97,7 +102,7 @@ const MemorialHallSignup = () => {
         <S.Content>
           <img
             id="flower"
-            src={`${process.env.PUBLIC_URL}/img/flower.svg`}
+            src={`${process.env.PUBLIC_URL}/static/img/flower.svg`}
             alt="flower"
           />
           <S.Title>온라인 헌화 추모관 신청</S.Title>
@@ -106,7 +111,7 @@ const MemorialHallSignup = () => {
             <S.Line>
               <img
                 id="Logo"
-                src={`${process.env.PUBLIC_URL}/img/Line_1.png`}
+                src={`${process.env.PUBLIC_URL}/static/img/Line_1.png`}
                 alt="Logo"
               />
             </S.Line>
@@ -208,7 +213,20 @@ const MemorialHallSignup = () => {
                   onChange={onChange}
                 />
                 <p>사진 선택</p>
-              </S.SelectBtn>
+              </S.SelectBtn>{" "}
+              {selectedFileName && (
+                <p
+                  style={{
+                    marginLeft: "600px",
+                    bottom: "-15px",
+                    fontSize: "20px",
+                    position: "absolute",
+                    fontWeight: "400",
+                  }}
+                >
+                  {selectedFileName}
+                </p>
+              )}
             </S.SignupItem>
           </S.SignupItems>
           <S.NextBtn onClick={handleSaveBtn}>

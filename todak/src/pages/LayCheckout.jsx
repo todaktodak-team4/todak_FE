@@ -5,6 +5,8 @@ import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import styles from "../css/StyledLayCheckout.module.css";
 import DonationModal from "./DonationCertificate";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = "VQMfaA0KTAWJ8hFAOE9PL";
 

@@ -7,6 +7,8 @@ import * as S from "../css/StyledLayFlower";
 import Nav from "./Nav";
 import LayCheckout from "./LayCheckout";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 const LayFlower = () => {
   const textareaRef = useRef(null);
   const navigate = useNavigate();
@@ -58,7 +60,7 @@ const LayFlower = () => {
       formData.append("comment", comment);
       formData.append("hall", hall);
 
-      await axios.post(`/memorialHall/${hall}/wreath`, formData, {
+      await axios.post(`${BACKEND_URL}/api/memorialHall/${hall}/wreath`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -93,7 +95,7 @@ const LayFlower = () => {
         <S.Content>
           <img
             id="flower"
-            src={`${process.env.PUBLIC_URL}/img/flower.svg`}
+            src={`${process.env.PUBLIC_URL}/static/img/flower.svg`}
             alt="flower"
           />
           <S.Title>온라인 헌화</S.Title>
@@ -102,7 +104,7 @@ const LayFlower = () => {
             <S.Line>
               <img
                 id="Logo"
-                src={`${process.env.PUBLIC_URL}/img/Line_1.png`}
+                src={`${process.env.PUBLIC_URL}/static/img/Line_1.png`}
                 alt="Logo"
               />
             </S.Line>

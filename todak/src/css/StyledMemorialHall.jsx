@@ -47,7 +47,7 @@ export const mainImg = styled.div`
   flex-direction: column;
   width: 80vw;
   height: 100vh;
-  background: url(${process.env.PUBLIC_URL}/img/memorialHall_flower.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/memorialHall_flower.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -157,7 +157,7 @@ export const BannerBottom = styled.div`
   gap: 10vh;
   width: 100vw;
   height: 70vh;
-  background: url(${process.env.PUBLIC_URL}/img/memorialHallImg.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/memorialHallImg.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -218,7 +218,7 @@ export const MemorialMessage = styled.div`
   flex-direction: column;
   width: 100vw;
   height: 80vh;
-  background: url(${process.env.PUBLIC_URL}/img/MemorialMessage.png);
+  background: url(${process.env.PUBLIC_URL}/static/img/MemorialMessage.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;

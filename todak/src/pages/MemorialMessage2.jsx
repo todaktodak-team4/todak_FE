@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as H from "../css/StyledMemorialHall";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 const MemorialMessage2 = ({
   content,
   hall,
@@ -24,17 +26,17 @@ const MemorialMessage2 = ({
 
   console.log("프로필:", profile);
 
-  const baseUrl = 'http://3.38.125.151';
+  const baseUrl = `${BACKEND_URL}`;
   // Set the profile image URL conditionally
   const imageUrl = profile
     ? `${baseUrl}${profile}`  // Profile image from server
-    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`;  // Default image
+    : `${process.env.PUBLIC_URL}/static/img/standardProfile.svg`;  // Default image
 
 
 
   // API 요청 함수
   const sendRequest = async (action, setter) => {
-    const baseUrl = `http://3.38.125.151/memorialHall/${hall}`;
+    const baseUrl = `${BACKEND_URL}/api/memorialHall/${hall}`;
     const url = content
       ? `${baseUrl}/message/${messageId}/${action}`
       : `${baseUrl}/wreath/${messageId}/${action}`;
@@ -61,7 +63,7 @@ const MemorialMessage2 = ({
   useEffect(() => {
     const fetchInitialCounts = async () => {
       try {
-        const baseUrl = `http://3.38.125.151/memorialHall/${hall}`;
+        const baseUrl = `${BACKEND_URL}/api/memorialHall/${hall}`;
         const endpoints = [
           { action: "todak", setter: setTodakCount },
           { action: "sympathize", setter: setSympathizeCount },
@@ -236,7 +238,7 @@ const MemorialMessage2 = ({
             <button onClick={() => sendRequest("todak", setTodakCount)}>
               <img
                 id="line"
-                src={`${process.env.PUBLIC_URL}/img/Imo1.svg`}
+                src={`${process.env.PUBLIC_URL}/static/img/Imo1.svg`}
                 alt="line"
                 style={{ width: "2rem", height: "2rem", margin: "0" }}
               />
@@ -250,7 +252,7 @@ const MemorialMessage2 = ({
             >
               <img
                 id="line"
-                src={`${process.env.PUBLIC_URL}/img/Imo2.svg`}
+                src={`${process.env.PUBLIC_URL}/static/img/Imo2.svg`}
                 alt="line"
                 style={{ width: "2rem", height: "2rem", margin: "0" }}
               />
@@ -262,7 +264,7 @@ const MemorialMessage2 = ({
             <button onClick={() => sendRequest("sad", setSadCount)}>
               <img
                 id="line"
-                src={`${process.env.PUBLIC_URL}/img/Imo3.svg`}
+                src={`${process.env.PUBLIC_URL}/static/img/Imo3.svg`}
                 alt="line"
                 style={{ width: "2rem", height: "2rem", margin: "0" }}
               />
@@ -276,7 +278,7 @@ const MemorialMessage2 = ({
             >
               <img
                 id="line"
-                src={`${process.env.PUBLIC_URL}/img/Imo4.svg`}
+                src={`${process.env.PUBLIC_URL}/static/img/Imo4.svg`}
                 alt="line"
               />
               {content ? "추모해요" : "추모해요"}
@@ -287,7 +289,7 @@ const MemorialMessage2 = ({
             <button onClick={() => sendRequest("together", setTogetherCount)}>
               <img
                 id="line"
-                src={`${process.env.PUBLIC_URL}/img/Imo5.svg`}
+                src={`${process.env.PUBLIC_URL}/static/img/Imo5.svg`}
                 alt="line"
               />
               {content ? "함께해요" : "함께해요"}

@@ -2,6 +2,8 @@ import React from "react";
 import styles from "../css/StyledCreateTreeModal.module.css";
 import { useNavigate } from "react-router-dom";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 const CreateTreeModal = ({ show, onClose }) => {
   const navigate = useNavigate();
 

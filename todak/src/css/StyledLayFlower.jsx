@@ -125,7 +125,7 @@ export const Number = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url(${process.env.PUBLIC_URL}/img/NumberWrap2.svg);
+  background: url(${process.env.PUBLIC_URL}/static/img/NumberWrap2.svg);
   width: 46px;
   height: 46px;
   flex-shrink: 0;

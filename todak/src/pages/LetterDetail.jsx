@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../css/StyledLetterDetail.module.css";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 function LetterDetail({ treeId, letterId, onClose }) {
   const [letterContent, setLetterContent] = useState("");
   const token = localStorage.getItem("access_token");
@@ -10,7 +12,7 @@ function LetterDetail({ treeId, letterId, onClose }) {
     const fetchLetterContent = async () => {
       try {
         const response = await fetch(
-          `http://3.38.125.151/rememberTree/${treeId}/letters/${letterId}/`,
+          `${BACKEND_URL}/api/rememberTree/${treeId}/letters/${letterId}/`,
           {
             method: "GET",
             headers: {

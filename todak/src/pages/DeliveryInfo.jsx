@@ -5,6 +5,8 @@ import PopupPostCode from "./PopupPostCode";
 import { useNavigate, useLocation } from "react-router-dom";
 import CheckoutPage from "./CheckoutPage";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 function DeliveryInfo() {
   const navigate = useNavigate();
   const location = useLocation();

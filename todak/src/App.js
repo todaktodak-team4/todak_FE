@@ -1,6 +1,6 @@
 // App.js
 import React from "react";
-import { HasRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom"; // Route 추가
 import { useState, useEffect } from "react";
 import "./App.css";
 import Main from "./pages/Main";
@@ -38,7 +38,7 @@ import WreathList from "./pages/WreathList";
 import WrittenMessage from "./pages/WrittenMessage";
 import HelpModal from "./pages/HelpModal";
 
-const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+const BACKEND_URL = "http://3.38.125.151";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -68,7 +68,7 @@ function App() {
         localStorage.removeItem("refresh_token");
         setIsLoggedIn(false); // 로그인 상태 업데이트
         alert("로그아웃 되었습니다.");
-        navigate("/login"); // 로그아웃 후 로그인 페이지로 리다이렉트
+        navigate("/"); // 로그아웃 후 로그인 페이지로 리다이렉트
       } else {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
@@ -84,116 +84,113 @@ function App() {
   };
 
   return (
-   <Router>
-    <div>
-      <A.Header>
-        <A.Logo>
-          <Link to="/">
+    <Router>
+      <div>
+        <A.Header>
+          <A.Logo>
+            <Link to="/">
+              <img
+                id="Logo"
+                src={`${process.env.PUBLIC_URL}/static/img/TodakLogo2.svg`}
+                alt="Logo"
+              />
+            </Link>
+            <Link to="/">
+              <img
+                id="LogoMessage"
+                src={`${process.env.PUBLIC_URL}/static/img/LogoMessage.svg`}
+                alt="LogoMessage"
+              />
+            </Link>
+          </A.Logo>
+          <A.Privacy>
+            {isLoggedIn ? (
+              <>
+                <div onClick={handleLogout} style={{ cursor: "pointer" }}>
+                  로그아웃
+                </div>
+                <Link to="/mypage">마이페이지</Link>
+              </>
+            ) : (
+              <>
+                <Link to="/signup1">회원가입</Link>
+                <Link to="/login">로그인</Link>
+              </>
+            )}
+          </A.Privacy>
+        </A.Header>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/signup1" element={<Signup1 />} />
+          <Route path="/signup2" element={<Signup2 />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/plantTreeStepOne" element={<PlantTreeStepOne />} />
+          <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
+          <Route path="/completeModal" element={<PlantCompleteModal />} />
+          <Route path="/growCompleteModal" element={<GrowCompleteModal />} />
+          <Route path="/rememberTree" element={<RememberTree />} />
+          <Route path="/deliveryInfo" element={<DeliveryInfo />} />
+          <Route path="/deliveryProduct" element={<DeliveryProduct />} />
+          <Route path="/uploadImg" element={<UploadImg />} />
+          <Route path="/writeLetter" element={<WriteLetter />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/success" element={<SuccessModal />} />
+          <Route path="/helpModal" element={<HelpModal />} />
+          <Route path="/memorialHall/:postId?" element={<MemorialHall />} />
+          <Route path="/memorialHallList" element={<MemorialHallList />} />
+          <Route path="memorialHall/:postId/access" element={<LockedMemorialHall />} />
+          <Route path="/layCheckout" element={<LayCheckout />} />
+          <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
+          <Route path="/layFlower" element={<LayFlower />} />
+          <Route path="/laySuccess" element={<DonationModal />} />
+          <Route path="/sentComplete" element={<SentComplete />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/talkModal" element={<TalkModal />} />
+          <Route path="/modifyInfo" element={<ModifyInfo />} />
+          <Route path="/wreathList" element={<WreathList />} />
+          <Route path="/writtenMessage" element={<WrittenMessage />} />
+          <Route path="/laysuccess" element={<LaySuccessModal />} />
+          <Route path="/letterDetail" element={<LetterDetail />} />
+        </Routes>
+        <A.Footer>
+          <A.Footer1>
             <img
               id="Logo"
-              src={`${process.env.PUBLIC_URL}/static/img/TodakLogo2.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/TodakLogo3.svg`}
               alt="Logo"
             />
-          </Link>
-          <Link to="/">
             <img
               id="LogoMessage"
-              src={`${process.env.PUBLIC_URL}/static/img/LogoMessage.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/LogoMessage2.svg`}
               alt="LogoMessage"
             />
-          </Link>
-        </A.Logo>
-        <A.Privacy>
-          {isLoggedIn ? (
-            <>
-              <div onClick={handleLogout} style={{ cursor: "pointer" }}>
-                로그아웃
-              </div>
-              <Link to="/mypage">마이페이지</Link>
-            </>
-          ) : (
-            <>
-              <Link to="/signup1">회원가입</Link>
-              <Link to="/login">로그인</Link>
-            </>
-          )}
-        </A.Privacy>
-      </A.Header>
-      <Nav />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/signup1" element={<Signup1 />} />
-        <Route path="/signup2" element={<Signup2 />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/plantTreeStepOne" element={<PlantTreeStepOne />} />
-        <Route path="/plantTreeStepTwo" element={<PlantTreeStepTwo />} />
-        <Route path="/completeModal" element={<PlantCompleteModal />} />
-        <Route path="/growCompleteModal" element={<GrowCompleteModal />} />
-        <Route path="/rememberTree" element={<RememberTree />} />
-        <Route path="/deliveryInfo" element={<DeliveryInfo />} />
-        <Route path="/deliveryProduct" element={<DeliveryProduct />} />
-        <Route path="/uploadImg" element={<UploadImg />} />
-        <Route path="/writeLetter" element={<WriteLetter />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/success" element={<SuccessModal />} />
-        <Route path="/helpModal" element={<HelpModal />} />
-        <Route path="/memorialHall/:postId?" element={<MemorialHall />} />
-        <Route path="/memorialHallList" element={<MemorialHallList />} />
-        <Route
-          path="memorialHall/:postId/access"
-          element={<LockedMemorialHall />}
-        />
-        <Route path="/layCheckout" element={<LayCheckout />} />
-        <Route path="/memorialHallSignup" element={<MemorialHallSignup />} />
-        <Route path="/layFlower" element={<LayFlower />} />
-        <Route path="/laySuccess" element={<DonationModal />} />
-        <Route path="/sentComplete" element={<SentComplete />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/talkModal" element={<TalkModal />} />
-        <Route path="/modifyInfo" element={<ModifyInfo />} />
-        <Route path="/wreathList" element={<WreathList />} />
-        <Route path="/writtenMessage" element={<WrittenMessage />} />
-        <Route path="/laysuccess" element={<LaySuccessModal />} />
-        <Route path="/letterDetail" element={<LetterDetail />} />
-      </Routes>
-      <A.Footer>
-        <A.Footer1>
-          <img
-            id="Logo"
-            src={`${process.env.PUBLIC_URL}/static/img/TodakLogo3.svg`}
-            alt="Logo"
-          />
-          <img
-            id="LogoMessage"
-            src={`${process.env.PUBLIC_URL}/static/img/LogoMessage2.svg`}
-            alt="LogoMessage"
-          />
-          <p id="ment11">
-            <img id="img" src={`${process.env.PUBLIC_URL}/static/img/footer1.svg`} />
-            서울특별시 성북구 화랑로13길 60
-            <br />
-            60 Hwarang-ro 13-gil, Seongbuk-gu, Seoul
-          </p>
-          <p id="ment13">
-            <img id="img" src={`${process.env.PUBLIC_URL}/static/img/footer2.svg`} />
-            멋쟁이사자처럼 동덕여자대학교 12기 팀 우리사이
-          </p>
-        </A.Footer1>
-        <A.Footer2>
-          <p id="ment21">당장 도움이 필요하신가요?</p>
-          <p id="ment22">
-            삶을 포기하고 싶다는 생각이 반복적으로 들거나 정신건강 질환의
-            <br />
-            고통이 심할 경우 즉각적으로 전문기관에 도움을 요청하세요.
-          </p>
-          <p id="ment23">
-            보건복지부 자살 예방 상담 전화: 109
-            <br />
-            정신건강 위기 상담 전화: 1577-0199
-          </p>
-        </A.Footer2>
-      </A.Footer>
-    </div>
+            <p id="ment11">
+              <img id="img" src={`${process.env.PUBLIC_URL}/static/img/footer1.svg`} />
+              서울특별시 성북구 화랑로13길 60
+              <br />
+              60 Hwarang-ro 13-gil, Seongbuk-gu, Seoul
+            </p>
+            <p id="ment13">
+              <img id="img" src={`${process.env.PUBLIC_URL}/static/img/footer2.svg`} />
+              멋쟁이사자처럼 동덕여자대학교 12기 팀 우리사이
+            </p>
+          </A.Footer1>
+          <A.Footer2>
+            <p id="ment21">당장 도움이 필요하신가요?</p>
+            <p id="ment22">
+              삶을 포기하고 싶다는 생각이 반복적으로 들거나 정신건강 질환의
+              <br />
+              고통이 심할 경우 즉각적으로 전문기관에 도움을 요청하세요.
+            </p>
+            <p id="ment23">
+              보건복지부 자살 예방 상담 전화: 109
+              <br />
+              정신건강 위기 상담 전화: 1577-0199
+            </p>
+          </A.Footer2>
+        </A.Footer>
+      </div>
     </Router>
   );
 }

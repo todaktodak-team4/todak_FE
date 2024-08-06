@@ -47,7 +47,7 @@ export const Content = styled.div`
 // 버튼들 모아서
 export const NavBtns = styled.div`
   cursor: pointer;
-  margin-top: 10vh;
+  margin-top: 18vh;
   display: flex;
   justify-content: center;
   align-items: center;

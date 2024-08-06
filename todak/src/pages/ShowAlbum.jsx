@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledShowAlbum.module.css";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 function ShowAlbum({ onClose, treeId }) {
   const [albumData, setAlbumData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +16,7 @@ function ShowAlbum({ onClose, treeId }) {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://3.38.125.151/rememberTree/${treeId}/photos/`,
+        `${BACKEND_URL}/api/rememberTree/${treeId}/photos/`,
         {
           method: "GET",
           headers: {
@@ -64,7 +66,7 @@ function ShowAlbum({ onClose, treeId }) {
 
   const renderAlbumItem = (item, index) => {
     const imageUrl = item.rememberPhoto
-      ? `http://3.38.125.151${item.rememberPhoto}`
+      ? `${BACKEND_URL}${item.rememberPhoto}`
       : "./static/img/default.png";
 
     switch (index % 4) {

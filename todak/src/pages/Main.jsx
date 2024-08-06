@@ -5,7 +5,7 @@ import Nav from "./Nav";
 import Info from "./Info";
 import NeedLogin from "./NeedLogin";
 
-const BACKEND_URL = "http://127.0.0.1:8000" || "http://3.38.125.151";
+const BACKEND_URL = "http://3.38.125.151";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -77,7 +77,7 @@ const Main = () => {
           console.log("User ID:", userId);
 
           const treeResponse = await fetch(
-            `${BACKEND_URL}/rememberTree/user/${userId}/`,
+            `${BACKEND_URL}/api/rememberTree/user/${userId}/`,
             {
               method: "GET",
               headers: {
@@ -122,6 +122,14 @@ const Main = () => {
     }
   };
 
+  const goToHallSignup = () => {
+    if (token) {
+      navigate("/memorialHallSignup");
+    } else {
+      setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
+    }
+  };
+
   return (
     <M.Body>
       <M.Container>
@@ -141,7 +149,7 @@ const Main = () => {
             </M.NavBtnWrapper1>
             <M.NavBtnWrapper1>
               <M.NavBtnWrapper2>
-                <a href="/memorialHallSignup">
+                <a onClick={goToHallSignup}>
                   헌화 공간
                   <br />
                   신청

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateTreeModal from "../pages/CreateTreeModal";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 function Mypage() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -13,7 +15,7 @@ function Mypage() {
   const [userId, setUserId] = useState(null);
   const [todayAnswers, setTodayAnswers] = useState(null);
   const [treeData, setTreeData] = useState(null);
-  const baseUrl = "http://3.38.125.151";
+  const baseUrl = `${BACKEND_URL}`;
 
   // Set the profile image URL conditionally
   const imageUrl = image
@@ -39,7 +41,7 @@ function Mypage() {
     const fetchUserInfo = async () => {
       try {
         const response = await fetch(
-          "http://3.38.125.151/accounts/api/get-user-info-from-token/",
+          `${BACKEND_URL}/accounts/api/get-user-info-from-token/`,
           {
             method: "GET",
             headers: {
@@ -70,7 +72,7 @@ function Mypage() {
 
         if (result.userId) {
           const treeResponse = await fetch(
-            `http://3.38.125.151/rememberTree/user/${result.userId}/`,
+            `${BACKEND_URL}/api/rememberTree/user/${result.userId}/`,
             {
               method: "GET",
               headers: {
@@ -95,7 +97,7 @@ function Mypage() {
     const fetchTodayAnswers = async () => {
       try {
         const response = await fetch(
-          "http://3.38.125.151/daily-question/today-answers/",
+          `${BACKEND_URL}/api/daily-question/today-answers/`,
           {
             method: "GET",
             headers: {
@@ -132,7 +134,7 @@ function Mypage() {
       formData.append("profile", file);
       try {
         const response = await fetch(
-          "http://3.38.125.151/accounts/api/update-profile-image/",
+         `${BACKEND_URL}/accounts/api/update-profile-image/`,
           {
             method: "PUT",
             headers: {
@@ -263,7 +265,7 @@ function Mypage() {
           내가 남긴 추모글
         </div>
         <div className={styles.flower} onClick={GoWreathList}>
-          <img src="./static/img/mypageFlower.png" alt="헌화 내역" />
+          <img src="./static/img/myPageFlower.png" alt="헌화 내역" />
           헌화 내역
         </div>
         <div className={styles.rememberTree} onClick={GoRememberTree}>

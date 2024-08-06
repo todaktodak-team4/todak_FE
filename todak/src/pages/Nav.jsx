@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as M from "../css/StyledNav";
+import NeedLogin from "./NeedLogin";
+
+const BACKEND_URL = "http://3.38.125.151";
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -14,7 +17,7 @@ const Nav = () => {
     if (token) {
       try {
         const response = await fetch(
-          "http://3.38.125.151/accounts/api/get-user-id-from-token",
+          `${BACKEND_URL}/accounts/api/get-user-id-from-token`,
           {
             method: "GET",
             headers: {
@@ -30,7 +33,7 @@ const Nav = () => {
           console.log("User ID:", userId);
 
           const treeResponse = await fetch(
-            `http://3.38.125.151/rememberTree/user/${userId}/`,
+            `${BACKEND_URL}/api/rememberTree/user/${userId}/`,
             {
               method: "GET",
               headers: {
@@ -64,15 +67,32 @@ const Nav = () => {
     }
   };
 
+  const goToMemorialHallList = () => {
+    if (token) {
+      navigate("/memorialHallList"); // 페이지 이동
+    } else {
+      setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
+    }
+  };
+
+  const goToHallSingup = () => {
+    if (token) {
+      navigate("/memorialHallSignup"); // 페이지 이동
+    } else {
+      setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
+    }
+  };
+
   return (
     <M.Nav>
+      {showLoginModal && <NeedLogin />}
       <M.Navbar>
         <M.NavItem isActive={location.pathname === "/"}>
           <a href="/">HOME</a>
           <hr />
         </M.NavItem>
         <M.NavItem isActive={location.pathname === "/memorialHallList"}>
-          <a href="/memorialHallList">온라인 헌화</a>
+          <a onClick={goToMemorialHallList}>온라인 헌화</a>
           <hr />
         </M.NavItem>
         <M.NavItem isActive={location.pathname === "/rememberTree"}>
@@ -80,7 +100,7 @@ const Nav = () => {
           <hr />
         </M.NavItem>
         <M.NavItem isActive={location.pathname === "/memorialHallSignup"}>
-          <a href="/memorialHallSignup">헌화 공간 신청</a>
+          <a onClick={goToHallSingup}>헌화 공간 신청</a>
           <hr />
         </M.NavItem>
       </M.Navbar>

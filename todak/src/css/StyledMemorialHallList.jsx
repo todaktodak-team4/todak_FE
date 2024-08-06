@@ -252,14 +252,14 @@ export const C5 = styled.div`
     margin-left: 1rem;
   }
   #lotus {
-    background: url(${process.env.PUBLIC_URL}/img/lotus.svg);
+    background: url(${process.env.PUBLIC_URL}/static/img/lotus.svg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 1.375rem;
     height: 1rem;
   }
   #feather {
-    background: url(${process.env.PUBLIC_URL}/img/feather.svg);
+    background: url(${process.env.PUBLIC_URL}/static/img/feather.svg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 1.25rem;

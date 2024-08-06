@@ -34,7 +34,7 @@
     align-items: center;
     flex-direction: column;
     gap: 2rem;
-    background: url('../../public/img/DonationCertificate.png');
+    background: url('/public/img/DonationCertificate.png');
     background-size: cover;
     background-repeat: no-repeat;
     width: 25rem;

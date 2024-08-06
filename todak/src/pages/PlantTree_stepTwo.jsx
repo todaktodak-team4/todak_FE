@@ -4,6 +4,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../css/StyledPlantTree.module.css";
 import CompleteModal from "../pages/PlantCompleteModal";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 function PlantTreeStepTwo() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,7 +29,7 @@ function PlantTreeStepTwo() {
 
     try {
       console.log(payload);
-      const response = await fetch("http://3.38.125.151/rememberTree/", {
+      const response = await fetch(`${BACKEND_URL}/api/rememberTree/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

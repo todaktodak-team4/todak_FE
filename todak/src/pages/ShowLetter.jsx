@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledShowLetter.module.css";
 import LetterDetail from "./LetterDetail";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 function ShowLetter({ onClose, treeId }) {
   const [letters, setLetters] = useState([]);
   const token = localStorage.getItem("access_token");
@@ -18,7 +20,7 @@ function ShowLetter({ onClose, treeId }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://3.38.125.151/rememberTree/${treeId}/letters/`,
+          `${BACKEND_URL}/api/rememberTree/${treeId}/letters/`,
           {
             method: "GET",
             headers: {

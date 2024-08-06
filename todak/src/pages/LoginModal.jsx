@@ -1,11 +1,11 @@
 import React from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-//회원가입 완료 모달
+//로그인 완료 모달
 
 const BACKEND_URL = "http://3.38.125.151";
 
-export const Contaianer = styled.div`
+export const Container = styled.div`
   position: fixed;
   z-index: 100;
   top: 50%;
@@ -17,7 +17,7 @@ export const Contaianer = styled.div`
   align-items: center;
   flex-direction: column;
   width: 70vw;
-  height: 55vh;
+  height: 50vh;
   flex-shrink: 0;
   border-radius: 50px;
   background: linear-gradient(0deg, #f9f9c8 0%, #ffffeb 48%);
@@ -39,27 +39,8 @@ export const Contaianer = styled.div`
     font-weight: 700;
     line-height: normal;
   }
-  #goLoginBtn {
-    width: 260px;
-    height: 60px;
-    flex-shrink: 0;
-    border-radius: 40px;
-    background: var(--y, linear-gradient(180deg, #fff9e4 0%, #ffda57 100%));
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border: none;
-    margin-top: 10px;
-  }
-  #btnp {
-    color: #3d4c00;
-    font-family: "Pretendard Variable";
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin: 0;
-  }
 `;
-const CompleteSignup = () => {
+const LoginModal = () => {
   const navigate = useNavigate();
 
   const handleNav = () => {
@@ -67,19 +48,15 @@ const CompleteSignup = () => {
   };
 
   return (
-    <Contaianer>
+    <Container>
       <img
         id="logo"
         src={`${process.env.PUBLIC_URL}/static/img/TodakLogo4.svg`}
         alt="logo"
       />
-      <p id="message">회원가입을 완료했습니다.</p>
-
-      <button id="goLoginBtn" onClick={handleNav}>
-        <p id="btnp">로그인하기</p>
-      </button>
-    </Contaianer>
+      <p id="message">로그인을 완료했습니다.</p>
+    </Container>
   );
 };
 
-export default CompleteSignup;
+export default LoginModal;

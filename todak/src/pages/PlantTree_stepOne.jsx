@@ -3,6 +3,8 @@ import Nav from "./Nav";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledPlantTree.module.css";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 function PlantTreeStepOne() {
   const navigate = useNavigate();
   const [treeName, setTreeName] = useState("");

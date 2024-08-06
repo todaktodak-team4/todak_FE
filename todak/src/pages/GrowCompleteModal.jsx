@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledGrowCompleteModal.module.css";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 function GrowCompleteModal({ onClose }) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);

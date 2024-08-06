@@ -8,6 +8,8 @@ import MemorialMessage from "./MemorialMessage1";
 import MemorialMessage2 from "./MemorialMessage2";
 import CountUpNumber from "./CountUpNumber";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 const MemorialHall = () => {
   const navigate = useNavigate();
   const textareaRef = useRef(null);
@@ -41,7 +43,7 @@ const MemorialHall = () => {
     const fetchData = async (page) => {
       try {
         const response = await axios.get(
-          `/memorialHall/${postId}/message?page=${page}`
+          `${BACKEND_URL}/api/memorialHall/${postId}/message?page=${page}`
         );
         console.log("추모글 조회 응답 데이터:", response.data);
         setMessages(response.data.results);
@@ -61,7 +63,9 @@ const MemorialHall = () => {
   useEffect(() => {
     const fetchDatas = async () => {
       try {
-        const response = await axios.get(`/memorialHall/${postId}/wreath`);
+        const response = await axios.get(
+          `${BACKEND_URL}/api/memorialHall/${postId}/wreath`
+        );
         console.log("헌화한마디 응답 데이터 이건뭐지:", response.data);
         setWreaths(response.data);
       } catch (error) {
@@ -73,7 +77,7 @@ const MemorialHall = () => {
 
   useEffect(() => {
     axios
-      .get(`/memorialHall/${postId}`)
+      .get(`${BACKEND_URL}/api/memorialHall/${postId}`)
       .then((response) => {
         setPost(response.data);
         console.log("온라인 추모관 디테일 응답:", response.data);
@@ -89,7 +93,7 @@ const MemorialHall = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `/memorialHall/${postId}/message?page=${page}`
+          `${BACKEND_URL}/api/memorialHall/${postId}/message?page=${page}`
         );
         setMessages(response.data.results);
         setTotalPages(Math.ceil(response.data.count / 3));
@@ -104,7 +108,7 @@ const MemorialHall = () => {
 
   useEffect(() => {
     axios
-      .get(`/memorialHall/${postId}`)
+      .get(`${BACKEND_URL}/api/memorialHall/${postId}`)
       .then((response) => {
         setPost(response.data);
         console.log("온라인 추모관 디테일 응답:", response.data);
@@ -146,7 +150,7 @@ const MemorialHall = () => {
   const handlePostBtn = async () => {
     try {
       const response = await axios.post(
-        `/memorialHall/${postId}/message`,
+        `${BACKEND_URL}/api/memorialHall/${postId}/message`,
         { content, hall: postId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -166,26 +170,28 @@ const MemorialHall = () => {
   const copyCurrentURL = () => {
     const currentURL = window.location.href;
     let linkToCopy = currentURL;
-
+  
     if (post) {
-      if (post.private) {
-        linkToCopy = `http://localhost:3000/memorialHall/${postId}/access?token=${halltoken}`;
-      } else {
-        linkToCopy = `http://localhost:3000/memorialHall/${postId}`;
-      }
+      linkToCopy = post.private 
+        ? `${BACKEND_URL}/memorialHall/${postId}/access?token=${halltoken}`
+        : `${BACKEND_URL}/api/memorialHall/${postId}`;
     }
-
-    navigator.clipboard
-      .writeText(linkToCopy)
-      .then(() => {
-        console.log("URL이 클립보드에 복사되었습니다.");
-        alert("URL이 클립보드에 복사되었습니다.");
-      })
-      .catch((err) => {
-        console.error("URL 복사 실패:", err);
-      });
+  
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(linkToCopy)
+        .then(() => {
+          console.log("URL이 클립보드에 복사되었습니다.");
+          alert("URL이 클립보드에 복사되었습니다.");
+        })
+        .catch((err) => {
+          console.error("URL 복사 실패:", err);
+        });
+    } else {
+      console.error("이 브라우저는 클립보드 복사 기능을 지원하지 않습니다.");
+      alert("이 브라우저는 클립보드 복사 기능을 지원하지 않습니다.");
+    }
   };
-
+  
   const navigateToLayFlower = () => {
     navigate(`/layFlower?hall=${postId}`);
   };
@@ -229,7 +235,7 @@ const MemorialHall = () => {
         <H.Content>
           <img
             id="flower"
-            src={`${process.env.PUBLIC_URL}/img/flower.svg`}
+            src={`${process.env.PUBLIC_URL}/static/img/flower.svg`}
             alt="flower"
           />
           <H.mainImg>
@@ -259,8 +265,8 @@ const MemorialHall = () => {
             <CountUpNumber
               style={{ fontFamily: "NanumBuJangNimNunCiCe" }}
               ref={wreathCountRef}
-              end={12340}
-              // end={post ? post.wreathCount : 0}
+              // end={12340}
+              end={post ? post.wreathCount : 0}
               unit=" 개"
             />
           </H.BannerContent>
@@ -269,8 +275,8 @@ const MemorialHall = () => {
             <CountUpNumber
               style={{ fontFamily: "NanumBuJangNimNunCiCe" }}
               ref={messageCountRef}
-              end={1825}
-              // end={post ? post.messageCount : 0}
+              // end={1825}
+              end={post ? post.messageCount : 0}
               unit=" 개"
             />
           </H.BannerContent>
@@ -301,7 +307,7 @@ const MemorialHall = () => {
           <H.MemorialMessage2Head>
             <img
               id="line"
-              src={`${process.env.PUBLIC_URL}/img/Memoryhalls.png`}
+              src={`${process.env.PUBLIC_URL}/static/img/Memoryhalls.png`}
               alt="line"
             />
             <p>추모의 글</p>

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/StyledDeliveryProduct.module.css";
 import Nav from "./Nav";
+
+const BACKEND_URL = "http://3.38.125.151";
+
 function DeliveryProduct() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");

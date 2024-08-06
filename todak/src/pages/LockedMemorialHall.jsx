@@ -5,6 +5,8 @@ import ContentItem from "./ContentItem";
 import * as H from "../css/StyledMemorialHallList";
 import Nav from "./Nav";
 
+const BACKEND_URL = "http://3.38.125.151";
+
 const LockedMemorialHall = () => {
 
   const location = useLocation();
@@ -64,7 +66,7 @@ const LockedMemorialHall = () => {
           <H.TitleContent>
             <img
               id="flower"
-              src={`${process.env.PUBLIC_URL}/img/flower.svg`}
+              src={`${process.env.PUBLIC_URL}/static/img/flower.svg`}
               alt="flower"
             />
             <H.Title>추모관 상세 정보</H.Title>

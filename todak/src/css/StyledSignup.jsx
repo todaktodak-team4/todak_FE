@@ -41,6 +41,7 @@ export const Contaianer = styled.div`
   flex-direction: column;
   position: relative;
   gap: 8vh;
+  z-index: 0;
 `;
 export const Title = styled.div`
   color: #3d4c00;
@@ -91,9 +92,9 @@ export const SelectBtn = styled.label`
     position: absolute; /* 부모 요소 내 절대 위치 설정 */
     top: 0;
     left: 0;
-    width: 100%; /* 부모 요소와 동일한 크기 */
-    height: 100%; /* 부모 요소와 동일한 크기 */
-    cursor: pointer; /* 포인터 커서 설정 */
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
   }
 
   p {
@@ -118,6 +119,8 @@ export const Step1Items = styled.div`
 `;
 export const Step1Item = styled.div`
   display: flex;
+  position: relative;
+  left: 150px;
   flex-direction: row;
   input {
     margin-left: 10%;
@@ -195,7 +198,7 @@ export const Line = styled.div`
   width: 2.5px;
   height: 50vh;
   position: absolute;
-  left: 22px;
+  left: 170px;
   top: 20px;
 `;
 export const BackBtn = styled.div`
@@ -266,14 +269,16 @@ export const FinishBtn = styled.div`
 `;
 
 export const ErrorMessage = styled.div`
-  color: red;
-  font-size: 12px;
+  color: #d34f48;
+  font-size: 18px;
   margin-top: 5px;
-  margin-left: 40px;
+  margin-left: 48px;
+  font-weight: 500;
 `;
 export const SuccessMessage = styled.div`
-  color: blue;
-  font-size: 12px;
+  color: #839c20;
+  font-size: 18px;
   margin-top: 5px;
-  margin-left: 40px;
+  margin-left: 48px;
+  font-weight: 500;
 `;
