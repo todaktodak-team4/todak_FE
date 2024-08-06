@@ -75,7 +75,7 @@ export const Btns = styled.div`
   flex-direction: row;
   gap: 3vw;
 `;
-const NeedLogin = () => {
+const NeedLogin = ({ onClose }) => {
   const navigate = useNavigate();
 
   const handleNavLogin = () => {
@@ -87,6 +87,7 @@ const NeedLogin = () => {
 
   return (
     <Contaianer>
+      <CloseButton onClick={onClose}>×</CloseButton>
       <img
         id="logo"
         src={`${process.env.PUBLIC_URL}/static/img/TodakLogo4.svg`}

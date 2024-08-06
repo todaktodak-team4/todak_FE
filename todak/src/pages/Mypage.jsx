@@ -20,7 +20,7 @@ function Mypage() {
   // Set the profile image URL conditionally
   const imageUrl = image
     ? `${baseUrl}${image}` // Profile image from server
-    : `${process.env.PUBLIC_URL}/img/standardProfile.svg`; // Default image
+    : `${process.env.PUBLIC_URL}/static/img/standardProfile.svg`; // Default image
 
   function GoModifyInfo() {
     navigate("/modifyInfo");
