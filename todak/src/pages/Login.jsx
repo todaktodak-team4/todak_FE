@@ -10,17 +10,21 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  // Handle Enter key press
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent the default form submission behavior
+      handleLogin(); // Call the login function
+    }
+  };
 
   const handleLogin = async () => {
     try {
       // Make the POST request to the login endpoint
-      const response = await axios.post(
-        `${BACKEND_URL}/accounts/login/`,
-        {
-          username: username,
-          password: password,
-        }
-      );
+      const response = await axios.post(`${BACKEND_URL}/accounts/login/`, {
+        username: username,
+        password: password,
+      });
 
       // Check if the status code is 200 (success)
       if (response.status === 200) {
@@ -68,6 +72,7 @@ const Login = () => {
               placeholder="아이디"
               value={username}
               onChange={(e) => setId(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
           </S.Step1Item>
           <S.Step1Item>
@@ -81,6 +86,7 @@ const Login = () => {
               placeholder="비밀번호(영어, 숫자, 특수문자 조합 12자 이상)"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
           </S.Step1Item>
         </S.Step1Items>

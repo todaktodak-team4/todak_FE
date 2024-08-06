@@ -68,7 +68,7 @@ function App() {
         localStorage.removeItem("refresh_token");
         setIsLoggedIn(false); // 로그인 상태 업데이트
         alert("로그아웃 되었습니다.");
-        navigate("/login"); // 로그아웃 후 로그인 페이지로 리다이렉트
+        navigate("/"); // 로그아웃 후 로그인 페이지로 리다이렉트
       } else {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");

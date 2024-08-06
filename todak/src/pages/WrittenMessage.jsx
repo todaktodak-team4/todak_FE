@@ -12,7 +12,7 @@ function WrittenMessage() {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(
-          `${BACKEND_URL}/message/my-messages/`,
+          `${BACKEND_URL}/api/message/my-messages/`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,

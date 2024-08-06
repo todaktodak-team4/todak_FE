@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as M from "../css/StyledNav";
+import NeedLogin from "./NeedLogin";
 
 const BACKEND_URL = "http://3.38.125.151";
 
@@ -66,97 +67,17 @@ const Nav = () => {
     }
   };
 
-  const goToMemorialHall = async () => {
+  const goToMemorialHallList = () => {
     if (token) {
-      try {
-        const response = await fetch(
-          `${BACKEND_URL}/accounts/api/get-user-id-from-token`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`, // 토큰을 헤더에 추가
-            },
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          const userId = data.userId; // API 응답에서 사용자 ID를 가져옴
-          setUserId(userId); // 사용자 ID 상태에 저장
-          console.log("User ID:", userId);
-
-          const treeResponse = await fetch(
-            `${BACKEND_URL}/api/memorialHall/`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token}`, // 토큰을 헤더에 추가
-              },
-            }
-          );
-
-          if (treeResponse.ok) {
-            const treeData = await treeResponse.json();
-            console.log("Remember Tree Data:", treeData);
-
-            if (treeData.length > 0) {
-              navigate("/MemorialHallList"); // 페이지 이동
-            }
-            }
-          }else {
-          setShowLoginModal(true); // 응답이 실패한 경우 로그인 모달 창 보이기
-          }
-      } catch (error) {
-        console.error("Error fetching user ID:", error);
-        setShowLoginModal(true); // 에러 발생 시 로그인 모달 창 보이기
-      }
+      navigate("/memorialHallList"); // 페이지 이동
     } else {
       setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
     }
   };
 
-  const goToHallSingup = async () => {
+  const goToHallSingup = () => {
     if (token) {
-      try {
-        const response = await fetch(
-          `${BACKEND_URL}/accounts/api/get-user-id-from-token`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`, // 토큰을 헤더에 추가
-            },
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          const userId = data.userId; // API 응답에서 사용자 ID를 가져옴
-          setUserId(userId); // 사용자 ID 상태에 저장
-          console.log("User ID:", userId);
-          navigate("/MemorialHallSignup"); // 페이지 이동
-
-          // const treeResponse = await fetch(
-          //   `${BACKEND_URL}/api/memorialHall/`,
-          //   {
-          //     method: "GET",
-          //     headers: {
-          //       Authorization: `Bearer ${token}`, // 토큰을 헤더에 추가
-          //     },
-          //   }
-          // );
-
-          // if (treeResponse.ok) {
-          //   const treeData = await treeResponse.json();
-          //   console.log("Remember Tree Data:", treeData);
-          //   navigate("/MemorialHallSignup"); // 페이지 이동
-          //   }
-          // }else {
-          setShowLoginModal(true); // 응답이 실패한 경우 로그인 모달 창 보이기
-          }
-      } catch (error) {
-        console.error("Error fetching user ID:", error);
-        setShowLoginModal(true); // 에러 발생 시 로그인 모달 창 보이기
-      }
+      navigate("/memorialHallSignup"); // 페이지 이동
     } else {
       setShowLoginModal(true); // 토큰이 없는 경우 모달 창 보이기
     }
@@ -164,13 +85,14 @@ const Nav = () => {
 
   return (
     <M.Nav>
+      {showLoginModal && <NeedLogin />}
       <M.Navbar>
         <M.NavItem isActive={location.pathname === "/"}>
           <a href="/">HOME</a>
           <hr />
         </M.NavItem>
         <M.NavItem isActive={location.pathname === "/memorialHallList"}>
-          <a onClick={goToMemorialHall}>온라인 헌화</a>
+          <a onClick={goToMemorialHallList}>온라인 헌화</a>
           <hr />
         </M.NavItem>
         <M.NavItem isActive={location.pathname === "/rememberTree"}>
