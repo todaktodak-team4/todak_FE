@@ -168,26 +168,28 @@ const MemorialHall = () => {
   const copyCurrentURL = () => {
     const currentURL = window.location.href;
     let linkToCopy = currentURL;
-
+  
     if (post) {
-      if (post.private) {
-        linkToCopy = `${BACKEND_URL}/api/memorialHall/${postId}/access?token=${halltoken}`;
-      } else {
-        linkToCopy = `${BACKEND_URL}/api/memorialHall/${postId}`;
-      }
+      linkToCopy = post.private 
+        ? `${BACKEND_URL}/memorialHall/${postId}/access?token=${halltoken}`
+        : `${BACKEND_URL}/memorialHall/${postId}`;
     }
-
-    navigator.clipboard
-      .writeText(linkToCopy)
-      .then(() => {
-        console.log("URL이 클립보드에 복사되었습니다.");
-        alert("URL이 클립보드에 복사되었습니다.");
-      })
-      .catch((err) => {
-        console.error("URL 복사 실패:", err);
-      });
+  
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(linkToCopy)
+        .then(() => {
+          console.log("URL이 클립보드에 복사되었습니다.");
+          alert("URL이 클립보드에 복사되었습니다.");
+        })
+        .catch((err) => {
+          console.error("URL 복사 실패:", err);
+        });
+    } else {
+      console.error("이 브라우저는 클립보드 복사 기능을 지원하지 않습니다.");
+      alert("이 브라우저는 클립보드 복사 기능을 지원하지 않습니다.");
+    }
   };
-
+  
   const navigateToLayFlower = () => {
     navigate(`/layFlower?hall=${postId}`);
   };

@@ -60,7 +60,7 @@ const LayFlower = () => {
       formData.append("comment", comment);
       formData.append("hall", hall);
 
-      await axios.post(`/memorialHall/${hall}/wreath`, formData, {
+      await axios.post(`${BACKEND_URL}/api/memorialHall/${hall}/wreath`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
