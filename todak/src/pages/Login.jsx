@@ -3,49 +3,44 @@ import { useNavigate } from "react-router-dom";
 import * as S from "../css/StyledLogin";
 import axios from "axios";
 import LoginModal from "./LoginModal";
-
+//Login 에 추가
 const BACKEND_URL = "http://3.38.125.151";
 
 const Login = () => {
   const [username, setId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [modalVisible, setModalVisible] = useState(false); // 모달 상태
+  const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
 
-  // Handle Enter key press
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault(); // Prevent the default form submission behavior
-      handleLogin(); // Call the login function
+      e.preventDefault();
+      handleLogin();
     }
   };
 
   const handleLogin = async () => {
     try {
-      // Make the POST request to the login endpoint
       const response = await axios.post(`${BACKEND_URL}/accounts/login/`, {
         username: username,
         password: password,
       });
 
-      // Check if the status code is 200 (success)
       if (response.status === 200) {
-        console.log(response.data); // Log the response data
+        console.log(response.data);
         localStorage.setItem("access_token", response.data.access);
         localStorage.setItem("refresh_token", response.data.refresh);
-        setModalVisible(true); // 모달 보이기
+        setModalVisible(true);
         setTimeout(() => {
-          setModalVisible(false); // 2초 후 모달 숨기기
+          setModalVisible(false);
           navigate("/", { replace: true });
           window.location.reload();
         }, 500);
       } else {
-        // Handle other response statuses
         alert("로그인 실패: " + response.statusText);
       }
     } catch (error) {
-      // Check for specific status codes in error response
       if (error.response && error.response.status === 401) {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       } else {
@@ -93,7 +88,7 @@ const Login = () => {
               style={{
                 width: "275px",
                 position: "relative",
-                marginLeft: "280px",
+                marginLeft: "256px",
                 fontSize: "40px",
               }}
               value={password}
@@ -106,10 +101,7 @@ const Login = () => {
           <p>로그인하기</p>
         </S.LoginBtn>
         {modalVisible && (
-          <LoginModal
-            message="로그인에 성공했습니다."
-            onClose={() => setModalVisible(false)}
-          />
+          <LoginModal onClose={() => setModalVisible(false)} />
         )}
       </S.Container>
     </S.Body>

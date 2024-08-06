@@ -74,8 +74,8 @@ const CheckoutPage = ({
       await widgets.requestPayment({
         orderId: `order_${Date.now()}`,
         orderName: selectedItems,
-        successUrl: `${window.location.origin}/success`,
-        failUrl: `${window.location.origin}/fail`,
+        successUrl: `${BACKEND_URL}/success`,
+        failUrl: `${BACKEND_URL}/fail`,
       });
       setShowSuccessModal(true);
     } catch (error) {
