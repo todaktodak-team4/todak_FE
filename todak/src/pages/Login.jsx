@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as S from "../css/StyledLogin";
 import axios from "axios";
+import LoginModal from "./LoginModal";
 
 const BACKEND_URL = "http://3.38.125.151";
 
@@ -9,7 +10,9 @@ const Login = () => {
   const [username, setId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [modalVisible, setModalVisible] = useState(false); // 모달 상태
   const navigate = useNavigate();
+
   // Handle Enter key press
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -31,9 +34,12 @@ const Login = () => {
         console.log(response.data); // Log the response data
         localStorage.setItem("access_token", response.data.access);
         localStorage.setItem("refresh_token", response.data.refresh);
-        alert("로그인에 성공했습니다.");
-        navigate("/", { replace: true });
-        window.location.reload();
+        setModalVisible(true); // 모달 보이기
+        setTimeout(() => {
+          setModalVisible(false); // 2초 후 모달 숨기기
+          navigate("/", { replace: true });
+          window.location.reload();
+        }, 2000);
       } else {
         // Handle other response statuses
         alert("로그인 실패: " + response.statusText);
@@ -93,6 +99,12 @@ const Login = () => {
         <S.LoginBtn onClick={handleLogin}>
           <p>로그인하기</p>
         </S.LoginBtn>
+        {modalVisible && (
+          <LoginModal
+            message="로그인에 성공했습니다."
+            onClose={() => setModalVisible(false)}
+          />
+        )}
       </S.Container>
     </S.Body>
   );
