@@ -25,7 +25,6 @@ function RememberTree() {
   const [treeName, setTreeName] = useState("");
   const [treeId, setTreeId] = useState(null);
   const [userId, setUserId] = useState(null);
-  const [flowerType, setFlowerType] = useState(null);
   const [username, setUserName] = useState("");
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("access_token")
@@ -41,13 +40,16 @@ function RememberTree() {
 
   const refreshAccessToken = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/accounts/token/refresh/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ refresh: refreshToken }),
-      });
+      const response = await fetch(
+        `${BACKEND_URL}/accounts/token/refresh/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ refresh: refreshToken }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -108,7 +110,6 @@ function RememberTree() {
               setTreeName(data[0].treeName);
               setTreeId(data[0].id);
               setUserName(data[0].myName);
-              setFlowerType(data[0].flowerType);
             } else {
               console.error("Failed to fetch data after refreshing token");
             }
@@ -118,7 +119,6 @@ function RememberTree() {
           setTreeName(data[0].treeName);
           setTreeId(data[0].id);
           setUserName(data[0].myName);
-          setFlowerType(data[0].flowerType);
         } else {
           console.error("Failed to fetch data");
         }
@@ -219,29 +219,6 @@ function RememberTree() {
     setIsShowAlbumOpen(true);
   };
 
-  const FlowerImages = ({ flowerType, style }) => {
-    const getFlowerImage = (type) => {
-      switch (type) {
-        case "zinnia":
-          return "./static/img/treeZinnia.png";
-        case "hydrangea":
-          return "./static/img/treeHydrange.png";
-        case "lily":
-          return "./static/img/treeLily.png";
-        default:
-          return; // 기본 이미지 경로 설정
-      }
-    };
-
-    const flowerImage = getFlowerImage(flowerType);
-
-    return (
-      <div className={styles.flowers}>
-        <img src={flowerImage} alt={flowerType} style={style} />
-      </div>
-    );
-  };
-
   return (
     <>
       <div
@@ -267,16 +244,6 @@ function RememberTree() {
               onClick={toggleModal}
             />
             <div className={styles.rememberTreeInner}>
-              <FlowerImages
-                style={{
-                  zIndex: "10",
-                  width: "434px",
-                  height: "213px",
-                  position: "absolute",
-                  left: "20%",
-                  top: "13%",
-                }}
-              />
               <div className={styles.album}>
                 {isAlbumClicked && (
                   <div className={styles.albumButtons}>
