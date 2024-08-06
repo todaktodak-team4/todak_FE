@@ -225,7 +225,7 @@ function RememberTree() {
         case "zinnia":
           return "./static/img/treeZinnia.png";
         case "hydrangea":
-          return "./static/img/treeHydrangea.png";
+          return "./static/img/treeHydrange.png";
         case "lily":
           return "./static/img/treeLily.png";
         default:

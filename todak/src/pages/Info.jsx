@@ -18,7 +18,7 @@ const Info = () => {
           alt="LogoMessage"
         />
 
-        <p>
+        <p id="title">
           <I.BoldText>
             토닥토닥은 재난 경험자와 유족을 위한 공간입니다.
           </I.BoldText>
@@ -158,13 +158,13 @@ const Info = () => {
       </I.InfoAdd>
       <I.Info6>
         <I.Info6Content>
-          <div>
+          <div id="Info61">
             <p>같은 경험을 한 사람들과 함께 극복하고 싶어요</p>
           </div>
           <div id="Info62">
             <p>제 마음을 표현하고 공감받는 공간이 필요해요</p>
           </div>
-          <div>
+          <div id="Info61">
             <p>이제는 볼 수 없는 대상을 같이 추억하고 싶어요</p>
           </div>
         </I.Info6Content>

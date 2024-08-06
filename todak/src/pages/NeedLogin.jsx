@@ -75,6 +75,7 @@ export const Btns = styled.div`
   flex-direction: row;
   gap: 3vw;
 `;
+export const CloseButton = styled.div``;
 const NeedLogin = ({ onClose }) => {
   const navigate = useNavigate();
 

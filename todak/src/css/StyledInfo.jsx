@@ -668,7 +668,7 @@ export const Info7Img = styled.div`
   animation-fill-mode: forwards;
   clip-path: inset(100% 0 0 0);
   margin-right: 15vw;
-  #imgdiv {
+  div {
     position: relative;
     flex-shrink: 0;
     width: 482px;
