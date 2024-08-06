@@ -48,14 +48,14 @@ const LoginModal = () => {
   };
 
   return (
-    <Contaianer>
+    <Container>
       <img
         id="logo"
         src={`${process.env.PUBLIC_URL}/static/img/TodakLogo4.svg`}
         alt="logo"
       />
       <p id="message">로그인을 완료했습니다.</p>
-    </Contaianer>
+    </Container>
   );
 };
 
