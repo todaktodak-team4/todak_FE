@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as M from "../css/StyledNav";
+import NeedLogin from "./NeedLogin";
 
 const BACKEND_URL = "http://3.38.125.151";
 
@@ -85,15 +86,12 @@ const Nav = () => {
           setUserId(userId); // 사용자 ID 상태에 저장
           console.log("User ID:", userId);
 
-          const treeResponse = await fetch(
-            `${BACKEND_URL}/api/memorialHall/`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token}`, // 토큰을 헤더에 추가
-              },
-            }
-          );
+          const treeResponse = await fetch(`${BACKEND_URL}/api/memorialHall/`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`, // 토큰을 헤더에 추가
+            },
+          });
 
           if (treeResponse.ok) {
             const treeData = await treeResponse.json();
@@ -102,10 +100,10 @@ const Nav = () => {
             if (treeData.length > 0) {
               navigate("/MemorialHallList"); // 페이지 이동
             }
-            }
-          }else {
-          setShowLoginModal(true); // 응답이 실패한 경우 로그인 모달 창 보이기
           }
+        } else {
+          setShowLoginModal(true); // 응답이 실패한 경우 로그인 모달 창 보이기
+        }
       } catch (error) {
         console.error("Error fetching user ID:", error);
         setShowLoginModal(true); // 에러 발생 시 로그인 모달 창 보이기
@@ -152,7 +150,7 @@ const Nav = () => {
           //   }
           // }else {
           setShowLoginModal(true); // 응답이 실패한 경우 로그인 모달 창 보이기
-          }
+        }
       } catch (error) {
         console.error("Error fetching user ID:", error);
         setShowLoginModal(true); // 에러 발생 시 로그인 모달 창 보이기
@@ -164,6 +162,7 @@ const Nav = () => {
 
   return (
     <M.Nav>
+      {showLoginModal && <NeedLogin />}
       <M.Navbar>
         <M.NavItem isActive={location.pathname === "/"}>
           <a href="/">HOME</a>
