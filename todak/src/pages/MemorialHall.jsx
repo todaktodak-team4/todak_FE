@@ -320,14 +320,14 @@ const MemorialHall = () => {
 
           <H.MemorialMessage2Input>
             <H.MM1>
-              <img
+              {/* <img
                 id="profile"
                 src={
                   post && post.profileImageUrl
                     ? `${post.profileImageUrl}?${new Date().getTime()}`
                     : `${process.env.PUBLIC_URL}/static/img/standardProfile.svg`
                 }
-                alt="profile"/>
+                alt="profile"/> */}
             </H.MM1>
             <H.MM2>
               <textarea
@@ -384,25 +384,6 @@ const MemorialHall = () => {
             </button>
           </H.NumberBtn>
         </H.MemorialMessage2>
-
-        <H.NumberBtn>
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            {"<"} {/* Previous button */}
-          </button>
-          <span>
-            페이지 {currentPage} / {totalPages}
-          </span>
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            style={{ border: "none", background: "none", color: "black" }}
-          >
-            {">"} {/* Next button */}
-          </button>
-        </H.NumberBtn>
       </H.Container>
     </H.Body>
   );

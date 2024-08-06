@@ -119,6 +119,15 @@ export const Info1 = styled.div`
     font-weight: 400;
     line-height: 2.5rem;
   }
+  #content{
+    color: #fff;
+    text-align: center;
+    font-family: "Pretendard Variable";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2.5rem;
+  }
 `;
 export const BoldText = styled.p`
   display: inline-block;
