@@ -92,7 +92,7 @@ const Nav = () => {
           <hr />
         </M.NavItem>
         <M.NavItem isActive={location.pathname === "/memorialHallList"}>
-          <a onClick={goToMemorialHall}>온라인 헌화</a>
+          <a onClick={goToMemorialHallList}>온라인 헌화</a>
           <hr />
         </M.NavItem>
         <M.NavItem isActive={location.pathname === "/rememberTree"}>
