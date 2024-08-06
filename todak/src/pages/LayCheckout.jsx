@@ -70,8 +70,8 @@ const LayCheckout = ({ donation, name, hall, onClose }) => {
       await widgets.requestPayment({
         orderId: `order_${Date.now()}`,
         orderName: `Donation by ${name}`,
-        successUrl: `${window.location.origin}/laySuccess`,
-        failUrl: `${window.location.origin}/fail`,
+        successUrl: `${BACKEND_URL}/donationCertificate`,
+        failUrl: `${BACKEND_URL}/fail`,
       });
       setShowDonationModal(true);
       console.log("Payment requested successfully.");
