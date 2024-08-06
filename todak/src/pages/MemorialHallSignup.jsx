@@ -217,7 +217,7 @@ const MemorialHallSignup = () => {
               {selectedFileName && (
                 <p
                   style={{
-                    marginLeft: "600px",
+                    marginLeft: "750px",
                     bottom: "-15px",
                     fontSize: "20px",
                     position: "absolute",
