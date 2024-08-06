@@ -91,9 +91,9 @@ export const SelectBtn = styled.label`
     position: absolute; /* 부모 요소 내 절대 위치 설정 */
     top: 0;
     left: 0;
-    width: 100%; /* 부모 요소와 동일한 크기 */
-    height: 100%; /* 부모 요소와 동일한 크기 */
-    cursor: pointer; /* 포인터 커서 설정 */
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
   }
 
   p {
