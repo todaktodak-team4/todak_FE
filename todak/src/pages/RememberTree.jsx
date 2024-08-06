@@ -25,6 +25,7 @@ function RememberTree() {
   const [treeName, setTreeName] = useState("");
   const [treeId, setTreeId] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [flowerType, setFlowerType] = useState(null);
   const [username, setUserName] = useState("");
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("access_token")
@@ -40,16 +41,13 @@ function RememberTree() {
 
   const refreshAccessToken = async () => {
     try {
-      const response = await fetch(
-        `${BACKEND_URL}/accounts/token/refresh/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ refresh: refreshToken }),
-        }
-      );
+      const response = await fetch(`${BACKEND_URL}/accounts/token/refresh/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refresh: refreshToken }),
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -110,6 +108,7 @@ function RememberTree() {
               setTreeName(data[0].treeName);
               setTreeId(data[0].id);
               setUserName(data[0].myName);
+              setFlowerType(data[0].flowerType);
             } else {
               console.error("Failed to fetch data after refreshing token");
             }
@@ -119,6 +118,7 @@ function RememberTree() {
           setTreeName(data[0].treeName);
           setTreeId(data[0].id);
           setUserName(data[0].myName);
+          setFlowerType(data[0].flowerType);
         } else {
           console.error("Failed to fetch data");
         }
@@ -219,6 +219,29 @@ function RememberTree() {
     setIsShowAlbumOpen(true);
   };
 
+  const FlowerImages = ({ flowerType, style }) => {
+    const getFlowerImage = (type) => {
+      switch (type) {
+        case "zinnia":
+          return "/img/treeZinnia.png";
+        case "hydrangea":
+          return "/img/treeHydrangea.png";
+        case "lily":
+          return "/img/treeLily.png";
+        default:
+          return; // 기본 이미지 경로 설정
+      }
+    };
+
+    const flowerImage = getFlowerImage(flowerType);
+
+    return (
+      <div className={styles.flowers}>
+        <img src={flowerImage} alt={flowerType} style={style} />
+      </div>
+    );
+  };
+
   return (
     <>
       <div
@@ -226,7 +249,7 @@ function RememberTree() {
         style={{ maxHeight: "1000px" }}
       >
         <img
-          src="./static/img/plantTree-bg.png"
+          src="/img/plantTree-bg.png"
           alt="bgimg"
           style={{ width: "100%", minHeight: "1000px", objectFit: "cover" }}
           className="container-bg"
@@ -237,13 +260,23 @@ function RememberTree() {
           <div className={styles.rememberTreeBox}>
             <div className={styles.treeName}>{treeName}</div>
             <img
-              src="./static/img/help.png"
+              src="/img/help.png"
               alt="도움말 버튼"
               className={styles.helpBtn}
               style={{ width: "44px", height: "44px" }}
               onClick={toggleModal}
             />
             <div className={styles.rememberTreeInner}>
+              <FlowerImages
+                style={{
+                  zIndex: "10",
+                  width: "434px",
+                  height: "213px",
+                  position: "absolute",
+                  left: "20%",
+                  top: "13%",
+                }}
+              />
               <div className={styles.album}>
                 {isAlbumClicked && (
                   <div className={styles.albumButtons}>
@@ -263,14 +296,14 @@ function RememberTree() {
                 )}
                 <img
                   src={
-                    isAlbumHovered ? "./static/img/hoverAlbum.png" : "./static/img/album.png"
+                    isAlbumHovered ? "/img/hoverAlbum.png" : "/img/album.png"
                   }
                   onMouseEnter={() => setIsAlbumHovered(true)}
                   onMouseLeave={() => setIsAlbumHovered(false)}
                   onClick={handleAlbumClick}
                 />
               </div>
-              <img src="./static/img/rememberTree.png" />
+              <img src="/img/rememberTree.png" />
               <div className={styles.postBox}>
                 {isPostBoxClicked && (
                   <div className={styles.postBoxButtons}>
@@ -291,8 +324,8 @@ function RememberTree() {
                 <img
                   src={
                     isPostBoxHovered
-                      ? "./static/img/hoverPostBox.png"
-                      : "./static/img/postBox.png"
+                      ? "/img/hoverPostBox.png"
+                      : "/img/postBox.png"
                   }
                   onMouseEnter={() => setIsPostBoxHovered(true)}
                   onMouseLeave={() => setIsPostBoxHovered(false)}
